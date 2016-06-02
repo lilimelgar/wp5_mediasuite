@@ -1,0 +1,73 @@
+<!doctype HTML>
+
+
+<html>
+
+<head>
+	<title>L A B O - About</title>
+	<link rel="stylesheet" href="/static/css/main.css">
+</head>
+
+
+<body>
+
+{% with page='about', loggedIn=loggedIn, user=user %}
+{% include 'nav.html' %}
+{% endwith %}
+
+<div class="container">
+
+	<header class="labo-header">
+
+		<h1 class="text-center">
+			<img src="/static/images/small-curl.png">&nbsp;&nbsp;About&nbsp;&nbsp;<img src="/static/images/small-curl.png"><br>
+
+		</h1>
+	</header>
+
+	<div class="row">
+
+		<div class="col-sm-6 col-md-6">
+			<div class="well labs-well">
+				<h3>L A B O</h3>
+				Sound and Vision LABS showcases tools, demos and prototypes developed by the Research & Development department of the Netherlands Institute for Sound and Vision, alone or in coproduction. You will also find Sound and Vision's open data sets on LABS and links to the code on GitHub.
+
+				The projects that are on display are either under development or in a final stage before they are taken into production.
+
+				In some cases the applications require authentication for access. Please request access via the contact details on the application page.
+
+			</div>
+
+			<div class="well labs-well">
+				<div class="text-center">
+					<img src="/static/images/whiteboard.png" alt="whiteboard">
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-6">
+			<div class="well labs-well">
+				<h3>The Netherlands Institute for Sound and Vision</h3>
+				The Netherlands Institute for Sound and Vision is an advanced and trendsetting audiovisual archive that has successfully made its way into the digital realm. It maintains and provides access to over 1 million hours of television, radio, music, film and web video, making it one of the largest audiovisual archives in Europe. Sound and Vision makes their collection available online for various end-user services, including dedicated services for the creative industries, education and research. The institute operates as a visitor attraction aimed at the general public and is visited by over 250.000 people annually.
+				<br>
+				<br>
+				<strong>Our mission statement:<strong><br>
+				The Research and Development (R&amp;D) department has their finger on the pulse of the environment in which Sound and Vision operates. New trends, changing needs, technological developments and a dynamic social context demand an organisation that moves fluidly while gaining knowledge, expertise and innovative capacity. With a critical eye and support from a broad, international network, R&amp;D contributes to the mission of the institute: R&amp;D initiates, stimulates and facilitates research and development. At the same time it also collects knowledge and practical examples from inside and outside the institute and offers this to knowledge organisations, colleagues in the sector and other interested parties.
+				<br>
+				<br>
+				The R&amp;D research agenda focusses on five main themes: Access; Metadata and Context; Users; Humanities; and Preservation.
+				<br>
+				<br>
+				Read about the activities of Sound and Vision's R&amp;D department on our blog or follow us on Twitter via @benglabs
+				<br>
+				<br>
+				For more information about Sound and Vision R&amp;D, please contact: rd@beeldengeluid.nl
+			</div>
+		</div>
+
+	</div>
+
+</div> <!-- End container-->
+
+</body>
+
+</html>

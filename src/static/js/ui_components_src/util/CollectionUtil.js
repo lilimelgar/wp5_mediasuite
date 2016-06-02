@@ -1,0 +1,76 @@
+/*
+
+The CollectionUtil object/namespace groups a bunch of functions related to:
+1. collection stats obtained from the CollectionAPI in getCollectionStats()
+2. collection configurations/mappings listed in /ui_components_src/search/mappings
+
+This basically contains the logic for determining what collection (date & string) fields to use in the FacetSearchComponent.
+In general what needs to be considered is:
+1. Does the collection have a (human defined) mapping?
+2. Does the collection have automatically generated statistics (mostly related to what type of fields are available for search)
+3. Based on these two things, how do I automatically select a desirable configuration for the FacetSearchComponent (or others later on)
+
+*/
+
+const CollectionUtil = {
+
+	COLLECTION_MAPPING : {
+		'labs-catalogue-aggr': NISVCatalogueConfig,
+		'nisv_programguides': NISVProgramGuideConfig
+	},
+
+	determineConfig : function(collectionId) {
+		var config = CollectionUtil.COLLECTION_MAPPING[collectionId];
+		if(config == undefined) {
+			config = GenericCollectionConfig;
+		}
+		return config;
+	},
+
+	determineDocType : function(collectionStats, collectionConfig) {
+		var docType = collectionConfig.getDocumentType();
+		if(!docType && collectionStats.collection_statistics.document_types.length > 0) {
+			docType = collectionStats.collection_statistics.document_types[0].doc_type;
+		}
+		return docType;
+	},
+
+	determineSearchableFields : function(collectionStats, collectionConfig) {
+		var searchableFields = collectionConfig.getSearchableFields();
+		if(!searchableFields && collectionStats.collection_statistics.document_types.length > 0) {
+			searchableFields = collectionStats.collection_statistics.document_types[0].fields.map(function(field) {
+				if(field[1] == 'string') {
+					return field[0];
+				}
+			});
+		}
+		return searchableFields;
+	},
+
+	//FIXME this function is too similar to determineSearchableFields
+	determineDateFields : function(collectionStats, collectionConfig) {
+		var dateFields = collectionConfig.getDateFields();
+		if(!dateFields && collectionStats.collection_statistics.document_types.length > 0) {
+			dateFields = collectionStats.collection_statistics.document_types[0].dateFields;
+		}
+		return dateFields;
+	},
+
+	determineFacets : function(dateFields, collectionConfig) {
+		var facets = collectionConfig.getFacets();
+		if(!facets && dateFields && dateFields.length > 0) {
+			var ranges = TimeUtil.generateYearAggregationSK(1910, 2010);
+			facets = [{
+				field: dateFields[0],
+				title : 'Datum',
+				id : dateFields[0],
+				operator : 'AND',
+				size : 10,
+				ranges: ranges//this yearly range is only for being able to draw the timeline
+			}]
+		}
+		console.debug(facets);
+		return facets;
+	}
+
+}

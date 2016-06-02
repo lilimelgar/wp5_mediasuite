@@ -1,0 +1,86 @@
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/"><img src="/static/images/labo-logo.png" alt="DIVE"></a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+			<ul class="nav navbar-nav">
+				{% if page=='search'%}
+				<li class="active"><a href="/collections">Collections <span class="sr-only">(current)</span></a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/apis">APIs</a></li>
+				<li><a href="/semweb">Semweb</a></li>
+				<li><a href="/recipes">Recipes</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/contact">Contact</a></li>
+				{% elif page=='search'%}
+				<li><a href="/collections">Collections</a></li>
+				<li class="active"><a href="/search">Search <span class="sr-only">(current)</span></a></li>
+				<li><a href="/apis">APIs</a></li>
+				<li><a href="/semweb">Semweb</a></li>
+				<li><a href="/recipes">Recipes</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/contact">Contact</a></li>
+				{% elif page=='apis'%}
+				<li><a href="/collections">Collections</a></li>
+				<li><a href="/search">Search</a></li>
+				<li class="active"><a href="/apis">APIs <span class="sr-only">(current)</span></a></li>
+				<li><a href="/semweb">Semweb</a></li>
+				<li><a href="/recipes">Recipes</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/contact">Contact</a></li>
+				{% elif page=='semweb'%}
+				<li><a href="/collections">Collections</a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/apis">APIs</a></li>
+				<li class="active"><a href="/semweb">Semweb <span class="sr-only">(current)</span></a></li>
+				<li><a href="/recipes">Recipes</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/contact">Contact</a></li>
+				{% elif page=='recipes'%}
+				<li><a href="/collections">Collections</a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/apis">APIs</a></li>
+				<li><a href="/semweb">Semweb</a></li>
+				<li class="active"><a href="/recipes">Recipes <span class="sr-only">(current)</span></a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/contact">Contact</a></li>
+				{% elif page=='about'%}
+				<li><a href="/collections">Collections</a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/apis">APIs</a></li>
+				<li><a href="/semweb">Semweb</a></li>
+				<li><a href="/recipes">Recipes</a></li>
+				<li class="active"><a href="/about">About <span class="sr-only">(current)</span></a></li>
+				<li><a href="/contact">Contact</a></li>
+				{% elif page=='contact' %}
+				<li><a href="/collections">Collections</a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/apis">APIs</a></li>
+				<li><a href="/semweb">Semweb</a></li>
+				<li><a href="/recipes">Recipes</a></li>
+				<li><a href="/about">About</a></li>
+				<li class="active"><a href="/contact">Contact<span class="sr-only">(current)</span></a></li>
+				{% else %}
+				<li><a href="/collections">Collections</a></li>
+				<li><a href="/search">Search</a></li>
+				<li><a href="/apis">APIs</a></li>
+				<li><a href="/semweb">Semweb</a></li>
+				<li><a href="/recipes">Recipes</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/contact">Contact</a></li>
+				{% endif%}
+			</ul>
+
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>

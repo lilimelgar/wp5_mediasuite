@@ -1,0 +1,9 @@
+AVXLChart.js
+ui_components
+node_modules
+*.pyc
+.DS_Store
+settings.py
+bower_components
+.sass-cache
+*.xcf
