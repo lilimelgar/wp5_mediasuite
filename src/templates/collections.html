@@ -32,7 +32,12 @@
                 </select><br/>
 
                 <label style="width: 100px;">Date field</label>
-                <select onchange="setDateField()" id="fieldSelect" style="width: 400px;">
+                <select onchange="setDateField()" id="dateFieldSelect" style="width: 400px;">
+                    <option value="" disabled="" selected></option>
+                </select><br/>
+
+                <label style="width: 100px;">Facet field</label>
+                <select onchange="setFacetField()" id="facetFieldSelect" style="width: 400px;">
                     <option value="" disabled="" selected></option>
                 </select><br/>
             </div>

@@ -13,7 +13,7 @@ var dates = {
 };
 
 var listCollections = function() {
-    url = search_api + "/list_collections";
+    url = search_api + "/collections/list_collections";
     d3.json(url, function(error, data) {
         addCollectionsToSelect(data);
         return data;
@@ -39,7 +39,7 @@ var setCollection = function() {
 }
 
 var getCollectionStats = function() {
-    url = search_api + "/show_stats/" + selectedCollection;
+    url = search_api + "/collections/show_stats?collectionId=" + selectedCollection;
     d3.json(url, function(error, data) {
         collectionStats = data.collection_statistics;
         addDocTypesToSelect(collectionStats.document_types);
@@ -48,7 +48,7 @@ var getCollectionStats = function() {
 }
 
 var listDocumentTypes = function() {
-    url = search_api + "/show_stats/" + selectedCollection;
+    url = search_api + "/collections/show_stats?collectionId=" + selectedCollection;
     d3.json(url, function(error, data) {
         addDocTypesToSelect(data.collection_statistics.document_types);
         return data;
@@ -61,7 +61,6 @@ var addDocTypesToSelect = function(docTypes) {
     var option = new Option("", "");
     select.appendChild(option);
     docTypes.forEach(function(docType) {
-        console.log(docType);
          var option = new Option(docType.doc_type + " -- " + docType.doc_count, docType.doc_type);
          select.appendChild(option);
     });
@@ -73,13 +72,18 @@ var setDocType = function() {
 	selectedDocType = select.options[select.selectedIndex].value;
     collectionStats.document_types.forEach(function(docType) {
         if (docType.doc_type === selectedDocType) {
-            addDateFieldsToSelect(docType.dateFields);
+            addDateFieldsToSelect(docType.fields['date']);
+        }
+    })
+    collectionStats.document_types.forEach(function(docType) {
+        if (docType.doc_type === selectedDocType) {
+            addFacetFieldsToSelect(docType.fields['not_analyzed']);
         }
     })
 }
 
 var addDateFieldsToSelect = function(fields) {
-    var select = document.getElementById("fieldSelect");
+    var select = document.getElementById("dateFieldSelect");
     select.innerHTML = "";
     var option = new Option("", "");
     select.appendChild(option);
@@ -91,12 +95,34 @@ var addDateFieldsToSelect = function(fields) {
     setDateField();
 }
 
+var addFacetFieldsToSelect = function(fields) {
+    var select = document.getElementById("facetFieldSelect");
+    select.innerHTML = "";
+    var option = new Option("", "");
+    select.appendChild(option);
+    fields.forEach(function(field) {
+         var option = new Option(field, field);
+         select.appendChild(option);
+    });
+    select.selectedIndex = 1;
+    setFacetField();
+}
+
+var setFacetField = function() {
+    var select = document.getElementById("facetFieldSelect");
+	selectedFacetField = select.options[select.selectedIndex].value;
+
+	var searchUrl = "http://blofeld.beeldengeluid.nl:5320/api/v1/search/" +
+		selectedCollection+ "/" + selectedDocType + "/"
+
+}
+
 var setDateField = function() {
-    var select = document.getElementById("fieldSelect");
+    var select = document.getElementById("dateFieldSelect");
 	selectedDateField = select.options[select.selectedIndex].value;
 
-	var timelineUrl = "http://blofeld.beeldengeluid.nl:5320/api/v1/show_timeline/" +
-		selectedCollection+ "/" + selectedDocType + "/" + selectedDateField;
+	var timelineUrl = "http://blofeld.beeldengeluid.nl:5320/api/v1/collections/show_timeline?collectionId=" +
+		selectedCollection+ "&docType=" + selectedDocType + "&dateField=" + selectedDateField;
 
     d3.json(timelineUrl, function(error, jsonData) {
         if (error) throw error;
@@ -110,6 +136,7 @@ var cleanTimelineData = function(data) {
     cleanDates = [];
     var currentYear = new Date().getFullYear()
     console.log(data);
+    dates.correct = 0;
     dates.missing = data.no_date_docs.doc_count;
     dates.total = data.doc_counts;
     data.date_histogram.buckets.forEach(function(item) {
