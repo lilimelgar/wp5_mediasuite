@@ -16,7 +16,8 @@ class Recipe extends React.Component {
 		this.state = {
 			activeBlocks: [],
 			searchBlocks: [],
-			queryOutputs: null
+			queryOutputs: null,
+			activeSearchTab: null
 		};
 		//console.debug(this.state.activeBlocks);
 	}
@@ -44,6 +45,11 @@ class Recipe extends React.Component {
         			searchBlocks: b,
         			activeBlocks: ab
       			});
+      			if(b && b.length > 0) {
+      				this.setState({
+      					activeSearchTab: b[0].elementId
+      				})
+      			}
 			}.bind(this));
 		}
 	}
@@ -78,7 +84,7 @@ class Recipe extends React.Component {
 
 	render() {
 		//these are the buttons for toggling each UI block
-		var blockAnchors = this.state.searchBlocks.map(function(searchBox) {
+		/*var blockAnchors = this.state.searchBlocks.map(function(searchBox) {
 			return (
 				<form key={searchBox.elementId}>
 					<div className="checkbox">
@@ -89,13 +95,26 @@ class Recipe extends React.Component {
 					</div>
 				</form>
 			);
-		}, this);
+		}, this);*/
 
-		//these are the facet search UI blocks
-		var searchBlocks = this.state.searchBlocks.map(function(searchBox) {
+		var searchTabs = this.state.searchBlocks.map(function(searchBox){
 			if(this.state.activeBlocks.indexOf(searchBox.elementId) != -1) {
 				return (
-					<div id={searchBox.elementId} className={'col-md-' + (12 / this.state.activeBlocks.length)}>
+					<li className={
+						this.state.activeSearchTab == searchBox.elementId ? 'active' : ''
+					}><a data-toggle="tab" href={'#' + searchBox.elementId}>{searchBox.elementId}</a></li>
+				)
+			}
+		}, this)
+
+		//these are the facet search UI blocks
+		var searchTabContents = this.state.searchBlocks.map(function(searchBox) {
+			if(this.state.activeBlocks.indexOf(searchBox.elementId) != -1) {
+				return (
+					<div id={searchBox.elementId} className={
+						this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'
+					}>
+						<h3>{searchBox.elementId}</h3>
 						<FacetSearchComponent
 							blockId={searchBox.elementId}
 							searchAPI={_config.SEARCH_API_BASE}
@@ -113,9 +132,13 @@ class Recipe extends React.Component {
 
 		return (
 			<div>
-				{blockAnchors}
 				<LineChart data={this.state.queryOutputs}/>
-				{searchBlocks}
+				<ul className="nav nav-tabs">
+					{searchTabs}
+				</ul>
+				<div className="tab-content">
+					{searchTabContents}
+				</div>
 			</div>
 		);
 	}
