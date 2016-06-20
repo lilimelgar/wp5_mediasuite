@@ -14,6 +14,7 @@ var dates = {
 
 var listCollections = function() {
     url = search_api + "/collections/list_collections";
+    console.log(url);
     d3.json(url, function(error, data) {
         addCollectionsToSelect(data);
         return data;

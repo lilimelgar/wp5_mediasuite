@@ -38,11 +38,8 @@ const CollectionUtil = {
 	determineSearchableFields : function(collectionStats, collectionConfig) {
 		var searchableFields = collectionConfig.getSearchableFields();
 		if(!searchableFields && collectionStats.collection_statistics.document_types.length > 0) {
-			searchableFields = collectionStats.collection_statistics.document_types[0].fields.map(function(field) {
-				if(field[1] == 'string') {
-					return field[0];
-				}
-			});
+			// return empty list if collection has no string fields
+			searchableFields = collectionStats.collection_statistics.document_types[0].fields.string || [];
 		}
 		return searchableFields;
 	},
@@ -51,7 +48,8 @@ const CollectionUtil = {
 	determineDateFields : function(collectionStats, collectionConfig) {
 		var dateFields = collectionConfig.getDateFields();
 		if(!dateFields && collectionStats.collection_statistics.document_types.length > 0) {
-			dateFields = collectionStats.collection_statistics.document_types[0].dateFields;
+			// return empty list if collection has no date fields
+			dateFields = collectionStats.collection_statistics.document_types[0].fields.date || [];
 		}
 		return dateFields;
 	},
