@@ -20,8 +20,8 @@ cookRecipe({
 	collections: [
 		'labs-catalogue-aggr',
 		'nisv_programguides',
-		'interviewcollectie-stichting-mondelinge-geschiedenis-indonesie'
-		//'aletta-instituut-voor-vrouwengeschiedenis'
+		'interviewcollectie-stichting-mondelinge-geschiedenis-indonesie',
+		'aletta-instituut-voor-vrouwengeschiedenis'
 	],
 	lineChart: true
 });

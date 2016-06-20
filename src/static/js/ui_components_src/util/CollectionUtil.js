@@ -67,7 +67,6 @@ const CollectionUtil = {
 				ranges: ranges//this yearly range is only for being able to draw the timeline
 			}]
 		}
-		console.debug(facets);
 		return facets;
 	}
 

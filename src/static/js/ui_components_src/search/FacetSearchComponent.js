@@ -64,7 +64,7 @@ class FacetSearchComponent extends React.Component {
 		});
 
 		//update the lineChart after receiving each new search result (TODO check for the existence of a lineChart etc)
-		let removalFn = this.skInstance.addResultsListener((results)=>{
+		let removalFn = this.skInstance.addResultsListener((results)=> {
 	  		setTimeout(function() {
 	  			this.updateLineChart(results)
 	  		}.bind(this), 1000);

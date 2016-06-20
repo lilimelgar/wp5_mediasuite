@@ -82,6 +82,29 @@ class Recipe extends React.Component {
 		this.setState({activeBlocks: activeBlocks});
 	}
 
+	removeCollection(collectionId) {
+		let b = this.state.searchBlocks;
+		let ab = this.state.activeBlocks;
+		let qops = this.state.queryOutputs;
+		for(let i=b.length-1;i>=0;i--) {
+			if(b[i].elementId == collectionId) {
+				b.splice(i, 1);
+				ab.splice(ab.indexOf(collectionId), 1);
+				if(qops != null && qops[collectionId]) {
+					delete qops[collectionId];
+				}
+			}
+		}
+		this.setState({
+			searchBlocks : b,
+			activeBlocks : ab
+		})
+	}
+
+	addCollection() {
+		//alert('Opening the collection chooser');
+	}
+
 	render() {
 		//these are the buttons for toggling each UI block
 		/*var blockAnchors = this.state.searchBlocks.map(function(searchBox) {
@@ -97,25 +120,31 @@ class Recipe extends React.Component {
 			);
 		}, this);*/
 
-		var searchTabs = this.state.searchBlocks.map(function(searchBox){
+		var searchTabs = this.state.searchBlocks.map(function(searchBox) {
 			if(this.state.activeBlocks.indexOf(searchBox.elementId) != -1) {
 				return (
-					<li className={
+					<li key={searchBox.elementId + '__tab_option'} className={
 						this.state.activeSearchTab == searchBox.elementId ? 'active' : ''
-					}><a data-toggle="tab" href={'#' + searchBox.elementId}>{searchBox.elementId}</a></li>
+					}><a data-toggle="tab" href={'#' + searchBox.elementId}>
+						{searchBox.elementId}
+						<i className="glyphicon glyphicon-minus" onClick={
+							() => (this.removeCollection(searchBox.elementId))
+						}></i>
+					</a></li>
 				)
 			}
 		}, this)
 
-		//these are the facet search UI blocks
+		//these are the facet search UI blocks put into different tabs
 		var searchTabContents = this.state.searchBlocks.map(function(searchBox) {
 			if(this.state.activeBlocks.indexOf(searchBox.elementId) != -1) {
 				return (
-					<div id={searchBox.elementId} className={
+					<div key={searchBox.elementId + '__tab_content'} id={searchBox.elementId} className={
 						this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'
 					}>
 						<h3>{searchBox.elementId}</h3>
 						<FacetSearchComponent
+							key={searchBox.elementId + '__sk'}
 							blockId={searchBox.elementId}
 							searchAPI={_config.SEARCH_API_BASE}
 							indexPath={'/search/' + searchBox.elementId}
