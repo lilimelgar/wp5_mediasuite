@@ -13,7 +13,7 @@ var dates = {
 };
 
 var listCollections = function() {
-    url = search_api + "/collections/list_collections";
+    var url = search_api + "/collections/list_collections";
     console.log(url);
     d3.json(url, function(error, data) {
         addCollectionsToSelect(data);
@@ -40,7 +40,7 @@ var setCollection = function() {
 }
 
 var getCollectionStats = function() {
-    url = search_api + "/collections/show_stats?collectionId=" + selectedCollection;
+    var url = search_api + "/collections/show_stats?collectionId=" + selectedCollection;
     d3.json(url, function(error, data) {
         collectionStats = data.collection_statistics;
         addDocTypesToSelect(collectionStats.document_types);
@@ -49,7 +49,7 @@ var getCollectionStats = function() {
 }
 
 var listDocumentTypes = function() {
-    url = search_api + "/collections/show_stats?collectionId=" + selectedCollection;
+    var url = search_api + "/collections/show_stats?collectionId=" + selectedCollection;
     d3.json(url, function(error, data) {
         addDocTypesToSelect(data.collection_statistics.document_types);
         return data;

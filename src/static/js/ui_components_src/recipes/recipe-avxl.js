@@ -17,11 +17,10 @@ function cookRecipe(ingredients) {
 }
 
 cookRecipe({
-	collections: [
+	collectionSelector: true, //make the selector more configurable
+	collections: [ //these are actually the default collections, the rest should be selectable via the collectionSelector
 		'labs-catalogue-aggr',
 		'nisv_programguides',
-		'interviewcollectie-stichting-mondelinge-geschiedenis-indonesie',
-		'aletta-instituut-voor-vrouwengeschiedenis'
 	],
-	lineChart: true
+	lineChart: true //TODO later make sure that this has a more elaborate config
 });

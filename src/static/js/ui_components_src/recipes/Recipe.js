@@ -34,12 +34,16 @@ class Recipe extends React.Component {
 
 	//parse the ingredients before rendering
 	componentDidMount() {
-		for(let i=0;i<this.props.ingredients.collections.length;i++) {
-			let collectionId = this.props.ingredients.collections[i];
+		this.loadCollections(this.props.ingredients.collections);
+	}
+
+	loadCollections(collectionIds) {
+		for(let i=0;i<collectionIds.length;i++) {
+			let collectionId = collectionIds[i];
 			collectionAPI.getCollectionStats(collectionId, function(data) {
 				let b = this.state.searchBlocks;
 				let ab = this.state.activeBlocks;
-				b.push(this.createSearchBlock(data))
+				b.push(this.createSearchBlock(data));
 				ab.push(collectionId);
 				this.setState({
         			searchBlocks: b,
@@ -101,8 +105,10 @@ class Recipe extends React.Component {
 		})
 	}
 
-	addCollection() {
-		//alert('Opening the collection chooser');
+	onEditCollections(collectionId) {
+		console.debug('Changing the collection: ' + collectionId);
+		console.debug(this);
+		this.loadCollections([collectionId]);
 	}
 
 	render() {
@@ -159,9 +165,20 @@ class Recipe extends React.Component {
 			}
 		}, this);
 
+		var lineChart = null;
+		if(this.props.ingredients.lineChart) {
+			lineChart = <LineChart data={this.state.queryOutputs}/>;
+		}
+
+		var collectionSelector = null;
+		if(this.props.ingredients.collectionSelector) {
+			collectionSelector = <CollectionSelector onEditCollections={this.onEditCollections.bind(this)}/>
+		}
+
 		return (
 			<div>
-				<LineChart data={this.state.queryOutputs}/>
+				{collectionSelector}
+				{lineChart}
 				<ul className="nav nav-tabs">
 					{searchTabs}
 				</ul>

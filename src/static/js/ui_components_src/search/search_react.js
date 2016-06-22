@@ -1,3 +1,5 @@
+//TODO throw this away and replace it with the FacetSearchComponent
+
 const host = "http://blofeld.beeldengeluid.nl:5320/api/v1"
 const sk = new Searchkit.SearchkitManager(host, {
 	searchUrlPath: "/search/labs-catalogue-aggr"
