@@ -1,3 +1,5 @@
+//gebaseerd op: https://jsfiddle.net/16j1se1q/1/
+
 class ItemDetailsModal extends React.Component {
 
 	constructor(props) {
