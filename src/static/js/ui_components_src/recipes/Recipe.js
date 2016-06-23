@@ -14,12 +14,11 @@ class Recipe extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeBlocks: [],
 			searchBlocks: [],
 			queryOutputs: null,
 			activeSearchTab: null
+			//add the active collections
 		};
-		//console.debug(this.state.activeBlocks);
 	}
 
 	//the queryOutputs variable are consumed by multiquery visualisations (currently only the LineChart component is available)
@@ -42,12 +41,9 @@ class Recipe extends React.Component {
 			let collectionId = collectionIds[i];
 			collectionAPI.getCollectionStats(collectionId, function(data) {
 				let b = this.state.searchBlocks;
-				let ab = this.state.activeBlocks;
 				b.push(this.createSearchBlock(data));
-				ab.push(collectionId);
 				this.setState({
-        			searchBlocks: b,
-        			activeBlocks: ab
+        			searchBlocks: b
       			});
       			if(b && b.length > 0) {
       				this.setState({
@@ -86,14 +82,14 @@ class Recipe extends React.Component {
 		this.setState({activeBlocks: activeBlocks});
 	}
 
+	//TODO this function needs to be properly checked to see if all stuff is removed properly
+	//FIXME update the stuff in the LineChart!
 	removeCollection(collectionId) {
 		let b = this.state.searchBlocks;
-		let ab = this.state.activeBlocks;
 		let qops = this.state.queryOutputs;
 		for(let i=b.length-1;i>=0;i--) {
 			if(b[i].elementId == collectionId) {
 				b.splice(i, 1);
-				ab.splice(ab.indexOf(collectionId), 1);
 				if(qops != null && qops[collectionId]) {
 					delete qops[collectionId];
 				}
@@ -101,68 +97,49 @@ class Recipe extends React.Component {
 		}
 		this.setState({
 			searchBlocks : b,
-			activeBlocks : ab
+			queryOutputs : qops
 		})
 	}
 
+	//TODO this function should never load a collection that has been already loaded
 	onEditCollections(collectionId) {
-		console.debug('Changing the collection: ' + collectionId);
-		console.debug(this);
 		this.loadCollections([collectionId]);
 	}
 
 	render() {
-		//these are the buttons for toggling each UI block
-		/*var blockAnchors = this.state.searchBlocks.map(function(searchBox) {
-			return (
-				<form key={searchBox.elementId}>
-					<div className="checkbox">
-						<label>
-							<input type="checkbox" onChange={this.toggleMinimize.bind(this, searchBox.elementId)}/>
-							Minimize {searchBox.elementId}
-						</label>
-					</div>
-				</form>
-			);
-		}, this);*/
-
 		var searchTabs = this.state.searchBlocks.map(function(searchBox) {
-			if(this.state.activeBlocks.indexOf(searchBox.elementId) != -1) {
-				return (
-					<li key={searchBox.elementId + '__tab_option'} className={
-						this.state.activeSearchTab == searchBox.elementId ? 'active' : ''
-					}><a data-toggle="tab" href={'#' + searchBox.elementId}>
-						{searchBox.elementId}
-						<i className="glyphicon glyphicon-minus" onClick={
-							() => (this.removeCollection(searchBox.elementId))
-						}></i>
-					</a></li>
-				)
-			}
+			return (
+				<li key={searchBox.elementId + '__tab_option'} className={
+					this.state.activeSearchTab == searchBox.elementId ? 'active' : ''
+				}><a data-toggle="tab" href={'#' + searchBox.elementId}>
+					{searchBox.elementId}
+					<i className="glyphicon glyphicon-minus" onClick={
+						() => (this.removeCollection(searchBox.elementId))
+					}></i>
+				</a></li>
+			)
 		}, this)
 
 		//these are the facet search UI blocks put into different tabs
 		var searchTabContents = this.state.searchBlocks.map(function(searchBox) {
-			if(this.state.activeBlocks.indexOf(searchBox.elementId) != -1) {
-				return (
-					<div key={searchBox.elementId + '__tab_content'} id={searchBox.elementId} className={
-						this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'
-					}>
-						<h3>{searchBox.elementId}</h3>
-						<FacetSearchComponent
-							key={searchBox.elementId + '__sk'}
-							blockId={searchBox.elementId}
-							searchAPI={_config.SEARCH_API_BASE}
-							indexPath={'/search/' + searchBox.elementId}
-							onQueryOutput={this.updateQueryOutput.bind(this)}
-							prefixQueryFields={searchBox.prefixQueryFields}
-							dateFields={searchBox.dateFields}
-							facets={searchBox.facets}
-							hitsComponent={searchBox.hitsComponent}
-						/>
-					</div>
-				);
-			}
+			return (
+				<div key={searchBox.elementId + '__tab_content'} id={searchBox.elementId} className={
+					this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'
+				}>
+					<h3>{searchBox.elementId}</h3>
+					<FacetSearchComponent
+						key={searchBox.elementId + '__sk'}
+						blockId={searchBox.elementId}
+						searchAPI={_config.SEARCH_API_BASE}
+						indexPath={'/search/' + searchBox.elementId}
+						onQueryOutput={this.updateQueryOutput.bind(this)}
+						prefixQueryFields={searchBox.prefixQueryFields}
+						dateFields={searchBox.dateFields}
+						facets={searchBox.facets}
+						hitsComponent={searchBox.hitsComponent}
+					/>
+				</div>
+			);
 		}, this);
 
 		var lineChart = null;

@@ -51,7 +51,7 @@ class NISVProgramGuideHit extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			modalIsOpen: false
+			showModal : false
 		};
 	}
 
@@ -59,19 +59,44 @@ class NISVProgramGuideHit extends React.Component {
 		return result
 	}
 
+	handleShowModal() {
+		this.setState({showModal: true})
+	}
+
+	handleHideModal() {
+		this.setState({showModal: false})
+	}
+
 	render() {
 		const result = this.formatSearchResults(this.props.result);
+		var resultDetails = Object.keys(result).map((key)=> {
+			return (<span><strong>{key}:</strong>{result[key]}<br/></span>)
+		});
 		return (
 			<div
 				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
-				key={result.program_id}
+				key={result.id}
+				onClick={this.handleShowModal.bind(this)}
 			>
-			<table><tbody>
-			<tr><td>
-				<span>{result.text} ({result.broadcast_date})</span><br/>
-				<span>{result.year}</span>
-			</td></tr>
-			</tbody></table>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<span>{result.id}</span><br/>
+								<span>{result.text} ({result.broadcast_date})</span><br/>
+								<span>{result.year}</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				{this.state.showModal ? <ItemDetailsModal
+					key='details_modal_program_guides'
+					handleHideModal={this.handleHideModal.bind(this)}
+					data={result}
+					title={result.id}
+				/> : null}
+
 			</div>
 		);
 	}

@@ -34,6 +34,9 @@ class LineChart extends React.Component {
         this.svg.select('.legend').on('click',null);
         this.svg.select('.legend').remove();
 
+        //remove all old lines
+        this.svg.select(".line").remove();
+
         //loop through the queries
 		dataNest.forEach(function(d,i) {
 

@@ -20,7 +20,7 @@ cookRecipe({
 	collectionSelector: true, //make the selector more configurable
 	collections: [ //these are actually the default collections, the rest should be selectable via the collectionSelector
 		'labs-catalogue-aggr',
-		'nisv_programguides',
+		'nisv_programguides'
 	],
-	lineChart: true //TODO later make sure that this has a more elaborate config
+	lineChart: false //TODO later make sure that this has a more elaborate config
 });

@@ -62,8 +62,8 @@ class NISVCatalogueHit extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			modalIsOpen: false
-		};
+			showModal : false
+		}
 	}
 
 	formatSearchResults(result) {
@@ -108,21 +108,48 @@ class NISVCatalogueHit extends React.Component {
 		return parsedResult;
 	}
 
+	handleShowModal() {
+		this.setState({showModal: true})
+	}
+
+	handleHideModal() {
+		this.setState({showModal: false})
+	}
+
 	render() {
 		const result = this.formatSearchResults(this.props.result);
 		return (
 			<div
 				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
 				key={result.program_id}
+				onClick={this.handleShowModal.bind(this)}
 			>
-				<table><tbody>
-				<tr><td>
-					<span><strong>{result.title} ({result.broadcast_date})</strong></span><br/>
-					<span>{result.broadcaster}</span><br/>
-					<span>{result.genre}</span>
-				</td></tr>
-				</tbody></table>
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<span>
+									<strong>
+										{result.title ? result.title : 'no title'}
+										{result.broadcast_date ? ' (' + result.broadcast_date + ')': ''}
+									</strong>
+								</span><br/>
+								<span>{result.broadcaster}</span><br/>
+								<span>{result.genre}</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				{this.state.showModal ? <ItemDetailsModal
+					key='details_modal'
+					handleHideModal={this.handleHideModal.bind(this)}
+					data={result}
+					title={result.title ? result.title : 'no title'}
+				/> : null}
+
 			</div>
+
 		);
 	}
 }
