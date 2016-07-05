@@ -1,0 +1,103 @@
+<head>
+	<title>L A B O - Packaged Recipes</title>
+	<link rel="stylesheet" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/searchkit/0.8.3/theme.css">
+	<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+
+	<style>
+		.hidden {
+			display:none;
+		}
+		.search-box {
+			padding: 0px;
+			border-radius: 4px;
+			border: 1px solid dodgerblue;
+			background-color: 'white';
+		}
+		.sk-pagination-navigation.is-numbered {
+			width:90%;
+			margin:5%;
+			overflow:hidden;
+
+		}
+		.sk-layout__body {
+			min-width:0;
+		}
+		.sk-search-box__text {
+			color:black !important;
+		}
+		.filter-option {
+			color: crimson;
+		}
+		.search-layout {
+			backgroundColor: white;
+		}
+
+		.sk-hits__item {
+			margin: 5px;
+			padding: 10px;
+			border: 1px solid dodgerblue;
+			border-radius: 4px;
+		}
+
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+
+		}
+
+		.x.axis path {
+			display: none;
+
+		}
+
+		.line {
+			fill: none;
+			stroke: steelblue;
+			stroke-width: 1.5px;
+
+		}
+	</style>
+</head>
+
+
+
+
+<body>
+
+{% with page='recipes' %}
+{% include 'nav.html' %}
+{% endwith %}
+
+	<div class="container">
+
+		<div class="row" style="height:50px;">
+
+			<div class="col-md-12">
+				<div role="tabpanel" class="tab-pane collection-tab" id="links">
+
+					<div class="row text-center">
+						<div class="dashboard-header">
+							<h3>Recipe: AVResearcherXL</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+			<!-- instead of listing the one recipe, make sure to list a bunch of recipes-->
+			<div id="app" />
+
+
+		</div>
+	</div>
+
+	<script src="/static/js/config.js" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	<script src="/static/public/bundle.js" type="text/javascript"></script>
+
+</body>
+

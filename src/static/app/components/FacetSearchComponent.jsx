@@ -16,23 +16,23 @@ TODO
 
 */
 
+import * as React from 'react';
 
-
-const Hits = Searchkit.Hits
-const NoHits = Searchkit.NoHits
-const HitsStats = Searchkit.HitsStats;
-const SearchkitProvider = Searchkit.SearchkitProvider;
-const Searchbox = Searchkit.SearchBox;
-const InitialLoader = Searchkit.InitialLoader;
-const Pagination = Searchkit.Pagination;
-const PaginationSelect = Searchkit.PaginationSelect;
-const PageSizeSelector = Searchkit.PageSizeSelector;
-const Toggle = Searchkit.Toggle;
-const Select = Searchkit.Select;
-//const RangeFilter = Searchkit.RangeFilter;
-const RefinementListFilter = Searchkit.RefinementListFilter;
-const NumericRefinementListFilter = Searchkit.NumericRefinementListFilter;
-//const DynamicRangeFilter = Searchkit.DynamicRangeFilter;
+import {
+    Hits,
+	NoHits,
+	HitsStats,
+	SearchkitProvider,
+	SearchBox,
+	SearchkitManager,
+	InitialLoader,
+	Pagination,
+	PaginationSelect,
+	PageSizeSelector,
+	Select,
+	RefinementListFilter,
+	NumericRefinementListFilter
+} from "searchkit";
 
 //overwrites the default loading component
 const InitialLoaderComponent = (props) => (
@@ -59,7 +59,7 @@ class FacetSearchComponent extends React.Component {
 	}
 
 	initSearchKit() {
-		this.skInstance = new Searchkit.SearchkitManager(this.props.searchAPI, {
+		this.skInstance = new SearchkitManager(this.props.searchAPI, {
 			searchUrlPath: this.props.indexPath,
 			useHistory: false,
 			searchOnLoad: false
@@ -98,7 +98,7 @@ class FacetSearchComponent extends React.Component {
 				if(!facet.ranges) {
 					return (
 						<RefinementListFilter
-							key={facet.id + '__filter'}
+							key={facet.id + '__facet'}
 							field={facet.field}
 							title={facet.title}
 							id={facet.id}
@@ -112,7 +112,7 @@ class FacetSearchComponent extends React.Component {
 						//<DynamicRangeFilter field={facet.field} id={facet.id} title={facet.title}/>
 
 						<NumericRefinementListFilter
-							key={facet.id + '__filter'}
+							key={facet.id + '__facet'}
 							field={facet.field}
 							title={facet.title}
 							id={facet.id}
@@ -125,14 +125,12 @@ class FacetSearchComponent extends React.Component {
 			}, this);
 		}
 
-		return (<div>
-
+		return (
 			<SearchkitProvider searchkit={this.skInstance}>
 				<div className={this.state.minimized ? 'hidden' : ''}>
 
 					<div className="search-box">
-						<Searchbox
-							key={this.props.key}
+						<SearchBox
 							autofocus={true}
 							searchOnChange={true}
 							prefixQueryFields={this.props.prefixQueryFields}
@@ -180,7 +178,8 @@ class FacetSearchComponent extends React.Component {
 
 				</div>
 			</SearchkitProvider>
-
-		</div>);
+		);
 	}
 }
+
+export default FacetSearchComponent;

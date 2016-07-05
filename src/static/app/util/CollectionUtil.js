@@ -12,6 +12,11 @@ In general what needs to be considered is:
 
 */
 
+import {NISVCatalogueConfig} from '../collection/mappings/NISVCatalogueConfig.jsx';
+import {NISVProgramGuideConfig} from '../collection/mappings/NISVProgramGuideConfig.jsx';
+import {GenericCollectionConfig} from '../collection/mappings/GenericCollectionConfig.jsx';
+import TimeUtil from '../util/TimeUtil.js';
+
 const CollectionUtil = {
 
 	COLLECTION_MAPPING : {
@@ -71,3 +76,5 @@ const CollectionUtil = {
 	}
 
 }
+
+export default CollectionUtil;

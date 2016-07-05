@@ -7,6 +7,11 @@ TODO what really should be done is defining an easy way to configure the recipes
 
 */
 
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+
 //intializes all of the configured components on the screen
 function cookRecipe(ingredients) {
 	ReactDOM.render(

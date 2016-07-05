@@ -1,21 +1,18 @@
 /*
-This component takes care of 'cooking the recipe'. It is important to know that the Recipe component
-is not completely dumb (yet) and (still) contains logic for translating collectionIds into searchkit components.
+This component takes care of 'cooking the recipe'.
 
-So it means that the recipe itself is not completely agnostic (yet) of specific component logic. We should work on this
-some more.
 
-Necessary to improve / TODO:
-1.
 
 */
+
+var React = require('react');
 
 class Recipe extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			searchBlocks: [],
-			queryOutputs: null,
+			searchBlocks: [],//holds the FacetSearchComponents that are currently on the screen
+			queryOutputs: null,//if this state var is updated the LineChart is rerendered (default React behavior)
 			activeSearchTab: null
 			//add the active collections
 		};
@@ -107,6 +104,7 @@ class Recipe extends React.Component {
 	}
 
 	render() {
+		//for drawing the tabs
 		var searchTabs = this.state.searchBlocks.map(function(searchBox) {
 			return (
 				<li key={searchBox.elementId + '__tab_option'} className={
