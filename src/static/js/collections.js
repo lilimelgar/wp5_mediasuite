@@ -1,3 +1,6 @@
+//NOTE: This is Marijn's code used for collections.html.
+//It should be (partly) integrated with /static/app/compnents/CollectionSelector.js
+
 var search_api = "http://blofeld.beeldengeluid.nl:5320/api/v1"
 
 var selectedCollection = null;

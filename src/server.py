@@ -87,7 +87,7 @@ def semweb():
 
 @app.route('/recipes')
 def recipes():
-	return render_template('recipes2.html', loggedIn=isLoggedIn(request))
+	return render_template('recipe.html', loggedIn=isLoggedIn(request))
 
 if __name__ == '__main__':
 	app.run(port=_config['API_PORT'], host=_config['API_HOST'])

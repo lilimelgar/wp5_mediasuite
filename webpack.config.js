@@ -1,5 +1,8 @@
 //TODO d3 via deze route ook inladen
 
+//https://www.sitepoint.com/javascript-modules-bundling-transpiling/
+//http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6
+
 var webpack = require('webpack');
 var path = require('path');
 
@@ -12,18 +15,13 @@ var config = {
 
 	output: {
 		path: BUILD_DIR,
-		filename: 'bundle.js'
+		filename: 'bundle.js',
+		library: 'clariah',
+    	libraryTarget: 'umd',
+    	umdNamedDefine: true
 	},
 
 	resolve: { extensions: ['', '.js', '.jsx'] },
-
-	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
-		new webpack.ProvidePlugin({
-			"window.Tether": "tether"
-		})
-	],
 
 	module : {
 		loaders : [

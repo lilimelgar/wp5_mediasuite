@@ -1,0 +1,54 @@
+.hidden {
+	display:none;
+}
+.search-box {
+	padding: 0px;
+	border-radius: 4px;
+	border: 1px solid dodgerblue;
+	background-color: 'white';
+}
+.sk-pagination-navigation.is-numbered {
+	width:90%;
+	margin:5%;
+	overflow:hidden;
+
+}
+.sk-layout__body {
+	min-width:0;
+}
+.sk-search-box__text {
+	color:black !important;
+}
+.filter-option {
+	color: crimson;
+}
+.search-layout {
+	backgroundColor: white;
+}
+
+.sk-hits__item {
+	margin: 5px;
+	padding: 10px;
+	border: 1px solid dodgerblue;
+	border-radius: 4px;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+
+}
+
+.x.axis path {
+	display: none;
+
+}
+
+.line {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+
+}

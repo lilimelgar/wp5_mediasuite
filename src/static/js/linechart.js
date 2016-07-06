@@ -1,4 +1,5 @@
-
+//NOTE: This is Marijn's code used for collections.html.
+//It should be (partly) integrated with /static/app/compnents/LineChart.js
 
 var drawTimeline = function(timelineData) {
     var margin = {top: 20, right: 30, bottom: 30, left: 70},
