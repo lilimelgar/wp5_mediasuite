@@ -4,7 +4,9 @@ LABO is the web environment where one can experiment with different labs and api
 
 * Version: 0.1
 
-### How do I get set up? ###
+## How do I get set up?
+
+### Flask webserver (Python)
 
 This project runs on Python 2.7
 
@@ -14,36 +16,54 @@ The best practice is to create a virtualenv and subsequently run:
 pip install -r requirements.txt
 ```
 
-This way all the necessary Python packages will be installed. Following this it should already be possible to start the Flask webserver using
+This way all the necessary Python packages will be installed.
+
+Now the only thing to do is to create a settings.py by copying the settings-example.py file:
+
+```
+cp settings-example.py settings.py
+```
+
+Following this it should already be possible to start the Flask webserver using
 
 ```
 python server.py
 ```
 
-Doing this will result in a not fully functional (JavaScript & CSS wise) front-end however. You still need to install the JavaScript packages by running:
+
+### Javascript / React components
+
+Now that the webserver is setup, it is necessary to obtain and build all of the required Javascript packages.
+
+Probably we will completely get rid of bower, since we are focussing on the combination:
+
+* [npm](https://www.npmjs.com/)
+* [Webpack](https://webpack.github.io/)
+* [Babel](https://babeljs.io/)
+
+Anyway, now it is still necessary to install some packages via bower, by going into the /src/static directory and running:
 
 ```
 bower install
 ```
 
-in the /src/static directory.
+If you want to work on the components and want the advanced stuff of the website working, do the following:
 
-When you intend to work on any of the UI components, make sure babelify and the react preset are installed:
-
-```
-npm install --global babel-cli
-npm install babel-preset-react
-```
-
-Once this is setup, it is possible to start working on the component code in `src/static/js/ui_components_src`
-
-Before you can test your work on these components, make sure to transpile the code using by starting the babel watcher on the ui_components directory:
+1. Install npm by going into the root dir of the project (containing package.json) and running
 
 ```
-babel --presets react src/static/js/ui_components_src --watch --out-dir src/static/js/ui_components
+npm install
 ```
 
-Note: the ui_components directory is part of .gitignore, since you can generate it using babel
+Note: You might need to be sudo for this.
+
+2. Start the webpack watcher (in the root dir, which also contains webpack.config.js) by running:
+
+```
+npm run dev
+```
+
+While the watcher is running, the /src/static/bundle.js is automatically built whenever you change any sources in the /static/app folder, which contains the reusable (UI) components, based on the React framework. The following section explains a bit about the underlying ideas of these components.
 
 
 ### UI Component structure
@@ -61,18 +81,6 @@ Aiming for a high flexibility in assembling recipes CLARIAH aims to:
 * Recreate the existing tools by creating a recipe for each tool
 * Create new recipes/tools for use-cases/users that were previously not serviced
 * Expand/improve the available ingredients (functionalities) together with third parties
-
-LABO, the place for experimentation, currently holds the UI components being developed. After the UI components have matured enough it
-should be transferred to a dedicated GitHub repository.
-
-If you want to work on these UI components, please note the following:
-
-* /js/ui_components_src is the folder that currently holds any code related to (reusable) CLARIAH functionalities/components
-* Each component should be implemented using React (classes/components)
-* /js/ui_component_src/recipe/Recipe.js is the component that knows how to 'cook the recipe', meaning it should now how to interpret your ingredient/functionality
-* There are currently two 'proper' (understood by Recipe.js) components:
-* * /js/ui_component_src/search/FacetSearchComponent.js
-* * /js/ui_component_src/visualisations/LineChart.js
 
 
 
