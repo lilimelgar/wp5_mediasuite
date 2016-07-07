@@ -1,6 +1,6 @@
 # L A B O
 
-LABO is the web environment where you can experiment with different functionalities and APIs developed in the context of Sound & Vision labs, developed by the R&D department of The Netherlands Institute for Sound and Vision.
+LABO is the web environment where you can experiment with different functionalities and APIs developed in the context of Sound & Vision labs, developed by the R&D department of [The Netherlands Institute for Sound and Vision](http://www.beeldengeluid.nl/).
 
 Underlying LABO's user interface, is the CLARIAH component library, which is also part of this code base.
 
