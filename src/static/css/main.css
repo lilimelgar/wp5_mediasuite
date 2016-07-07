@@ -8896,6 +8896,11 @@ h4, h5, h6 {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
+/* line 96, ../sass/_home.scss */
+.interactive {
+  cursor: pointer;
+}
+
 /* line 1, ../sass/_searchkit.scss */
 .hidden {
   display: none;

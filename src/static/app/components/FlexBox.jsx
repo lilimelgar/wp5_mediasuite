@@ -18,7 +18,11 @@ class FlexBox extends React.Component {
 		return (
 			<div className="well">
 				<div className="text-right">
-					<i className={this.state.visible ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-up'}
+					<i className={
+							'glyphicon ' +
+							(this.state.visible ? 'glyphicon-menu-down' : 'glyphicon-menu-up') +
+							' interactive'
+						}
 						onClick={this.toggle.bind(this)}></i>
 				</div>
 				{this.state.visible ? this.props.children : ''}
