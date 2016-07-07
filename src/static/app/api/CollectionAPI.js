@@ -10,9 +10,18 @@ const CollectionAPI = {
 	},
 
 	listCollections: function(callback) {
-		console.debug('getting collections');
 	    var url = _config.SEARCH_API_BASE  + "/collections/list_collections";
 	    d3.json(url, function(error, data) {
+	        callback(data);
+	    });
+	},
+
+	getCollectionTimeLine(collectionId, docType, dateField, callback) {
+		var url = _config.SEARCH_API_BASE + '/collections/show_timeline';
+		url += '?collectionId=' + collectionId;
+		url += '&docType=' + docType;
+		url += '&dateField=' + dateField;
+		d3.json(url, function(error, data) {
 	        callback(data);
 	    });
 	}

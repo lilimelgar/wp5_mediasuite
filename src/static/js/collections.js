@@ -51,14 +51,6 @@ var getCollectionStats = function() {
     });
 }
 
-var listDocumentTypes = function() {
-    var url = search_api + "/collections/show_stats?collectionId=" + selectedCollection;
-    d3.json(url, function(error, data) {
-        addDocTypesToSelect(data.collection_statistics.document_types);
-        return data;
-    });
-}
-
 var addDocTypesToSelect = function(docTypes) {
     var select = document.getElementById("docTypeSelect");
     select.innerHTML = "";
