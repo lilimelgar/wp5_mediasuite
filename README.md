@@ -4,7 +4,7 @@ LABO is the web environment where you can experiment with different functionalit
 
 Underlying LABO's user interface, is the CLARIAH component library, which is also part of this code base.
 
-'''Current version''': 0.0.9
+**Current version**: 0.0.9
 
 ## CLARIAH component library
 
