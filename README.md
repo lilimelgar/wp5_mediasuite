@@ -4,7 +4,7 @@ LABO is the web environment where you can experiment with different functionalit
 
 Underlying LABO's user interface, is the CLARIAH component library, which is also part of this code base.
 
-* Version: 0.0.1
+'''Current version''': 0.0.9
 
 ## CLARIAH component library
 
@@ -95,7 +95,7 @@ Note: this is not a default command of npm, but works because a script (calling 
 
 LABO Uses the [SASS](http://sass-lang.com/) CSS extension language in combination with [Compass](http://compass-style.org/) to generate the main stylesheet (/src/static/css/main.css).
 
-So, whenever you want to change the overall styling, start the compass watcher by going into the /src/static folder followed by running:
+So, whenever you want to change the overall styling: make sure that Compass is installed, then start the compass watcher by going into the /src/static folder and running:
 
 ```
 compass watch
