@@ -49,7 +49,9 @@ bower install
 
 If you want to work on the components and want the advanced stuff of the website working, do the following:
 
-1. Install npm by going into the root dir of the project (containing package.json) and running
+#### Install npm
+
+Go into the root dir of the project (containing package.json) and run:
 
 ```
 npm install
@@ -57,16 +59,28 @@ npm install
 
 Note: You might need to be sudo for this.
 
-2. Start the webpack watcher (in the root dir, which also contains webpack.config.js) by running:
+#### Start the webpack watcher
+
+The watcher makes sure the CLARIAH component library is built/updated in /src/static/public/bundle.js
+For this, the watcher reacts to any changes made in the /src/static/app folder, which contains this code.
+
+To start the watcher, go into the root dir of the project (containing webpack.config.js) and run:
 
 ```
 npm run dev
 ```
 
-While the watcher is running, the /src/static/bundle.js is automatically built whenever you change any sources in the /static/app folder, which contains the reusable (UI) components, based on the React framework. The following section explains a bit about the underlying ideas of these components.
+#### Start the compass watcher
 
+LABO Uses the [SASS]() CSS precompiler to generate the main stylesheet (main.css), so whenever you want to change the overall styling, start the compass watcher by going into the /src/static folder followed by running:
 
-### UI Component structure
+```
+compass watch
+```
+
+While the watcher is running any changes to the *.scss files in the /static/sass folder will be compiled into /static/css/main.css
+
+### CLARIAH component library
 
 In CLARIAH the choice was made to steer clear from implementing monolithic tools and instead to focus on the implementation of
 reusable functionalities, which can be:
