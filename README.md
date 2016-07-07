@@ -51,7 +51,7 @@ If you want to work on the components and want the advanced stuff of the website
 
 #### Install npm
 
-Go into the root dir of the project (containing package.json) and run:
+If you haven't already first install npm. Then go into the root dir of the project (containing package.json) and run:
 
 ```
 npm install
@@ -62,13 +62,15 @@ Note: You might need to be sudo for this.
 #### Start the webpack watcher
 
 The watcher makes sure the CLARIAH component library is built/updated in /src/static/public/bundle.js
-For this, the watcher reacts to any changes made in the /src/static/app folder, which contains this code.
+For this, the watcher reacts to any changes made in the /src/static/app folder, which contains the CLARIAH library code.
 
 To start the watcher, go into the root dir of the project (containing webpack.config.js) and run:
 
 ```
 npm run dev
 ```
+
+Note: this is not a default command of npm, but works because a script (calling webpack) has been configured for this in package.json.
 
 #### Start the compass watcher
 
