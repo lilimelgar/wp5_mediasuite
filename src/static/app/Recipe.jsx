@@ -3,7 +3,7 @@ import React from 'react';
 import CollectionSelector from './components/CollectionSelector.jsx';
 import FacetSearchComponent from './components/FacetSearchComponent.jsx';
 import LineChart from './components/LineChart.jsx';
-
+import FlexBox from './components/FlexBox.jsx';
 
 import CollectionUtil from './util/CollectionUtil.js';
 import CollectionAPI from './api/CollectionAPI.js';
@@ -152,20 +152,20 @@ class Recipe extends React.Component {
 
 		return (
 			<div>
-				<div className="well">
+				<FlexBox>
 					{collectionSelector}
-				</div>
-				<div className="well">
+				</FlexBox>
+				<FlexBox>
 					{lineChart}
-				</div>
-				<div className="well">
+				</FlexBox>
+				<FlexBox>
 					<ul className="nav nav-tabs">
 						{searchTabs}
 					</ul>
 					<div className="tab-content">
 						{searchTabContents}
 					</div>
-				</div>
+				</FlexBox>
 			</div>
 		);
 	}
