@@ -54,23 +54,17 @@ python server.py
 
 Now that the webserver is setup, it is necessary to obtain and build all of the required Javascript packages.
 
-Probably we will completely get rid of [Bower](https://bower.io/), since for conveniently building the CLARIAH component library (based on [React](https://facebook.github.io/react/)), we already use the following:
+The CLARIAH component library (based on [React](https://facebook.github.io/react/)) uses the following for packaging & compiling:
 
 * [npm](https://www.npmjs.com/)
 * [Webpack](https://webpack.github.io/)
 * [Babel](https://babeljs.io/)
 
-Anyway, now it is still necessary to install some packages via bower by going into the /src/static directory (containing the bower.json) and running:
-
-```
-bower install
-```
-
-If you want to work on the CLARIAH component library (in /src/static/app) do the following:
+To work on the library, do the following:
 
 #### Install npm
 
-If you haven't already first install [npm](https://www.npmjs.com/). Then go into the root dir of the project (containing package.json) and run:
+If you haven't already first install [npm](https://www.npmjs.com/). Then go into /src/static (containing package.json) and run:
 
 ```
 npm install
@@ -83,7 +77,7 @@ Note: You might need to be sudo for this.
 The watcher makes sure the CLARIAH component library is built/updated in /src/static/public/bundle.js
 For this, the watcher reacts to any changes made in the /src/static/app folder, which contains the CLARIAH library code.
 
-To start the watcher, go into the root dir of the project (containing webpack.config.js) and run:
+To start the watcher, go into the /src/static (containing webpack.config.js) and run:
 
 ```
 npm run dev

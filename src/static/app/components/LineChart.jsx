@@ -115,10 +115,6 @@ class LineChart extends React.Component {
 	}
 
 	initLineChart(data) {
-		console.debug('MOUNTING THE LINE CHART');
-		//console.debug(this);
-		console.debug(data);
-
 		//setup the global d3 variables / elements
 		this.margin = {top: 20, right: 20, bottom: 80, left: 50};
 		this.width = 960 - this.margin.left - this.margin.right,

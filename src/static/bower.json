@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "^3.3.6",
     "datatables": "^1.10.11",
   }
 }
