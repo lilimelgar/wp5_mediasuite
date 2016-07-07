@@ -1,8 +1,27 @@
 # L A B O
 
-LABO is the web environment where one can experiment with different labs and apis developed in the context of the Sound & Vision labs, which is executed by the R & D department.
+LABO is the web environment where you can experiment with different functionalities and APIs developed in the context of Sound & Vision labs, developed by the R&D department of The Netherlands Institute for Sound and Vision.
 
-* Version: 0.1
+Underlying LABO's user interface, is the CLARIAH component library, which is also part of this code base.
+
+* Version: 0.0.1
+
+## CLARIAH component library
+
+In CLARIAH the choice was made to steer clear from implementing monolithic tools and instead to focus on the implementation of
+reusable functionalities, which can be:
+
+* Services exposed by an API, such as the speech2text API, the search & collection API, etc
+* UI components, such as a facet search component an LOD browser (DIVE) or visualisations such as different charts or graphs.
+* Other t.b.d.
+
+Next to functionalities CLARIAH has coined the term 'recipe' when talking of a certain combination of aforementioned functionalities.
+Aiming for a high flexibility in assembling recipes CLARIAH aims to:
+
+* Recreate the existing tools by creating a recipe for each tool
+* Create new recipes/tools for use-cases/users that were previously not serviced
+* Expand/improve the available ingredients (functionalities) together with third parties
+
 
 ## How do I get set up?
 
@@ -85,23 +104,6 @@ compass watch
 While the watcher is running any changes to the *.scss files in the /static/sass folder will be compiled into /src/static/css/main.css
 
 You can change the compass configuration by editing /src/static/config.rb
-
-### CLARIAH component library
-
-In CLARIAH the choice was made to steer clear from implementing monolithic tools and instead to focus on the implementation of
-reusable functionalities, which can be:
-
-* Services exposed by an API, such as the speech2text API, the search & collection API, etc
-* UI components, such as a facet search component an LOD browser (DIVE) or visualisations such as different charts or graphs.
-* Other t.b.d.
-
-Next to functionalities CLARIAH has coined the term 'recipe' when talking of a certain combination of aforementioned functionalities.
-Aiming for a high flexibility in assembling recipes CLARIAH aims to:
-
-* Recreate the existing tools by creating a recipe for each tool
-* Create new recipes/tools for use-cases/users that were previously not serviced
-* Expand/improve the available ingredients (functionalities) together with third parties
-
 
 
 ### Who do I talk to? ###
