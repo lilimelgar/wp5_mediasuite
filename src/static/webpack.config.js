@@ -3,7 +3,9 @@
 //http://webpack.github.io/docs/usage.html
 //https://www.sitepoint.com/javascript-modules-bundling-transpiling/
 //http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6
+//https://github.com/petehunt/webpack-howto
 //https://medium.com/@dtothefp/why-can-t-anyone-write-a-simple-webpack-tutorial-d0b075db35ed#.l95n3w625
+//https://github.com/webpack/react-starter
 
 var webpack = require('webpack');
 var path = require('path');

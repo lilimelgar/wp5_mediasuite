@@ -152,13 +152,19 @@ class Recipe extends React.Component {
 
 		return (
 			<div>
-				{collectionSelector}
-				{lineChart}
-				<ul className="nav nav-tabs">
-					{searchTabs}
-				</ul>
-				<div className="tab-content">
-					{searchTabContents}
+				<div className="well">
+					{collectionSelector}
+				</div>
+				<div className="well">
+					{lineChart}
+				</div>
+				<div className="well">
+					<ul className="nav nav-tabs">
+						{searchTabs}
+					</ul>
+					<div className="tab-content">
+						{searchTabContents}
+					</div>
 				</div>
 			</div>
 		);

@@ -188,9 +188,7 @@ class LineChart extends React.Component {
 
 	render() {
 		return (
-			<div id="line_chart">
-
-			</div>
+			<div id="line_chart"/>
 		)
 	}
 }

@@ -120,7 +120,7 @@ class CollectionSelector extends React.Component {
 							{dateFieldSelect}
 							{facetFieldSelect}
 							<button className="btn btn-primary">
-								<i className="glyphicon glyphicon-plus"></i>
+								Add to recipe&nbsp;<i className="glyphicon glyphicon-plus"></i>
 							</button>
 						</form>
 					</div>
