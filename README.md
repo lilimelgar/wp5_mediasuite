@@ -35,23 +35,23 @@ python server.py
 
 Now that the webserver is setup, it is necessary to obtain and build all of the required Javascript packages.
 
-Probably we will completely get rid of bower, since we are focussing on the combination:
+Probably we will completely get rid of [Bower](https://bower.io/), since for conveniently building the CLARIAH component library (based on [React](https://facebook.github.io/react/)), we already use the following:
 
 * [npm](https://www.npmjs.com/)
 * [Webpack](https://webpack.github.io/)
 * [Babel](https://babeljs.io/)
 
-Anyway, now it is still necessary to install some packages via bower, by going into the /src/static directory and running:
+Anyway, now it is still necessary to install some packages via bower by going into the /src/static directory (containing the bower.json) and running:
 
 ```
 bower install
 ```
 
-If you want to work on the components and want the advanced stuff of the website working, do the following:
+If you want to work on the CLARIAH component library (in /src/static/app) do the following:
 
 #### Install npm
 
-If you haven't already first install npm. Then go into the root dir of the project (containing package.json) and run:
+If you haven't already first install [npm](https://www.npmjs.com/). Then go into the root dir of the project (containing package.json) and run:
 
 ```
 npm install
@@ -74,13 +74,17 @@ Note: this is not a default command of npm, but works because a script (calling 
 
 #### Start the compass watcher
 
-LABO Uses the [SASS]() CSS precompiler to generate the main stylesheet (main.css), so whenever you want to change the overall styling, start the compass watcher by going into the /src/static folder followed by running:
+LABO Uses the [SASS](http://sass-lang.com/) CSS extension language in combination with [Compass](http://compass-style.org/) to generate the main stylesheet (/src/static/css/main.css).
+
+So, whenever you want to change the overall styling, start the compass watcher by going into the /src/static folder followed by running:
 
 ```
 compass watch
 ```
 
-While the watcher is running any changes to the *.scss files in the /static/sass folder will be compiled into /static/css/main.css
+While the watcher is running any changes to the *.scss files in the /static/sass folder will be compiled into /src/static/css/main.css
+
+You can change the compass configuration by editing /src/static/config.rb
 
 ### CLARIAH component library
 

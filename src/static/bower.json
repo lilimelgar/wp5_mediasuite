@@ -16,10 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^2.2.0",
     "bootstrap-sass": "^3.3.6",
     "datatables": "^1.10.11",
-    "react": "~0.14.8",
-    "searchkit": "^0.10.0-4"
   }
 }
