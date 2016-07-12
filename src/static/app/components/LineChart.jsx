@@ -186,9 +186,12 @@ class LineChart extends React.Component {
 		callback(formattedData);
 	}
 
+	//TODO the Line Chart text is ugly. For now it's just so you can see what it is.
 	render() {
 		return (
-			<div id="line_chart"/>
+			<div id="line_chart">
+				<div className="text-center"><strong>Line chart</strong></div>
+			</div>
 		)
 	}
 }

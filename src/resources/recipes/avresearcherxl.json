@@ -1,0 +1,13 @@
+{
+	"id" : "avresearcherxl",
+	"name" : "AVResearcherXL",
+	"description" : "Combined search, tag cloud and line charts",
+	"ingredients" : {
+		"collectionSelector": true,
+		"collections": [
+			"labs-catalogue-aggr",
+			"nisv_programguides"
+		],
+		"lineChart": true
+	}
+}

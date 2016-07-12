@@ -1,0 +1,45 @@
+<head>
+	<title>L A B O - Recipes</title>
+	<link rel="stylesheet" href="/static/css/main.css">
+	<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+{% with page='recipes' %}
+{% include 'nav.html' %}
+{% endwith %}
+
+	<div class="container">
+
+		<div class="row" style="height:50px;">
+
+			<div class="col-md-12">
+				<div role="tabpanel" class="tab-pane collection-tab" id="links">
+
+					<div class="row text-center">
+						<div class="dashboard-header">
+							<h3>Kies een van de voorgedefineerde recepten</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			{% for key in recipes.keys() %}
+			<div id="{{recipes[key].id}}" class="col-sm-6 col-md-4 api">
+				<div class="card">
+					<a href="/recipe/{{recipes[key].id}}">
+						<img src="/static/images/BG-tile.jpeg">
+					</a>
+					<div class="caption">
+						<h4 class="bengfont"><i class="fa fa-rocket"></i>&nbsp;{{recipes[key].name}}</h4>
+						<p>{{recipes[key].description}}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+</body>

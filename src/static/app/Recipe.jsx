@@ -142,22 +142,18 @@ class Recipe extends React.Component {
 
 		var lineChart = null;
 		if(this.props.ingredients.lineChart) {
-			lineChart = <LineChart data={this.state.queryOutputs}/>;
+			lineChart = <FlexBox><LineChart data={this.state.queryOutputs}/></FlexBox>;
 		}
 
 		var collectionSelector = null;
 		if(this.props.ingredients.collectionSelector) {
-			collectionSelector = <CollectionSelector onEditCollections={this.onEditCollections.bind(this)}/>
+			collectionSelector = <FlexBox><CollectionSelector onEditCollections={this.onEditCollections.bind(this)}/></FlexBox>;
 		}
 
 		return (
 			<div>
-				<FlexBox>
-					{collectionSelector}
-				</FlexBox>
-				<FlexBox>
-					{lineChart}
-				</FlexBox>
+				{collectionSelector}
+				{lineChart}
 				<FlexBox>
 					<ul className="nav nav-tabs">
 						{searchTabs}

@@ -1,0 +1,12 @@
+{
+	"id" : "beng-catalogue-search",
+	"name" : "B&G catalogus",
+	"description" : "Search through the B&G catalogue",
+	"ingredients" : {
+		"collectionSelector": false,
+		"collections": [
+			"labs-catalogue-aggr"
+		],
+		"lineChart": false
+	}
+}

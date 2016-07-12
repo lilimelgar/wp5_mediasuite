@@ -6,14 +6,27 @@ from flask import request, Response
 from functools import wraps
 
 import simplejson
+import os
 
 app = Flask(__name__)
 app.debug = True
+app.config['RECIPES'] = None
 
 import settings
 
 _config = settings.config
 
+"""------------------------------------------------------------------------------
+LOADING RECIPES FROM JSON FILES
+------------------------------------------------------------------------------"""
+
+def loadRecipes():
+	recipes = {}
+	for root, directories, files in os.walk(_config['RECIPES_PATH']):
+		for fn in files:
+			r = os.path.join(root, fn)
+			recipes[fn.replace('.json', '')] = simplejson.load(open(r, 'r'))
+	app.config['RECIPES'] = recipes
 
 """------------------------------------------------------------------------------
 GLOBAL FUNCTIONS
@@ -73,10 +86,6 @@ def contact():
 def collections():
 	return render_template('collections.html', loggedIn=isLoggedIn(request))
 
-@app.route('/search')
-def search():
-	return render_template('search.html', loggedIn=isLoggedIn(request))
-
 @app.route('/apis')
 def apis():
 	return render_template('apis.html', loggedIn=isLoggedIn(request))
@@ -87,7 +96,42 @@ def semweb():
 
 @app.route('/recipes')
 def recipes():
-	return render_template('recipe.html', loggedIn=isLoggedIn(request))
+	if app.config['RECIPES'] == None:
+		loadRecipes()
+	colorMap = ['#ffb74d', '#a7ffeb', '#009fda', '#cfd8dc',	'#e00034',
+		'#81c784', '#ffab91', '#adadad', '#5cb85c', 'dodgerblue']
+	return render_template(
+		'recipes.html',
+		recipes=app.config['RECIPES'],
+		colorMap=colorMap,
+		loggedIn=isLoggedIn(request)
+	)
+
+@app.route('/recipe/<recipeId>')
+def recipe(recipeId):
+	if app.config['RECIPES'] == None:
+		loadRecipes()
+	if app.config['RECIPES'].has_key(recipeId):
+		return render_template(
+			'recipe.html',
+			recipe=app.config['RECIPES'][recipeId],
+			loggedIn=isLoggedIn(request)
+		)
+	print app.config['RECIPES']
+	return render_template('404.html'), 404
+
+"""------------------------------------------------------------------------------
+ERROR HANDLERS
+------------------------------------------------------------------------------"""
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('404.html'), 500
+
 
 if __name__ == '__main__':
 	app.run(port=_config['API_PORT'], host=_config['API_HOST'])
