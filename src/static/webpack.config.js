@@ -7,6 +7,8 @@
 //https://medium.com/@dtothefp/why-can-t-anyone-write-a-simple-webpack-tutorial-d0b075db35ed#.l95n3w625
 //https://github.com/webpack/react-starter
 
+//TODO https://github.com/lodash/lodash-webpack-plugin
+
 var webpack = require('webpack');
 var path = require('path');
 
