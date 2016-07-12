@@ -9006,3 +9006,14 @@ h4, h5, h6 {
   stroke: steelblue;
   stroke-width: 1.5px;
 }
+
+/* line 1, ../sass/_player.scss */
+#timebar {
+  width: 100%;
+  height: 50px;
+  display: block;
+  position: relative;
+  margin-top: 10px;
+  background-color: black;
+  cursor: crosshair;
+}

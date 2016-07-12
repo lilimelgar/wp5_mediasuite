@@ -86,13 +86,13 @@ def contact():
 def collections():
 	return render_template('collections.html', loggedIn=isLoggedIn(request))
 
+@app.route('/annotatevideo')
+def annotatevideo():
+	return render_template('annotate-video.html', loggedIn=isLoggedIn(request))
+
 @app.route('/apis')
 def apis():
 	return render_template('apis.html', loggedIn=isLoggedIn(request))
-
-@app.route('/semweb')
-def semweb():
-	return render_template('semweb.html', loggedIn=isLoggedIn(request))
 
 @app.route('/recipes')
 def recipes():

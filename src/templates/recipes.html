@@ -12,19 +12,12 @@
 
 	<div class="container">
 
-		<div class="row" style="height:50px;">
-
-			<div class="col-md-12">
-				<div role="tabpanel" class="tab-pane collection-tab" id="links">
-
-					<div class="row text-center">
-						<div class="dashboard-header">
-							<h3>Kies een van de voorgedefineerde recepten</h3>
-						</div>
-					</div>
-				</div>
+		<div class="row text-center">
+			<div class="dashboard-header">
+				<h3>Kies een van de voorgedefineerde recepten</h3>
 			</div>
 		</div>
+
 		<div class="row">
 			{% for key in recipes.keys() %}
 			<div id="{{recipes[key].id}}" class="col-sm-6 col-md-4 api">

@@ -30,7 +30,7 @@
 	<script src="/static/js/config.js" type="text/javascript"></script>
 	<script src="/static/public/bundle.js" type="text/javascript"></script>
 	<script>
-		clariah.cookRecipe({{ recipe.ingredients|tojson|safe }});
+		clariah.cookRecipe({{ recipe.ingredients|tojson|safe }}, 'app');
 
 	</script>
 

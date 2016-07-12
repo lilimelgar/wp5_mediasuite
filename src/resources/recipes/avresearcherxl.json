@@ -1,7 +1,7 @@
 {
 	"id" : "avresearcherxl",
 	"name" : "AVResearcherXL",
-	"description" : "Combined search, tag cloud and line charts",
+	"description" : "Zoek door meerdere collecties tegelijkertijd; filter resultaten op basis van facetten of tag clouds; visualiseer je output in grafieken",
 	"ingredients" : {
 		"collectionSelector": true,
 		"collections": [

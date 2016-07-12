@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://deploy1.beeldengeluid.nl/frontend/vtt/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Video Hyperlinking Annotator</title>
+<meta name="author" content="Jaap Blom">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/static/css/main.css">
+
+</head>
+
+<body>
+
+	{% with page='annotate-video' %}
+	{% include 'nav.html' %}
+	{% endwith %}
+
+	<div id="video">
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-12">
+					<h3 id="description"></h3>
+				</div>
+
+
+				<!-- INSERT SELECTION PART HERE { include 'select-video.html' }-->
+
+			</div>
+
+			<br>
+
+			<div id="refinement_panel" class="row">
+
+				<div class="col-md-12">
+					<span id="video_label"></span>
+				</div>
+
+				<div class="col-md-8">
+
+					<!-- THE VIDEO PLAYER AND VIDEO CONTROLS ARE SHOWN IN BOTH ANCHOR & REFINEMENT MODE-->
+
+					{% with player='vimeo' %}
+					{% include 'player.html' %}
+					{% endwith %}
+
+					<br>
+					<h3>Test player interaction / annotation</h3>
+					<button class="btn btn-info" type="button" onclick="play()">Play</button>
+					<button class="btn btn-info" type="button" onclick="pause()">Pause</button>
+					<button class="btn btn-info" type="button" onclick="getPosition()">CurTime</button>
+					<br>
+					<br>
+
+					<h3>Segmentation controls</h3>
+					<div id="segmentation_controls"></div>
+
+					<br>
+
+					<!-- INSERT THE ANNOTATION EDITOR HERE { include 'annotation-editor.html' }-->
+
+
+					<br>
+
+				</div>
+
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12">
+
+							<!-- ONLY DISPLAYED WHEN EDITING ANCHORS -->
+							<div id="anchor_tabs" role="tabpanel">
+								<ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active">
+										<a href="#anchors" aria-controls="anchors" role="tab" data-toggle="tab">Annotations</a>
+									</li>
+									<li role="presentation">
+										<a href="#guidelines" aria-controls="guidelines" role="tab" data-toggle="tab">Guidelines</a>
+									</li>
+									<li role="presentation">
+										<a href="#shortkeys" aria-controls="shortkeys" role="tab" data-toggle="tab">Shortcuts</a>
+									</li>
+								</ul>
+
+								<div class="tab-content">
+
+									<!-- LIST OF ANCHORS TAB-->
+									<div role="tabpanel" class="tab-pane active" id="anchors">
+										<div id="annotation_box">
+
+										</div>
+									</div>
+
+									<!-- GUIDLINES TAB -->
+									<div role="tabpanel" class="tab-pane" id="guidelines">
+										<h3>Guidelines</h3>
+										<div class="well">
+											Anchors should be created for one of the following reasons:<br>
+											<ul>
+												<li>Links may help users to understand the anchor better.</li>
+												<li>Links may contain relevant information about the anchor, given what you are currently looking for.</li>
+												<li>Links may contain information about occurring objects, places, people, and events that appear in this anchor.</li>
+											</ul>
+										</div>
+									</div>
+
+									<div role="tabpanel" class="tab-pane" id="shortkeys">
+										<h3>Keyboard shortcuts</h3>
+										<div class="well" style="color:crimson;">
+											<strong>Warning: keyboard shortcuts ONLY work when your cursor is outside of any input field</strong>
+										</div>
+										<div class="well">
+											<strong>Standard player controls</strong><br>
+											Press <kbd>space</kbd> to play/pause the video.
+										</div>
+										<div class="well">
+											<strong>Fast forward &amp; rewind</strong><br>
+											Use the numbers to fast forward a certain amaount of seconds: e.g. press <kbd>3</kbd> to fast forward 3 seconds. <br>
+											To rewind, hold <kbd>SHIFT</kbd> plus a number, e.g. <kbd>SHIFT+4</kbd> rewinds the video by 4 seconds.<br><br>
+
+											Use the left and right arrow to fast forward or rewind by 1 minute:<br>
+											Pressing <kbd>left</kbd> on your keypad rewinds the video for 1 minute<br>
+											Pressing <kbd>right</kbd> on your keypad fast forwards the video for 1 minute
+										</div>
+
+										<div class="well">
+											<strong>Start &amp; end of clip</strong><br>
+											To mark the start of the clip, press: <kbd>i</kbd><br>
+											To mark the end of the clip, press: <kbd>o</kbd><br>
+											To go to the start of your clip selection, press: <kbd>SHIFT+i</kbd><br>
+											To go to the end of your clip selection, press: <kbd>SHIFT+o</kbd>
+										</div>
+										<div class="well">
+											<strong>Anchors</strong><br>
+											To save an anchor press: <kbd>CTRL+s</kbd><br>
+											To create a new anchor press: <kbd>CTRL+n</kbd><br>
+											To edit the next anchor in the list press: <kbd>]</kbd><br>
+											To edit the previous anchor in the list press: <kbd>[</kbd><br>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<script>
+	//var _videoData = 'display some stuff passed by the server';
+	</script>
+
+	<!-- manually imported node modules TODO integrate properly into the webpack/bundle.js -->
+	<script type="text/javascript" src="/static/node_modules/jwerty/jwerty.js"></script>
+	<script type="text/javascript" src="/static/node_modules/moment/min/moment.min.js"></script>
+
+	<!-- import the labs library -->
+	<script type="text/javascript" src="/static/public/bundle.js"></script>
+
+	<!-- custom imports -->
+	<script type="text/javascript" src="/static/js/config.js"></script>
+
+	<script type="text/javascript" src="/static/js/playout/froogaloop.js"></script>
+	<script type="text/javascript" src="/static/js/playout/vimeo-player.js"></script>
+
+
+	<script type="text/javascript" src="/static/js/annotation/player-controls.js"></script>
+	<script type="text/javascript">
+		clariah.renderAnnotationBox('annotation_box');
+		clariah.renderSegmentationControls('segmentation_controls');
+	</script>
+
+</body>
+
+</html>
