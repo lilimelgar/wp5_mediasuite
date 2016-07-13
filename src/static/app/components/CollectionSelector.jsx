@@ -43,7 +43,7 @@ class CollectionSelector extends React.Component {
 	}
 
 	setCollectionFields() {
-		console.debug('This shit is f#in redickluss');
+		console.debug('TODO setCollectionFields');
 	}
 
 	//TODO make this a good function for adding/removing selected collections
@@ -87,7 +87,6 @@ class CollectionSelector extends React.Component {
 			//the document type selection part
 			if(this.state.activeCollectionStats) {
 				let docTypeOptions = this.state.activeCollectionStats.collection_statistics.document_types.map((docType) => {
-					console.debug(docType);
 					return (
 						<option key={docType.doc_type} value={docType.doc_type}>{docType.doc_type}</option>
 					)

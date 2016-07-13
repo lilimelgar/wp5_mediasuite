@@ -7,12 +7,15 @@
 //https://medium.com/@dtothefp/why-can-t-anyone-write-a-simple-webpack-tutorial-d0b075db35ed#.l95n3w625
 //https://github.com/webpack/react-starter
 
-//TODO https://github.com/lodash/lodash-webpack-plugin
+//WEBPACK CONFIG OPTIONS
+//https://github.com/webpack/docs/wiki/configuration#outputpublicpath
+
+//TODO maybe install https://github.com/lodash/lodash-webpack-plugin
 
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'public');
+var BUILD_DIR = path.resolve(__dirname, 'public/assets');
 var APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {
@@ -20,7 +23,8 @@ var config = {
 
 	output: {
 		path: BUILD_DIR,
-		filename: 'bundle.js',
+		publicPath: '/static/public/assets/',
+		filename: 'benglabs.js',
 		library: 'clariah',
     	libraryTarget: 'umd',
     	umdNamedDefine: true
@@ -36,10 +40,7 @@ var config = {
 				loader : 'babel',
 				exclude: /node_modules/
 			},
-			{
-				test: /bootstrap-sass[\\\/]assets[\\\/]javascripts/,
-				loader:'imports?jQuery=jquery'
-			},
+			{ test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' },
 			{
 	        	test: /\.css$/,
 	        	loaders: [
@@ -57,14 +58,8 @@ var config = {
 					'sass',
 				],
 			},
-			{
-				test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-				loader: "url?limit=10000"
-			},
-			{
-				test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-				loader: 'file'
-			}
+			{ test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
+    		{ test: /\.(ttf|eot)$/, loader: 'file' },
 		]
 	}
 

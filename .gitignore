@@ -8,3 +8,4 @@ settings.py
 bower_components
 .sass-cache
 *.xcf
+npm-debug.log

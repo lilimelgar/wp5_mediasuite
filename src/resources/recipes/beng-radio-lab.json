@@ -1,0 +1,12 @@
+{
+	"id" : "beng-radio-lab",
+	"name" : "B&G radio lab",
+	"description" : "Doorzoek en beluister de radio collecties van Beeld en Geluid binnen een verrijkte context",
+	"ingredients" : {
+		"collectionSelector": true,
+		"collections": [
+			"labs-catalogue-aggr"
+		],
+		"lineChart": false
+	}
+}
