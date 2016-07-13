@@ -14,6 +14,7 @@ In general what needs to be considered is:
 
 import {NISVCatalogueConfig} from '../collection/mappings/NISVCatalogueConfig.jsx';
 import {NISVProgramGuideConfig} from '../collection/mappings/NISVProgramGuideConfig.jsx';
+import {SpeechAndernieuwsConfig} from '../collection/mappings/SpeechAndernieuwsConfig.jsx';
 import {GenericCollectionConfig} from '../collection/mappings/GenericCollectionConfig.jsx';
 import TimeUtil from '../util/TimeUtil.js';
 
@@ -21,7 +22,8 @@ const CollectionUtil = {
 
 	COLLECTION_MAPPING : {
 		'labs-catalogue-aggr': NISVCatalogueConfig,
-		'nisv_programguides': NISVProgramGuideConfig
+		'nisv_programguides': NISVProgramGuideConfig,
+		'spraak__andernieuws' : SpeechAndernieuwsConfig
 	},
 
 	determineConfig : function(collectionId) {

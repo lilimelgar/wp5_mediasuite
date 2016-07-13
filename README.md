@@ -74,7 +74,7 @@ Note: You might need to be sudo for this.
 
 #### Start the webpack watcher
 
-The watcher makes sure the CLARIAH component library is built/updated in /src/static/public/bundle.js
+The watcher makes sure the CLARIAH component library is built/updated in /src/static/public/assets/benglabs.js
 For this, the watcher reacts to any changes made in the /src/static/app folder, which contains the CLARIAH library code.
 
 To start the watcher, go into the /src/static (containing webpack.config.js) and run:

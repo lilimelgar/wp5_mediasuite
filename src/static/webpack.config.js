@@ -14,10 +14,13 @@
 		https://github.com/petehunt/webpack-howto
 		https://medium.com/@dtothefp/why-can-t-anyone-write-a-simple-webpack-tutorial-d0b075db35ed#.l95n3w625
 		https://github.com/webpack/react-starter
+		https://www.bensmithett.com/smarter-css-builds-with-webpack/
 
 	TODO (to improve):
 		- d3 is not nicely included via the /static/app or this config (so a separate include is still needed)
 		- This might optimize the size of the benglabs.js: https://github.com/lodash/lodash-webpack-plugin
+		- Optimize CSS imports per page: https://www.bensmithett.com/smarter-css-builds-with-webpack/
+		- split up different groups of functionalities in multiple bundles/libraries/webpack.config.js'es
 */
 
 var webpack = require('webpack');

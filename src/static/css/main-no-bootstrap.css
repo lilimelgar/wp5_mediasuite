@@ -1,0 +1,223 @@
+@import url(https://fonts.googleapis.com/css?family=Nothing+You+Could+Do);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+/* line 4, ../sass/_home.scss */
+* {
+  box-sizing: border-box !important;
+}
+
+/* line 8, ../sass/_home.scss */
+body {
+  margin: auto;
+  background-color: white;
+  line-height: 200%;
+  font-family: "Roboto";
+}
+
+/* line 19, ../sass/_home.scss */
+h4, h5, h6 {
+  font-family: "Lato";
+}
+
+/* line 23, ../sass/_home.scss */
+.bengfont {
+  font-family: 'akzidenz-grotesk-condensed', bebas_neueregular, Helvetica Neue, Arial, sans-serif;
+}
+
+/* line 28, ../sass/_home.scss */
+.navbar-brand img {
+  height: 22px;
+}
+
+/* line 33, ../sass/_home.scss */
+.labo-header {
+  margin-bottom: 30px;
+}
+/* line 34, ../sass/_home.scss */
+.labo-header h1 {
+  margin: 0px 0px 10px 0px;
+}
+
+/* line 40, ../sass/_home.scss */
+.home-separator {
+  margin: 50px 0px;
+}
+
+/* line 45, ../sass/_home.scss */
+.home-footer a {
+  color: #e00034;
+}
+
+/* line 50, ../sass/_home.scss */
+.collection-tab {
+  padding: 10px;
+  height: 100%;
+}
+
+/* line 55, ../sass/_home.scss */
+.dashboard-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* line 59, ../sass/_home.scss */
+.dashboard-header h3 {
+  width: 30%;
+  display: inline;
+}
+/* line 63, ../sass/_home.scss */
+.dashboard-header img {
+  display: inline;
+}
+
+/* line 69, ../sass/_home.scss */
+.labs-well {
+  background-color: white;
+  border: 2px solid #009fda;
+  border-radius: 0px;
+  min-height: 170px;
+  text-style: justify;
+}
+/* line 75, ../sass/_home.scss */
+.labs-well h3 {
+  font-family: 'Nothing You Could Do', cursive;
+}
+/* line 78, ../sass/_home.scss */
+.labs-well.labs-goto {
+  cursor: pointer;
+  border: 2px solid #e00034;
+}
+/* line 81, ../sass/_home.scss */
+.labs-well.labs-goto:hover {
+  border-color: black;
+  background-image: url("/static/images/small-curl.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+/* line 82, ../sass/_home.scss */
+.labs-well.labs-goto:hover h3 {
+  color: #e00034;
+}
+/* line 91, ../sass/_home.scss */
+.labs-well img {
+  max-width: 100%;
+  border: 10px solid #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+/* line 99, ../sass/_home.scss */
+.interactive {
+  cursor: pointer;
+}
+
+/* line 103, ../sass/_home.scss */
+.card {
+  padding: 0;
+  height: 380px;
+  margin: 32px 16px;
+  background-color: #f5f5f5;
+  border-radius: 2px;
+}
+/* line 109, ../sass/_home.scss */
+.card img {
+  display: block;
+  width: 328px;
+  height: 211px;
+  margin: auto;
+  max-width: 100%;
+}
+/* line 116, ../sass/_home.scss */
+.card .caption {
+  padding: 16px 16px 6px 16px;
+}
+/* line 119, ../sass/_home.scss */
+.card:hover {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+/* line 125, ../sass/_home.scss */
+.cardimage img {
+  max-width: 100%;
+  border: 10px solid white;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+/* line 1, ../sass/_searchkit.scss */
+.hidden {
+  display: none;
+}
+
+/* line 4, ../sass/_searchkit.scss */
+.search-box {
+  padding: 0px;
+  border-radius: 4px;
+  border: 1px solid dodgerblue;
+  background-color: 'white';
+}
+
+/* line 10, ../sass/_searchkit.scss */
+.sk-pagination-navigation.is-numbered {
+  width: 90%;
+  margin: 5%;
+  overflow: hidden;
+}
+
+/* line 16, ../sass/_searchkit.scss */
+.sk-layout__body {
+  min-width: 0;
+}
+
+/* line 19, ../sass/_searchkit.scss */
+.sk-search-box__text {
+  color: black !important;
+}
+
+/* line 22, ../sass/_searchkit.scss */
+.filter-option {
+  color: crimson;
+}
+
+/* line 25, ../sass/_searchkit.scss */
+.search-layout {
+  backgroundColor: white;
+}
+
+/* line 29, ../sass/_searchkit.scss */
+.sk-hits__item {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid dodgerblue;
+  border-radius: 4px;
+}
+
+/* line 36, ../sass/_searchkit.scss */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/* line 44, ../sass/_searchkit.scss */
+.x.axis path {
+  display: none;
+}
+
+/* line 49, ../sass/_searchkit.scss */
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+/* line 1, ../sass/_player.scss */
+#timebar {
+  width: 100%;
+  height: 50px;
+  display: block;
+  position: relative;
+  margin-top: 10px;
+  background-color: black;
+  cursor: crosshair;
+}

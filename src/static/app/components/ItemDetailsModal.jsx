@@ -28,7 +28,7 @@ class ItemDetailsModal extends React.Component {
 		});
 		return (
 			<div className="modal">
-				<div className="modal-dialog">
+				<div className="modal-dialog modal-lg">
 					<div className="modal-content">
 						<div className="modal-header">
 							<button type="button" className="close" data-dismiss="modal">x</button>

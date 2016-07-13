@@ -3,10 +3,11 @@
 	"name" : "B&G radio lab",
 	"description" : "Doorzoek en beluister de radio collecties van Beeld en Geluid binnen een verrijkte context",
 	"ingredients" : {
-		"collectionSelector": true,
+		"collectionSelector": false,
 		"collections": [
-			"labs-catalogue-aggr"
+			"spraak__andernieuws"
 		],
-		"lineChart": false
+		"lineChart": false,
+		"playout-base": "http://os-immix-w/an-mp3/mp3_15102015/NOS_JOURNAAL_-WON01432620_72939720_73069760.mp3"
 	}
 }
