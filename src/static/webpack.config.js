@@ -1,16 +1,24 @@
-//TODO d3 via deze route ook inladen
+/*
+	This configuration is for making a library out of everything that is in the /static/app dir
 
-//http://webpack.github.io/docs/usage.html
-//https://www.sitepoint.com/javascript-modules-bundling-transpiling/
-//http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6
-//https://github.com/petehunt/webpack-howto
-//https://medium.com/@dtothefp/why-can-t-anyone-write-a-simple-webpack-tutorial-d0b075db35ed#.l95n3w625
-//https://github.com/webpack/react-starter
+	Webpack config options:
+		https://github.com/webpack/docs/wiki/configuration
 
-//WEBPACK CONFIG OPTIONS
-//https://github.com/webpack/docs/wiki/configuration#outputpublicpath
+	About the bootstrap-loader and the .bootstraprc file:
+		https://github.com/shakacode/bootstrap-loader
 
-//TODO maybe install https://github.com/lodash/lodash-webpack-plugin
+	Random list of useful pages to read to understand webpack, babel, react:
+		http://webpack.github.io/docs/usage.html
+		https://www.sitepoint.com/javascript-modules-bundling-transpiling/
+		http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6
+		https://github.com/petehunt/webpack-howto
+		https://medium.com/@dtothefp/why-can-t-anyone-write-a-simple-webpack-tutorial-d0b075db35ed#.l95n3w625
+		https://github.com/webpack/react-starter
+
+	TODO (to improve):
+		- d3 is not nicely included via the /static/app or this config (so a separate include is still needed)
+		- This might optimize the size of the benglabs.js: https://github.com/lodash/lodash-webpack-plugin
+*/
 
 var webpack = require('webpack');
 var path = require('path');
