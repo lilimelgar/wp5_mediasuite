@@ -6,7 +6,7 @@ const CollectionDataUtil = {
 	},
 
 	extractStructuredData : function(result) {
-		let parsedResult = {
+		let basicData = {
 			title : 'No title',
 			date : 'No date',
 			abstract : 'No description'
@@ -14,11 +14,17 @@ const CollectionDataUtil = {
 		//try to extract different formats if the data is unknown
 		for(let key in result) {
 			let pr = CollectionDataUtil.extractDIDLData(result);
-			if(pr != null) { parsedResult = pr; break; }
+			if(pr != null) { basicData = pr; break; }
 			pr = CollectionDataUtil.extractCMDData(result);
-			if(pr != null) { parsedResult = pr; break; }
+			if(pr != null) { basicData = pr; break; }
 		}
-		return parsedResult;
+		result.title = result.title ? result.title : basicData.title;
+		result.date = result.date ? result.date : basicData.date;
+		result.abstract = result.abstract ? result.abstract : basicData.abstract;
+		if (basicData.playableContent) {
+			result.playableContent = basicData.playableContent;
+		}
+		return result;
 	},
 
 	//verteld verleden collecties hebben veelal DIDL?
@@ -27,7 +33,8 @@ const CollectionDataUtil = {
 			return {
 				title : result['oaipmh:metadata']['didl:DIDL']['didl:Item']['didl:Item'][0]['didl:Component']['didl:Resource']['mods:mods']['mods:titleInfo']['mods:title'],
 				date : result['oaipmh:metadata']['didl:DIDL']['didl:Item']['didl:Item'][0]['didl:Component']['didl:Resource']['mods:mods']['mods:originInfo']['mods:dateCreated'],
-				abstract : result['oaipmh:metadata']['didl:DIDL']['didl:Item']['didl:Item'][0]['didl:Component']['didl:Resource']['mods:mods']['mods:abstract']
+				abstract : result['oaipmh:metadata']['didl:DIDL']['didl:Item']['didl:Item'][0]['didl:Component']['didl:Resource']['mods:mods']['mods:abstract'],
+				playableContent : null //TODO
 			}
 		}
 		return null;

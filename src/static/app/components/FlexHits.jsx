@@ -27,16 +27,16 @@ class FlexHits extends React.Component {
 		return (
 			<div
 				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
-				key={result.id}
+				key={result._id}
 				onClick={this.handleShowModal.bind(this)}
 			>
 				<SearchResult data={snippet}/>
 
 				{this.state.showModal ?
 					<FlexModal
-						key={result.id + '__modal'}
+						key={result._id + '__modal'}
 						handleHideModal={this.handleHideModal.bind(this)}
-						title={result.id}>
+						title={result.title}>
 						<ItemDetails data={result}/>
 					</FlexModal>: null
 				}
