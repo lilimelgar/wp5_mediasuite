@@ -62,8 +62,7 @@ class Recipe extends React.Component {
 			elementId : stats.service.collection,
 			dateFields: dateFields,
 			prefixQueryFields: searchableFields,
-			facets: facets,
-			hitsComponent: config.getSearchHitClass()
+			facets: facets
 		}
 		return block;
 	}
@@ -134,7 +133,6 @@ class Recipe extends React.Component {
 					prefixQueryFields={searchBox.prefixQueryFields}
 					dateFields={searchBox.dateFields}
 					facets={searchBox.facets}
-					hitsComponent={searchBox.hitsComponent}
 				/>
 				</div>
 				);

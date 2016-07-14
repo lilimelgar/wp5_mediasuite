@@ -1,12 +1,8 @@
 import React from 'react';
 import TimeUtil from '../../util/TimeUtil.js';
-import CollectionUtil from '../../util/CollectionUtil.js';
-import FlexModal from '../../components/FlexModal.jsx';
-import {CollectionConfig} from './CollectionConfig.jsx';
-import SearchResult from '../../components/SearchResult.jsx';
-import ItemDetails from '../../components/ItemDetails.jsx';
+import CollectionConfig from './CollectionConfig.jsx';
 
-export class NISVCatalogueConfig extends CollectionConfig {
+class NISVCatalogueConfig extends CollectionConfig {
 	constructor() {
 		super();
 	}
@@ -63,10 +59,6 @@ export class NISVCatalogueConfig extends CollectionConfig {
 		return ['sortdate'];
 	}
 
-	getSearchHitClass() {
-		return NISVCatalogueHit;
-	}
-
 	getItemDetailData(result) {
 		var parsedResult = {
 			'title': "",
@@ -119,48 +111,4 @@ export class NISVCatalogueConfig extends CollectionConfig {
 	}
 }
 
-
-// Search hit element definition
-export class NISVCatalogueHit extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			showModal : false,
-			config: CollectionUtil.determineConfig('labs-catalogue-aggr')
-		}
-	}
-
-	handleShowModal() {
-		this.setState({showModal: true})
-	}
-
-	handleHideModal() {
-		this.setState({showModal: false})
-	}
-
-	render() {
-		let result = this.state.config.getItemDetailData(this.props.result);
-		let snippet = this.state.config.getResultSnippetData(result);
-		return (
-			<div
-				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
-				key={result.program_id}
-				onClick={this.handleShowModal.bind(this)}
-			>
-
-				<SearchResult data={snippet}/>
-
-				{this.state.showModal ?
-					<FlexModal
-						key={result.id + '__modal'}
-						handleHideModal={this.handleHideModal.bind(this)}
-						title={result.title ? result.title : 'no title'}>
-						<ItemDetails data={result}/>
-					</FlexModal>: null
-				}
-
-			</div>
-
-		);
-	}
-}
+export default NISVCatalogueConfig;

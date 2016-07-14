@@ -17,6 +17,7 @@ TODO
 */
 
 import * as React from 'react';
+import FlexHits from './FlexHits';
 
 import {
     Hits,
@@ -54,7 +55,8 @@ class FacetSearchComponent extends React.Component {
 		super(props);
 		this.initSearchKit();
 		this.state = {
-			displayFacets: this.props.facets ? true : false
+			displayFacets: this.props.facets ? true : false,
+			collectionId: this.props.blockId
 		};
 	}
 
@@ -161,7 +163,7 @@ class FacetSearchComponent extends React.Component {
 
 						<div className="sk-layout__results sk-results-list">
 							<div className="sk-result_action-bar sk-action-bar">
-								<Hits hitsPerPage={10} itemComponent={this.props.hitsComponent}/>
+								<Hits hitsPerPage={10} itemComponent={<FlexHits collectionId={this.props.blockId}/>}/>
 
 								<NoHits translations={{
 									 "NoHits.NoResultsFound":"No results found were found for {query}",

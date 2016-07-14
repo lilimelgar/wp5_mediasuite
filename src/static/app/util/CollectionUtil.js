@@ -12,10 +12,10 @@ In general what needs to be considered is:
 
 */
 
-import {CollectionConfig} from '../collection/mappings/CollectionConfig.jsx';
-import {NISVCatalogueConfig} from '../collection/mappings/NISVCatalogueConfig.jsx';
-import {NISVProgramGuideConfig} from '../collection/mappings/NISVProgramGuideConfig.jsx';
-import {SpeechAndernieuwsConfig} from '../collection/mappings/SpeechAndernieuwsConfig.jsx';
+import CollectionConfig from '../collection/mappings/CollectionConfig.jsx';
+import NISVCatalogueConfig from '../collection/mappings/NISVCatalogueConfig.jsx';
+import NISVProgramGuideConfig from '../collection/mappings/NISVProgramGuideConfig.jsx';
+import SpeechAndernieuwsConfig from '../collection/mappings/SpeechAndernieuwsConfig.jsx';
 import TimeUtil from '../util/TimeUtil.js';
 
 const CollectionUtil = {
