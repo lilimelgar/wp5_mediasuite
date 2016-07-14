@@ -12,24 +12,25 @@ In general what needs to be considered is:
 
 */
 
+import {CollectionConfig} from '../collection/mappings/CollectionConfig.jsx';
 import {NISVCatalogueConfig} from '../collection/mappings/NISVCatalogueConfig.jsx';
 import {NISVProgramGuideConfig} from '../collection/mappings/NISVProgramGuideConfig.jsx';
 import {SpeechAndernieuwsConfig} from '../collection/mappings/SpeechAndernieuwsConfig.jsx';
-import {GenericCollectionConfig} from '../collection/mappings/GenericCollectionConfig.jsx';
 import TimeUtil from '../util/TimeUtil.js';
 
 const CollectionUtil = {
 
 	COLLECTION_MAPPING : {
-		'labs-catalogue-aggr': NISVCatalogueConfig,
-		'nisv_programguides': NISVProgramGuideConfig,
-		'spraak__andernieuws' : SpeechAndernieuwsConfig
+		'__default__' : new CollectionConfig(),
+		'labs-catalogue-aggr': new NISVCatalogueConfig(),
+		'nisv_programguides': new NISVProgramGuideConfig(),
+		'spraak__andernieuws' : new SpeechAndernieuwsConfig()
 	},
 
 	determineConfig : function(collectionId) {
 		var config = CollectionUtil.COLLECTION_MAPPING[collectionId];
 		if(config == undefined) {
-			config = GenericCollectionConfig;
+			config = new CollectionConfig();
 		}
 		return config;
 	},

@@ -1,67 +1,44 @@
 import React from 'react';
 import TimeUtil from '../../util/TimeUtil.js';
 import CollectionUtil from '../../util/CollectionUtil.js';
+import CollectionDataUtil from '../../util/CollectionDataUtil.js';
 import FlexModal from '../../components/FlexModal.jsx';
-import {CollectionConfig} from './CollectionConfig.jsx';
 import SearchResult from '../../components/SearchResult.jsx';
 import ItemDetails from '../../components/ItemDetails.jsx';
 
-export class SpeechAndernieuwsConfig extends CollectionConfig {
-	constructor() {
-		super();
-	}
+//base class for each collection configuration
+export class CollectionConfig {
+	constructor(){}
 
-	getDocumentType() {
-		return 'asr_chunk';
-	}
+	getDocumentType() {return null;}
 
-	getSearchableFields() {
-		return ["words"];
-	}
+	getSearchableFields() {return null;}
 
-	getDateFields() {
-		return ['metadata.broadcast_date'];
-	}
+	getDateFields() {return null;}
 
-	getFacets() {
-		var ranges = TimeUtil.generateYearAggregationSK(1910, 2010);
-		return [
-			{
-				field: 'keywords.word',
-				title : 'Keyword',
-				id : 'keyword',
-				operator : 'AND',
-				size : 10
-			}
-		];
-	}
+	getFacets() {return null;}
 
-	getSearchHitClass() {
-		return SpeechAndernieuwsHit;
-	}
+	getSearchHitClass() {return CollectionHit;}
 
 	getItemDetailData(result) {
-		//http://os-immix-w/an-mp3
-		return result;
+		return CollectionDataUtil.extractStructuredData(result);
 	}
 
 	getResultSnippetData(result) {
 		return {
-			id: result.asr_file,
-			speech: result.words
+			title: result.title,
+			date: result.date
 		}
-
 	}
 }
 
-
-// Search hit element definition
-export class SpeechAndernieuwsHit extends React.Component {
+//base class for a each collection specific SearchKit Hit within the FacetSearchComponent
+export class CollectionHit extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showModal : false,
-			config: CollectionUtil.determineConfig('spraak__andernieuws')
+			modalIsOpen: false,
+			config: CollectionUtil.determineConfig('__default__')
 		};
 	}
 
@@ -75,6 +52,7 @@ export class SpeechAndernieuwsHit extends React.Component {
 
 	render() {
 		let result = this.state.config.getItemDetailData(this.props.result);
+		console.debug(result);
 		let snippet = this.state.config.getResultSnippetData(result);
 		return (
 			<div
@@ -92,7 +70,6 @@ export class SpeechAndernieuwsHit extends React.Component {
 						<ItemDetails data={result}/>
 					</FlexModal>: null
 				}
-
 			</div>
 		);
 	}

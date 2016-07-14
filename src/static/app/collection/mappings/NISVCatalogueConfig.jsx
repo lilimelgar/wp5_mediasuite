@@ -1,22 +1,30 @@
 import React from 'react';
 import TimeUtil from '../../util/TimeUtil.js';
-import ItemDetailsModal from '../../components/ItemDetailsModal.jsx'
+import CollectionUtil from '../../util/CollectionUtil.js';
+import FlexModal from '../../components/FlexModal.jsx';
+import {CollectionConfig} from './CollectionConfig.jsx';
+import SearchResult from '../../components/SearchResult.jsx';
+import ItemDetails from '../../components/ItemDetails.jsx';
 
-export const NISVCatalogueConfig = {
-	getDocumentType: function() {
+export class NISVCatalogueConfig extends CollectionConfig {
+	constructor() {
+		super();
+	}
+
+	getDocumentType() {
 		return 'program_aggr';
-	},
+	}
 
-	getSearchableFields: function() {
+	getSearchableFields() {
 		return [
 			"bg:maintitles.bg:title",
 			"bga:series.bg:maintitles.bg:title",
 			"bg:publications.bg:publication.bg:broadcasters.bg:broadcaster",
 			"bg:summary","bg:description"
 		];
-	},
+	}
 
-	getFacets: function() {
+	getFacets() {
 		var ranges = TimeUtil.generateYearAggregationSK(1910, 2010);
 		return [
 			{
@@ -49,28 +57,17 @@ export const NISVCatalogueConfig = {
 				size : 10
 			}
 		];
-	},
+	}
 
-	getDateFields: function() {
+	getDateFields() {
 		return ['sortdate'];
-	},
+	}
 
-	getSearchHitClass: function() {
+	getSearchHitClass() {
 		return NISVCatalogueHit;
 	}
-}
 
-
-// Search hit element definition
-export class NISVCatalogueHit extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			showModal : false
-		}
-	}
-
-	formatSearchResults(result) {
+	getItemDetailData(result) {
 		var parsedResult = {
 			'title': "",
 			"program_id": result['dc:identifier'],
@@ -112,6 +109,27 @@ export class NISVCatalogueHit extends React.Component {
 		return parsedResult;
 	}
 
+	getResultSnippetData(result) {
+		return {
+			title: result.title ? result.title : 'no title',
+			broadcastDate: result.broadcast_date ? ' (' + result.broadcast_date + ')': '',
+			broadcaster: result.broadcaster,
+			genre: result.genre
+		}
+	}
+}
+
+
+// Search hit element definition
+export class NISVCatalogueHit extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			showModal : false,
+			config: CollectionUtil.determineConfig('labs-catalogue-aggr')
+		}
+	}
+
 	handleShowModal() {
 		this.setState({showModal: true})
 	}
@@ -121,36 +139,25 @@ export class NISVCatalogueHit extends React.Component {
 	}
 
 	render() {
-		const result = this.formatSearchResults(this.props.result);
+		let result = this.state.config.getItemDetailData(this.props.result);
+		let snippet = this.state.config.getResultSnippetData(result);
 		return (
 			<div
 				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
 				key={result.program_id}
 				onClick={this.handleShowModal.bind(this)}
 			>
-				<table>
-					<tbody>
-						<tr>
-							<td>
-								<span>
-									<strong>
-										{result.title ? result.title : 'no title'}
-										{result.broadcast_date ? ' (' + result.broadcast_date + ')': ''}
-									</strong>
-								</span><br/>
-								<span>{result.broadcaster}</span><br/>
-								<span>{result.genre}</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 
-				{this.state.showModal ? <ItemDetailsModal
-					key='details_modal'
-					handleHideModal={this.handleHideModal.bind(this)}
-					data={result}
-					title={result.title ? result.title : 'no title'}
-				/> : null}
+				<SearchResult data={snippet}/>
+
+				{this.state.showModal ?
+					<FlexModal
+						key={result.id + '__modal'}
+						handleHideModal={this.handleHideModal.bind(this)}
+						title={result.title ? result.title : 'no title'}>
+						<ItemDetails data={result}/>
+					</FlexModal>: null
+				}
 
 			</div>
 

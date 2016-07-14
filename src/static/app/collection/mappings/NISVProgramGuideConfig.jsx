@@ -1,19 +1,25 @@
 import React from 'react';
 import TimeUtil from '../../util/TimeUtil.js';
-import ItemDetailsModal from '../../components/ItemDetailsModal.jsx'
+import CollectionUtil from '../../util/CollectionUtil.js';
+import FlexModal from '../../components/FlexModal.jsx';
+import {CollectionConfig} from './CollectionConfig.jsx';
+import SearchResult from '../../components/SearchResult.jsx';
+import ItemDetails from '../../components/ItemDetails.jsx';
 
-export const NISVProgramGuideConfig = {
-	getDocumentType: function() {
+export class NISVProgramGuideConfig extends CollectionConfig {
+	constructor() {
+		super();
+	}
+
+	getDocumentType() {
 		return 'block';
-	},
+	}
 
-	getSearchableFields: function() {
-		return [
-			"block.text"
-		];
-	},
+	getSearchableFields() {
+		return ["block.text"];
+	}
 
-	getFacets: function() {
+	getFacets() {
 		var ranges = TimeUtil.generateYearAggregationSK(1910, 2010);
 		return [
 			{
@@ -39,14 +45,28 @@ export const NISVProgramGuideConfig = {
 
 			}
 		];
-	},
+	}
 
-	getDateFields: function() {
+	getDateFields() {
 		return ['jaar'];
-	},
+	}
 
-	getSearchHitClass: function() {
+	getSearchHitClass() {
 		return NISVProgramGuideHit;
+	}
+
+	getItemDetailData(result) {
+		return result;
+	}
+
+	getResultSnippetData(result) {
+		return {
+			id: result.id,
+			text: result.text,
+			broadcastDate: result.broadcast_date,
+			year: result.year
+		}
+
 	}
 }
 
@@ -55,7 +75,8 @@ export class NISVProgramGuideHit extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showModal : false
+			showModal : false,
+			config: CollectionUtil.determineConfig('nisv_programguides')
 		};
 	}
 
@@ -72,34 +93,24 @@ export class NISVProgramGuideHit extends React.Component {
 	}
 
 	render() {
-		const result = this.formatSearchResults(this.props.result);
-		var resultDetails = Object.keys(result).map((key)=> {
-			return (<span><strong>{key}:</strong>{result[key]}<br/></span>)
-		});
+		let result = this.state.config.getItemDetailData(this.props.result);
+		let snippet = this.state.config.getResultSnippetData(result);
 		return (
 			<div
 				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
 				key={result.id}
 				onClick={this.handleShowModal.bind(this)}
 			>
-				<table>
-					<tbody>
-						<tr>
-							<td>
-								<span>{result.id}</span><br/>
-								<span>{result.text} ({result.broadcast_date})</span><br/>
-								<span>{result.year}</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<SearchResult data={snippet}/>
 
-				{this.state.showModal ? <ItemDetailsModal
-					key='details_modal_program_guides'
-					handleHideModal={this.handleHideModal.bind(this)}
-					data={result}
-					title={result.id}
-				/> : null}
+				{this.state.showModal ?
+					<FlexModal
+						key={result.id + '__modal'}
+						handleHideModal={this.handleHideModal.bind(this)}
+						title={result.id}>
+						<ItemDetails data={result}/>
+					</FlexModal> : null
+				}
 
 			</div>
 		);

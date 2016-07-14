@@ -1,13 +1,13 @@
 {
 	"id" : "beng-radio-lab",
 	"name" : "B&G radio lab",
-	"description" : "Doorzoek en beluister de radio collecties van Beeld en Geluid binnen een verrijkte context",
+	"description" : "Doorzoek een beluister de radio content van Beeld en Geluid",
 	"ingredients" : {
 		"collectionSelector": false,
 		"collections": [
-			"spraak__andernieuws"
+			"spraak__andernieuws",
+			"soundbites"
 		],
-		"lineChart": false,
-		"playout-base": "http://os-immix-w/an-mp3/mp3_15102015/NOS_JOURNAAL_-WON01432620_72939720_73069760.mp3"
+		"lineChart": false
 	}
 }

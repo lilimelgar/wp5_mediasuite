@@ -221,3 +221,8 @@ h4, h5, h6 {
   background-color: black;
   cursor: crosshair;
 }
+
+/* line 12, ../sass/_player.scss */
+.media-player img {
+  max-width: 100%;
+}
