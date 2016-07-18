@@ -4,6 +4,10 @@
 	Webpack config options:
 		https://github.com/webpack/docs/wiki/configuration
 
+	How to make a proper component library
+		https://github.com/webpack/webpack/tree/master/examples/multi-part-library
+		http://www.reactjsx.com/
+
 	About the bootstrap-loader and the .bootstraprc file:
 		https://github.com/shakacode/bootstrap-loader
 
@@ -30,15 +34,19 @@ var BUILD_DIR = path.resolve(__dirname, 'public/assets');
 var APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {
-	entry: [ 'bootstrap-loader', APP_DIR + '/index.jsx'],
+	entry:
+		[ 'bootstrap-loader', APP_DIR + '/index.jsx']
+	,
 
 	output: {
 		path: BUILD_DIR,
 		publicPath: '/static/public/assets/',
 		filename: 'benglabs.js',
 		library: 'clariah',
-    	libraryTarget: 'umd',
-    	umdNamedDefine: true
+		// filename: "benglabs.[name].js",
+		//library: ["benglabs", "[name]"],
+		libraryTarget: 'umd'
+		//umdNamedDefine: true
 	},
 
 	resolve: { extensions: ['', '.js', '.jsx'] },
@@ -53,8 +61,8 @@ var config = {
 			},
 			{ test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' },
 			{
-	        	test: /\.css$/,
-	        	loaders: [
+				test: /\.css$/,
+				loaders: [
 					'style',
 					'css?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
 					'postcss',
@@ -62,7 +70,7 @@ var config = {
 			},
 			{
 				test: /\.scss$/,
-	        	loaders: [
+				loaders: [
 					'style',
 					'css?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]',
 					'postcss',
@@ -70,10 +78,15 @@ var config = {
 				],
 			},
 			{ test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
-    		{ test: /\.(ttf|eot)$/, loader: 'file' },
+			{ test: /\.(ttf|eot)$/, loader: 'file' },
 		]
-	}
+	},
 
+	externals: {
+        // Use external version of React
+        "react": "React",
+        "react-dom": "ReactDOM"
+    }
 };
 
 module.exports = config;

@@ -51,7 +51,9 @@ class CollectionSelector extends React.Component {
 		e.preventDefault();
 		let collectionId = $('#collection_select option:selected').val();
 		//propagate the choice to the overarching Recipe.jsx (TODO this should be reflected as a state var instead)
-		this.props.onEditCollections(collectionId);
+		if(this.props.onEditCollections) {
+			this.props.onEditCollections(collectionId);
+		}
 		document.getElementById('collection_select').selectedIndex = 0;
 	}
 

@@ -23,14 +23,14 @@ class NISVCatalogueConfig extends CollectionConfig {
 	getFacets() {
 		var ranges = TimeUtil.generateYearAggregationSK(1910, 2010);
 		return [
-			{
-				field: 'bg:publications.bg:publication.bg:sortdate',
-				title : 'Uitzenddatum',
-				id : 'sortdate',
-				operator : 'AND',
-				size : 10,
-				ranges: ranges//this yearly range is only for being able to draw the timeline
-			},
+			// {
+			// 	field: 'bg:publications.bg:publication.bg:sortdate',
+			// 	title : 'Uitzenddatum',
+			// 	id : 'sortdate',
+			// 	operator : 'AND',
+			// 	size : 10,
+			// 	ranges: ranges//this yearly range is only for being able to draw the timeline
+			// },
 			{
 				field: 'bg:publications.bg:publication.bg:broadcasters.bg:broadcaster.raw',
 				title : 'Broadcaster',

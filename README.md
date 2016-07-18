@@ -99,7 +99,10 @@ While the watcher is running any changes to the *.scss files in the /static/sass
 
 You can change the compass configuration by editing /src/static/config.rb
 
+## Reading
 
-### Who do I talk to? ###
+https://docs.google.com/presentation/d/1afMLTCpRxhJpurQ97VBHCZkLbR1TEsRnd3yyxuSQ5YY/edit#slide=id.p
+
+## Who do I talk to? ###
 
 * Jaap Blom, Marijn Koolen

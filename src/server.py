@@ -94,6 +94,10 @@ def annotatevideo():
 def apis():
 	return render_template('apis.html', loggedIn=isLoggedIn(request))
 
+@app.route('/components')
+def components():
+	return render_template('components.html', loggedIn=isLoggedIn(request))
+
 @app.route('/recipes')
 def recipes():
 	if app.config['RECIPES'] == None:

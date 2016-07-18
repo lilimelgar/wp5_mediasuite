@@ -35,20 +35,6 @@ import {
 	NumericRefinementListFilter
 } from "searchkit";
 
-//overwrites the default loading component
-const InitialLoaderComponent = (props) => (
-	<div className="item">
-		loading, please wait...
-	</div>
-);
-
-//TODO this is a temporary trick to remove the year facet from view
-const NumericRefinementOption = (props) => (
-	<div className="invisible">
-
-	</div>
-)
-
 //the CLARIAH facet search component
 class FacetSearchComponent extends React.Component {
 	constructor(props) {
@@ -67,26 +53,24 @@ class FacetSearchComponent extends React.Component {
 			searchOnLoad: false
 		});
 
-		//update the lineChart after receiving each new search result (TODO check for the existence of a lineChart etc)
-		let removalFn = this.skInstance.addResultsListener((results)=> {
-	  		setTimeout(function() {
-	  			this.updateLineChart(results)
-	  		}.bind(this), 1000);
-		})
+		//now this function is triggered for the linechart only, but it can be any function in the recipe.
+		if(this.props.onQueryOutput) {
+			let removalFn = this.skInstance.addResultsListener((results)=> {
+		  		setTimeout(function() {
+		  			//this propagates the query output back to the recipe, who will delegate it further to any configured visualisation
+		  			this.props.onQueryOutput(
+						this.props.blockId, //currently this is the same as the collection ID in the collection API
+						results, //the results of the query that was last issued
+						this.props.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
+					);
+		  		}.bind(this), 1000);
+			});
+		}
 
 		//this is currently default
 		this.skInstance.translateFunction = (key)=> {
 			return {"pagination.next": ">", "pagination.previous": "<"}[key]
 		}
-	}
-
-	//this propagates the query output back to the recipe, who will delegate it further to any configured visualisation
-	updateLineChart(queryResults) {
-		this.props.onQueryOutput(
-			this.props.blockId, //currently this is the same as the collection ID in the collection API
-			queryResults, //the results of the query that was last issued
-			this.props.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
-		);
 	}
 
 	toggleFacets() {
@@ -120,7 +104,7 @@ class FacetSearchComponent extends React.Component {
 							id={facet.id}
 							size={facet.size}
 							options={facet.ranges}
-							itemComponent={NumericRefinementOption}
+							//itemComponent={NumericRefinementOption}
 							/>
 					);
 				}
@@ -170,7 +154,7 @@ class FacetSearchComponent extends React.Component {
 									 "NoHits.DidYouMean":"Search for {suggestion}",
 									 "NoHits.SearchWithoutFilters":"Search for {query} without filters"
 								}}/>
-								<InitialLoader component={InitialLoaderComponent} />
+								<InitialLoader/>
 							</div>
 						</div>
 

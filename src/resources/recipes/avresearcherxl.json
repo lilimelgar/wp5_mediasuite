@@ -8,6 +8,6 @@
 			"labs-catalogue-aggr",
 			"nisv_programguides"
 		],
-		"lineChart": false
+		"lineChart": true
 	}
 }

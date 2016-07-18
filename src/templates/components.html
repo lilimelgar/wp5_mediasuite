@@ -1,0 +1,79 @@
+<!doctype HTML>
+
+<html>
+
+<head>
+	<title>L A B O - Components</title>
+	<link rel="stylesheet" href="/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/searchkit/0.8.3/theme.css">
+	<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+{% with page='components' %}
+{% include 'nav.html' %}
+{% endwith %}
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-offset-3 col-md-6">
+			<h3 class="text-center">Dit zijn tot nu toe de componenten die we ontwikkeld hebben</h3>
+
+			<!--TOOD elk component in een collapsable zetten -->
+			<!-- The facet search component-->
+
+			<div id="facet_search"></div>
+
+			<div id="collection_selector"></div>
+
+		</div>
+	</div>
+
+</div>
+
+</body>
+
+	<script src="/static/js/config.js"></script>
+
+	<!-- stupid d3 import -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+
+	<!-- import react -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.js"></script>
+
+
+    <script src="/static/public/assets/benglabs.js"></script>
+	<script type="text/babel">
+
+		var FacetSearchComponent = clariah.FacetSearchComponent;
+		var CollectionSelector = clariah.CollectionSelector;
+		var NISVCatalogueConfig = clariah.NISVCatalogueConfig;
+
+		//render the collection selector
+		ReactDOM.render(
+			<CollectionSelector/>,
+			document.getElementById('collection_selector')
+		)
+
+		//render the facet search component
+		ReactDOM.render(
+			<div>
+				<FacetSearchComponent
+					key="testbox"
+					blockId="labs-catalogue-aggr"
+					searchAPI={_config.SEARCH_API_BASE}
+					indexPath={'/search/labs-catalogue-aggr'}
+					prefixQueryFields={NISVCatalogueConfig.prefixQueryFields}
+					dateFields={NISVCatalogueConfig.dateFields}
+					facets={NISVCatalogueConfig.facets}/>
+			</div>
+			, document.getElementById('facet_search')
+		)
+
+	</script>
+</html>
