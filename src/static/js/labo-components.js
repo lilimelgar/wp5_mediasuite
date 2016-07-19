@@ -49,16 +49,16 @@ function getCollectionStats() {
 
 function getFacetSearchComponent() {
 	var FacetSearchComponent = clariah.FacetSearchComponent;
-	var NISVCatalogueConfig = clariah.NISVCatalogueConfig;
+	var config = new clariah.NISVCatalogueConfig();
 	return (
 		<FacetSearchComponent
 			key="testbox"
 			blockId="labs-catalogue-aggr"
 			searchAPI={_config.SEARCH_API_BASE}
 			indexPath={ '/search/labs-catalogue-aggr'}
-			prefixQueryFields={NISVCatalogueConfig.prefixQueryFields}
-			dateFields={NISVCatalogueConfig.dateFields}
-			facets={NISVCatalogueConfig.facets}/>
+			prefixQueryFields={config.getSearchableFields()}
+			dateFields={config.getDateFields()}
+			facets={config.getFacets()}/>
 	)
 }
 

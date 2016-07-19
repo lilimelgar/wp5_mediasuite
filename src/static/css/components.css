@@ -8914,6 +8914,74 @@ h4, h5, h6 {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
+/* line 1, ../sass/_searchkit.scss */
+.hidden {
+  display: none;
+}
+
+/* line 4, ../sass/_searchkit.scss */
+.search-box {
+  padding: 0px;
+  border-radius: 4px;
+  border: 1px solid dodgerblue;
+  background-color: 'white';
+}
+
+/* line 10, ../sass/_searchkit.scss */
+.sk-pagination-navigation.is-numbered {
+  width: 90%;
+  margin: 5%;
+  overflow: hidden;
+}
+
+/* line 16, ../sass/_searchkit.scss */
+.sk-layout__body {
+  min-width: 0;
+}
+
+/* line 19, ../sass/_searchkit.scss */
+.sk-search-box__text {
+  color: black !important;
+}
+
+/* line 22, ../sass/_searchkit.scss */
+.filter-option {
+  color: crimson;
+}
+
+/* line 25, ../sass/_searchkit.scss */
+.search-layout {
+  backgroundColor: white;
+}
+
+/* line 29, ../sass/_searchkit.scss */
+.sk-hits__item {
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid dodgerblue;
+  border-radius: 4px;
+}
+
+/* line 36, ../sass/_searchkit.scss */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/* line 44, ../sass/_searchkit.scss */
+.x.axis path {
+  display: none;
+}
+
+/* line 49, ../sass/_searchkit.scss */
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
 /* line 1, ../sass/_bootstrap-vertical-nav.scss */
 .navbar {
   margin-bottom: 0px !important;

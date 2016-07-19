@@ -3,8 +3,8 @@
 
 <head>
     <title>L A B O - Components</title>
-    <link rel="stylesheet" href="/static/css/components.css">
     <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/searchkit/0.8.3/theme.css">
+    <link rel="stylesheet" href="/static/css/components.css">
     <link href="/static/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
@@ -33,17 +33,17 @@
                         </div>
 
                         <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                            <ul class="nav navbar-nav" id="sidenav01">
+                            <ul class="nav navbar-nav" id="component_menu">
 
                                 <li class="active">
-                                    <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01" class="collapsed">
+                                    <a href="#" data-toggle="collapse" data-target="#menu_generic" data-parent="#component_menu" class="collapsed">
                                         <h4>
 										CLARIAH Components
 										<br>
 										<small>Choose <span class="caret"></span></small>
 										</h4>
                                     </a>
-                                    <div class="collapse" id="toggleDemo0" style="height: 0px;">
+                                    <div class="collapse" id="menu_generic" style="height: 0px;">
                                         <ul class="nav nav-list">
                                             <li><a href="#">ProfileSubMenu1</a></li>
                                             <li><a href="#">ProfileSubMenu2</a></li>
@@ -53,10 +53,10 @@
                                 </li>
 
                                 <li>
-                                    <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
+                                    <a href="#" data-toggle="collapse" data-target="#menu_collection" data-parent="#component_menu" class="collapsed">
                                         <span class="glyphicon glyphicon-cloud"></span>Collection<span class="caret pull-right"></span>
                                     </a>
-                                    <div class="collapse" id="toggleDemo" style="height: 0px;">
+                                    <div class="collapse" id="menu_collection" style="height: 0px;">
                                         <ul class="nav nav-list">
                                             <li><a href="#" onclick="showComponent('collection-selector')">Collection selector</a></li>
                                             <li><a href="#" onclick="showComponent('collection-stats')">Collection stats</a></li>
@@ -65,10 +65,10 @@
                                 </li>
 
                                 <li class="active">
-                                    <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
+                                    <a href="#" data-toggle="collapse" data-target="#menu_search" data-parent="#component_menu" class="collapsed">
                                         <span class="glyphicon glyphicon-inbox"></span> Search <span class="caret pull-right"></span>
                                     </a>
-                                    <div class="collapse" id="toggleDemo2" style="height: 0px;">
+                                    <div class="collapse" id="menu_search" style="height: 0px;">
                                         <ul class="nav nav-list">
                                             <li><a href="#" onclick="showComponent('facet-search')">Facet search</a></li>
                                             <li><a href="#" onclick="showComponent('search-result')">Search result</a></li>
@@ -91,7 +91,7 @@
             <div class="col-sm-9 col-md-10 affix-content">
                 <div class="container">
                     <div class="page-header">
-                        <h3><span class="glyphicon glyphicon-th-list"></span> Navigation</h3>
+                        <h3><span class="glyphicon glyphicon-tasks"></span> Try the component</h3>
                     </div>
                    	<div id="component_x">
 

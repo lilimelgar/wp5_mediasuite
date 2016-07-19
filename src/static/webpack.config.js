@@ -12,7 +12,7 @@
 	About the bootstrap-loader and the .bootstraprc file:
 		https://github.com/shakacode/bootstrap-loader
 
-	Random list of useful pages to read to understand webpack, babel, react:
+	List of useful pages to read to understand webpack, babel & react:
 		http://webpack.github.io/docs/usage.html
 		https://www.sitepoint.com/javascript-modules-bundling-transpiling/
 		http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6
@@ -20,9 +20,9 @@
 		https://medium.com/@dtothefp/why-can-t-anyone-write-a-simple-webpack-tutorial-d0b075db35ed#.l95n3w625
 		https://github.com/webpack/react-starter
 		https://www.bensmithett.com/smarter-css-builds-with-webpack/
+		https://docs.google.com/presentation/d/1afMLTCpRxhJpurQ97VBHCZkLbR1TEsRnd3yyxuSQ5YY/edit#slide=id.p
 
 	TODO (to improve):
-		- d3 is not nicely included via the /static/app or this config (so a separate include is still needed)
 		- This might optimize the size of the benglabs.js: https://github.com/lodash/lodash-webpack-plugin
 		- Optimize CSS imports per page: https://www.bensmithett.com/smarter-css-builds-with-webpack/
 		- split up different groups of functionalities in multiple bundles/libraries/webpack.config.js'es
@@ -44,8 +44,6 @@ var config = {
 		publicPath: '/static/public/assets/',
 		filename: 'benglabs.js',
 		library: 'clariah',
-		// filename: "benglabs.[name].js",
-		//library: ["benglabs", "[name]"],
 		libraryTarget: 'umd'
 		//umdNamedDefine: true
 	},
