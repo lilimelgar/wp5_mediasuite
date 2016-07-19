@@ -37,6 +37,7 @@ import {
 
 //the CLARIAH facet search component
 class FacetSearchComponent extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.initSearchKit();

@@ -22,6 +22,11 @@
 		https://www.bensmithett.com/smarter-css-builds-with-webpack/
 		https://docs.google.com/presentation/d/1afMLTCpRxhJpurQ97VBHCZkLbR1TEsRnd3yyxuSQ5YY/edit#slide=id.p
 
+	Generate docs (TODO):
+		- Try this one: https://github.com/pocotan001/react-styleguide-generator
+		- or convert all jsx files to js and run: npm run doc (which calls the esdoc)
+			- See: http://en.blog.koba04.com/2015/06/28/esdoc-documentation-for-react-and-es6/
+
 	TODO (to improve):
 		- This might optimize the size of the benglabs.js: https://github.com/lodash/lodash-webpack-plugin
 		- Optimize CSS imports per page: https://www.bensmithett.com/smarter-css-builds-with-webpack/

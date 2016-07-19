@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "dev": "webpack -d --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "doc": "esdoc -c esdoc.json"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "bootstrap-loader": "^1.0.10",
     "bootstrap-sass": "^3.3.6",
     "css-loader": "^0.23.1",
+    "esdoc": "^0.4.7",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "imports-loader": "^0.6.5",
