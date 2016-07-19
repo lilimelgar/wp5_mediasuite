@@ -7,6 +7,7 @@
 	How to make a proper component library
 		https://github.com/webpack/webpack/tree/master/examples/multi-part-library
 		http://www.reactjsx.com/
+		http://stackoverflow.com/questions/33108737/unable-to-use-es6-export-module-from-file-in-babel
 
 	About the bootstrap-loader and the .bootstraprc file:
 		https://github.com/shakacode/bootstrap-loader

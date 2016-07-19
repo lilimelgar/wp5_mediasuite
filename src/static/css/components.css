@@ -8914,86 +8914,159 @@ h4, h5, h6 {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
-/* line 1, ../sass/_searchkit.scss */
-.hidden {
-  display: none;
+/* line 1, ../sass/_bootstrap-vertical-nav.scss */
+.navbar {
+  margin-bottom: 0px !important;
 }
 
-/* line 4, ../sass/_searchkit.scss */
-.search-box {
-  padding: 0px;
-  border-radius: 4px;
-  border: 1px solid dodgerblue;
-  background-color: 'white';
-}
+/* make sidebar nav vertical */
+@media (min-width: 768px) {
+  /* line 7, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container {
+    width: 700px;
+  }
 
-/* line 10, ../sass/_searchkit.scss */
-.sk-pagination-navigation.is-numbered {
-  width: 90%;
-  margin: 5%;
-  overflow: hidden;
-}
+  /* line 11, ../sass/_bootstrap-vertical-nav.scss */
+  html, body {
+    background-color: #f8f8f8;
+    height: 100%;
+    overflow: hidden;
+  }
 
-/* line 16, ../sass/_searchkit.scss */
-.sk-layout__body {
-  min-width: 0;
-}
+  /* line 17, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container .page-header {
+    margin-top: 0;
+  }
 
-/* line 19, ../sass/_searchkit.scss */
-.sk-search-box__text {
-  color: black !important;
-}
+  /* line 21, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav {
+    position: fixed;
+    width: 100%;
+  }
 
-/* line 22, ../sass/_searchkit.scss */
-.filter-option {
-  color: crimson;
-}
+  /* line 26, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-sidebar {
+    padding-right: 0;
+    font-size: small;
+    padding-left: 0;
+  }
 
-/* line 25, ../sass/_searchkit.scss */
-.search-layout {
-  backgroundColor: white;
-}
+  /* line 31, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-row, .affix-container, .affix-content {
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 
-/* line 29, ../sass/_searchkit.scss */
-.sk-hits__item {
-  margin: 5px;
-  padding: 10px;
-  border: 1px solid dodgerblue;
-  border-radius: 4px;
-}
+  /* line 37, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content {
+    background-color: white;
+  }
 
-/* line 36, ../sass/_searchkit.scss */
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+  /* line 40, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
 
-/* line 44, ../sass/_searchkit.scss */
-.x.axis path {
-  display: none;
-}
+  /* line 45, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav .navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+    border: 0;
+  }
 
-/* line 49, ../sass/_searchkit.scss */
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
+  /* line 51, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav .navbar ul {
+    float: none;
+    display: block;
+  }
 
-/* line 1, ../sass/_player.scss */
-#timebar {
-  width: 100%;
-  height: 50px;
-  display: block;
-  position: relative;
-  margin-top: 10px;
-  background-color: black;
-  cursor: crosshair;
-}
+  /* line 55, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
 
-/* line 12, ../sass/_player.scss */
-.media-player img {
-  max-width: 100%;
+  /* line 59, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+@media (min-width: 769px) {
+  /* line 66, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container {
+    width: 600px;
+  }
+
+  /* line 69, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container .page-header {
+    margin-top: 0;
+  }
+}
+@media (min-width: 992px) {
+  /* line 75, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container {
+    width: 900px;
+  }
+
+  /* line 78, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container .page-header {
+    margin-top: 0;
+  }
+}
+@media (min-width: 1220px) {
+  /* line 84, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-row {
+    overflow: hidden;
+  }
+
+  /* line 88, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content {
+    overflow: auto;
+  }
+
+  /* line 92, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container {
+    width: 1000px;
+  }
+
+  /* line 96, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content .container .page-header {
+    margin-top: 0;
+  }
+
+  /* line 99, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-content {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  /* line 103, ../sass/_bootstrap-vertical-nav.scss */
+  .affix-title {
+    border-bottom: 1px solid #ecf0f1;
+    padding-bottom: 10px;
+  }
+
+  /* line 107, ../sass/_bootstrap-vertical-nav.scss */
+  .navbar-nav {
+    margin: 0;
+  }
+
+  /* line 110, ../sass/_bootstrap-vertical-nav.scss */
+  .navbar-collapse {
+    padding: 0;
+  }
+
+  /* line 113, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav .navbar li a:hover {
+    background-color: #428bca;
+    color: white;
+  }
+
+  /* line 117, ../sass/_bootstrap-vertical-nav.scss */
+  .sidebar-nav .navbar li a > .caret {
+    margin-top: 8px;
+  }
 }

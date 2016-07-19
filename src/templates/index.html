@@ -17,25 +17,35 @@
 
 <div class="container">
 
-	<header class="labo-header">
-
-		<h1 class="text-center">
-			<img src="/static/images/small-curl.png">&nbsp;&nbsp;Welcome to L A B O&nbsp;&nbsp;<img src="/static/images/small-curl.png"><br>
-			<small>We've jotted some things on the whiteboard for you to try</small>
-		</h1>
-	</header>
+	<h1 class="text-center">
+		Welcome to L A B O
+		<small>We've put up some things for you to try</small>
+	</h1>
 
 	<div class="row">
-
-		<div id="1" class="col-sm-6 col-md-4">
-			<div class="well labs-well labs-goto" onclick="gotoPage('search')">
-				<h3><i class="fa fa-search"></i>&nbsp;Search our catalogue</h3>
-				Try out our general purpose search interface, to get to grips with our collection
+		<div id="3" class="col-sm-6 col-md-4">
+			<div class="well labs-well labs-goto" onclick="gotoPage('components')">
+				<h3><i class="fa fa-video-camera"></i>&nbsp;Functionalities</h3>
+				Check out our useful components
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-8">
 			<div class="well labs-well">
-				By harvesting our OAI-PMH provider we've implemented an example search engine based on ElasticSearch. We consider this search engine to be useful for exploring our collection in a general sense. If you require more specific search strategies, we've documented the current approach.
+				In LABO each functionality for the end-user is available in the form of a UI component, check out the components page to see what we have to offer.
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div id="3" class="col-sm-6 col-md-4 card-wrapper">
+			<div class="well labs-well labs-goto" onclick="gotoPage('recipes')">
+				<h3><i class="fa fa-link"></i>&nbsp;Recipes</h3>
+				Try one of the predefined recipes
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-8">
+			<div class="well labs-well">
+				Based on the available components, LABO also offers a way of defining recipes using components, a.k.a. functionalities, as ingredients.
 			</div>
 		</div>
 
@@ -56,43 +66,42 @@
 	</div>
 
 	<div class="row">
-		<div id="3" class="col-sm-6 col-md-4 card-wrapper">
-			<div class="well labs-well labs-goto" onclick="gotoPage('semweb')">
-				<h3><i class="fa fa-link"></i>&nbsp;Semantic search</h3>
-				Use SPARQL to search our collection semantically.
+
+		<div id="1" class="col-sm-6 col-md-4">
+			<div class="well labs-well labs-goto" onclick="gotoPage('recipe/beng-catalogue-search')">
+				<h3><i class="fa fa-search"></i>&nbsp;Search our catalogue</h3>
+				Try out our general purpose search interface, to get to grips with our collection
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-8">
 			<div class="well labs-well">
-				Next to ElasticSearch we've implemented a search engine based on the ClioPatria triplestore. Again we've described the import process via OAI-PMH and also how we map to well-known RDF namespaces and reconsile with our <a href="gtaa.beeldengeluid.nl" target="_gtaa">Thesaurus</a>. We also provide a link to an RDF dump which is updated every day.
+				By harvesting our OAI-PMH provider we've implemented an example search engine based on ElasticSearch. We consider this search engine to be useful for exploring our collection in a general sense. If you require more specific search strategies, we've documented the current approach.
 			</div>
 		</div>
 
 	</div>
 
 	<div class="row">
-		<div id="3" class="col-sm-6 col-md-4">
-			<div class="well labs-well labs-goto" onclick="gotoPage('recommendation')">
-				<h3><i class="fa fa-video-camera"></i>&nbsp;Video recommendation</h3>
-				Find related news items for any news broadcast
+
+		<div id="5" class="col-sm-6 col-md-4">
+			<div class="well labs-well labs-goto" onclick="gotoPage('annotatevideo')">
+				<h3><i class="fa fa-search"></i>&nbsp;Annotate</h3>
+				Annotate audiovisual content
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-8">
 			<div class="well labs-well">
-				In cooperation with the university of Amsterdam we've developed an recommendation service for eight o'clock news broadcasts.
+				We've just begun implementing one of the functionalites related to the annotation of audiovisual resources
 			</div>
 		</div>
-	</div>
 
-	<br>
-	<br>
-	<br>
+	</div>
 
 	<h1 class="text-center">
 		<img src="/static/images/small-curl.png">&nbsp;&nbsp;Want to know more?&nbsp;&nbsp;<img src="/static/images/small-curl.png">
 		<br><small>Please have a look at the following links</small>
 	</h1>
-	<br>
+
 	<div class="text-center home-footer">
 		<h3>
 			For more information on Sound and Vision Labs, please visit our new
@@ -111,14 +120,11 @@
 		<br>
 	</div>
 
-
-
-</div> <!-- End container-->
+</div>
 
 </body>
 
-<script src="/static/bower_components/jquery/dist/jquery.js"></script>
-<script src="/static/bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
+<script src="/static/node_modules/jquery/dist/jquery.js"></script>
 <script src="/static/js/labo.js"></script>
 
 </html>

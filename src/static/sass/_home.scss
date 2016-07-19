@@ -30,13 +30,6 @@ h4, h5, h6 {
 	}
 }
 
-.labo-header {
-	h1 {
-		margin:0px 0px $defaultMargin 0px;
-	}
-	margin-bottom:$defaultMargin * 3;
-}
-
 .home-separator {
 	margin:$defaultMargin * 5 0px;
 }
@@ -50,20 +43,6 @@ h4, h5, h6 {
 .collection-tab {
 	padding:$defaultMargin;
 	height:100%;
-}
-
-.dashboard-header {
-	width:100%;
-	text-align:center;
-	margin-bottom:$defaultMargin * 2;
-	h3 {
-		width: 30%;
-		display: inline;
-	}
-	img {
-		display: inline;
-	}
-
 }
 
 .labs-well {
