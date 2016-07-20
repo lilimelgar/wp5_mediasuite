@@ -45,13 +45,12 @@
                                     </a>
                                     <div class="collapse" id="menu_generic" style="height: 0px;">
                                         <ul class="nav nav-list">
-                                            <li><a href="#">ProfileSubMenu1</a></li>
-                                            <li><a href="#">ProfileSubMenu2</a></li>
-                                            <li><a href="#">ProfileSubMenu3</a></li>
+                                            <li><a href="#">How to</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
+                                <!-- Collection components -->
                                 <li>
                                     <a href="#" data-toggle="collapse" data-target="#menu_collection" data-parent="#component_menu" class="collapsed">
                                         <span class="glyphicon glyphicon-cloud"></span>Collection<span class="caret pull-right"></span>
@@ -64,6 +63,7 @@
                                     </div>
                                 </li>
 
+                                <!-- Search components -->
                                 <li class="active">
                                     <a href="#" data-toggle="collapse" data-target="#menu_search" data-parent="#component_menu" class="collapsed">
                                         <span class="glyphicon glyphicon-inbox"></span> Search <span class="caret pull-right"></span>
@@ -71,14 +71,27 @@
                                     <div class="collapse in" id="menu_search">
                                         <ul class="nav nav-list">
                                             <li><a href="#" onclick="showComponent('facet-search')">Facet search</a></li>
-                                            <li><a href="#" onclick="showComponent('search-result')">Search result</a></li>
-                                            <li><a href="#" onclick="showComponent('item-details')">Item details</a></li>
                                         </ul>
                                     </div>
                                 </li>
+
+                                <!-- Data visualisation components -->
+                                <li class="active">
+                                    <a href="#" data-toggle="collapse" data-target="#menu_stats" data-parent="#component_menu" class="collapsed">
+                                        <span class="glyphicon glyphicon-inbox"></span> Data visualisations <span class="caret pull-right"></span>
+                                    </a>
+                                    <div class="collapse in" id="menu_stats">
+                                        <ul class="nav nav-list">
+                                            <li><a href="#" onclick="showComponent('line-chart')">Line chart</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <!--
                                 <li><a href="#"><span class="glyphicon glyphicon-lock"></span> Normalmenu</a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-calendar"></span> WithBadges <span class="badge pull-right">42</span></a></li>
                                 <li><a href=""><span class="glyphicon glyphicon-cog"></span> PreferencesMenu</a></li>
+                                -->
                             </ul>
                         </div>
 

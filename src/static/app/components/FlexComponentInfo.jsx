@@ -16,16 +16,6 @@ class FlexComponentInfo extends React.Component {
 
 	//TODO extend this to something more elaborate that also includes the component config
 	render() {
-		let config = {
-			key : "testbox",
-			blockId : "labs-catalogue-aggr",
-			searchAPI: _config.SEARCH_API_BASE,
-			indexPath: '/search/labs-catalogue-aggr',
-			prefixQueryFields: this.props.config.getSearchableFields(),
-			dateFields: this.props.config.getDateFields(),
-			facets: this.props.config.getFacets(),
-		}
-
 		//generate the config form TODO
 		// let configFormFields = Object.keys(this.props.config).map((key, index) => {
 		// 	let option = this.props.config[key];
@@ -36,8 +26,17 @@ class FlexComponentInfo extends React.Component {
 		// 	}
 		// })
 
-		let childrenWithProps = '';
+		let childrenWithProps = null;
 		if(this.props.config) {//this.state.componentConfig
+			let config = {
+				key : "testbox",
+				blockId : "labs-catalogue-aggr",
+				searchAPI: _config.SEARCH_API_BASE,
+				indexPath: '/search/labs-catalogue-aggr',
+				prefixQueryFields: this.props.config.getSearchableFields(),
+				dateFields: this.props.config.getDateFields(),
+				facets: this.props.config.getFacets(),
+			}
 			childrenWithProps = React.Children.map(this.props.children,
 				(child) => React.cloneElement(child, config)//this.state.componentConfig
 			);
@@ -53,7 +52,7 @@ class FlexComponentInfo extends React.Component {
 
 					</div>
 				</div>
-				{childrenWithProps}
+				{childrenWithProps ? childrenWithProps : this.props.children}
 			</div>
 		)
 	}

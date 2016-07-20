@@ -7,8 +7,7 @@ function showComponent(componentId) {
 		case 'collection-selector': component = getCollectionSelector();break;
 		case 'collection-stats': component = getCollectionStats();break;
 		case 'facet-search': component = getFacetSearchComponent();break;
-		case 'search-result': component = getSearchResult();break;
-		case 'item-details': component = getItemDetails();break;
+		case 'line-chart': component = getLineChartComponent();break;
 
 	}
 	if(component) {
@@ -64,41 +63,27 @@ function getFacetSearchComponent() {
 
 		</div>
 	)
-	/*
-	<FacetSearchComponent
-					key="testbox"
-					blockId="labs-catalogue-aggr"
-					searchAPI={_config.SEARCH_API_BASE}
-					indexPath={ '/search/labs-catalogue-aggr'}
-					prefixQueryFields={config.getSearchableFields()}
-					dateFields={config.getDateFields()}
-					facets={config.getFacets()}
-				/>
-	*/
 }
 
-function getSearchResult() {
-	var SearchResult = clariah.SearchResult;
-	var data = {
-		title : 'This is a good test',
-		date : 'somewhere in the future',
-		description : 'Well well well'
-	}
+/*******************************************************************************
+************************** Data visualisations ******************************
+*******************************************************************************/
+
+function getLineChartComponent() {
+	var LineChart = clariah.LineChart;
+	var FlexComponentInfo = clariah.FlexComponentInfo;
 	return (
-		<SearchResult data={data}/>
+		<div>
+			<FlexComponentInfo
+				title="Line chart"
+				description="This line chart is able to plot multiple paths of 2 dimensional data"
+			>
+				<LineChart/>
+			</FlexComponentInfo>
+
+		</div>
 	)
 }
 
-function getItemDetails() {
-	var ItemDetails = clariah.ItemDetails;
-	var data = {
-		title : 'This is a good test',
-		date : 'somewhere in the future',
-		description : 'Well well well'
-	}
-	return (
-		<ItemDetails data={data}/>
-	)
-}
 
 window.showComponent = showComponent;
