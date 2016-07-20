@@ -165,7 +165,9 @@ class LineChart extends React.Component {
 		}
 	}
 
-	//TODO properly handle queries with an unknown datefield
+	//TODO properly handle queries with an unknown datefield! In general this function is really hacky:
+	//it just tries to map the first field returned by getDateFields() with the returned aggregations,
+	//which are defined in getFacets() of each collection mapping file (see app/collection/mappings)
 	prepareChartData(data, callback) {
 		let formattedData = [];
 		if(data) {

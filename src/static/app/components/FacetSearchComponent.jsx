@@ -35,6 +35,12 @@ import {
 	NumericRefinementListFilter
 } from "searchkit";
 
+const NumericRefinementOption = (props) => (
+	<div className="invisible">
+
+	</div>
+ )
+
 //the CLARIAH facet search component
 class FacetSearchComponent extends React.Component {
 
@@ -105,7 +111,7 @@ class FacetSearchComponent extends React.Component {
 							id={facet.id}
 							size={facet.size}
 							options={facet.ranges}
-							//itemComponent={NumericRefinementOption}
+							itemComponent={NumericRefinementOption}
 							/>
 					);
 				}

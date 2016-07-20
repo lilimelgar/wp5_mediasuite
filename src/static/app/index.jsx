@@ -39,6 +39,7 @@ export {default as LineChart} from './components/LineChart.jsx';
 export {default as FlexBox} from './components/FlexBox.jsx';
 export {default as FlexHits} from './components/FlexHits.jsx';
 export {default as FlexModal} from './components/FlexModal.jsx';
+export {default as FlexComponentInfo} from './components/FlexComponentInfo.jsx';
 
 //collection mappings (should they be here?)
 export {default as CollectionConfig} from './collection/mappings/CollectionConfig.jsx';

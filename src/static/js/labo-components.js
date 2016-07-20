@@ -49,17 +49,32 @@ function getCollectionStats() {
 
 function getFacetSearchComponent() {
 	var FacetSearchComponent = clariah.FacetSearchComponent;
+	var FlexComponentInfo = clariah.FlexComponentInfo;
 	var config = new clariah.NISVCatalogueConfig();
 	return (
-		<FacetSearchComponent
-			key="testbox"
-			blockId="labs-catalogue-aggr"
-			searchAPI={_config.SEARCH_API_BASE}
-			indexPath={ '/search/labs-catalogue-aggr'}
-			prefixQueryFields={config.getSearchableFields()}
-			dateFields={config.getDateFields()}
-			facets={config.getFacets()}/>
+		<div>
+			<FlexComponentInfo
+				title="Facet search"
+				description="This component enables you to search a single collection using full text search and filtering
+				on different facets. Coming up: configuration options for end users"
+				config={config}
+			>
+				<FacetSearchComponent/>
+			</FlexComponentInfo>
+
+		</div>
 	)
+	/*
+	<FacetSearchComponent
+					key="testbox"
+					blockId="labs-catalogue-aggr"
+					searchAPI={_config.SEARCH_API_BASE}
+					indexPath={ '/search/labs-catalogue-aggr'}
+					prefixQueryFields={config.getSearchableFields()}
+					dateFields={config.getDateFields()}
+					facets={config.getFacets()}
+				/>
+	*/
 }
 
 function getSearchResult() {
