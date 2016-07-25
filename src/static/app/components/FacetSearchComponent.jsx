@@ -12,6 +12,7 @@ TODO
 3. When used 1 time in a page, this component is fine, but with more there are several annoying things (related to styling and the
 	focus traversal pattern between the input boxes that needs to be fixed)
 4. SearchKit does not yet support date related facets, the SK guys are working on this. For now I've hidden date related facets
+	- UPDATE: try out this new filter for dates https://github.com/GregoryPotdevin/searchkit-daterangefilter
 5. more stuff
 
 */

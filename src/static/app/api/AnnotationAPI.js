@@ -1,33 +1,21 @@
 const AnnotationAPI = {
 
-	saveAnnotation : function(annotationId, annotationData, callback) {
-		console.debug('Saving annotation...');
-		console.debug(annotationData);
-
+	saveAnnotation : function(annotation, callback) {
 		var url = _config.ANNOTATION_API_BASE + '/annotation';
 		var method = 'POST';
-		var data = {
-			data: [
-				{
-				key: 'tags',
-				value: annotationData
-				}
-			],
-			resourceURI: "http://data.beeldengeluid.nl/arttube-vimeo-example",
-			start : _start, //grab this from the player
-			end : _end //grab this from the player
+		annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example",
+		annotation.start = _start, //grab this from the player
+		annotation.end = _end //grab this from the player
 
-		}
-		if(annotationId) {
-			url += '/' + annotationId;
+		if(annotation.annotationId) {
+			url += '/' + annotation.annotationId;
 			method = 'PUT';
-			data["annotationId"] = annotationId;
 		}
 
 		$.ajax({
 			url : url,
 			type : method,
-			data : JSON.stringify(data),
+			data : JSON.stringify(annotation),
 			//dataType : 'application/json',
 			success : function(data) {
 				if(callback){

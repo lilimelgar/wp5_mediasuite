@@ -34,6 +34,7 @@ class FlexHits extends React.Component {
 
 				{this.state.showModal ?
 					<FlexModal
+						elementId={result._id + '__modal'}
 						key={result._id + '__modal'}
 						handleHideModal={this.handleHideModal.bind(this)}
 						title={result.title}>
