@@ -11,15 +11,14 @@ class AnnotationList extends React.Component {
 		var commentNodes = this.props.annotations.map(function(annotation) {
 			return (
 				<Annotation
+					key={annotation.annotationId}
 					activeAnnotation={this.props.activeAnnotation}
 					annotation={annotation}
-					key={annotation.annotationId}
 					editAnnotation={this.props.editAnnotation}
 					setAnnotation={this.props.setAnnotation}
 					playAnnotation={this.props.playAnnotation}
-					deleteAnnotation={this.props.deleteAnnotation}>
-					{annotation.resourceURI}
-				</Annotation>
+					deleteAnnotation={this.props.deleteAnnotation}
+				/>
 			);
 		}, this);
 		return (

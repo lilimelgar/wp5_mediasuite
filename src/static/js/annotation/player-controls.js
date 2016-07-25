@@ -1,5 +1,60 @@
+/*
+New way of rendering things
+*/
+
+var _player = clariah.VimeoPlayer;
+var AnnotationBox = clariah.AnnotationBox;
+_player.init({
+    loadProgress : function (data) {
+        console.debug('loadProgress event : ' +
+            data.percent + ' : ' +
+            data.bytesLoaded + ' : ' +
+            data.bytesTotal + ' : ' +
+            data.duration
+        );
+    },
+
+    playProgress : function(data) {
+        //console.debug('playProgress event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
+        getPosition();
+    },
+
+    play : function(data) {
+        console.debug('play event');
+        getDuration();
+        //_player.isPaused(onIsPaused)
+        _isPaused = false;
+    },
+
+    pause : function(paused) {
+        console.debug('pause event');
+        _isPaused = paused;
+    },
+
+    finish : function(data) {
+        console.debug('finish');
+    },
+
+    seek : function(data) {
+        console.debug('seek event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
+    }
+
+});
+
+//render the stuff on screen
+ReactDOM.render(
+    <div>
+        <AnnotationBox player={_player}/>
+    </div>, document.getElementById('annotation_box')
+);
+clariah.renderSegmentationControls('segmentation_controls');
+
+
+
+
+
 var videoUrl = '';
-var _player = null;//this can be a jw or vimeo player
+//var _player = null;//this can be a jw or vimeo player
 
 var _duration = 0;
 var _curPosition = 0;
@@ -57,38 +112,7 @@ function init() {
 /***********************************************************************************
  * player event callback functions
  **********************************************************************************/
-function onLoadProgress(data) {
-    //console.debug('loadProgress event : ' + data.percent + ' : ' + data.bytesLoaded + ' : ' + data.bytesTotal + ' : ' + data.duration);
-}
 
-function onPlayProgress(data) {
-    //console.debug('playProgress event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
-    getPosition();
-}
-
-function onPlay(data) {
-    console.debug('play event');
-    getDuration();
-    //_player.isPaused(onIsPaused)
-    _isPaused = false;
-}
-
-function onIsPaused(paused) {
-    _isPaused = paused;
-}
-
-function onPause(data) {
-    console.debug('pause event');
-    _isPaused = true;
-}
-
-function onFinish(data) {
-    console.debug('finish');
-}
-
-function onSeek(data) {
-    console.debug('seek event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
-}
 
 
 // function onPlayerTime(e) {
@@ -107,32 +131,34 @@ function onSeek(data) {
  * basic player controls
  **********************************************************************************/
 
-function play() {
+//TODO finish this stuff!
+
+window.play = function() {
     _player.play();
 }
 
-function pause() {
+window.pause = function() {
     _player.pause();
 }
 
-function seek(secs) {
+window.seek = function(secs) {
     _player.seek(secs);
 }
 
-function getDuration() {
+window.getDuration = function() {
      _player.getDuration(onGetDuration);
 }
 
-function onGetDuration(value) {
+window.onGetDuration = function(value) {
     _duration = value;
     updateBar();
 }
 
-function getPosition() {
+window.getPosition = function() {
     _player.getPosition(onGetPosition);
 }
 
-function onGetPosition(value) {
+window.onGetPosition = function(value) {
     console.debug('Pos = ' + value);
     _curPosition = value;
     if(_fragmentMode) { //make sure the fragment player cannot pass beyond the end time

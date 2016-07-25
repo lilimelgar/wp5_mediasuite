@@ -6,7 +6,7 @@ import FlexModal from '../FlexModal.jsx';
 
 //TODO dependancy on jquery!! fix this later
 
-class AnnotationBox extends React.Component{
+class AnnotationBox extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -30,6 +30,12 @@ class AnnotationBox extends React.Component{
 		});
 	}
 
+	addAnnotation() {
+		this.setState({
+			annotation : null
+		}, this.handleShowModal.bind(this))
+	}
+
 	setAnnotation(annotation) {
 		console.debug('Setting annotation');
 		this.setState({
@@ -40,7 +46,7 @@ class AnnotationBox extends React.Component{
 	//TODO neatly tie in with the player via an access object
 	playAnnotation(annotation) {
 		console.debug('Playing annotation');
-		seek(29);
+		this.props.player.seek(annotation.start);
 	}
 
 	saveAnnotation(annotation) {
@@ -94,7 +100,7 @@ class AnnotationBox extends React.Component{
 					playAnnotation={this.playAnnotation.bind(this)}
 					editAnnotation={this.handleShowModal.bind(this)}
 					deleteAnnotation={this.deleteAnnotation.bind(this)}/>
-				<button type="button" className="btn btn-info" onClick={this.handleShowModal.bind(this)}>
+				<button type="button" className="btn btn-info" onClick={this.addAnnotation.bind(this)}>
 					Add annotation
 				</button>
 

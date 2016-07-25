@@ -1,16 +1,11 @@
 //required imports for the functions
 import {render} from 'react-dom';
 import Recipe from './Recipe.jsx';
-import AnnotationBox from './components/annotation/AnnotationBox.jsx';
 import SegmentationControls from './components/annotation/SegmentationControls.jsx';
 
 //export convenience functions
 export function cookRecipe (ingredients, elementId) {
 	render(<Recipe ingredients={ingredients}/>, document.getElementById(elementId));
-}
-
-export function renderAnnotationBox (elementId) {
-	render(<AnnotationBox/>, document.getElementById(elementId));
 }
 
 export function renderSegmentationControls (elementId) {
@@ -51,3 +46,7 @@ export {default as SpeechAndernieuwsConfig} from './collection/mappings/SpeechAn
 export {default as CollectionDataUtil} from './util/CollectionDataUtil.js';
 export {default as CollectionUtil} from './util/CollectionUtil.js';
 export {default as TimeUtil} from './util/TimeUtil.js';
+
+//video annotation
+export {default as AnnotationBox} from './components/annotation/AnnotationBox.jsx';
+export {default as VimeoPlayer} from './player/VimeoPlayer.js';
