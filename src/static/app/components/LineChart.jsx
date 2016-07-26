@@ -44,11 +44,11 @@ class LineChart extends React.Component {
 
 			if(update) {
 				//update the x axis
-				this.svg.select(".x.axis")
+				this.svg.selectAll(".x.axis")
 	            	.call(this.xAxis);
 
 	            //update the y axis
-	        	this.svg.select(".y.axis")
+	        	this.svg.selectAll(".y.axis")
 	            	.call(this.yAxis);
 			} else {
 				//create the x axis
@@ -117,10 +117,11 @@ class LineChart extends React.Component {
 	initLineChart(data) {
 		//setup the global d3 variables / elements
 		this.margin = {top: 20, right: 20, bottom: 80, left: 50};
-		this.width = 960 - this.margin.left - this.margin.right,
+		this.width = parseInt(d3.select('#chart_div').style('width'), 10)
+		//this.width = 960 - this.margin.left - this.margin.right,
 		this.height = 400 - this.margin.top - this.margin.bottom;
 
-		this.svg = d3.select('#line_chart')
+		this.svg = d3.select('#chart_div')
 			.append("svg")
 				.attr("width", this.width + this.margin.left + this.margin.right)
 				.attr("height", this.height + this.margin.top + this.margin.bottom)
@@ -172,17 +173,7 @@ class LineChart extends React.Component {
 		let formattedData = [];
 		if(data) {
 			for(let query in data) {
-				let item = data[query].output;
-				for(let key in item.aggregations) {
-					if(key.indexOf(data[query].dateField) != -1) {
-						item.aggregations[key][data[query].dateField].buckets.forEach(function(bucket) {
-							let y = parseInt(bucket.key.substring(0,4));
-							if(y > 0) {
-								formattedData.push({year: y, count : bucket.doc_count, query : query});
-							}
-						});
-					}
-				}
+				formattedData = formattedData.concat(data[query].timeline);
 			}
 		}
 		callback(formattedData);
@@ -192,6 +183,7 @@ class LineChart extends React.Component {
 	render() {
 		return (
 			<div id="line_chart">
+				<div id="chart_div"></div>
 				<div className="text-center"><strong>Line chart</strong></div>
 			</div>
 		)
