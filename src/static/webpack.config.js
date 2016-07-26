@@ -22,6 +22,9 @@
 		https://www.bensmithett.com/smarter-css-builds-with-webpack/
 		https://docs.google.com/presentation/d/1afMLTCpRxhJpurQ97VBHCZkLbR1TEsRnd3yyxuSQ5YY/edit#slide=id.p
 
+	Use this for key bindings:
+		https://craig.is/killing/mice
+
 	Generate docs (TODO):
 		- Try this one: https://github.com/pocotan001/react-styleguide-generator
 		- or convert all jsx files to js and run: npm run doc (which calls the esdoc)
