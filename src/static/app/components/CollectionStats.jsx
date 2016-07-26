@@ -5,7 +5,7 @@ class CollectionStats extends React.Component {
 	constructor(props) {
 		super(props);
 		// this.setState({
-
+		console.debug(props);
 		// });
 	}
 
@@ -16,20 +16,26 @@ class CollectionStats extends React.Component {
 				<div className="panel-body">
 					<ul className="list-group">
 						<li className="list-group-item">
-							<span className="badge">{this.props.data.service.collection}</span>
+							<span className="badge">{this.props.data.collection}</span>
 							Name
 						</li>
 						<li className="list-group-item">
-							<span className="badge">t.b.d.</span>
-							Correctly filled in dates
+							<span className="badge">{this.props.data.doc_stats.no_date_field}</span>
+							<span className="badge">{this.props.data.doc_stats.date_field}</span>
+							Document with/without date
 						</li>
 						<li className="list-group-item">
-							<span className="badge">t.b.d.</span>
-							Probably incorrect dates
+							<span className="badge">{this.props.data.doc_stats.no_analysis_field}</span>
+							<span className="badge">{this.props.data.doc_stats.analysis_field}</span>
+							Document with/without analysis field
 						</li>
 						<li className="list-group-item">
-							<span className="badge">t.b.d.</span>
-							Docs with missing dates
+							<span className="badge">{this.props.data.field_stats.date_field_scope.start} - {this.props.data.field_stats.date_field_scope.end}</span>
+							Date range ({this.props.data.field_stats.date_field_scope.unit}s)
+						</li>
+						<li className="list-group-item">
+							<span className="badge">{this.props.data.field_stats.date_field_out_of_scope}</span>
+							Dates outside range
 						</li>
 					</ul>
 				</div>

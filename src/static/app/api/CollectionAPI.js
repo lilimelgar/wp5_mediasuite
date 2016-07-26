@@ -24,6 +24,25 @@ const CollectionAPI = {
 		d3.json(url, function(error, data) {
 	        callback(data);
 	    });
+	},
+
+	analyseField: function(collectionId, docType, dateField, analysisField, facets, callback) {
+		var url = _config.SEARCH_API_BASE + '/collections/analyse_field';
+		var query = {
+			'collectionId': collectionId,
+			'docType': docType,
+			'dateField': dateField,
+			'analysisField': analysisField,
+			'facets': facets
+		}
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", url);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+				callback(JSON.parse(xhr.responseText));
+			}
+		}
+		xhr.send(JSON.stringify(query));
 	}
 }
 

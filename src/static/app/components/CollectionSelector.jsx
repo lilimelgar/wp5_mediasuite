@@ -4,7 +4,7 @@ window.$ = $;
 
 import React from 'react';
 import CollectionAPI from '../api/CollectionAPI.js';
-import CollectionStats from './CollectionStats.jsx';
+//import CollectionStats from './CollectionStats.jsx';
 
 class CollectionSelector extends React.Component {
 
@@ -14,14 +14,9 @@ class CollectionSelector extends React.Component {
 			activeCollectionStats: null,
 			activeDocumentType: null,
 			activeDateField: null,
-			activeFacetField: null
+			activeAnalysisField: null
 		}
 		CollectionAPI.listCollections((collections) => {
-			collections.sort((a, b) => { //FIXME this should be done on the server!
-				if(a.collection < b.collection) return -1;
-    			if(a.collection > b.collection) return 1;
-    			return 0;
-			});
 			this.setState({collectionList :  collections});
 		});
 	}
@@ -38,12 +33,33 @@ class CollectionSelector extends React.Component {
 			console.debug('fetched the collections stats for ' + collectionId);
 			console.debug(data);
 
-			this.setState({activeCollectionStats : data});
+			this.setState(
+				{
+					activeCollection: collectionId,
+					activeCollectionStats : data,
+					activeDocumentTypeStats : data.collection_statistics.document_types[0],
+					activeDocumentType : data.collection_statistics.document_types[0].doc_type
+				}
+			);
 		});
 	}
 
 	setCollectionFields() {
-		console.debug('TODO setCollectionFields');
+		let select = document.getElementById("doctype_select");
+		let docType = select.options[select.selectedIndex].value;
+
+		console.debug('fetching document type info');
+
+		this.state.activeCollectionStats.collection_statistics.document_types.forEach((docTypeStats) => {
+			if (docTypeStats.doc_type === docType) {
+				this.setState(
+					{
+						activeDocumentType : docTypeStats.doc_type,
+						activeDocumentTypeStats : docTypeStats
+					}
+				);
+			}
+		})
 	}
 
 	//TODO make this a good function for adding/removing selected collections
@@ -60,8 +76,6 @@ class CollectionSelector extends React.Component {
 	render() {
 		let collectionSelect = '';
 		let documentTypeSelect = '';
-		let dateFieldSelect = '';
-		let facetFieldSelect = '';
 		let collectionStats = '';
 		if(this.state.collectionList) {
 
@@ -93,6 +107,7 @@ class CollectionSelector extends React.Component {
 						<option key={docType.doc_type} value={docType.doc_type}>{docType.doc_type}</option>
 					)
 				});
+				//docTypeOptions.splice(0, 0, <option key="null__option" value="">Select a document type</option>);
 
 				documentTypeSelect = (
 					<fieldset className="form-group">
@@ -104,12 +119,11 @@ class CollectionSelector extends React.Component {
 				);
 
 				//draw the stats too
-				collectionStats = (<CollectionStats data={this.state.activeCollectionStats}/>);
+				//collectionStats = (<CollectionStats data={this.state.activeCollectionStats}/>);
 			}
 
-			//the facet and date field selection part
-			if(this.state.activeDocumentType) {
-
+			//the analysis and date field selection part
+			if(this.state.activeDocumentTypeStats) {
 			}
 
 			return (
@@ -118,8 +132,6 @@ class CollectionSelector extends React.Component {
 						<form key="collection_selector" onSubmit={this.addCollection.bind(this)}>
 							{collectionSelect}
 							{documentTypeSelect}
-							{dateFieldSelect}
-							{facetFieldSelect}
 							<button className="btn btn-primary">
 								Add to recipe&nbsp;<i className="glyphicon glyphicon-plus"></i>
 							</button>
