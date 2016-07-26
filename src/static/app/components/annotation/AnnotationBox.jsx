@@ -17,7 +17,7 @@ class AnnotationBox extends React.Component {
 		};
 	}
 
-	loadCommentsFromServer() {
+	loadAnnotationsFromServer() {
 		$.ajax({
 			url : _config.ANNOTATION_API_BASE + '/annotation',
 			type : 'GET',
@@ -37,7 +37,6 @@ class AnnotationBox extends React.Component {
 	}
 
 	setAnnotation(annotation) {
-		console.debug('Setting annotation');
 		this.setState({
 			annotation : annotation
 		})
@@ -45,18 +44,19 @@ class AnnotationBox extends React.Component {
 
 	//TODO neatly tie in with the player via an access object
 	playAnnotation(annotation) {
-		console.debug('Playing annotation');
-		this.props.player.seek(annotation.start);
+		this.props.seek(annotation.start);
 	}
 
 	saveAnnotation(annotation) {
-		AnnotationAPI.saveAnnotation(annotation, function(data) {
+		AnnotationAPI.saveAnnotation(annotation, this.props.start, this.props.end, function(data) {
 			this.onSave(data);
 		}.bind(this));
 	}
 
 	onSave(annotation) {
-		var annotations = this.state.annotations;
+		var annotations = $.grep(this.state.annotations, function(e){
+			return e.annotationId != annotation.annotationId;
+		});
 		annotations.push(annotation);
 		$('#annotation__modal').modal('hide');
 		this.setState({annotations : annotations});
@@ -76,7 +76,7 @@ class AnnotationBox extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadCommentsFromServer();
+		this.loadAnnotationsFromServer();
 	}
 
 	handleShowModal() {

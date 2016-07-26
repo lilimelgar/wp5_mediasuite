@@ -1,8 +1,11 @@
 import React from 'react';
 import VimeoPlayer from './player/VimeoPlayer';
 import VideoTimeBar from './components/annotation/VideoTimeBar';
+import AnnotationBox from './components/annotation/AnnotationBox';
 import SegmentationControls from './components/annotation/SegmentationControls';
 import TimeUtil from './util/TimeUtil';
+import FlexBox from './components/FlexBox';
+import MouseTrap from 'mousetrap';
 
 class AnnotationRecipe extends React.Component {
 
@@ -13,18 +16,149 @@ class AnnotationRecipe extends React.Component {
 			curPosition : 0,
 			duration : 0,
 			start : -1,
-			end : -1
+			end : -1,
+			paused : true
 		}
 	}
 
 	//TODO make sure to offer support for rendering different players, now it's just Vimeo (ArtTube needs this)
 	componentDidMount() {
-		console.debug('Mounted the iframe HTML, rendering the player');
-		var vimeoPlayers = document.querySelectorAll('iframe');
-		var vimeoPlayer = null;
-		for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
-			vimeoPlayer = vimeoPlayers[i];
-			$f(vimeoPlayer).addEvent('ready', this.vimeoPlayerMounted.bind(this));
+		this.initPlayer(this.props.ingredients.playerType);
+		this.initKeyBindings();
+	}
+
+	initKeyBindings() {
+		//Mousetrap.bind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], this.testKey.bind(this));
+
+		Mousetrap.bind('left', function() {
+			this.checkFocus.call(this, this.rw, 60);
+	    }.bind(this));
+	    Mousetrap.bind('right', function() {
+	        this.checkFocus.call(this, this.ff, 60);
+	    }.bind(this));
+
+	    //pause & play shortcut
+	    Mousetrap.bind('space', function() {
+	        if(!this.checkFocus.call(this)) {
+	            if(this.state.paused) {//FIXME, this does not work yet!
+	                this.pause.call(this);
+	            } else {
+	                this.play.call(this);
+	            }
+	        }
+	    }.bind(this));
+
+	    //start & end shortcuts
+	    Mousetrap.bind('i', function() {
+	        this.checkFocus.call(this, this.setStart);
+	    }.bind(this));
+	    Mousetrap.bind('o', function() {
+	        this.checkFocus.call(this, this.setEnd);
+	    }.bind(this));
+	    Mousetrap.bind('shift+i', function() {
+	        this.checkFocus.call(this, this.playStart);
+	    }.bind(this));
+	    Mousetrap.bind('shift+o', function() {
+	        this.checkFocus.call(this, this.playEnd);
+	    }.bind(this));
+
+	    //anchor functions
+	    Mousetrap.bind(']', function() {
+	        this.checkFocus.call(this, this.nextAnchor);
+	    }.bind(this));
+	    Mousetrap.bind('[', function() {
+	        this.checkFocus.call(this, this.previousAnchor);
+	    }.bind(this));
+	    Mousetrap.bind('ctrl+s', function() {
+	        this.checkFocus.call(this, this.saveAnchor);
+	    }.bind(this));
+	    Mousetrap.bind('ctrl+n', function() {
+	        this.checkFocus.call(this, this.newAnchor);
+	    }.bind(this));
+
+	    //fast forward shortcuts (somehow cannot create these in a loop...)
+	    Mousetrap.bind('1', function() {
+	        this.checkFocus.call(this, this.ff, 1);
+	    }.bind(this));
+	    Mousetrap.bind('2', function() {
+	        this.checkFocus.call(this, this.ff, 2);
+	    }.bind(this));
+	    Mousetrap.bind('3', function() {
+	        this.checkFocus.call(this, this.ff, 3);
+	    }.bind(this));
+	    Mousetrap.bind('4', function() {
+	        this.checkFocus.call(this, this.ff, 4);
+	    }.bind(this));
+	    Mousetrap.bind('5', function() {
+	        this.checkFocus.call(this, this.ff, 5);
+	    }.bind(this));
+	    Mousetrap.bind('6', function() {
+	        this.checkFocus.call(this, this.ff, 6);
+	    }.bind(this));
+	    Mousetrap.bind('7', function() {
+	        this.checkFocus.call(this, this.ff, 7);
+	    }.bind(this));
+	    Mousetrap.bind('8', function() {
+	        this.checkFocus.call(this, this.ff, 8);
+	    }.bind(this));
+	    Mousetrap.bind('9', function() {
+	        this.checkFocus.call(this, this.ff, 9);
+	    }.bind(this));
+
+	    //rewind shortcuts
+	    Mousetrap.bind('shift+1', function() {
+	        this.checkFocus.call(this, this.rw, 1);
+	    }.bind(this));
+	    Mousetrap.bind('shift+2', function() {
+	        this.checkFocus.call(this, this.rw, 2);
+	    }.bind(this));
+	    Mousetrap.bind('shift+3', function() {
+	        this.checkFocus.call(this, this.rw, 3);
+	    }.bind(this));
+	    Mousetrap.bind('shift+4', function() {
+	        this.checkFocus.call(this, this.rw, 4);
+	    }.bind(this));
+	    Mousetrap.bind('shift+5', function() {
+	        this.checkFocus.call(this, this.rw, 5);
+	    }.bind(this));
+	    Mousetrap.bind('shift+6', function() {
+	        this.checkFocus.call(this, this.rw, 6);
+	    }.bind(this));
+	    Mousetrap.bind('shift+7', function() {
+	        this.checkFocus.call(this, this.rw, 7);
+	    }.bind(this));
+	    Mousetrap.bind('shift+8', function() {
+	        this.checkFocus.call(this, this.rw, 8);
+	    }.bind(this));
+	    Mousetrap.bind('shift+9', function() {
+	        this.checkFocus.call(this, this.rw, 9);
+	    }.bind(this));
+	}
+
+	checkFocus(f, args) {
+	    if($('input').is(':focus')) {
+	        return true;
+	    }
+	    if(f) {
+	        f.call(this, args);
+	    }
+	}
+
+	componentWillUnmount() {
+
+    }
+
+	initPlayer(type) {
+		if(type == 'vimeo') {
+			//console.debug('Mounted the iframe HTML, rendering the player');
+			var vimeoPlayers = document.querySelectorAll('iframe');
+			var vimeoPlayer = null;
+			for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
+				vimeoPlayer = vimeoPlayers[i];
+				$f(vimeoPlayer).addEvent('ready', this.vimeoPlayerMounted.bind(this));
+			}
+		} else {
+			console.error('Please specify a valid playerType');
 		}
 	}
 
@@ -37,13 +171,11 @@ class AnnotationRecipe extends React.Component {
 		    finish : this.onFinish.bind(this),
 		    seek : this.onSeek.bind(this)
 		}
-		console.debug('Rendered the player, setting up the player API');
+		//console.debug('Rendered the player, setting up the player API');
 		this.setState({
 			froogaloop : $f(playerId)
 		});
-		console.debug(eventCallbacks);
 		for(let key in eventCallbacks) {
-			console.debug(key);
 			this.state.froogaloop.addEvent(key, eventCallbacks[key]);
 		}
 	}
@@ -52,12 +184,10 @@ class AnnotationRecipe extends React.Component {
 
 	//these functions are mandatory for the annotation player to work
 	play() {
-	   console.debug('play');
 	   this.state.froogaloop.api('play');
 	}
 
 	pause() {
-		console.debug('pause');
 		this.state.froogaloop.api('pause');
 	}
 
@@ -66,7 +196,6 @@ class AnnotationRecipe extends React.Component {
 	}
 
 	seek(secs) {
-		console.debug('seeking to: ' + secs);
 		this.state.froogaloop.api('seekTo', secs);
 	}
 
@@ -155,45 +284,39 @@ class AnnotationRecipe extends React.Component {
 	}
 
 	onPlay(data) {
-		console.debug('play event');
         this.getDuration(this.onGetDuration.bind(this));
         this.setState({paused : false});
 	}
 
 	onGetDuration(value) {
 		this.setState({duration : value});
-		//this.updateBar();
 	}
 
 	onPause(paused) {
-		console.debug('pause event');
         this.setState({paused : paused});
 	}
 
 	onFinish(data) {
-		console.debug('finished');
+
 	}
 
 	onSeek(data) {
-		console.debug('seek event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
+		//console.debug('seek event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
 	}
 
 	onGetPosition(value) {
 	    this.setState({curPosition : value});
-	    //this.updateBar();
 	}
 
 	/************************************** Segmentation controls ***************************************/
 
 	setManualStart(start) {
 	    this.setState({start : start});
-	    //this.updateBar();
 	    this.seek(this.state.start);
 	}
 
 	setManualEnd(end) {
 	    this.setState({end : end});
-	    //this.updateBar();
 	    this.seek(this.state.end);
 	}
 
@@ -212,7 +335,6 @@ class AnnotationRecipe extends React.Component {
 	    } else {
 	        temp = start;
 	    }
-	    console.debug(this.state.curPosition + ' S=' + temp + ' E=' + this.state.end);
 	    if((this.state.end != -1 && temp < this.state.end) || this.state.end == -1) {
 	        this.setState({start : temp});
 			//$('#video_start').text(TimeUtil.formatTime(this.state.start));
@@ -230,7 +352,6 @@ class AnnotationRecipe extends React.Component {
 	    } else {
 	        temp = end;
 	    }
-	    console.debug(this.state.curPosition + ' S=' + this.state.start + ' E=' + temp);
 	    if((this.state.start != -1 && temp > this.state.start) || this.state.start == -1) {
 	        this.setState({end : temp});
 	        //$('#video_end').text(TimeUtil.formatTime(this.state.end));
@@ -244,11 +365,15 @@ class AnnotationRecipe extends React.Component {
 	    }
 	}
 
-	/************************************** Timeline controls ***************************************/
-
-	updateBar() {
-		console.debug('updating the timeline');
+	rw(t) {
+		this.seek(this.state.curPosition - t);
 	}
+
+	ff(t) {
+		this.seek(this.state.curPosition + t);
+	}
+
+	/************************************** Timeline controls ***************************************/
 
 	render() {
 		const controls = {
@@ -261,18 +386,36 @@ class AnnotationRecipe extends React.Component {
 		}
 		return (
 			<div>
-				<div id="video_container">
-
-					<VimeoPlayer/>
-					<VideoTimeBar
-						duration={this.state.duration}
-						curPosition={this.state.curPosition}
-						start={this.state.start}
-						end={this.state.end}
-						seek={this.seek.bind(this)}
-					/>
-					<SegmentationControls controls={controls}/>
-
+				<div className="row">
+					<div className="col-md-7">
+						<FlexBox>
+							<VimeoPlayer/>
+						</FlexBox>
+					</div>
+					<div className="col-md-5">
+						<FlexBox>
+							<AnnotationBox
+								start={this.state.start}
+								end={this.state.end}
+								seek={this.seek.bind(this)}
+							/>
+						</FlexBox>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-7">
+						<FlexBox>
+							<VideoTimeBar
+								duration={this.state.duration}
+								curPosition={this.state.curPosition}
+								start={this.state.start}
+								end={this.state.end}
+								seek={this.seek.bind(this)}
+							/>
+							<br/><br/>
+							<SegmentationControls controls={controls}/>
+						</FlexBox>
+					</div>
 				</div>
 			</div>
 		)

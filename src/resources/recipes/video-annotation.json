@@ -4,6 +4,6 @@
 	"type" : "annotation",
 	"description" : "Segment and annotate video",
 	"ingredients" : {
-
+		"playerType" : "vimeo"
 	}
 }

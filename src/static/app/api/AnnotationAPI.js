@@ -1,11 +1,11 @@
 const AnnotationAPI = {
 
-	saveAnnotation : function(annotation, callback) {
+	saveAnnotation : function(annotation, start, end, callback) {
 		var url = _config.ANNOTATION_API_BASE + '/annotation';
 		var method = 'POST';
 		annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example",
-		annotation.start = _start, //grab this from the player
-		annotation.end = _end //grab this from the player
+		annotation.start = start, //grab this from the player
+		annotation.end = end //grab this from the player
 
 		if(annotation.annotationId) {
 			url += '/' + annotation.annotationId;

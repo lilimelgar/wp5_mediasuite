@@ -51,6 +51,9 @@ const TimeUtil = {
 	},
 
 	formatTime : function(t) {
+		if(t == -1) {
+			return '00:00:00';
+		}
 	    var pt = moment.duration(t * 1000);
 	    var h = pt.hours() < 10 ? '0' + pt.hours() : pt.hours();
 	    var m = pt.minutes() < 10 ? '0' + pt.minutes() : pt.minutes();

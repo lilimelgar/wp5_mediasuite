@@ -26,10 +26,11 @@
   "dependencies": {
     "d3": "^4.1.0",
     "jquery": "^3.0.0",
-    "jwerty": "^0.3.2",
     "moment": "^2.14.1",
+    "mousetrap": "^1.6.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react-hotkey": "^0.6.0",
     "searchkit": "^0.10.0"
   },
   "devDependencies": {
