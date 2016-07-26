@@ -1,60 +1,4 @@
-/*
-New way of rendering things
-*/
-
-var _player = clariah.VimeoPlayer;
-var AnnotationBox = clariah.AnnotationBox;
-_player.init({
-    loadProgress : function (data) {
-        console.debug('loadProgress event : ' +
-            data.percent + ' : ' +
-            data.bytesLoaded + ' : ' +
-            data.bytesTotal + ' : ' +
-            data.duration
-        );
-    },
-
-    playProgress : function(data) {
-        //console.debug('playProgress event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
-        getPosition();
-    },
-
-    play : function(data) {
-        console.debug('play event');
-        getDuration();
-        //_player.isPaused(onIsPaused)
-        _isPaused = false;
-    },
-
-    pause : function(paused) {
-        console.debug('pause event');
-        _isPaused = paused;
-    },
-
-    finish : function(data) {
-        console.debug('finish');
-    },
-
-    seek : function(data) {
-        console.debug('seek event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
-    }
-
-});
-
-//render the stuff on screen
-ReactDOM.render(
-    <div>
-        <AnnotationBox player={_player}/>
-    </div>, document.getElementById('annotation_box')
-);
-clariah.renderSegmentationControls('segmentation_controls');
-
-
-
-
-
 var videoUrl = '';
-//var _player = null;//this can be a jw or vimeo player
 
 var _duration = 0;
 var _curPosition = 0;
@@ -133,33 +77,33 @@ function init() {
 
 //TODO finish this stuff!
 
-window.play = function() {
+function play() {
     _player.play();
 }
 
-window.pause = function() {
+function pause() {
     _player.pause();
 }
 
-window.seek = function(secs) {
+function seek(secs) {
     _player.seek(secs);
 }
 
-window.getDuration = function() {
+function getDuration() {
      _player.getDuration(onGetDuration);
 }
 
-window.onGetDuration = function(value) {
+function onGetDuration(value) {
     _duration = value;
     updateBar();
 }
 
-window.getPosition = function() {
+function getPosition() {
     _player.getPosition(onGetPosition);
 }
 
-window.onGetPosition = function(value) {
-    console.debug('Pos = ' + value);
+function onGetPosition(value) {
+    //console.debug('Pos = ' + value);
     _curPosition = value;
     if(_fragmentMode) { //make sure the fragment player cannot pass beyond the end time
         var end = _videos[_curVideoIndex].end / 1000;

@@ -7,6 +7,7 @@ The TimeUtil is currently only used to generate time related facets for
 TODO this function will probably be cleaned up and extended with other (more) useful time related functions
 
 */
+import moment from 'moment';
 
 const TimeUtil = {
 
@@ -47,6 +48,14 @@ const TimeUtil = {
 			}
 		}
 		return ranges
+	},
+
+	formatTime : function(t) {
+	    var pt = moment.duration(t * 1000);
+	    var h = pt.hours() < 10 ? '0' + pt.hours() : pt.hours();
+	    var m = pt.minutes() < 10 ? '0' + pt.minutes() : pt.minutes();
+	    var s = pt.seconds() < 10 ? '0' + pt.seconds() : pt.seconds();
+	    return h + ':' + m + ':' + s;
 	}
 
 }

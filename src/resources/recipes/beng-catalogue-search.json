@@ -1,6 +1,7 @@
 {
 	"id" : "beng-catalogue-search",
 	"name" : "B&G catalogus",
+	"type" : "search",
 	"description" : "Doorzoek de catalogus van Beeld en Geluid",
 	"ingredients" : {
 		"collectionSelector": false,
