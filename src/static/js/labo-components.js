@@ -6,6 +6,7 @@ function showComponent(componentId) {
 	switch(componentId) {
 		case 'collection-selector': component = getCollectionSelector();break;
 		case 'collection-stats': component = getCollectionStats();break;
+		case 'collection-analyser': component = getCollectionAnalyser();break;
 		case 'facet-search': component = getFacetSearchComponent();break;
 		case 'line-chart': component = getLineChartComponent();break;
 
@@ -39,6 +40,13 @@ function getCollectionStats() {
 	}
 	return (
 		<CollectionStats data={data}/>
+	)
+}
+
+function getCollectionAnalyser() {
+	var CollectionAnalyser = clariah.CollectionAnalyser;
+	return (
+		<CollectionAnalyser/>
 	)
 }
 

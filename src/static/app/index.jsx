@@ -26,6 +26,7 @@ export {default as SearchAPI} from './api/SearchAPI.js';
 //collection related components
 export {default as CollectionSelector} from './components/CollectionSelector.jsx';
 export {default as CollectionStats} from './components/CollectionStats.jsx';
+export {default as CollectionAnalyser} from './components/CollectionAnalyser.jsx';
 
 //search related components
 export {default as FacetSearchComponent} from './components/FacetSearchComponent.jsx';

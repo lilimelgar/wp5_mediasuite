@@ -21,9 +21,11 @@ class Recipe extends React.Component {
 	//the queryOutputs variable are consumed by multiquery visualisations (currently only the LineChart component is available)
 	updateQueryOutput(queryId, output, dateField) {
 		var queryOutputs = this.state.queryOutputs ? this.state.queryOutputs : {};
+		var timelineData = this.prepareTimeline(queryId, output, dateField);
 		queryOutputs[queryId] = {
   			output : output,
-  			dateField : dateField
+  			dateField : dateField,
+			timeline : timelineData
   		}
   		this.setState({queryOutputs : queryOutputs});
 	}
@@ -31,6 +33,22 @@ class Recipe extends React.Component {
 	//parse the ingredients before rendering
 	componentDidMount() {
 		this.loadCollections(this.props.ingredients.collections);
+	}
+
+	prepareTimeline(queryId, queryOutput, dateField) {
+		var timelineData = [];
+		for (let key in queryOutput.aggregations) {
+			if (key.indexOf(dateField) != -1) {
+				var buckets = queryOutput.aggregations[key][dateField].buckets;
+				buckets.forEach((bucket) => {
+					var year = parseInt(bucket.key);
+					if (!(isNaN(year))) {
+						timelineData.push({"year": year, "count": bucket.doc_count, "query": queryId});
+					}
+				});
+			}
+		}
+		return timelineData;
 	}
 
 	loadCollections(collectionIds) {
