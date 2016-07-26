@@ -15,52 +15,39 @@
 
 			<ul class="nav navbar-nav">
 				{% if page=='components'%}
-				<li class="active"><a href="/components">Components <span class="sr-only">(current)</span></a></li>
 				<li><a href="/recipes">Recipes</a></li>
-				<li><a href="/annotatevideo">Video annotation</a></li>
+				<li class="active"><a href="/components">Components <span class="sr-only">(current)</span></a></li>
 				<li><a href="/apis">APIs</a></li>
 				<li><a href="/about">About</a></li>
 				<li><a href="/contact">Contact</a></li>
 				{% elif page=='recipes'%}
-				<li><a href="/components">Components</a></li>
 				<li class="active"><a href="/recipes">Recipes <span class="sr-only">(current)</span></a></li>
-				<li><a href="/annotatevideo">Video annotation</a></li>
-				<li><a href="/apis">APIs</a></li>
-				<li><a href="/about">About</a></li>
-				<li><a href="/contact">Contact</a></li>
-				{% elif page=='annotate-video'%}
 				<li><a href="/components">Components</a></li>
-				<li><a href="/recipes">Recipes</a></li>
-				<li class="active"><a href="/annotatevideo">Annotate video <span class="sr-only">(current)</span></a></li>
 				<li><a href="/apis">APIs</a></li>
 				<li><a href="/about">About</a></li>
 				<li><a href="/contact">Contact</a></li>
 				{% elif page=='apis'%}
-				<li><a href="/components">Components</a></li>
 				<li><a href="/recipes">Recipes</a></li>
-				<li><a href="/annotatevideo">Video annotation</a></li>
+				<li><a href="/components">Components</a></li>
 				<li class="active"><a href="/apis">APIs <span class="sr-only">(current)</span></a></li>
 				<li><a href="/about">About</a></li>
 				<li><a href="/contact">Contact</a></li>
 				{% elif page=='about'%}
-				<li><a href="/components">Components</a></li>
 				<li><a href="/recipes">Recipes</a></li>
-				<li><a href="/annotatevideo">Video annotation</a></li>
+				<li><a href="/components">Components</a></li>
 				<li><a href="/apis">APIs</a></li>
 				<li class="active"><a href="/about">About <span class="sr-only">(current)</span></a></li>
 				<li><a href="/contact">Contact</a></li>
 				{% elif page=='contact' %}
-				<li><a href="/components">Components</a></li>
 				<li><a href="/recipes">Recipes</a></li>
-				<li><a href="/annotatevideo">Video annotation</a></li>
+				<li><a href="/components">Components</a></li>
 				<li><a href="/apis">APIs</a></li>
 				<li><a href="/about">About</a></li>
 				<li class="active"><a href="/contact">Contact<span class="sr-only">(current)</span></a></li>
 				{% else %}
-				<li><a href="/components">Components</a></li>
 				<li><a href="/recipes">Recipes</a></li>
+				<li><a href="/components">Components</a></li>
 				<li><a href="/apis">APIs</a></li>
-				<li><a href="/annotatevideo">Video annotation</a></li>
 				<li><a href="/about">About</a></li>
 				<li><a href="/contact">Contact</a></li>
 				{% endif%}

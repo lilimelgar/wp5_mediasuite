@@ -25,7 +25,6 @@ class Annotation extends React.Component {
 	computeClass() {
 		var className = 'list-group-item';
 		if(this.props.activeAnnotation) {
-			console.debug(this.props.activeAnnotation.annotationId);
 			if(this.props.activeAnnotation.annotationId === this.props.annotation.annotationId) {
 				className += ' active';
 			}

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 class SegmentationControls extends React.Component {
 
@@ -7,27 +8,31 @@ class SegmentationControls extends React.Component {
 	}
 
 	setManualStart() {
-		setManualStart();
-	}
-
-	setStart() {
-		setStart();
-	}
-
-	playStart() {
-		playStart();
+		var s = $('#start_time').val();
+	    console.debug(s);
+		this.props.controls.setManualStart(moment.duration(s).asSeconds());
 	}
 
 	setManualEnd() {
-		setManualEnd();
+		var s = $('#end_time').val();
+	    console.debug(s);
+		this.props.controls.setManualEnd(moment.duration(s).asSeconds());
+	}
+
+	setStart() {
+		this.props.controls.setStart();
 	}
 
 	setEnd() {
-		setEnd();
+		this.props.controls.setEnd();
+	}
+
+	playStart() {
+		this.props.controls.playStart();
 	}
 
 	playEnd() {
-		playEnd();
+		this.props.controls.playEnd();
 	}
 
 	render() {

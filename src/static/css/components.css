@@ -8860,15 +8860,12 @@ h4, h5, h6 {
 /* line 60, ../sass/_home.scss */
 .labs-well.labs-goto:hover {
   border-color: black;
-  background-image: url("/static/images/small-curl.png");
-  background-repeat: no-repeat;
-  background-position: bottom;
 }
 /* line 61, ../sass/_home.scss */
 .labs-well.labs-goto:hover h3 {
   color: #e00034;
 }
-/* line 70, ../sass/_home.scss */
+/* line 67, ../sass/_home.scss */
 .labs-well img {
   max-width: 100%;
   border: 10px solid #fff;
@@ -8876,12 +8873,12 @@ h4, h5, h6 {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
-/* line 78, ../sass/_home.scss */
+/* line 75, ../sass/_home.scss */
 .interactive {
   cursor: pointer;
 }
 
-/* line 82, ../sass/_home.scss */
+/* line 79, ../sass/_home.scss */
 .card {
   padding: 0;
   height: 380px;
@@ -8889,7 +8886,7 @@ h4, h5, h6 {
   background-color: #f5f5f5;
   border-radius: 2px;
 }
-/* line 88, ../sass/_home.scss */
+/* line 85, ../sass/_home.scss */
 .card img {
   display: block;
   width: 328px;
@@ -8897,16 +8894,16 @@ h4, h5, h6 {
   margin: auto;
   max-width: 100%;
 }
-/* line 95, ../sass/_home.scss */
+/* line 92, ../sass/_home.scss */
 .card .caption {
   padding: 16px 16px 6px 16px;
 }
-/* line 98, ../sass/_home.scss */
+/* line 95, ../sass/_home.scss */
 .card:hover {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
-/* line 104, ../sass/_home.scss */
+/* line 101, ../sass/_home.scss */
 .cardimage img {
   max-width: 100%;
   border: 10px solid white;

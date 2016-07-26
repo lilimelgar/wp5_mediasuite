@@ -1,0 +1,9 @@
+{
+	"id" : "video-annotation",
+	"name" : "Basic Video Annotation",
+	"type" : "annotation",
+	"description" : "Segment and annotate video",
+	"ingredients" : {
+		"playerType" : "vimeo"
+	}
+}

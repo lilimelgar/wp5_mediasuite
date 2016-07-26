@@ -6,7 +6,7 @@ import FlexModal from '../FlexModal.jsx';
 
 //TODO dependancy on jquery!! fix this later
 
-class AnnotationBox extends React.Component{
+class AnnotationBox extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -17,7 +17,7 @@ class AnnotationBox extends React.Component{
 		};
 	}
 
-	loadCommentsFromServer() {
+	loadAnnotationsFromServer() {
 		$.ajax({
 			url : _config.ANNOTATION_API_BASE + '/annotation',
 			type : 'GET',
@@ -30,8 +30,13 @@ class AnnotationBox extends React.Component{
 		});
 	}
 
+	addAnnotation() {
+		this.setState({
+			annotation : null
+		}, this.handleShowModal.bind(this))
+	}
+
 	setAnnotation(annotation) {
-		console.debug('Setting annotation');
 		this.setState({
 			annotation : annotation
 		})
@@ -39,18 +44,19 @@ class AnnotationBox extends React.Component{
 
 	//TODO neatly tie in with the player via an access object
 	playAnnotation(annotation) {
-		console.debug('Playing annotation');
-		seek(29);
+		this.props.seek(annotation.start);
 	}
 
 	saveAnnotation(annotation) {
-		AnnotationAPI.saveAnnotation(annotation, function(data) {
+		AnnotationAPI.saveAnnotation(annotation, this.props.start, this.props.end, function(data) {
 			this.onSave(data);
 		}.bind(this));
 	}
 
 	onSave(annotation) {
-		var annotations = this.state.annotations;
+		var annotations = $.grep(this.state.annotations, function(e){
+			return e.annotationId != annotation.annotationId;
+		});
 		annotations.push(annotation);
 		$('#annotation__modal').modal('hide');
 		this.setState({annotations : annotations});
@@ -70,7 +76,7 @@ class AnnotationBox extends React.Component{
 	}
 
 	componentDidMount() {
-		this.loadCommentsFromServer();
+		this.loadAnnotationsFromServer();
 	}
 
 	handleShowModal() {
@@ -94,7 +100,7 @@ class AnnotationBox extends React.Component{
 					playAnnotation={this.playAnnotation.bind(this)}
 					editAnnotation={this.handleShowModal.bind(this)}
 					deleteAnnotation={this.deleteAnnotation.bind(this)}/>
-				<button type="button" className="btn btn-info" onClick={this.handleShowModal.bind(this)}>
+				<button type="button" className="btn btn-info" onClick={this.addAnnotation.bind(this)}>
 					Add annotation
 				</button>
 

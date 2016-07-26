@@ -1,21 +1,17 @@
 //required imports for the functions
 import {render} from 'react-dom';
 import Recipe from './Recipe.jsx';
-import AnnotationBox from './components/annotation/AnnotationBox.jsx';
-import SegmentationControls from './components/annotation/SegmentationControls.jsx';
+import AnnotationRecipe from './AnnotationRecipe.jsx';
 
-//export convenience functions
-export function cookRecipe (ingredients, elementId) {
-	render(<Recipe ingredients={ingredients}/>, document.getElementById(elementId));
-}
-
-export function renderAnnotationBox (elementId) {
-	render(<AnnotationBox/>, document.getElementById(elementId));
-}
-
-export function renderSegmentationControls (elementId) {
-	console.debug('Rendering segmentation controls');
-	render(<SegmentationControls/>, document.getElementById(elementId));
+//cooking function
+export function cookRecipe (recipe, elementId) {
+	if(recipe.type === 'annotation') {
+		render(<AnnotationRecipe ingredients={recipe.ingredients}/>, document.getElementById(elementId));
+	} else if(recipe.type === 'search') {
+		render(<Recipe ingredients={recipe.ingredients}/>, document.getElementById(elementId));
+	} else {
+		console.error('Please provide a valid recipe');
+	}
 }
 
 //apis
@@ -52,3 +48,8 @@ export {default as SpeechAndernieuwsConfig} from './collection/mappings/SpeechAn
 export {default as CollectionDataUtil} from './util/CollectionDataUtil.js';
 export {default as CollectionUtil} from './util/CollectionUtil.js';
 export {default as TimeUtil} from './util/TimeUtil.js';
+
+//video annotation
+export {default as AnnotationBox} from './components/annotation/AnnotationBox.jsx';
+export {default as VimeoPlayer} from './player/VimeoPlayer.js';
+export {default as SegmentationControls} from './components/annotation/SegmentationControls.jsx';
