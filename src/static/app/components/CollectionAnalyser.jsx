@@ -223,7 +223,7 @@ class CollectionAnalyser extends React.Component {
 								{analysisFieldSelect}
 							</form>
 						</div>
-						<div className="col-md-5">
+						<div className="col-md-6">
 							{collectionStats}
 						</div>
 					</div>
