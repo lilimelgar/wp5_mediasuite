@@ -26,7 +26,7 @@ export {default as CollectionAnalyser} from './components/CollectionAnalyser.jsx
 
 //search related components
 export {default as FacetSearchComponent} from './components/FacetSearchComponent.jsx';
-export {default as SearchResult} from './components/SearchResult.jsx';
+export {default as SearchSnippet} from './components/SearchSnippet.jsx';
 export {default as ItemDetails} from './components/ItemDetails.jsx';
 
 //data visualisation components

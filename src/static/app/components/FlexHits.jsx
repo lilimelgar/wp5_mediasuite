@@ -1,7 +1,7 @@
 import React from 'react';
 import CollectionUtil from '../util/CollectionUtil.js';
 import FlexModal from './FlexModal.jsx';
-import SearchResult from './SearchResult.jsx';
+import SearchSnippet from './SearchSnippet.jsx';
 import ItemDetails from './ItemDetails.jsx';
 
 class FlexHits extends React.Component {
@@ -21,16 +21,26 @@ class FlexHits extends React.Component {
 		this.setState({showModal: false})
 	}
 
+	formatResult(result) {
+		var formattedResult = JSON.parse(JSON.stringify(result._source));
+		formattedResult._id = result._id;
+		formattedResult._score = result._score;
+		formattedResult._type = result._type;
+		formattedResult._index = result._index;
+		return formattedResult;
+	}
+
 	render() {
-		let result = this.state.config.getItemDetailData(this.props.result);
-		let snippet = this.state.config.getResultSnippetData(result);
+		let formattedResult = this.formatResult(this.props.result);
+		const result = this.state.config.getItemDetailData(formattedResult);
+		const snippet = this.state.config.getResultSnippetData(result);
 		return (
 			<div
 				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
 				key={result._id}
 				onClick={this.handleShowModal.bind(this)}
 			>
-				<SearchResult data={snippet}/>
+				<SearchSnippet data={snippet}/>
 
 				{this.state.showModal ?
 					<FlexModal

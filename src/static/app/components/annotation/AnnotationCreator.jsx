@@ -1,5 +1,7 @@
 import React from 'react';
 
+//TODO this components needs to be able to load an annotation form based on a config
+
 class AnnotationCreator extends React.Component {
 
 	constructor(props) {

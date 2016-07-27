@@ -14,7 +14,6 @@ class CollectionConfig {
 	getFacets() {return null;}
 
 	getItemDetailData(result) {
-		console.debug(result);
 		return CollectionDataUtil.extractStructuredData(result);
 	}
 

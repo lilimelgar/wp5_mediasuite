@@ -48,12 +48,13 @@ export class NISVProgramGuideConfig extends CollectionConfig {
 	}
 
 	getItemDetailData(result) {
+		result.title = result.id;
 		return result;
 	}
 
 	getResultSnippetData(result) {
 		return {
-			id: result.id,
+			id: result._id,
 			text: result.text,
 			broadcastDate: result.broadcast_date,
 			year: result.year

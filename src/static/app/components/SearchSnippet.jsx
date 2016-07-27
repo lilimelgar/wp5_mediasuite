@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SearchResult extends React.Component {
+class SearchSnippet extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -27,4 +27,4 @@ class SearchResult extends React.Component {
 	}
 }
 
-export default SearchResult;
+export default SearchSnippet;

@@ -44,7 +44,7 @@ export class SpeechAndernieuwsConfig extends CollectionConfig {
 
 	getResultSnippetData(result) {
 		return {
-			id: result.asr_file,
+			asrFile: result.asr_file,
 			speech: result.words
 		}
 
