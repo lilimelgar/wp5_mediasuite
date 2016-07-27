@@ -4,17 +4,20 @@ function showComponent(componentId) {
 	var component = null;
 
 	switch(componentId) {
-		case 'collection-selector': component = getCollectionSelector();break;
-		case 'collection-stats': component = getCollectionStats();break;
-		case 'collection-analyser': component = getCollectionAnalyser();break;
-		case 'facet-search': component = getFacetSearchComponent();break;
-		case 'line-chart': component = getLineChartComponent();break;
+		case 'Collection selector': component = getCollectionSelector();break;
+		case 'Collection stats': component = getCollectionStats();break;
+		case 'Collection analyser': component = getCollectionAnalyser();break;
+		case 'Facet search': component = getFacetSearchComponent();break;
+		case 'Line chart': component = getLineChartComponent();break;
 
 	}
 	if(component) {
 		ReactDOM.render(
-			<div>
-			{component}
+			<div className="container">
+				<div className="page-header">
+					<h3><span className="glyphicon glyphicon-tasks"></span>&nbsp;{componentId}</h3>
+				</div>
+				{component}
 			</div>, document.getElementById('component_x')
 		);
 	}
