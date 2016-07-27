@@ -111,7 +111,9 @@ class AnnotationBox extends React.Component {
 						title="Add annotation">
 						<AnnotationCreator
 							annotation={this.state.annotation}
-							saveAnnotation={this.saveAnnotation.bind(this)}/>
+							saveAnnotation={this.saveAnnotation.bind(this)}
+							annotationModes={this.props.annotationModes}
+						/>
 					</FlexModal>: null
 				}
 			</div>

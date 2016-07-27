@@ -39,7 +39,7 @@ class Annotation extends React.Component {
 				onClick={this.setAnnotation.bind(this)}
 				onDoubleClick={this.editAnnotation.bind(this)}
 			>
-				<abbr>{this.props.annotation.data.tags}</abbr>
+				<abbr>{this.props.annotation.annotationId}</abbr>
 				&nbsp;
 				<i className="glyphicon glyphicon-remove interactive"
 					onClick={this.deleteAnnotation.bind(this)}>

@@ -398,6 +398,7 @@ class AnnotationRecipe extends React.Component {
 								start={this.state.start}
 								end={this.state.end}
 								seek={this.seek.bind(this)}
+								annotationModes={this.props.ingredients.annotationModes}
 							/>
 						</FlexBox>
 					</div>
