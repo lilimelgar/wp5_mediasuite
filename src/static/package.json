@@ -28,12 +28,12 @@
     "jquery": "^3.0.0",
     "moment": "^2.14.1",
     "mousetrap": "^1.6.0",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
     "searchkit": "^0.10.0"
   },
   "devDependencies": {
     "d3": "^4.1.0",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
