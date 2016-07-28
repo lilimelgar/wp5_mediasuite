@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "dev": "webpack -d --watch",
+    "prod": "webpack -p --config webpack.config.prod.js",
     "build": "webpack -p",
     "doc": "esdoc -c esdoc.json"
   },
@@ -24,16 +25,15 @@
   },
   "homepage": "https://github.com/beeldengeluid/labo",
   "dependencies": {
-    "d3": "^4.1.0",
     "jquery": "^3.0.0",
     "moment": "^2.14.1",
     "mousetrap": "^1.6.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
-    "react-hotkey": "^0.6.0",
     "searchkit": "^0.10.0"
   },
   "devDependencies": {
+    "d3": "^4.1.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
