@@ -13667,7 +13667,11 @@ return /******/ (function(modules) { // webpackBootstrap
 								React.createElement(
 									'div',
 									{ className: 'sk-result_action-bar sk-action-bar' },
-									React.createElement(_searchkit.Hits, { hitsPerPage: 10, itemComponent: React.createElement(_FlexHits2.default, { collectionId: this.props.blockId }) }),
+									React.createElement(_searchkit.Hits, {
+										hitsPerPage: 10,
+										itemComponent: React.createElement(_FlexHits2.default, { collectionId: this.props.blockId })
+										//sourceFilter={this.props.sourceFilter}
+									}),
 									React.createElement(_searchkit.NoHits, { translations: {
 											"NoHits.NoResultsFound": "No results found were found for {query}",
 											"NoHits.DidYouMean": "Search for {suggestion}",
@@ -13953,6 +13957,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				return null;
 			}
 		}, {
+			key: 'getSnippetFields',
+			value: function getSnippetFields() {
+				return false;
+			}
+		}, {
 			key: 'getDateFields',
 			value: function getDateFields() {
 				return null;
@@ -14125,6 +14134,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'getSearchableFields',
 			value: function getSearchableFields() {
 				return ["bg:maintitles.bg:title", "bga:series.bg:maintitles.bg:title", "bg:publications.bg:publication.bg:broadcasters.bg:broadcaster", "bg:summary", "bg:description"];
+			}
+		}, {
+			key: 'getSnippetFields',
+			value: function getSnippetFields() {
+				return ["bg:maintitles.bg:title", "bg:publications.bg:publication.bg:sortdate", "bg:publications.bg:publication.bg:broadcasters.bg:broadcaster.raw", "bg:genres.bg:genre.raw"];
 			}
 		}, {
 			key: 'getFacets',
@@ -28720,6 +28734,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				return ["block.text"];
 			}
 		}, {
+			key: 'getSnippetFields',
+			value: function getSnippetFields() {
+				return false;
+			}
+		}, {
 			key: 'getFacets',
 			value: function getFacets() {
 				var ranges = _TimeUtil2.default.generateYearAggregationSK(1910, 2010);
@@ -28826,6 +28845,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'getSearchableFields',
 			value: function getSearchableFields() {
 				return ["words"];
+			}
+		}, {
+			key: 'getSnippetFields',
+			value: function getSnippetFields() {
+				return false;
 			}
 		}, {
 			key: 'getDateFields',
@@ -29127,60 +29151,64 @@ return /******/ (function(modules) { // webpackBootstrap
 					'table',
 					{ className: 'table' },
 					_react2.default.createElement(
-						'tr',
+						'tbody',
 						null,
 						_react2.default.createElement(
-							'td',
+							'tr',
 							null,
 							_react2.default.createElement(
-								'strong',
+								'td',
 								null,
-								'id:'
+								_react2.default.createElement(
+									'strong',
+									null,
+									'id:'
+								)
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								this.props.data._id
 							)
 						),
 						_react2.default.createElement(
-							'td',
-							null,
-							this.props.data._id
-						)
-					),
-					_react2.default.createElement(
-						'tr',
-						null,
-						_react2.default.createElement(
-							'td',
+							'tr',
 							null,
 							_react2.default.createElement(
-								'strong',
+								'td',
 								null,
-								'index:'
+								_react2.default.createElement(
+									'strong',
+									null,
+									'index:'
+								)
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								this.props.data._index
 							)
 						),
 						_react2.default.createElement(
-							'td',
-							null,
-							this.props.data._index
-						)
-					),
-					_react2.default.createElement(
-						'tr',
-						null,
-						_react2.default.createElement(
-							'td',
+							'tr',
 							null,
 							_react2.default.createElement(
-								'strong',
+								'td',
 								null,
-								'document type:'
+								_react2.default.createElement(
+									'strong',
+									null,
+									'document type:'
+								)
+							),
+							_react2.default.createElement(
+								'td',
+								null,
+								this.props.data._type
 							)
 						),
-						_react2.default.createElement(
-							'td',
-							null,
-							this.props.data._type
-						)
-					),
-					uniqueMetadata
+						uniqueMetadata
+					)
 				);
 	
 				//draw the block with different media objects
@@ -29233,13 +29261,17 @@ return /******/ (function(modules) { // webpackBootstrap
 					//only show the first 5 media items for now
 					mediaBlock = _react2.default.createElement(
 						'div',
-						{ className: 'well' },
+						{ className: 'panel panel-default' },
 						_react2.default.createElement(
-							'h3',
-							null,
+							'div',
+							{ className: 'panel-heading' },
 							'Media'
 						),
-						mediaItems.slice(0, 5)
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel-body' },
+							mediaItems.slice(0, 5)
+						)
 					);
 				}
 				return _react2.default.createElement(
@@ -29247,13 +29279,17 @@ return /******/ (function(modules) { // webpackBootstrap
 					null,
 					_react2.default.createElement(
 						'div',
-						{ className: 'well' },
+						{ className: 'panel panel-default' },
 						_react2.default.createElement(
-							'h3',
-							null,
+							'div',
+							{ className: 'panel-heading' },
 							'Metadata'
 						),
-						metadata
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel-body' },
+							metadata
+						)
 					),
 					mediaBlock
 				);
@@ -46224,7 +46260,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -58100,7 +58136,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					elementId: stats.service.collection,
 					dateFields: dateFields,
 					prefixQueryFields: searchableFields,
-					facets: facets
+					facets: facets,
+					sourceFilter: config.getSnippetFields()
 				};
 				return block;
 			}
@@ -58185,7 +58222,8 @@ return /******/ (function(modules) { // webpackBootstrap
 							onQueryOutput: this.updateQueryOutput.bind(this),
 							prefixQueryFields: searchBox.prefixQueryFields,
 							dateFields: searchBox.dateFields,
-							facets: searchBox.facets
+							facets: searchBox.facets,
+							sourceFilter: searchBox.sourceFilter
 						})
 					);
 				}, this);

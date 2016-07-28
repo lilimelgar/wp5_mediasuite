@@ -20,6 +20,15 @@ class NISVCatalogueConfig extends CollectionConfig {
 		];
 	}
 
+	getSnippetFields() {
+		return [
+			"bg:maintitles.bg:title",
+			"bg:publications.bg:publication.bg:sortdate",
+			"bg:publications.bg:publication.bg:broadcasters.bg:broadcaster.raw",
+			"bg:genres.bg:genre.raw"
+		]
+	}
+
 	getFacets() {
 		var ranges = TimeUtil.generateYearAggregationSK(1910, 2010);
 		return [

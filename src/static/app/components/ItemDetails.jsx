@@ -22,19 +22,21 @@ class ItemDetails extends React.Component {
 
 		let metadata = (
 			<table className="table">
-				<tr>
-					<td><strong>id:</strong></td>
-					<td>{this.props.data._id}</td>
-				</tr>
-				<tr>
-					<td><strong>index:</strong></td>
-					<td>{this.props.data._index}</td>
-				</tr>
-				<tr>
-					<td><strong>document type:</strong></td>
-					<td>{this.props.data._type}</td>
-				</tr>
-				{uniqueMetadata}
+				<tbody>
+					<tr>
+						<td><strong>id:</strong></td>
+						<td>{this.props.data._id}</td>
+					</tr>
+					<tr>
+						<td><strong>index:</strong></td>
+						<td>{this.props.data._index}</td>
+					</tr>
+					<tr>
+						<td><strong>document type:</strong></td>
+						<td>{this.props.data._type}</td>
+					</tr>
+					{uniqueMetadata}
+				</tbody>
 			</table>
 		)
 
@@ -84,18 +86,22 @@ class ItemDetails extends React.Component {
 
 			//only show the first 5 media items for now
 			mediaBlock = (
-				<div className="well">
-					<h3>Media</h3>
-					{mediaItems.slice(0, 5)}
+				<div className="panel panel-default">
+					<div className="panel-heading">Media</div>
+					<div className="panel-body">
+						{mediaItems.slice(0, 5)}
+					</div>
 				</div>
 			);
 
 			}
 		return (
 			<div>
-				<div className="well">
-					<h3>Metadata</h3>
-					{metadata}
+				<div className="panel panel-default">
+					<div className="panel-heading">Metadata</div>
+					<div className="panel-body">
+						{metadata}
+					</div>
 				</div>
 				{mediaBlock}
 			</div>

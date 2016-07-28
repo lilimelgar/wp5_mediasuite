@@ -155,7 +155,11 @@ class FacetSearchComponent extends React.Component {
 
 						<div className="sk-layout__results sk-results-list">
 							<div className="sk-result_action-bar sk-action-bar">
-								<Hits hitsPerPage={10} itemComponent={<FlexHits collectionId={this.props.blockId}/>}/>
+								<Hits
+									hitsPerPage={10}
+									itemComponent={<FlexHits collectionId={this.props.blockId}/>}
+									//sourceFilter={this.props.sourceFilter}
+								/>
 
 								<NoHits translations={{
 									 "NoHits.NoResultsFound":"No results found were found for {query}",

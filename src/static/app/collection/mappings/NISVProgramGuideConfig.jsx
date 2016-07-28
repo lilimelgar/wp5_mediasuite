@@ -15,6 +15,10 @@ export class NISVProgramGuideConfig extends CollectionConfig {
 		return ["block.text"];
 	}
 
+	getSnippetFields() {
+		return false;
+	}
+
 	getFacets() {
 		var ranges = TimeUtil.generateYearAggregationSK(1910, 2010);
 		return [

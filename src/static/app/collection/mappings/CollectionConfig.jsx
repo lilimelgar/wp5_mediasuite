@@ -9,6 +9,8 @@ class CollectionConfig {
 
 	getSearchableFields() {return null;}
 
+	getSnippetFields() {return false;}
+
 	getDateFields() {return null;}
 
 	getFacets() {return null;}

@@ -15,6 +15,10 @@ export class SpeechAndernieuwsConfig extends CollectionConfig {
 		return ["words"];
 	}
 
+	getSnippetFields() {
+		return false;
+	}
+
 	getDateFields() {
 		return ['metadata.broadcast_date'];
 	}
