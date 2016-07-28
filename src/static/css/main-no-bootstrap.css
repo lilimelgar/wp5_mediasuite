@@ -201,7 +201,7 @@ h4, h5, h6 {
 
 /* line 70, ../sass/_searchkit.scss */
 .react-autosuggest__input {
-  width: 440px;
+  width: 90%;
   height: 30px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
@@ -226,8 +226,8 @@ h4, h5, h6 {
 .react-autosuggest__suggestions-container {
   position: absolute;
   top: 51px;
-  width: 440px;
-  height: 400px;
+  width: 90%;
+  height: 420px;
   overflow: auto;
   margin: 0;
   padding: 0;

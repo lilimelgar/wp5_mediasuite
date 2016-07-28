@@ -64,6 +64,7 @@ class ClassifyingForm extends React.Component {
 	renderSuggestion(suggestion) {
 		let arr = suggestion.label.split('|');
 		let label = arr[1];
+		let scopeNote = arr[2] ? '(' + arr[2] + ')' : ''
 		switch(arr[1]) {
 			case 'Persoon' : label = (<span className="label label-warning">Persoon</span>);break;
 			case 'Maker' : label = (<span className="label label-warning">Maker</span>);break;
@@ -72,11 +73,9 @@ class ClassifyingForm extends React.Component {
 			case 'Onderwerp' : label = (<span className="label label-primary">Onderwerp</span>);break;
 			case 'Genre' : label = (<span className="label label-default">Genre</span>);break;
 			case 'B&G Onderwerp' : label = (<span className="label label-danger">B&G Onderwerp</span>);break;
-
-
 		}
 		return (
-			<span>{arr[0]}{label}</span>
+			<span>{arr[0]}&nbsp;{label}&nbsp;{scopeNote}</span>
 		);
 	}
 
@@ -109,28 +108,34 @@ class ClassifyingForm extends React.Component {
 		};
 		//<input ref="classifications" type="text" className="form-control" placeholder="Add one or more tags"/>
 		return (
-			<div key={'form__classify'} className="row">
-				<div className="col-md-12">
-					<form>
-						<div className="form-group">
-							<label htmlFor="classifications">Add classifications</label>
-
-							<Autosuggest
-								ref="classifications"
-								suggestions={this.state.suggestions}
-                     			onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
-                     			getSuggestionValue={this.getSuggestionValue.bind(this)}
-                     			renderSuggestion={this.renderSuggestion.bind(this)}
-                     			inputProps={inputProps}
-                     		/>
-						</div>
-						<button className="btn btn-primary" onClick={this.addClassification.bind(this)}>Add</button>
-						<br/>
-						<br/>
+			<div key={'form__classify'}>
+				<br/>
+				<div className="row">
+					<div className="col-md-12">
+						<label>Added classifications</label>
 						<div className="well">
 							{classifications}
 						</div>
-					</form>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-12">
+						<form>
+							<div className="form-group">
+								<label htmlFor="classifications">Add classifications</label>
+
+								<Autosuggest
+									ref="classifications"
+									suggestions={this.state.suggestions}
+	                     			onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
+	                     			getSuggestionValue={this.getSuggestionValue.bind(this)}
+	                     			renderSuggestion={this.renderSuggestion.bind(this)}
+	                     			inputProps={inputProps}
+	                     		/>
+							</div>
+							<button className="btn btn-primary" onClick={this.addClassification.bind(this)}>Add</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		);

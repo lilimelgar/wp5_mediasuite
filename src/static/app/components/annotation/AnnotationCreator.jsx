@@ -79,11 +79,11 @@ class AnnotationCreator extends React.Component {
 				);break;
 			}
 			return (
-				<div key={mode.type + '__tab_content'} id={mode.type} className={
-					this.state.activeTab == mode.type ? 'tab-pane active' : 'tab-pane'
-				}>
-					<h3>{mode.type}</h3>
-					{form}
+				<div
+					key={mode.type + '__tab_content'}
+					id={mode.type}
+					className={this.state.activeTab == mode.type ? 'tab-pane active' : 'tab-pane'}>
+						{form}
 				</div>
 				);
 		}, this);

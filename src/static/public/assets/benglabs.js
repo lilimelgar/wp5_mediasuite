@@ -57283,6 +57283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 	
 			//TODO neatly tie in with the player via an access object
+			//TODO also make sure the timebar is updated with the in and out points
 	
 		}, {
 			key: 'playAnnotation',
@@ -57507,12 +57508,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 					return React.createElement(
 						'div',
-						{ key: mode.type + '__tab_content', id: mode.type, className: this.state.activeTab == mode.type ? 'tab-pane active' : 'tab-pane' },
-						React.createElement(
-							'h3',
-							null,
-							mode.type
-						),
+						{
+							key: mode.type + '__tab_content',
+							id: mode.type,
+							className: this.state.activeTab == mode.type ? 'tab-pane active' : 'tab-pane' },
 						form
 					);
 				}, this);
@@ -60119,6 +60118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function renderSuggestion(suggestion) {
 				var arr = suggestion.label.split('|');
 				var label = arr[1];
+				var scopeNote = arr[2] ? '(' + arr[2] + ')' : '';
 				switch (arr[1]) {
 					case 'Persoon':
 						label = React.createElement(
@@ -60162,13 +60162,15 @@ return /******/ (function(modules) { // webpackBootstrap
 							{ className: 'label label-danger' },
 							'B&G Onderwerp'
 						);break;
-	
 				}
 				return React.createElement(
 					'span',
 					null,
 					arr[0],
-					label
+					' ',
+					label,
+					' ',
+					scopeNote
 				);
 			}
 		}, {
@@ -60212,41 +60214,57 @@ return /******/ (function(modules) { // webpackBootstrap
 				//<input ref="classifications" type="text" className="form-control" placeholder="Add one or more tags"/>
 				return React.createElement(
 					'div',
-					{ key: 'form__classify', className: 'row' },
+					{ key: 'form__classify' },
+					React.createElement('br', null),
 					React.createElement(
 						'div',
-						{ className: 'col-md-12' },
+						{ className: 'row' },
 						React.createElement(
-							'form',
-							null,
+							'div',
+							{ className: 'col-md-12' },
 							React.createElement(
-								'div',
-								{ className: 'form-group' },
-								React.createElement(
-									'label',
-									{ htmlFor: 'classifications' },
-									'Add classifications'
-								),
-								React.createElement(_reactAutosuggest2.default, {
-									ref: 'classifications',
-									suggestions: this.state.suggestions,
-									onSuggestionsUpdateRequested: this.onSuggestionsUpdateRequested.bind(this),
-									getSuggestionValue: this.getSuggestionValue.bind(this),
-									renderSuggestion: this.renderSuggestion.bind(this),
-									inputProps: inputProps
-								})
+								'label',
+								null,
+								'Added classifications'
 							),
-							React.createElement(
-								'button',
-								{ className: 'btn btn-primary', onClick: this.addClassification.bind(this) },
-								'Add'
-							),
-							React.createElement('br', null),
-							React.createElement('br', null),
 							React.createElement(
 								'div',
 								{ className: 'well' },
 								classifications
+							)
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'row' },
+						React.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							React.createElement(
+								'form',
+								null,
+								React.createElement(
+									'div',
+									{ className: 'form-group' },
+									React.createElement(
+										'label',
+										{ htmlFor: 'classifications' },
+										'Add classifications'
+									),
+									React.createElement(_reactAutosuggest2.default, {
+										ref: 'classifications',
+										suggestions: this.state.suggestions,
+										onSuggestionsUpdateRequested: this.onSuggestionsUpdateRequested.bind(this),
+										getSuggestionValue: this.getSuggestionValue.bind(this),
+										renderSuggestion: this.renderSuggestion.bind(this),
+										inputProps: inputProps
+									})
+								),
+								React.createElement(
+									'button',
+									{ className: 'btn btn-primary', onClick: this.addClassification.bind(this) },
+									'Add'
+								)
 							)
 						)
 					)
