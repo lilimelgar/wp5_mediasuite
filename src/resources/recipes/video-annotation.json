@@ -5,6 +5,6 @@
 	"description" : "Segment and annotate video",
 	"ingredients" : {
 		"playerType" : "vimeo",
-		"annotationModes" : ["classify", "comment"]
+		"annotationModes" : ["classify", "comment", "link"]
 	}
 }

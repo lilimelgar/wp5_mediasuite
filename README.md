@@ -116,11 +116,46 @@ While the watcher is running any changes to the *.scss files in the /static/sass
 
 You can change the compass configuration by editing /src/static/config.rb
 
-## Using the component library to build your own recipe
+# Recipes
+
+There are two ways to define recipes:
+
+1 With a recipe configuration
+2 Build it yourself, using the component library
+
+## Configure a recipe
+
+Currently there are a number of recipes already configured in src/resources/recipes
+
+Each recipe configuration is a JSON file and currently has very limited options. For now: just inspect the examples and you should be pretty much up-to-date with what can be configured.
+
+After creating a recipe config, you can load it in your HTML page, as follows (also see /src/templates/recipe.html):
+
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script type="text/javascript" src="/static/js/playout/froogaloop.js"></script>
+<script src="/static/js/config.js" type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.js"></script>
+<script src="/static/public/assets/benglabs.js" type="text/javascript"></script>
+<script>
+	var config = ''//TODO load your config JSON file from wherever
+	clariah.cookRecipe(config, 'app');
+</script>
+```
+
+**Note**:
+
+* The d3 import is only necessary when including the LineChart or CollectionAnalyser within your recipe
+* The froogaloop import is only needed whenever you are creating a recipe of the type: 'annotation' (see video-annotation.json)
+* The config.js contains information about where the APIs are running
+
+## Build your own recipe with the component library
 
 The idea of the component library is to (also) be able to use it within your own simple HTML/Javascript page without needing a lot of difficult webpack configurations and what not.
 
-The best example of going about this is to look at /templates/components.html and /js/labo-components.js
+The best example of going about this is to look at /src/templates/components.html and /src/static/js/labo-components.js
 
 At this moment you require the following imports before the benglabs.js will work properly:
 

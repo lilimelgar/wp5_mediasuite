@@ -126,7 +126,8 @@ class FacetSearchComponent extends React.Component {
 					<div className="search-box">
 						<SearchBox
 							autofocus={true}
-							searchOnChange={true}
+							searchOnChange={false}
+							//searchThrottleTime={400}
 							prefixQueryFields={this.props.prefixQueryFields}
 							/>
 					</div>
