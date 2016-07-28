@@ -6,7 +6,7 @@ Underlying LABO's user interface, is the CLARIAH component library, which is als
 
 **Current version**: 0.0.9
 
-## CLARIAH component library
+## Component library
 
 In CLARIAH the choice was made to steer clear from implementing monolithic tools and instead to focus on the implementation of
 reusable functionalities, which can be:
@@ -49,7 +49,7 @@ Following this it should already be possible to start the Flask webserver using
 python server.py
 ```
 
-Note: make sure you set the RECIPES_PATH correctly in your settings.py
+**Note**: make sure you set the RECIPES_PATH correctly in your settings.py
 
 ### Javascript / React components
 
@@ -104,6 +104,31 @@ compass watch
 While the watcher is running any changes to the *.scss files in the /static/sass folder will be compiled into /src/static/css/main.css
 
 You can change the compass configuration by editing /src/static/config.rb
+
+## Using the component library to build your own recipe
+
+The idea of the component library is to (also) be able to use it within your own simple HTML/Javascript page without needing a lot of difficult webpack configurations and what not.
+
+The best example of going about this is to look at /templates/components.html and /js/labo-components.js
+
+At this moment you require the following imports before the benglabs.js will work properly:
+
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.js"></script>
+```
+
+After that you can simply include:
+
+```
+<script src="/static/js/config.js"></script>
+<script src="/static/public/assets/benglabs.js"></script>
+<script type="text/babel" src="/static/js/YOUR-OWN.js"></script>
+```
+
+**Note**: the config.js is also still needed as it contains the connection information to the B&G APIs. At some point this will be part of a more developer friendly config
 
 ## Reading
 
