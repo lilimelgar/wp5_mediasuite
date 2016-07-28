@@ -46261,7 +46261,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -59979,6 +59979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				return _react2.default.createElement(
 					'div',
 					{ key: 'form__comment', className: 'row' },
+					_react2.default.createElement('br', null),
 					_react2.default.createElement(
 						'div',
 						{ className: 'col-md-12' },

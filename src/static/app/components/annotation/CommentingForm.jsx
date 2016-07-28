@@ -13,6 +13,7 @@ class CommentingForm extends React.Component {
 	render() {
 		return (
 			<div key="form__comment" className="row">
+				<br/>
 				<div className="col-md-12">
 					<form>
 						<div className="form-group">
