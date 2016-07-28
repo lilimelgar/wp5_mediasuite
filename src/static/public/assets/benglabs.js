@@ -57405,19 +57405,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _CommentingForm = __webpack_require__(/*! ./CommentingForm */ 641);
+	
+	var _CommentingForm2 = _interopRequireDefault(_CommentingForm);
+	
+	var _ClassifyingForm = __webpack_require__(/*! ./ClassifyingForm */ 642);
+	
+	var _ClassifyingForm2 = _interopRequireDefault(_ClassifyingForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//TODO this components needs to be able to load an annotation form based on a config
-	
-	//Now this creator can be passed a number of desired annotationModes, namely classify or comment.
-	//Basically this reflects: "should the user be able to classify the resource or comment or both or..."
-	//TODO see if this idea makes enough sense to expand on
 	
 	var AnnotationCreator = function (_React$Component) {
 		_inherits(AnnotationCreator, _React$Component);
@@ -57440,6 +57444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 			_this.state = {
 				modes: _this.props.annotationModes,
+				activeTab: null,
 				classifications: classifications,
 				comment: comment
 			};
@@ -57447,10 +57452,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	
 		_createClass(AnnotationCreator, [{
+			key: 'updateAnnotationData',
+			value: function updateAnnotationData(mode, value) {
+				this.setState(_defineProperty({}, mode, value));
+			}
+		}, {
 			key: 'gatherDataAndSave',
 			value: function gatherDataAndSave() {
-				console.debug('Saving this annotation...');
-				console.debug(this.props.annotation);
 				var annotation = this.props.annotation;
 				if (!annotation) {
 					annotation = {};
@@ -57465,129 +57473,67 @@ return /******/ (function(modules) { // webpackBootstrap
 				annotation.data = data;
 				this.props.saveAnnotation(annotation);
 			}
-	
-			//TODO use a config to further configure specific types of forms
-	
-		}, {
-			key: 'getForms',
-			value: function getForms() {
-				var _this2 = this;
-	
-				return this.state.modes.map(function (mode, index) {
-					if (mode == 'comment') {
-						return _this2.getCommentForm(index);
-					} else if (mode == 'classify') {
-						return _this2.getClassifyForm(index);
-					} else {
-						return '';
-					}
-				});
-			}
-		}, {
-			key: 'handleChangeComment',
-			value: function handleChangeComment(e) {
-				this.setState({ comment: e.target.value });
-			}
-		}, {
-			key: 'getCommentForm',
-			value: function getCommentForm(elementIndex) {
-				return _react2.default.createElement(
-					'div',
-					{ key: 'form__' + elementIndex, className: 'row' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-md-12' },
-						_react2.default.createElement(
-							'form',
-							null,
-							_react2.default.createElement(
-								'div',
-								{ className: 'form-group' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'comment' },
-									'Comment'
-								),
-								_react2.default.createElement('input', {
-									ref: 'comment',
-									type: 'text',
-									className: 'form-control',
-									placeholder: 'Add one or more tags',
-									value: this.state.comment,
-									onChange: this.handleChangeComment.bind(this)
-								})
-							)
-						)
-					)
-				);
-			}
-		}, {
-			key: 'getClassifyForm',
-			value: function getClassifyForm(elementIndex) {
-				var classifications = this.state.classifications.map(function (c, index) {
-					return _react2.default.createElement(
-						'span',
-						{ key: 'cl__' + index },
-						_react2.default.createElement(
-							'span',
-							{ className: 'label label-success' },
-							c
-						),
-						' '
-					);
-				});
-				return _react2.default.createElement(
-					'div',
-					{ key: 'form__' + elementIndex, className: 'row' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-md-12' },
-						_react2.default.createElement(
-							'form',
-							null,
-							_react2.default.createElement(
-								'div',
-								{ className: 'form-group' },
-								_react2.default.createElement(
-									'label',
-									{ htmlFor: 'classifications' },
-									'Classification'
-								),
-								_react2.default.createElement('input', { ref: 'classifications', type: 'text', className: 'form-control', placeholder: 'Add one or more tags' })
-							),
-							_react2.default.createElement(
-								'button',
-								{ className: 'btn btn-primary', onClick: this.addClassification.bind(this) },
-								'Add'
-							),
-							_react2.default.createElement('br', null),
-							_react2.default.createElement('br', null),
-							_react2.default.createElement(
-								'div',
-								{ className: 'well' },
-								classifications
-							)
-						)
-					)
-				);
-			}
-		}, {
-			key: 'addClassification',
-			value: function addClassification(e) {
-				e.preventDefault();
-				var cs = this.state.classifications;
-				cs.push(this.refs.classifications.value);
-				this.refs.classifications.value = '';
-				this.setState({ classifications: cs });
-			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var forms = this.getForms();
+				//generate the tabs from the configured modes
+				var tabs = this.state.modes.map(function (mode) {
+					return _react2.default.createElement(
+						'li',
+						{
+							key: mode.type + '__tab_option',
+							className: this.state.activeTab == mode.type ? 'active' : ''
+						},
+						_react2.default.createElement(
+							'a',
+							{ 'data-toggle': 'tab', href: '#' + mode.type },
+							mode.type
+						)
+					);
+				}, this);
+	
+				//generate the content of each tab (a form based on a annotation mode/motivation)
+				var tabContents = this.state.modes.map(function (mode) {
+					var form = '';
+					switch (mode.type) {
+						case 'comment':
+							form = _react2.default.createElement(_CommentingForm2.default, {
+								data: this.state.comment,
+								config: mode,
+								updateAnnotationData: this.updateAnnotationData.bind(this)
+							});break;
+						case 'classify':
+							form = _react2.default.createElement(_ClassifyingForm2.default, {
+								data: this.state.classifications,
+								config: mode,
+								updateAnnotationData: this.updateAnnotationData.bind(this)
+							});break;
+					}
+					return _react2.default.createElement(
+						'div',
+						{ key: mode.type + '__tab_content', id: mode.type, className: this.state.activeSearchTab == mode.type ? 'tab-pane active' : 'tab-pane' },
+						_react2.default.createElement(
+							'h3',
+							null,
+							mode.type
+						),
+						form
+					);
+				}, this);
+	
 				return _react2.default.createElement(
 					'div',
 					null,
-					forms,
+					_react2.default.createElement(
+						'ul',
+						{ className: 'nav nav-tabs' },
+						tabs
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'tab-content' },
+						tabContents
+					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'text-right' },
@@ -58209,7 +58155,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				var searchTabContents = this.state.searchBlocks.map(function (searchBox) {
 					return _react2.default.createElement(
 						'div',
-						{ key: searchBox.elementId + '__tab_content', id: searchBox.elementId, className: this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane' },
+						{
+							key: searchBox.elementId + '__tab_content',
+							id: searchBox.elementId,
+							className: this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'
+						},
 						_react2.default.createElement(
 							'h3',
 							null,
@@ -59986,6 +59936,183 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}) (typeof window !== 'undefined' ? window : null, typeof  window !== 'undefined' ? document : null);
 
+
+/***/ },
+/* 641 */
+/*!******************************************************!*\
+  !*** ./app/components/annotation/CommentingForm.jsx ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CommentingForm = function (_React$Component) {
+		_inherits(CommentingForm, _React$Component);
+	
+		function CommentingForm(props) {
+			_classCallCheck(this, CommentingForm);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(CommentingForm).call(this, props));
+		}
+	
+		_createClass(CommentingForm, [{
+			key: 'handleChangeComment',
+			value: function handleChangeComment(e) {
+				this.props.updateAnnotationData('comment', e.target.value);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ key: 'form__comment', className: 'row' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-md-12' },
+						_react2.default.createElement(
+							'form',
+							null,
+							_react2.default.createElement(
+								'div',
+								{ className: 'form-group' },
+								_react2.default.createElement(
+									'label',
+									{ htmlFor: 'comment' },
+									'Comment'
+								),
+								_react2.default.createElement('input', {
+									ref: 'comment',
+									type: 'text',
+									className: 'form-control',
+									placeholder: 'Add one or more tags',
+									value: this.props.data,
+									onChange: this.handleChangeComment.bind(this)
+								})
+							)
+						)
+					)
+				);
+			}
+		}]);
+	
+		return CommentingForm;
+	}(_react2.default.Component);
+	
+	exports.default = CommentingForm;
+
+/***/ },
+/* 642 */
+/*!*******************************************************!*\
+  !*** ./app/components/annotation/ClassifyingForm.jsx ***!
+  \*******************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ClassifyingForm = function (_React$Component) {
+		_inherits(ClassifyingForm, _React$Component);
+	
+		function ClassifyingForm(props) {
+			_classCallCheck(this, ClassifyingForm);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(ClassifyingForm).call(this, props));
+		}
+	
+		_createClass(ClassifyingForm, [{
+			key: 'addClassification',
+			value: function addClassification(e) {
+				e.preventDefault();
+				var cs = this.props.data;
+				cs.push(this.refs.classifications.value);
+				this.refs.classifications.value = '';
+				this.props.updateAnnotationData('classifications', cs);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var classifications = this.props.data.map(function (c, index) {
+					return React.createElement(
+						'span',
+						{ key: 'cl__' + index },
+						React.createElement(
+							'span',
+							{ className: 'label label-success' },
+							c
+						),
+						' '
+					);
+				});
+				return React.createElement(
+					'div',
+					{ key: 'form__classify', className: 'row' },
+					React.createElement(
+						'div',
+						{ className: 'col-md-12' },
+						React.createElement(
+							'form',
+							null,
+							React.createElement(
+								'div',
+								{ className: 'form-group' },
+								React.createElement(
+									'label',
+									{ htmlFor: 'classifications' },
+									'Classification'
+								),
+								React.createElement('input', { ref: 'classifications', type: 'text', className: 'form-control', placeholder: 'Add one or more tags' })
+							),
+							React.createElement(
+								'button',
+								{ className: 'btn btn-primary', onClick: this.addClassification.bind(this) },
+								'Add'
+							),
+							React.createElement('br', null),
+							React.createElement('br', null),
+							React.createElement(
+								'div',
+								{ className: 'well' },
+								classifications
+							)
+						)
+					)
+				);
+			}
+		}]);
+	
+		return ClassifyingForm;
+	}(React.Component);
+	
+	exports.default = ClassifyingForm;
 
 /***/ }
 /******/ ])

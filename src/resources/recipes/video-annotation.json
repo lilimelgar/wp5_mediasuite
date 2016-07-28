@@ -5,6 +5,10 @@
 	"description" : "Segment and annotate video",
 	"ingredients" : {
 		"playerType" : "vimeo",
-		"annotationModes" : ["classify", "comment", "link"]
+		"annotationModes" : [
+			{"type" : "classify", "vocabularies" : ["GTAA"]},
+			{"type" : "comment"},
+			{"type" : "link", "apis" : ["Europeana"]}
+		]
 	}
 }

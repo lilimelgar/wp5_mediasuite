@@ -139,21 +139,23 @@ class Recipe extends React.Component {
 		//these are the facet search UI blocks put into different tabs
 		var searchTabContents = this.state.searchBlocks.map(function(searchBox) {
 			return (
-				<div key={searchBox.elementId + '__tab_content'} id={searchBox.elementId} className={
-					this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'
-				}>
-				<h3>{searchBox.elementId}</h3>
-				<FacetSearchComponent
-					key={searchBox.elementId + '__sk'}
-					blockId={searchBox.elementId}
-					searchAPI={_config.SEARCH_API_BASE}
-					indexPath={'/search/' + searchBox.elementId}
-					onQueryOutput={this.updateQueryOutput.bind(this)}
-					prefixQueryFields={searchBox.prefixQueryFields}
-					dateFields={searchBox.dateFields}
-					facets={searchBox.facets}
-					sourceFilter={searchBox.sourceFilter}
-				/>
+				<div
+					key={searchBox.elementId + '__tab_content'}
+					id={searchBox.elementId}
+					className={this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'}
+				>
+					<h3>{searchBox.elementId}</h3>
+					<FacetSearchComponent
+						key={searchBox.elementId + '__sk'}
+						blockId={searchBox.elementId}
+						searchAPI={_config.SEARCH_API_BASE}
+						indexPath={'/search/' + searchBox.elementId}
+						onQueryOutput={this.updateQueryOutput.bind(this)}
+						prefixQueryFields={searchBox.prefixQueryFields}
+						dateFields={searchBox.dateFields}
+						facets={searchBox.facets}
+						sourceFilter={searchBox.sourceFilter}
+					/>
 				</div>
 				);
 		}, this);

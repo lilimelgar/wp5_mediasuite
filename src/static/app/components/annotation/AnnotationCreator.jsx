@@ -1,10 +1,6 @@
 import React from 'react';
-
-//TODO this components needs to be able to load an annotation form based on a config
-
-//Now this creator can be passed a number of desired annotationModes, namely classify or comment.
-//Basically this reflects: "should the user be able to classify the resource or comment or both or..."
-//TODO see if this idea makes enough sense to expand on
+import CommentingForm from './CommentingForm';
+import ClassifyingForm from './ClassifyingForm';
 
 class AnnotationCreator extends React.Component {
 
@@ -23,14 +19,17 @@ class AnnotationCreator extends React.Component {
 		}
 		this.state = {
 			modes : this.props.annotationModes,
+			activeTab : null,
 			classifications : classifications,
 			comment : comment
 		}
 	}
 
+	updateAnnotationData(mode, value) {
+		this.setState({[mode] : value});
+	}
+
 	gatherDataAndSave() {
-		console.debug('Saving this annotation...');
-		console.debug(this.props.annotation);
 		var annotation = this.props.annotation;
 		if(!annotation) {
 			annotation = {};
@@ -46,82 +45,58 @@ class AnnotationCreator extends React.Component {
 		this.props.saveAnnotation(annotation);
 	}
 
-	//TODO use a config to further configure specific types of forms
-	getForms() {
-		return this.state.modes.map((mode, index) => {
-			if(mode == 'comment') {
-				return this.getCommentForm(index);
-			} else if(mode == 'classify') {
-				return this.getClassifyForm(index);
-			} else {
-				return ''
-			}
-		});
-	}
-
-	handleChangeComment(e) {
-		this.setState({comment : e.target.value});
-	}
-
-	getCommentForm(elementIndex) {
-		return (
-			<div key={'form__' + elementIndex} className="row">
-				<div className="col-md-12">
-					<form>
-						<div className="form-group">
-							<label htmlFor="comment">Comment</label>
-							<input
-								ref="comment"
-								type="text"
-								className="form-control"
-								placeholder="Add one or more tags"
-								value={this.state.comment}
-								onChange={this.handleChangeComment.bind(this)}
-							/>
-						</div>
-					</form>
-				</div>
-			</div>
-		);
-	}
-
-	getClassifyForm(elementIndex) {
-		let classifications = this.state.classifications.map((c, index) => {
-			return (<span key={'cl__' + index}><span className="label label-success">{c}</span>&nbsp;</span>)
-		});
-		return (
-			<div key={'form__' + elementIndex} className="row">
-				<div className="col-md-12">
-					<form>
-						<div className="form-group">
-							<label htmlFor="classifications">Classification</label>
-							<input ref="classifications" type="text" className="form-control" placeholder="Add one or more tags"/>
-						</div>
-						<button className="btn btn-primary" onClick={this.addClassification.bind(this)}>Add</button>
-						<br/>
-						<br/>
-						<div className="well">
-							{classifications}
-						</div>
-					</form>
-				</div>
-			</div>
-		);
-	}
-
-	addClassification(e) {
-		e.preventDefault();
-		var cs = this.state.classifications;
-		cs.push(this.refs.classifications.value);
-		this.refs.classifications.value = '';
-		this.setState({classifications : cs});
-	}
-
 	render() {
-		const forms = this.getForms();
+		//generate the tabs from the configured modes
+		const tabs = this.state.modes.map(function(mode) {
+			return (
+				<li
+					key={mode.type + '__tab_option'}
+					className={this.state.activeTab == mode.type ? 'active' : ''}
+				>
+					<a data-toggle="tab" href={'#' + mode.type}>
+						{mode.type}
+					</a>
+				</li>
+				)
+		}, this)
+
+		//generate the content of each tab (a form based on a annotation mode/motivation)
+		var tabContents = this.state.modes.map(function(mode) {
+			let form = '';
+			switch(mode.type) {
+				case 'comment' : form = (
+					<CommentingForm
+						data={this.state.comment}
+						config={mode}
+						updateAnnotationData={this.updateAnnotationData.bind(this)}
+					/>
+				);break;
+				case 'classify' : form = (
+					<ClassifyingForm
+						data={this.state.classifications}
+						config={mode}
+						updateAnnotationData={this.updateAnnotationData.bind(this)}
+					/>
+				);break;
+			}
+			return (
+				<div key={mode.type + '__tab_content'} id={mode.type} className={
+					this.state.activeSearchTab == mode.type ? 'tab-pane active' : 'tab-pane'
+				}>
+					<h3>{mode.type}</h3>
+					{form}
+				</div>
+				);
+		}, this);
+
 		return (
 			<div>
-				{forms}
+				<ul className="nav nav-tabs">
+					{tabs}
+				</ul>
+				<div className="tab-content">
+					{tabContents}
+				</div>
 				<div className="text-right">
 					<button
 						type="button"
