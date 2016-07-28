@@ -86,10 +86,21 @@ npm run dev
 
 Note that this is not a default command of npm, but works because a script (calling webpack) has been configured for this in package.json.
 
-Other commands custom commands are:
 
-* npm run prod (webpack.config.prod.js is run to produce the minified benglabs.min.js)
-* npm run build (this runs the webpack.config.js just once)
+#### Other custom npm scripts
+
+```
+npm run prod
+```
+
+This will run webpack.config.prod.js is to produce the minified benglabs.min.js. For production deployments, please update recipe.html and components.html with this minified version
+
+```
+npm run build
+```
+
+This runs the webpack.config.js just once
+
 
 #### Start the compass watcher
 
