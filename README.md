@@ -49,6 +49,7 @@ Following this it should already be possible to start the Flask webserver using
 python server.py
 ```
 
+Note: make sure you set the RECIPES_PATH correctly in your settings.py
 
 ### Javascript / React components
 
@@ -83,7 +84,12 @@ To start the watcher, go into the /src/static (containing webpack.config.js) and
 npm run dev
 ```
 
-Note: this is not a default command of npm, but works because a script (calling webpack) has been configured for this in package.json.
+Note that this is not a default command of npm, but works because a script (calling webpack) has been configured for this in package.json.
+
+Other commands custom commands are:
+
+* npm run prod (webpack.config.prod.js is run to produce the minified benglabs.min.js)
+* npm run build (this runs the webpack.config.js just once)
 
 #### Start the compass watcher
 
