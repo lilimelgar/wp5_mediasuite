@@ -1,4 +1,3 @@
-import React from 'react';
 import CommentingForm from './CommentingForm';
 import ClassifyingForm from './ClassifyingForm';
 
@@ -19,7 +18,7 @@ class AnnotationCreator extends React.Component {
 		}
 		this.state = {
 			modes : this.props.annotationModes,
-			activeTab : null,
+			activeTab : this.props.annotationModes[0].type,
 			classifications : classifications,
 			comment : comment
 		}
@@ -81,7 +80,7 @@ class AnnotationCreator extends React.Component {
 			}
 			return (
 				<div key={mode.type + '__tab_content'} id={mode.type} className={
-					this.state.activeSearchTab == mode.type ? 'tab-pane active' : 'tab-pane'
+					this.state.activeTab == mode.type ? 'tab-pane active' : 'tab-pane'
 				}>
 					<h3>{mode.type}</h3>
 					{form}

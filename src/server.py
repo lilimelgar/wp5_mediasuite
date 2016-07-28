@@ -5,6 +5,8 @@ from flask import request, Response
 
 from functools import wraps
 
+from components.OpenSKOSHandler import OpenSKOSHandler
+
 import simplejson
 import os
 
@@ -119,6 +121,26 @@ def recipe(recipeId):
 		)
 	print app.config['RECIPES']
 	return render_template('404.html'), 404
+
+"""------------------------------------------------------------------------------
+TEMPORARY VOCABULARY 'API'
+------------------------------------------------------------------------------"""
+
+@app.route('/autocomplete')
+def autocomplete():
+	term = request.args.get('term', None)
+	vocab = request.args.get('vocab', 'DBpedia')
+	conceptScheme = request.args.get('cs', None) #only for GTAA (not used yet!!)
+	if term:
+		options = None
+		if vocab == 'GTAA':
+			handler = OpenSKOSHandler()
+			options = handler.autoCompleteTable(term.lower(), conceptScheme)
+		if options:
+			return Response(simplejson.dumps(options), mimetype='application/json')
+		else:
+			return Response(getErrorMessage('Nothing found'), mimetype='application/json')
+	return Response(getErrorMessage('Please specify a search term'), mimetype='application/json')
 
 """------------------------------------------------------------------------------
 ERROR HANDLERS
