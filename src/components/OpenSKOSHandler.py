@@ -4,7 +4,6 @@ import httplib2
 import urllib
 import simplejson
 from subprocess import *
-from django.conf import settings
 
 """
 VOORBEELD REQUESTS:
