@@ -102,7 +102,7 @@ class AnnotationBox extends React.Component {
 					editAnnotation={this.handleShowModal.bind(this)}
 					deleteAnnotation={this.deleteAnnotation.bind(this)}/>
 				<button type="button" className="btn btn-info" onClick={this.addAnnotation.bind(this)}>
-					Add annotation
+					Nieuw
 				</button>
 
 				{this.state.showModal ?
@@ -114,6 +114,9 @@ class AnnotationBox extends React.Component {
 							annotation={this.state.annotation}
 							saveAnnotation={this.saveAnnotation.bind(this)}
 							annotationModes={this.props.annotationModes}
+							start={this.props.start}
+							end={this.props.end}
+							user={this.props.user}
 						/>
 					</FlexModal>: null
 				}

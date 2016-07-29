@@ -17,7 +17,8 @@ class AnnotationRecipe extends React.Component {
 			duration : 0,
 			start : -1,
 			end : -1,
-			paused : true
+			paused : true,
+			user : 'JaapTest'
 		}
 	}
 
@@ -397,6 +398,7 @@ class AnnotationRecipe extends React.Component {
 							<AnnotationBox
 								start={this.state.start}
 								end={this.state.end}
+								user={this.state.user}
 								seek={this.seek.bind(this)}
 								annotationModes={this.props.ingredients.annotationModes}
 							/>

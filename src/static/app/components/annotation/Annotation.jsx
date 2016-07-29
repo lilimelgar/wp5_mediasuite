@@ -1,4 +1,5 @@
 import React from 'react';
+import TimeUtil from '../../util/TimeUtil';
 
 class Annotation extends React.Component {
 
@@ -39,7 +40,11 @@ class Annotation extends React.Component {
 				onClick={this.setAnnotation.bind(this)}
 				onDoubleClick={this.editAnnotation.bind(this)}
 			>
-				<abbr>{this.props.annotation.annotationId}</abbr>
+				<abbr>
+					{TimeUtil.formatTime(this.props.annotation.start)}&nbsp;-&nbsp;
+					{TimeUtil.formatTime(this.props.annotation.end)}&nbsp;
+					(door: {this.props.annotation.user})
+				</abbr>
 				&nbsp;
 				<i className="glyphicon glyphicon-remove interactive"
 					onClick={this.deleteAnnotation.bind(this)}>

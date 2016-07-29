@@ -6,21 +6,21 @@ class AnnotationCreator extends React.Component {
 	constructor(props) {
 		super(props);
 		//make this less shitty verbosey
-		let comment = '';
+		let comments = [];
 		let classifications = [];
 		if(this.props.annotation) {
 			if(this.props.annotation.data.classifications) {
 				classifications = this.props.annotation.data.classifications;
 			}
-			if(this.props.annotation.data.comment) {
-				comment = this.props.annotation.data.comment;
+			if(this.props.annotation.data.comments) {
+				comments = this.props.annotation.data.comments;
 			}
 		}
 		this.state = {
 			modes : this.props.annotationModes,
 			activeTab : this.props.annotationModes[0].type,
 			classifications : classifications,
-			comment : comment
+			comments : comments
 		}
 	}
 
@@ -31,14 +31,18 @@ class AnnotationCreator extends React.Component {
 	gatherDataAndSave() {
 		var annotation = this.props.annotation;
 		if(!annotation) {
-			annotation = {};
+			annotation = {
+				user : this.props.user,
+				start : this.props.start,
+				end : this.props.end
+			};
 		}
 		var data = {};
 		if(this.state.classifications.length > 0) {
 			data['classifications'] = this.state.classifications;
 		}
-		if(this.state.comment) {
-			data['comment'] = this.state.comment
+		if(this.state.comments) {
+			data['comments'] = this.state.comments
 		}
 		annotation.data = data;
 		this.props.saveAnnotation(annotation);
@@ -65,7 +69,7 @@ class AnnotationCreator extends React.Component {
 			switch(mode.type) {
 				case 'comment' : form = (
 					<CommentingForm
-						data={this.state.comment}
+						data={this.state.comments}
 						config={mode}
 						updateAnnotationData={this.updateAnnotationData.bind(this)}
 					/>

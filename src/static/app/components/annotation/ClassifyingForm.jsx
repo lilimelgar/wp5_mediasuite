@@ -98,7 +98,7 @@ class ClassifyingForm extends React.Component {
 				<span key={'cl__' + index}>
 					<span className="label label-success tag" onClick={this.removeClassification.bind(this, index)}>
 						{c}
-						<i className="glyphicon glyphicon-minus"></i>
+						<i className="glyphicon glyphicon-remove interactive"></i>
 					</span>&nbsp;
 				</span>
 			)
