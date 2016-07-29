@@ -46261,7 +46261,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -60041,6 +60041,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	//read up: https://github.com/moroshko/react-autosuggest
+	
 	var ClassifyingForm = function (_React$Component) {
 		_inherits(ClassifyingForm, _React$Component);
 	
@@ -60212,7 +60214,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					value: this.state.value,
 					onChange: this.onChange.bind(this)
 				};
-				//<input ref="classifications" type="text" className="form-control" placeholder="Add one or more tags"/>
+	
 				return React.createElement(
 					'div',
 					{ key: 'form__classify' },

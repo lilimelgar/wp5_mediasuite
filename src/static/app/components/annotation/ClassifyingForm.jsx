@@ -1,5 +1,7 @@
 import Autosuggest from 'react-autosuggest';
 
+//read up: https://github.com/moroshko/react-autosuggest
+
 class ClassifyingForm extends React.Component {
 
 	constructor(props) {
@@ -106,7 +108,7 @@ class ClassifyingForm extends React.Component {
 			value: this.state.value,
 			onChange: this.onChange.bind(this)
 		};
-		//<input ref="classifications" type="text" className="form-control" placeholder="Add one or more tags"/>
+
 		return (
 			<div key={'form__classify'}>
 				<br/>
