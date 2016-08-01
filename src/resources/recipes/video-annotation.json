@@ -8,7 +8,10 @@
 		"annotationModes" : [
 			{"type" : "classify", "vocabularies" : ["GTAA", "DBpedia"]},
 			{"type" : "comment"},
-			{"type" : "link", "apis" : ["Europeana"]}
+			{"type" : "link", "apis" : [
+				{"name" : "wikidata"},
+				{"name" : "europeana"}
+			]}
 		]
 	}
 }

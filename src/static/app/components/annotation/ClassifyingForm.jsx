@@ -22,23 +22,27 @@ class ClassifyingForm extends React.Component {
 	addClassification(e) {
 		e.preventDefault();
 		var cs = this.props.data;
-		cs.push({
-			id : this.state.suggestionId,
-			label: this.state.value,
-			vocabulary : this.state.vocabulary
-		});
+		if(cs) {
+			cs.push({
+				id : this.state.suggestionId,
+				label: this.state.value,
+				vocabulary : this.state.vocabulary
+			});
 
-		/* this calls the owner function, which will update the state, which
-		in turn will update this.props.data with the added classification */
-		this.props.updateAnnotationData('classifications', cs);
+			/* this calls the owner function, which will update the state, which
+			in turn will update this.props.data with the added classification */
+			this.props.updateAnnotationData('classifications', cs);
 
-		this.setState({value : ''});
+			this.setState({value : ''});
+		}
 	}
 
 	removeClassification(index) {
 		var cs = this.props.data;
-		cs.splice(index, 1);
-		this.props.updateAnnotationData('classifications', cs);
+		if(cs) {
+			cs.splice(index, 1);
+			this.props.updateAnnotationData('classifications', cs);
+		}
 	}
 
 	setVocabulary(event) {

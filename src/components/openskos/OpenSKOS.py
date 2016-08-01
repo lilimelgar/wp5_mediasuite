@@ -10,15 +10,11 @@ VOORBEELD REQUESTS:
     http://production.openskos.beeldengeluid.nl.pictura-dp.nl/api/find-concepts?q=kerk*&format=json&fl=prefLabel,scopeNote,inScheme
     http://production.openskos.beeldengeluid.nl.pictura-dp.nl/api/find-concepts?q=prefLabelText:stichting*&format=json&fl=prefLabel,scopeNote,inScheme
     http://production.openskos.beeldengeluid.nl.pictura-dp.nl/api/find-concepts?q=LexicalLabelsText:stichting*&format=json&fl=prefLabel,scopeNote,inScheme
-
-ALS DE LIJST GROOT IS
-    http://stackoverflow.com/questions/5073612/jquery-ui-autocomplete-combobox-very-slow-with-large-select-lists
 """
 
-class OpenSKOSHandler():
+class OpenSKOS():
 
     def __init__(self):
-        print ' -- Initializing OpenSKOSHandler -- '
         self.name = 'openskos'
         self.OPENSKOS_API = 'http://openskos.beeldengeluid.nl/api'
         self.GTAA_TYPE_MAPPINGS = {'http://data.beeldengeluid.nl/gtaa/GeografischeNamen' : 'Geografisch', 'http://data.beeldengeluid.nl/gtaa/Namen' : 'Naam',

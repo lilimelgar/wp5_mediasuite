@@ -1,5 +1,6 @@
 import CommentingForm from './CommentingForm';
 import ClassifyingForm from './ClassifyingForm';
+import LinkingForm from './LinkingForm';
 
 class AnnotationCreator extends React.Component {
 
@@ -8,6 +9,7 @@ class AnnotationCreator extends React.Component {
 		//make this less shitty verbosey
 		let comments = [];
 		let classifications = [];
+		let links = [];
 		if(this.props.annotation) {
 			if(this.props.annotation.data.classifications) {
 				classifications = this.props.annotation.data.classifications;
@@ -15,12 +17,16 @@ class AnnotationCreator extends React.Component {
 			if(this.props.annotation.data.comments) {
 				comments = this.props.annotation.data.comments;
 			}
+			if(this.props.annotation.data.links) {
+				links = this.props.annotation.data.links;
+			}
 		}
 		this.state = {
 			modes : this.props.annotationModes,
 			activeTab : this.props.annotationModes[0].type,
 			classifications : classifications,
-			comments : comments
+			comments : comments,
+			links : links
 		}
 	}
 
@@ -43,6 +49,9 @@ class AnnotationCreator extends React.Component {
 		}
 		if(this.state.comments) {
 			data['comments'] = this.state.comments
+		}
+		if(this.state.links) {
+			data['links'] = this.state.links
 		}
 		annotation.data = data;
 		this.props.saveAnnotation(annotation);
@@ -77,6 +86,13 @@ class AnnotationCreator extends React.Component {
 				case 'classify' : form = (
 					<ClassifyingForm
 						data={this.state.classifications}
+						config={mode}
+						updateAnnotationData={this.updateAnnotationData.bind(this)}
+					/>
+				);break;
+				case 'link' : form = (
+					<LinkingForm
+						data={this.state.links}
 						config={mode}
 						updateAnnotationData={this.updateAnnotationData.bind(this)}
 					/>

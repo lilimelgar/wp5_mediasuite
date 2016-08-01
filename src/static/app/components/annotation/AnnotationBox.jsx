@@ -5,6 +5,8 @@ import AnnotationList from './AnnotationList.jsx';
 import FlexModal from '../FlexModal.jsx';
 
 //TODO dependancy on jquery!! fix this later
+//TODO make sure the editing form can be shown in a div rather than a pop-up. This is important, because modals
+//prevent you from watching the video while annotating
 
 class AnnotationBox extends React.Component {
 
@@ -59,7 +61,8 @@ class AnnotationBox extends React.Component {
 			return e.annotationId != annotation.annotationId;
 		});
 		annotations.push(annotation);
-		$('#annotation__modal').modal('hide');
+		$('#annotation__modal').modal('hide');//TODO ugly, but without this the static backdrop won't disappear!
+		this.handleHideModal();
 		this.setState({annotations : annotations});
 	}
 

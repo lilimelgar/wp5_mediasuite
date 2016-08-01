@@ -11,6 +11,9 @@ class FlexModal extends React.Component {
 	}
 
 	componentDidMount() {
+		$(ReactDOM.findDOMNode(this)).modal({
+			keyboard : true
+		});
 		$(ReactDOM.findDOMNode(this)).modal('show');
 		$(ReactDOM.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideModal);
 	}

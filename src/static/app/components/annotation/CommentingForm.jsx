@@ -9,15 +9,19 @@ class CommentingForm extends React.Component {
 	addComment(e) {
 		e.preventDefault();
 		var cs = this.props.data;
-		cs.push(this.refs.comment.value);
-		this.props.updateAnnotationData('comments', cs);
-		this.refs.comment.value = '';
+		if(cs) {
+			cs.push(this.refs.comment.value);
+			this.props.updateAnnotationData('comments', cs);
+			this.refs.comment.value = '';
+		}
 	}
 
 	removeComment(index) {
 		var cs = this.props.data;
-		cs.splice(index, 1);
-		this.props.updateAnnotationData('comments', cs);
+		if(cs) {
+			cs.splice(index, 1);
+			this.props.updateAnnotationData('comments', cs);
+		}
 	}
 
 	render() {
@@ -35,7 +39,7 @@ class CommentingForm extends React.Component {
 				<br/>
 				<div className="row">
 					<div className="col-md-12">
-						<label>Added comments</label>
+						<h4>Added comments</h4>
 						<ul className="list-group">
 							{comments}
 						</ul>
@@ -45,7 +49,7 @@ class CommentingForm extends React.Component {
 					<div className="col-md-12">
 						<form>
 							<div className="form-group">
-								<label htmlFor="comment">Comment</label>
+								<h4>Comment</h4>
 								<input
 									ref="comment"
 									type="text"

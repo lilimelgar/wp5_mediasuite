@@ -5,8 +5,9 @@ from flask import request, Response
 
 from functools import wraps
 
-from components.OpenSKOSHandler import OpenSKOSHandler
-from components.DBpediaAutoComplete import DBpediaAutoComplete
+from components.openskos.OpenSKOS import OpenSKOS
+from components.dbpedia.DBpedia import DBpedia
+from components.wikidata.WikiData import WikiData
 
 import simplejson
 import os
@@ -135,16 +136,32 @@ def autocomplete():
 	if term:
 		options = None
 		if vocab == 'GTAA':
-			handler = OpenSKOSHandler()
+			handler = OpenSKOS()
 			options = handler.autoCompleteTable(term.lower(), conceptScheme)
 		elif vocab == 'DBpedia':
-			dac = DBpediaAutoComplete()
+			dac = DBpedia()
 			options = dac.autoComplete(term)
 		if options:
 			return Response(simplejson.dumps(options), mimetype='application/json')
 		else:
 			return Response(getErrorMessage('Nothing found'), mimetype='application/json')
 	return Response(getErrorMessage('Please specify a search term'), mimetype='application/json')
+
+#TODO later dynamically load the api class as well:
+#See: http://stackoverflow.com/questions/4246000/how-to-call-python-functions-dynamically
+#TODO also create a separate API for this, with a nice swagger def
+#FIXME summary: this is pretty basic and not yet generic enough
+@app.route('/link/<api>/<command>')
+def link(api, command):
+	resp = None
+	if api == 'wikidata':
+		wd = WikiData()
+		resp = getattr(wd, "%s" % command)(request.args)
+		print resp
+	if resp:
+		return Response(simplejson.dumps(resp), mimetype='application/json')
+	return Response(getErrorMessage('Nothing found'), mimetype='application/json')
+
 
 """------------------------------------------------------------------------------
 ERROR HANDLERS

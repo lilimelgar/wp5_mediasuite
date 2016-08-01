@@ -12225,7 +12225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer.js */ 663);
+	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer.js */ 664);
 	
 	Object.defineProperty(exports, 'VimeoPlayer', {
 		enumerable: true,
@@ -12234,7 +12234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls.jsx */ 664);
+	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls.jsx */ 665);
 	
 	Object.defineProperty(exports, 'SegmentationControls', {
 		enumerable: true,
@@ -12245,11 +12245,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 146);
 	
-	var _Recipe = __webpack_require__(/*! ./Recipe.jsx */ 665);
+	var _Recipe = __webpack_require__(/*! ./Recipe.jsx */ 666);
 	
 	var _Recipe2 = _interopRequireDefault(_Recipe);
 	
-	var _AnnotationRecipe = __webpack_require__(/*! ./AnnotationRecipe.jsx */ 666);
+	var _AnnotationRecipe = __webpack_require__(/*! ./AnnotationRecipe.jsx */ 667);
 	
 	var _AnnotationRecipe2 = _interopRequireDefault(_AnnotationRecipe);
 	
@@ -28941,6 +28941,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		_createClass(FlexModal, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
+				$(_reactDom2.default.findDOMNode(this)).modal({
+					keyboard: true
+				});
 				$(_reactDom2.default.findDOMNode(this)).modal('show');
 				$(_reactDom2.default.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideModal);
 			}
@@ -57219,7 +57222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _AnnotationCreator2 = _interopRequireDefault(_AnnotationCreator);
 	
-	var _AnnotationList = __webpack_require__(/*! ./AnnotationList.jsx */ 661);
+	var _AnnotationList = __webpack_require__(/*! ./AnnotationList.jsx */ 662);
 	
 	var _AnnotationList2 = _interopRequireDefault(_AnnotationList);
 	
@@ -57236,6 +57239,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	//TODO dependancy on jquery!! fix this later
+	//TODO make sure the editing form can be shown in a div rather than a pop-up. This is important, because modals
+	//prevent you from watching the video while annotating
 	
 	var AnnotationBox = function (_React$Component) {
 		_inherits(AnnotationBox, _React$Component);
@@ -57304,7 +57309,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					return e.annotationId != annotation.annotationId;
 				});
 				annotations.push(annotation);
-				$('#annotation__modal').modal('hide');
+				$('#annotation__modal').modal('hide'); //TODO ugly, but without this the static backdrop won't disappear!
+				this.handleHideModal();
 				this.setState({ annotations: annotations });
 			}
 		}, {
@@ -57413,6 +57419,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _ClassifyingForm2 = _interopRequireDefault(_ClassifyingForm);
 	
+	var _LinkingForm = __webpack_require__(/*! ./LinkingForm */ 661);
+	
+	var _LinkingForm2 = _interopRequireDefault(_LinkingForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -57434,6 +57444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			var comments = [];
 			var classifications = [];
+			var links = [];
 			if (_this.props.annotation) {
 				if (_this.props.annotation.data.classifications) {
 					classifications = _this.props.annotation.data.classifications;
@@ -57441,12 +57452,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (_this.props.annotation.data.comments) {
 					comments = _this.props.annotation.data.comments;
 				}
+				if (_this.props.annotation.data.links) {
+					links = _this.props.annotation.data.links;
+				}
 			}
 			_this.state = {
 				modes: _this.props.annotationModes,
 				activeTab: _this.props.annotationModes[0].type,
 				classifications: classifications,
-				comments: comments
+				comments: comments,
+				links: links
 			};
 			return _this;
 		}
@@ -57473,6 +57488,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				if (this.state.comments) {
 					data['comments'] = this.state.comments;
+				}
+				if (this.state.links) {
+					data['links'] = this.state.links;
 				}
 				annotation.data = data;
 				this.props.saveAnnotation(annotation);
@@ -57509,6 +57527,12 @@ return /******/ (function(modules) { // webpackBootstrap
 						case 'classify':
 							form = React.createElement(_ClassifyingForm2.default, {
 								data: this.state.classifications,
+								config: mode,
+								updateAnnotationData: this.updateAnnotationData.bind(this)
+							});break;
+						case 'link':
+							form = React.createElement(_LinkingForm2.default, {
+								data: this.state.links,
 								config: mode,
 								updateAnnotationData: this.updateAnnotationData.bind(this)
 							});break;
@@ -57598,16 +57622,20 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function addComment(e) {
 				e.preventDefault();
 				var cs = this.props.data;
-				cs.push(this.refs.comment.value);
-				this.props.updateAnnotationData('comments', cs);
-				this.refs.comment.value = '';
+				if (cs) {
+					cs.push(this.refs.comment.value);
+					this.props.updateAnnotationData('comments', cs);
+					this.refs.comment.value = '';
+				}
 			}
 		}, {
 			key: 'removeComment',
 			value: function removeComment(index) {
 				var cs = this.props.data;
-				cs.splice(index, 1);
-				this.props.updateAnnotationData('comments', cs);
+				if (cs) {
+					cs.splice(index, 1);
+					this.props.updateAnnotationData('comments', cs);
+				}
 			}
 		}, {
 			key: 'render',
@@ -57634,7 +57662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							'div',
 							{ className: 'col-md-12' },
 							_react2.default.createElement(
-								'label',
+								'h4',
 								null,
 								'Added comments'
 							),
@@ -57658,8 +57686,8 @@ return /******/ (function(modules) { // webpackBootstrap
 									'div',
 									{ className: 'form-group' },
 									_react2.default.createElement(
-										'label',
-										{ htmlFor: 'comment' },
+										'h4',
+										null,
 										'Comment'
 									),
 									_react2.default.createElement('input', {
@@ -57743,24 +57771,28 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function addClassification(e) {
 				e.preventDefault();
 				var cs = this.props.data;
-				cs.push({
-					id: this.state.suggestionId,
-					label: this.state.value,
-					vocabulary: this.state.vocabulary
-				});
+				if (cs) {
+					cs.push({
+						id: this.state.suggestionId,
+						label: this.state.value,
+						vocabulary: this.state.vocabulary
+					});
 	
-				/* this calls the owner function, which will update the state, which
-	   in turn will update this.props.data with the added classification */
-				this.props.updateAnnotationData('classifications', cs);
+					/* this calls the owner function, which will update the state, which
+	    in turn will update this.props.data with the added classification */
+					this.props.updateAnnotationData('classifications', cs);
 	
-				this.setState({ value: '' });
+					this.setState({ value: '' });
+				}
 			}
 		}, {
 			key: 'removeClassification',
 			value: function removeClassification(index) {
 				var cs = this.props.data;
-				cs.splice(index, 1);
-				this.props.updateAnnotationData('classifications', cs);
+				if (cs) {
+					cs.splice(index, 1);
+					this.props.updateAnnotationData('classifications', cs);
+				}
 			}
 		}, {
 			key: 'setVocabulary',
@@ -61030,6 +61062,224 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 661 */
+/*!***************************************************!*\
+  !*** ./app/components/annotation/LinkingForm.jsx ***!
+  \***************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LinkingForm = function (_React$Component) {
+		_inherits(LinkingForm, _React$Component);
+	
+		function LinkingForm(props) {
+			_classCallCheck(this, LinkingForm);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LinkingForm).call(this, props));
+	
+			var api = _this.props.config.apis ? _this.props.config.apis[0].name : null;
+			_this.state = {
+				api: api,
+				results: []
+			};
+			return _this;
+		}
+	
+		/* ------------------- CRUD / loading of classifications ------------------- */
+	
+		_createClass(LinkingForm, [{
+			key: 'setAPI',
+			value: function setAPI(event) {
+				this.setState({ api: event.target.value });
+			}
+	
+			//TODO make sure that at least one common property is present in the linkData (when hooking up different APIs)
+	
+		}, {
+			key: 'addLink',
+			value: function addLink(linkData) {
+				var links = this.props.data;
+				if (links) {
+					links.push(linkData);
+					/* this calls the owner function, which will update the state, which
+	    in turn will update this.props.data with the added classification */
+					this.props.updateAnnotationData('links', links);
+				}
+			}
+		}, {
+			key: 'removeLink',
+			value: function removeLink(index) {
+				var links = this.props.data;
+				if (links) {
+					links.splice(index, 1);
+					this.props.updateAnnotationData('links', links);
+				}
+			}
+		}, {
+			key: 'search',
+			value: function search(event) {
+				event.preventDefault();
+				var url = '/link/' + this.state.api + '/search?q=' + this.refs.search.value;
+				d3.json(url, function (error, data) {
+					this.onSearch(data);
+				}.bind(this));
+			}
+		}, {
+			key: 'onSearch',
+			value: function onSearch(data) {
+				this.setState({ results: data });
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+	
+				var links = this.props.data.map(function (link, index) {
+					return React.createElement(
+						'li',
+						{ key: 'com__' + index, className: 'list-group-item' },
+						React.createElement('i', { className: 'glyphicon glyphicon-remove interactive', onClick: _this2.removeLink.bind(_this2, index) }),
+						' ',
+						link.label
+					);
+				}, this);
+	
+				//generate the options from the config and add a default one
+				var apiOptions = this.props.config.apis.map(function (api, index) {
+					return React.createElement(
+						'label',
+						{ className: 'radio-inline', key: index },
+						React.createElement('input', {
+							type: 'radio',
+							name: 'apiOptions',
+							id: api.name,
+							value: api.name,
+							checked: api.name == _this2.state.api,
+							onChange: _this2.setAPI.bind(_this2) }),
+						api.name
+					);
+				}, this);
+	
+				var results = this.state.results.map(function (res, index) {
+					return React.createElement(
+						'div',
+						{ key: 'result__' + index, className: 'media-body interactive', onDoubleClick: _this2.addLink.bind(_this2, res) },
+						React.createElement(
+							'h4',
+							{ className: 'media-heading' },
+							res.label
+						),
+						res.description
+					);
+				}, this);
+	
+				return React.createElement(
+					'div',
+					{ key: 'form__link' },
+					React.createElement('br', null),
+					React.createElement(
+						'div',
+						{ className: 'row' },
+						React.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							React.createElement(
+								'h4',
+								null,
+								'Added links'
+							),
+							React.createElement(
+								'ul',
+								{ className: 'list-group' },
+								links
+							)
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'row' },
+						React.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							React.createElement(
+								'form',
+								null,
+								React.createElement(
+									'div',
+									{ className: 'form-group' },
+									React.createElement(
+										'h4',
+										null,
+										'Add links'
+									),
+									React.createElement('br', null),
+									React.createElement(
+										'div',
+										{ className: 'text-left' },
+										React.createElement(
+											'label',
+											null,
+											'API: '
+										),
+										apiOptions
+									),
+									React.createElement('br', null),
+									React.createElement('input', { type: 'text', ref: 'search', className: 'form-control' })
+								),
+								React.createElement(
+									'button',
+									{ className: 'btn btn-primary', onClick: this.search.bind(this) },
+									'Search'
+								)
+							),
+							this.state.results.length > 0 ? React.createElement(
+								'div',
+								null,
+								React.createElement(
+									'h4',
+									null,
+									'Gevonden resultaten ',
+									React.createElement(
+										'small',
+										null,
+										'Dubbelklik een gevonden resultaat om deze toe te voegen'
+									)
+								),
+								React.createElement(
+									'div',
+									{ className: 'well' },
+									React.createElement(
+										'div',
+										{ className: 'media' },
+										results
+									)
+								)
+							) : null
+						)
+					)
+				);
+			}
+		}]);
+	
+		return LinkingForm;
+	}(React.Component);
+	
+	exports.default = LinkingForm;
+
+/***/ },
+/* 662 */
 /*!******************************************************!*\
   !*** ./app/components/annotation/AnnotationList.jsx ***!
   \******************************************************/
@@ -61047,7 +61297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Annotation = __webpack_require__(/*! ./Annotation.jsx */ 662);
+	var _Annotation = __webpack_require__(/*! ./Annotation.jsx */ 663);
 	
 	var _Annotation2 = _interopRequireDefault(_Annotation);
 	
@@ -61098,7 +61348,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = AnnotationList;
 
 /***/ },
-/* 662 */
+/* 663 */
 /*!**************************************************!*\
   !*** ./app/components/annotation/Annotation.jsx ***!
   \**************************************************/
@@ -61205,7 +61455,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Annotation;
 
 /***/ },
-/* 663 */
+/* 664 */
 /*!***********************************!*\
   !*** ./app/player/VimeoPlayer.js ***!
   \***********************************/
@@ -61264,7 +61514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VimeoPlayer;
 
 /***/ },
-/* 664 */
+/* 665 */
 /*!************************************************************!*\
   !*** ./app/components/annotation/SegmentationControls.jsx ***!
   \************************************************************/
@@ -61427,7 +61677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SegmentationControls;
 
 /***/ },
-/* 665 */
+/* 666 */
 /*!************************!*\
   !*** ./app/Recipe.jsx ***!
   \************************/
@@ -61708,7 +61958,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Recipe;
 
 /***/ },
-/* 666 */
+/* 667 */
 /*!**********************************!*\
   !*** ./app/AnnotationRecipe.jsx ***!
   \**********************************/
@@ -61726,11 +61976,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 663);
+	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 664);
 	
 	var _VimeoPlayer2 = _interopRequireDefault(_VimeoPlayer);
 	
-	var _VideoTimeBar = __webpack_require__(/*! ./components/annotation/VideoTimeBar */ 667);
+	var _VideoTimeBar = __webpack_require__(/*! ./components/annotation/VideoTimeBar */ 668);
 	
 	var _VideoTimeBar2 = _interopRequireDefault(_VideoTimeBar);
 	
@@ -61738,7 +61988,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
 	
-	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 664);
+	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 665);
 	
 	var _SegmentationControls2 = _interopRequireDefault(_SegmentationControls);
 	
@@ -61750,7 +62000,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
-	var _mousetrap = __webpack_require__(/*! mousetrap */ 668);
+	var _mousetrap = __webpack_require__(/*! mousetrap */ 669);
 	
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 	
@@ -62257,7 +62507,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = AnnotationRecipe;
 
 /***/ },
-/* 667 */
+/* 668 */
 /*!****************************************************!*\
   !*** ./app/components/annotation/VideoTimeBar.jsx ***!
   \****************************************************/
@@ -62375,7 +62625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VideoTimeBar;
 
 /***/ },
-/* 668 */
+/* 669 */
 /*!**********************************!*\
   !*** ./~/mousetrap/mousetrap.js ***!
   \**********************************/
