@@ -186,20 +186,22 @@ h4, h5, h6 {
 /* line 56, ../sass/_searchkit.scss */
 .tag {
   font-size: 100% !important;
+  display: inline-block !important;
+  margin: 0px 5px 5px 0px;
 }
 
 /* For the autocomplete stuff */
-/* line 62, ../sass/_searchkit.scss */
+/* line 64, ../sass/_searchkit.scss */
 .app-container {
   display: flex;
 }
 
-/* line 66, ../sass/_searchkit.scss */
+/* line 68, ../sass/_searchkit.scss */
 .react-autosuggest__container {
   position: relative;
 }
 
-/* line 70, ../sass/_searchkit.scss */
+/* line 72, ../sass/_searchkit.scss */
 .react-autosuggest__input {
   width: 90%;
   height: 30px;
@@ -211,18 +213,18 @@ h4, h5, h6 {
   border-radius: 4px;
 }
 
-/* line 81, ../sass/_searchkit.scss */
+/* line 83, ../sass/_searchkit.scss */
 .react-autosuggest__input:focus {
   outline: none;
 }
 
-/* line 85, ../sass/_searchkit.scss */
+/* line 87, ../sass/_searchkit.scss */
 .react-autosuggest__container--open .react-autosuggest__input {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-/* line 90, ../sass/_searchkit.scss */
+/* line 92, ../sass/_searchkit.scss */
 .react-autosuggest__suggestions-container {
   position: absolute;
   top: 51px;
@@ -242,13 +244,13 @@ h4, h5, h6 {
   z-index: 2;
 }
 
-/* line 109, ../sass/_searchkit.scss */
+/* line 111, ../sass/_searchkit.scss */
 .react-autosuggest__suggestion {
   cursor: pointer;
   padding: 10px 20px;
 }
 
-/* line 114, ../sass/_searchkit.scss */
+/* line 116, ../sass/_searchkit.scss */
 .react-autosuggest__suggestion--focused {
   background-color: #ddd;
 }

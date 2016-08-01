@@ -57822,6 +57822,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.setState({ suggestionId: suggestion.value });
 				return suggestion.label.split('|')[0];
 			}
+	
+			//TODO the rendering should be adapted for different vocabularies
+	
 		}, {
 			key: 'renderSuggestion',
 			value: function renderSuggestion(suggestion) {
@@ -57916,14 +57919,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					}
 					return React.createElement(
 						'span',
-						{ key: 'cl__' + index },
-						React.createElement(
-							'span',
-							{ className: csClass },
-							c.label,
-							React.createElement('i', { className: 'glyphicon glyphicon-remove interactive',
-								onClick: _this4.removeClassification.bind(_this4, index) })
-						),
+						{ key: 'cl__' + index, className: csClass },
+						c.label,
+						React.createElement('i', { className: 'glyphicon glyphicon-remove interactive',
+							onClick: _this4.removeClassification.bind(_this4, index) }),
 						' '
 					);
 				}, this);
@@ -57934,6 +57933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					onChange: this.onChange.bind(this)
 				};
 	
+				//generate the options from the config and add a default one
 				var vocabularyOptions = this.props.config.vocabularies.map(function (v, index) {
 					return React.createElement(
 						'label',
@@ -57948,6 +57948,18 @@ return /******/ (function(modules) { // webpackBootstrap
 						v
 					);
 				}, this);
+				vocabularyOptions.push(React.createElement(
+					'label',
+					{ className: 'radio-inline', key: vocabularyOptions.length },
+					React.createElement('input', {
+						type: 'radio',
+						name: 'vocabularyOptions',
+						id: 'custom',
+						value: 'custom',
+						checked: 'custom' == this.state.vocabulary,
+						onChange: this.setVocabulary.bind(this) }),
+					'Custom (no external lookup)'
+				));
 	
 				return React.createElement(
 					'div',

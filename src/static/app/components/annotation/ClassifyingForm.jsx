@@ -92,6 +92,7 @@ class ClassifyingForm extends React.Component {
   		return suggestion.label.split('|')[0];
 	}
 
+	//TODO the rendering should be adapted for different vocabularies
 	renderSuggestion(suggestion) {
 		let arr = suggestion.label.split('|');
 		let label = arr[1];
@@ -129,13 +130,12 @@ class ClassifyingForm extends React.Component {
 				csClass = 'label label-danger tag';
 			}
 			return (
-				<span key={'cl__' + index}>
-					<span className={csClass}>
-						{c.label}
-						<i className="glyphicon glyphicon-remove interactive"
-							onClick={this.removeClassification.bind(this, index)}>
-						</i>
-					</span>&nbsp;
+				<span key={'cl__' + index} className={csClass}>
+					{c.label}
+					<i className="glyphicon glyphicon-remove interactive"
+						onClick={this.removeClassification.bind(this, index)}>
+					</i>
+					&nbsp;
 				</span>
 			)
 		}, this);
@@ -146,6 +146,7 @@ class ClassifyingForm extends React.Component {
 			onChange: this.onChange.bind(this)
 		};
 
+		//generate the options from the config and add a default one
 		const vocabularyOptions = this.props.config.vocabularies.map((v, index) => {
 			return (
 				<label className="radio-inline" key={index}>
@@ -160,6 +161,18 @@ class ClassifyingForm extends React.Component {
 				</label>
 			);
 		}, this);
+		vocabularyOptions.push(
+			<label className="radio-inline" key={vocabularyOptions.length}>
+					<input
+						type="radio"
+						name="vocabularyOptions"
+						id="custom"
+						value="custom"
+						checked={'custom' == this.state.vocabulary}
+						onChange={this.setVocabulary.bind(this)}/>
+						Custom (no external lookup)
+			</label>
+		);
 
 		return (
 			<div key={'form__classify'}>
