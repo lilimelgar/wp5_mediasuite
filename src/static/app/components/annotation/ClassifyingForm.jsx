@@ -6,25 +6,32 @@ class ClassifyingForm extends React.Component {
 
 	constructor(props) {
 		super(props);
+		var vocabulary = this.props.config.vocabularies ? this.props.config.vocabularies[0] : null;
 		this.state = {
-			value : '',
-			isLoading : false,
-			suggestions : []
+			value : '', //the label of the selected classification (autocomplete)
+			suggestionId : null, //stores the id/uri of the selected classification (e.g. GTAA URI)
+			suggestions : [], //current list of suggestions shown
+			isLoading : false, //loading the suggestions from the server
+			vocabulary : vocabulary
 		}
+		this.xhrs = [];
 	}
 
-	getSuggestions(value, callback) {
-		var url = "/autocomplete?vocab=GTAA&term=" + value;
-	    d3.json(url, function(error, data) {
-	        callback(data);
-	    });
-	}
+	/* ------------------- CRUD / loading of classifications ------------------- */
 
 	addClassification(e) {
 		e.preventDefault();
 		var cs = this.props.data;
-		cs.push(this.state.value);
+		cs.push({
+			id : this.state.suggestionId,
+			label: this.state.value,
+			vocabulary : this.state.vocabulary
+		});
+
+		/* this calls the owner function, which will update the state, which
+		in turn will update this.props.data with the added classification */
 		this.props.updateAnnotationData('classifications', cs);
+
 		this.setState({value : ''});
 	}
 
@@ -34,9 +41,30 @@ class ClassifyingForm extends React.Component {
 		this.props.updateAnnotationData('classifications', cs);
 	}
 
+	setVocabulary(event) {
+		this.setState({vocabulary : event.target.value});
+	}
+
+	getSuggestions(value, callback) {
+		//cancel all previous outgoing requests
+		for(let x=this.xhrs.length;x>0;x--) {
+			this.xhrs[x-1].abort.call(this, () => {
+				this.xhrs.pop();
+			});
+		}
+		let url = '/autocomplete?vocab=' + this.state.vocabulary + '&term=' + value;
+	    let xhr = d3.json(url, function(error, data) {
+	        callback(data);
+	    });
+	    this.xhrs.push(xhr);
+	}
+
+	/* ------------------- functions specifically needed for react-autosuggest ------------------- */
+
 	loadSuggestions(value) {
 		this.setState({
-			isLoading: true
+			isLoading: true,
+			suggestions: []
 		});
 		if(value.value === this.state.chosenValue) {
 			this.setState({
@@ -60,6 +88,7 @@ class ClassifyingForm extends React.Component {
 	}
 
 	getSuggestionValue(suggestion) {
+		this.setState({suggestionId : suggestion.value});
   		return suggestion.label.split('|')[0];
 	}
 
@@ -75,6 +104,7 @@ class ClassifyingForm extends React.Component {
 			case 'Onderwerp' : label = (<span className="label label-primary">Onderwerp</span>);break;
 			case 'Genre' : label = (<span className="label label-default">Genre</span>);break;
 			case 'B&G Onderwerp' : label = (<span className="label label-danger">B&G Onderwerp</span>);break;
+			default : label = (<span className="label label-default">Concept</span>);break;
 		}
 		return (
 			<span>{arr[0]}&nbsp;{label}&nbsp;{scopeNote}</span>
@@ -90,31 +120,53 @@ class ClassifyingForm extends React.Component {
 			chosenValue: newValue,
 			value: newValue
 		});
-	}
+	} /* ------------------- end of specific react-autosuggest functions ------------------- */
 
 	render() {
 		const classifications = this.props.data.map((c, index) => {
+			let csClass = 'label label-success tag';
+			if(c.vocabulary == 'DBpedia') {
+				csClass = 'label label-danger tag';
+			}
 			return (
 				<span key={'cl__' + index}>
-					<span className="label label-success tag" onClick={this.removeClassification.bind(this, index)}>
-						{c}
-						<i className="glyphicon glyphicon-remove interactive"></i>
+					<span className={csClass}>
+						{c.label}
+						<i className="glyphicon glyphicon-remove interactive"
+							onClick={this.removeClassification.bind(this, index)}>
+						</i>
 					</span>&nbsp;
 				</span>
 			)
 		}, this);
+
 		const inputProps = {
 			placeholder: "Zoek een GTAA term",
 			value: this.state.value,
 			onChange: this.onChange.bind(this)
 		};
 
+		const vocabularyOptions = this.props.config.vocabularies.map((v, index) => {
+			return (
+				<label className="radio-inline" key={index}>
+					<input
+						type="radio"
+						name="vocabularyOptions"
+						id={v}
+						value={v}
+						checked={v == this.state.vocabulary}
+						onChange={this.setVocabulary.bind(this)}/>
+						{v}
+				</label>
+			);
+		}, this);
+
 		return (
 			<div key={'form__classify'}>
 				<br/>
 				<div className="row">
 					<div className="col-md-12">
-						<label>Added classifications</label>
+						<h4>Added classifications</h4>
 						<div className="well">
 							{classifications}
 						</div>
@@ -124,8 +176,13 @@ class ClassifyingForm extends React.Component {
 					<div className="col-md-12">
 						<form>
 							<div className="form-group">
-								<label htmlFor="classifications">Add classifications</label>
-
+								<h4>Add classifications</h4>
+								<br/>
+								<div className="text-left">
+									<label>Vocabulary:&nbsp;</label>
+									{vocabularyOptions}
+								</div>
+								<br/>
 								<Autosuggest
 									ref="classifications"
 									suggestions={this.state.suggestions}

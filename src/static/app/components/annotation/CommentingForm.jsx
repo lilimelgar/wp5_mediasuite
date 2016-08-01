@@ -11,6 +11,7 @@ class CommentingForm extends React.Component {
 		var cs = this.props.data;
 		cs.push(this.refs.comment.value);
 		this.props.updateAnnotationData('comments', cs);
+		this.refs.comment.value = '';
 	}
 
 	removeComment(index) {

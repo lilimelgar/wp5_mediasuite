@@ -6,6 +6,7 @@ from flask import request, Response
 from functools import wraps
 
 from components.OpenSKOSHandler import OpenSKOSHandler
+from components.DBpediaAutoComplete import DBpediaAutoComplete
 
 import simplejson
 import os
@@ -136,6 +137,9 @@ def autocomplete():
 		if vocab == 'GTAA':
 			handler = OpenSKOSHandler()
 			options = handler.autoCompleteTable(term.lower(), conceptScheme)
+		elif vocab == 'DBpedia':
+			dac = DBpediaAutoComplete()
+			options = dac.autoComplete(term)
 		if options:
 			return Response(simplejson.dumps(options), mimetype='application/json')
 		else:

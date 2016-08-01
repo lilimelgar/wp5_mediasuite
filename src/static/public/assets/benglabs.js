@@ -57600,6 +57600,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var cs = this.props.data;
 				cs.push(this.refs.comment.value);
 				this.props.updateAnnotationData('comments', cs);
+				this.refs.comment.value = '';
 			}
 		}, {
 			key: 'removeComment',
@@ -57723,29 +57724,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ClassifyingForm).call(this, props));
 	
+			var vocabulary = _this.props.config.vocabularies ? _this.props.config.vocabularies[0] : null;
 			_this.state = {
-				value: '',
-				isLoading: false,
-				suggestions: []
+				value: '', //the label of the selected classification (autocomplete)
+				suggestionId: null, //stores the id/uri of the selected classification (e.g. GTAA URI)
+				suggestions: [], //current list of suggestions shown
+				isLoading: false, //loading the suggestions from the server
+				vocabulary: vocabulary
 			};
+			_this.xhrs = [];
 			return _this;
 		}
 	
+		/* ------------------- CRUD / loading of classifications ------------------- */
+	
 		_createClass(ClassifyingForm, [{
-			key: 'getSuggestions',
-			value: function getSuggestions(value, callback) {
-				var url = "/autocomplete?vocab=GTAA&term=" + value;
-				d3.json(url, function (error, data) {
-					callback(data);
-				});
-			}
-		}, {
 			key: 'addClassification',
 			value: function addClassification(e) {
 				e.preventDefault();
 				var cs = this.props.data;
-				cs.push(this.state.value);
+				cs.push({
+					id: this.state.suggestionId,
+					label: this.state.value,
+					vocabulary: this.state.vocabulary
+				});
+	
+				/* this calls the owner function, which will update the state, which
+	   in turn will update this.props.data with the added classification */
 				this.props.updateAnnotationData('classifications', cs);
+	
 				this.setState({ value: '' });
 			}
 		}, {
@@ -57756,12 +57763,38 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.props.updateAnnotationData('classifications', cs);
 			}
 		}, {
-			key: 'loadSuggestions',
-			value: function loadSuggestions(value) {
+			key: 'setVocabulary',
+			value: function setVocabulary(event) {
+				this.setState({ vocabulary: event.target.value });
+			}
+		}, {
+			key: 'getSuggestions',
+			value: function getSuggestions(value, callback) {
 				var _this2 = this;
 	
+				//cancel all previous outgoing requests
+				for (var x = this.xhrs.length; x > 0; x--) {
+					this.xhrs[x - 1].abort.call(this, function () {
+						_this2.xhrs.pop();
+					});
+				}
+				var url = '/autocomplete?vocab=' + this.state.vocabulary + '&term=' + value;
+				var xhr = d3.json(url, function (error, data) {
+					callback(data);
+				});
+				this.xhrs.push(xhr);
+			}
+	
+			/* ------------------- functions specifically needed for react-autosuggest ------------------- */
+	
+		}, {
+			key: 'loadSuggestions',
+			value: function loadSuggestions(value) {
+				var _this3 = this;
+	
 				this.setState({
-					isLoading: true
+					isLoading: true,
+					suggestions: []
 				});
 				if (value.value === this.state.chosenValue) {
 					this.setState({
@@ -57770,12 +57803,12 @@ return /******/ (function(modules) { // webpackBootstrap
 				} else {
 					this.getSuggestions(value.value, function (data) {
 						if (data.error) {
-							_this2.setState({
+							_this3.setState({
 								isLoading: false,
 								suggestions: []
 							});
 						} else {
-							_this2.setState({
+							_this3.setState({
 								isLoading: false,
 								suggestions: data
 							});
@@ -57786,6 +57819,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'getSuggestionValue',
 			value: function getSuggestionValue(suggestion) {
+				this.setState({ suggestionId: suggestion.value });
 				return suggestion.label.split('|')[0];
 			}
 		}, {
@@ -57837,6 +57871,12 @@ return /******/ (function(modules) { // webpackBootstrap
 							{ className: 'label label-danger' },
 							'B&G Onderwerp'
 						);break;
+					default:
+						label = React.createElement(
+							'span',
+							{ className: 'label label-default' },
+							'Concept'
+						);break;
 				}
 				return React.createElement(
 					'span',
@@ -57862,30 +57902,52 @@ return /******/ (function(modules) { // webpackBootstrap
 					chosenValue: newValue,
 					value: newValue
 				});
-			}
+			} /* ------------------- end of specific react-autosuggest functions ------------------- */
+	
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this3 = this;
+				var _this4 = this;
 	
 				var classifications = this.props.data.map(function (c, index) {
+					var csClass = 'label label-success tag';
+					if (c.vocabulary == 'DBpedia') {
+						csClass = 'label label-danger tag';
+					}
 					return React.createElement(
 						'span',
 						{ key: 'cl__' + index },
 						React.createElement(
 							'span',
-							{ className: 'label label-success tag', onClick: _this3.removeClassification.bind(_this3, index) },
-							c,
-							React.createElement('i', { className: 'glyphicon glyphicon-remove interactive' })
+							{ className: csClass },
+							c.label,
+							React.createElement('i', { className: 'glyphicon glyphicon-remove interactive',
+								onClick: _this4.removeClassification.bind(_this4, index) })
 						),
 						' '
 					);
 				}, this);
+	
 				var inputProps = {
 					placeholder: "Zoek een GTAA term",
 					value: this.state.value,
 					onChange: this.onChange.bind(this)
 				};
+	
+				var vocabularyOptions = this.props.config.vocabularies.map(function (v, index) {
+					return React.createElement(
+						'label',
+						{ className: 'radio-inline', key: index },
+						React.createElement('input', {
+							type: 'radio',
+							name: 'vocabularyOptions',
+							id: v,
+							value: v,
+							checked: v == _this4.state.vocabulary,
+							onChange: _this4.setVocabulary.bind(_this4) }),
+						v
+					);
+				}, this);
 	
 				return React.createElement(
 					'div',
@@ -57898,7 +57960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							'div',
 							{ className: 'col-md-12' },
 							React.createElement(
-								'label',
+								'h4',
 								null,
 								'Added classifications'
 							),
@@ -57922,10 +57984,22 @@ return /******/ (function(modules) { // webpackBootstrap
 									'div',
 									{ className: 'form-group' },
 									React.createElement(
-										'label',
-										{ htmlFor: 'classifications' },
+										'h4',
+										null,
 										'Add classifications'
 									),
+									React.createElement('br', null),
+									React.createElement(
+										'div',
+										{ className: 'text-left' },
+										React.createElement(
+											'label',
+											null,
+											'Vocabulary: '
+										),
+										vocabularyOptions
+									),
+									React.createElement('br', null),
 									React.createElement(_reactAutosuggest2.default, {
 										ref: 'classifications',
 										suggestions: this.state.suggestions,

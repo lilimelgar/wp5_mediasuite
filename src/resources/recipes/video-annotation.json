@@ -6,7 +6,7 @@
 	"ingredients" : {
 		"playerType" : "vimeo",
 		"annotationModes" : [
-			{"type" : "classify", "vocabularies" : ["GTAA"]},
+			{"type" : "classify", "vocabularies" : ["GTAA", "DBpedia"]},
 			{"type" : "comment"},
 			{"type" : "link", "apis" : ["Europeana"]}
 		]
