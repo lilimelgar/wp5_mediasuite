@@ -75,11 +75,24 @@ class LinkingForm extends React.Component {
 		}, this);
 
 		const results = this.state.results.map((res, index) => {
+			let poster = '';
+			if(res.poster) {
+				poster = (<img src={res.poster} style={{maxWidth:'100px'}}/>);
+			}
 			return(
-				<div key={'result__' + index} className="media-body interactive" onDoubleClick={this.addLink.bind(this, res)}>
-					<h4 className="media-heading">{res.label}</h4>
-					{res.description}
-				</div>
+				<li key={'result__' + index}
+					className="list-group-item interactive"
+					onDoubleClick={this.addLink.bind(this, res)}>
+					<table className="table">
+						<tbody>
+							<tr>
+								<td>{poster}</td>
+								<td><label className="media-heading">{res.label ? res.label : res.title}</label></td>
+								<td>{res.description}</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
 			)
 		}, this)
 
@@ -112,12 +125,12 @@ class LinkingForm extends React.Component {
 						</form>
 
 						{this.state.results.length > 0 ?
-							<div>
+							<div style={{height: '400px', overflow: 'auto'}}>
 								<h4>Gevonden resultaten <small>Dubbelklik een gevonden resultaat om deze toe te voegen</small></h4>
 								<div className="well">
-									<div className="media">
+									<ul className="list-group">
 										{results}
-									</div>
+									</ul>
 								</div>
 							</div>: null}
 					</div>

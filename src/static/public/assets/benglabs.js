@@ -46264,7 +46264,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57471,6 +57471,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function updateAnnotationData(mode, value) {
 				this.setState(_defineProperty({}, mode, value));
 			}
+	
+			//TODO this function looks like it could be more optimized
+	
 		}, {
 			key: 'gatherDataAndSave',
 			value: function gatherDataAndSave() {
@@ -57486,10 +57489,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (this.state.classifications.length > 0) {
 					data['classifications'] = this.state.classifications;
 				}
-				if (this.state.comments) {
+				if (this.state.comments.length > 0) {
 					data['comments'] = this.state.comments;
 				}
-				if (this.state.links) {
+				if (this.state.links.length > 0) {
 					data['links'] = this.state.links;
 				}
 				annotation.data = data;
@@ -61173,15 +61176,46 @@ return /******/ (function(modules) { // webpackBootstrap
 				}, this);
 	
 				var results = this.state.results.map(function (res, index) {
+					var poster = '';
+					if (res.poster) {
+						poster = React.createElement('img', { src: res.poster, style: { maxWidth: '100px' } });
+					}
 					return React.createElement(
-						'div',
-						{ key: 'result__' + index, className: 'media-body interactive', onDoubleClick: _this2.addLink.bind(_this2, res) },
+						'li',
+						{ key: 'result__' + index,
+							className: 'list-group-item interactive',
+							onDoubleClick: _this2.addLink.bind(_this2, res) },
 						React.createElement(
-							'h4',
-							{ className: 'media-heading' },
-							res.label
-						),
-						res.description
+							'table',
+							{ className: 'table' },
+							React.createElement(
+								'tbody',
+								null,
+								React.createElement(
+									'tr',
+									null,
+									React.createElement(
+										'td',
+										null,
+										poster
+									),
+									React.createElement(
+										'td',
+										null,
+										React.createElement(
+											'label',
+											{ className: 'media-heading' },
+											res.label ? res.label : res.title
+										)
+									),
+									React.createElement(
+										'td',
+										null,
+										res.description
+									)
+								)
+							)
+						)
 					);
 				}, this);
 	
@@ -61246,7 +61280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							),
 							this.state.results.length > 0 ? React.createElement(
 								'div',
-								null,
+								{ style: { height: '400px', overflow: 'auto' } },
 								React.createElement(
 									'h4',
 									null,
@@ -61261,8 +61295,8 @@ return /******/ (function(modules) { // webpackBootstrap
 									'div',
 									{ className: 'well' },
 									React.createElement(
-										'div',
-										{ className: 'media' },
+										'ul',
+										{ className: 'list-group' },
 										results
 									)
 								)

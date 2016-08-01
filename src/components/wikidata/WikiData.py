@@ -69,7 +69,7 @@ class WikiData():
 
 		return entities
 
-	#This expects a wikidata query
+	#This expects a wikidata query (see: https://wdq.wmflabs.org/api_documentation.html)
 	def query(self, params):
 		r = WDUtil.apirequest(WD_QUERY_API, {
 			"q" : params["q"]

@@ -34,6 +34,7 @@ class AnnotationCreator extends React.Component {
 		this.setState({[mode] : value});
 	}
 
+	//TODO this function looks like it could be more optimized
 	gatherDataAndSave() {
 		var annotation = this.props.annotation;
 		if(!annotation) {
@@ -47,10 +48,10 @@ class AnnotationCreator extends React.Component {
 		if(this.state.classifications.length > 0) {
 			data['classifications'] = this.state.classifications;
 		}
-		if(this.state.comments) {
+		if(this.state.comments.length > 0) {
 			data['comments'] = this.state.comments
 		}
-		if(this.state.links) {
+		if(this.state.links.length > 0) {
 			data['links'] = this.state.links
 		}
 		annotation.data = data;

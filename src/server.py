@@ -8,6 +8,7 @@ from functools import wraps
 from components.openskos.OpenSKOS import OpenSKOS
 from components.dbpedia.DBpedia import DBpedia
 from components.wikidata.WikiData import WikiData
+from components.europeana.Europeana import Europeana
 
 import simplejson
 import os
@@ -154,10 +155,13 @@ def autocomplete():
 @app.route('/link/<api>/<command>')
 def link(api, command):
 	resp = None
+	apiHandler = None
 	if api == 'wikidata':
-		wd = WikiData()
-		resp = getattr(wd, "%s" % command)(request.args)
-		print resp
+		apiHandler = WikiData()
+	elif api == 'europeana':
+		apiHandler = Europeana()
+	if apiHandler:
+		resp = resp = getattr(apiHandler, "%s" % command)(request.args)
 	if resp:
 		return Response(simplejson.dumps(resp), mimetype='application/json')
 	return Response(getErrorMessage('Nothing found'), mimetype='application/json')
