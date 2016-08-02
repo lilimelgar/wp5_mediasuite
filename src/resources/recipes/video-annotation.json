@@ -4,14 +4,31 @@
 	"type" : "annotation",
 	"description" : "Segment and annotate video",
 	"ingredients" : {
+		"search" : "facet-search",
+		"collections" : ["arttube-connect"],
 		"playerType" : "vimeo",
 		"annotationModes" : [
-			{"type" : "classify", "vocabularies" : ["GTAA", "DBpedia"]},
-			{"type" : "comment"},
-			{"type" : "link", "apis" : [
-				{"name" : "wikidata"},
-				{"name" : "europeana"}
-			]}
+			{
+				"type" : "classify",
+				"vocabularies" : ["GTAA", "DBpedia"],
+				"targets" : ["query", "video", "segment", "annotation"]
+			},
+			{
+				"type" : "comment",
+				"targets" : ["query", "video", "segment", "annotation"]
+			},
+			{
+				"type" : "link",
+				"apis" : [
+					{"name" : "wikidata"},
+					{"name" : "europeana"}
+				],
+				"targets" : ["video", "segment"]
+			},
+			{
+				"type" : "bookmark",
+				"targets" : ["query", "video", "segment"]
+			}
 		]
 	}
 }

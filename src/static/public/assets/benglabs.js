@@ -13226,6 +13226,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               	of each query/line
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               4. many more improvements are possible, use your imagination
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               try out: https://plot.ly/javascript/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               https://p5js.org/get-started/
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
 	
 	var LineChart = function (_React$Component) {
@@ -46264,7 +46267,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57293,7 +57296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'playAnnotation',
 			value: function playAnnotation(annotation) {
-				this.props.seek(annotation.start);
+				this.props.playerAPI.api('seekTo', annotation.start);
 			}
 		}, {
 			key: 'saveAnnotation',
@@ -61495,7 +61498,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -61515,7 +61518,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	//FIXME a hard dependancy on froogaloop & jQuery!
+	//this is the first player that is supported in LABO (ArtTube requires Vimeo)
 	
 	var VimeoPlayer = function (_React$Component) {
 		_inherits(VimeoPlayer, _React$Component);
@@ -61523,27 +61526,185 @@ return /******/ (function(modules) { // webpackBootstrap
 		function VimeoPlayer(props) {
 			_classCallCheck(this, VimeoPlayer);
 	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(VimeoPlayer).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(VimeoPlayer).call(this, props));
+	
+			_this.state = {
+				froogaloop: null
+			};
+			return _this;
 		}
 	
 		_createClass(VimeoPlayer, [{
-			key: "render",
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				console.debug('Mounted the iframe HTML, rendering the player');
+				var vimeoPlayers = document.querySelectorAll('iframe');
+				var vimeoPlayer = null;
+				for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
+					vimeoPlayer = vimeoPlayers[i];
+	
+					$f(vimeoPlayer).addEvent('ready', this.vimeoPlayerMounted.bind(this));
+				}
+			}
+		}, {
+			key: 'vimeoPlayerMounted',
+			value: function vimeoPlayerMounted(playerId) {
+				var eventCallbacks = {
+					loadProgress: this.props.eventCallbacks.loadProgress.bind(this),
+					playProgress: this.props.eventCallbacks.playProgress.bind(this),
+					play: this.props.eventCallbacks.onPlay.bind(this),
+					pause: this.props.eventCallbacks.onPause.bind(this),
+					finish: this.props.eventCallbacks.onFinish.bind(this),
+					seek: this.props.eventCallbacks.onSeek.bind(this)
+				};
+				//console.debug('Rendered the player, setting up the player API');
+				this.setState({
+					froogaloop: $f(playerId)
+				});
+				for (var key in eventCallbacks) {
+					this.state.froogaloop.addEvent(key, eventCallbacks[key]);
+				}
+				//send back the api to the owning component
+				this.props.onPlayerReady(new VimeoAPI(this.state.froogaloop));
+			}
+		}, {
+			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					"div",
-					{ id: "video_player" },
-					_react2.default.createElement("iframe", {
-						id: "player_1",
-						src: "http://player.vimeo.com/video/7100569?api=1&player_id=player_1",
-						width: "540",
-						height: "304",
-						frameBorder: "0" })
+					'div',
+					{ id: 'video_player' },
+					_react2.default.createElement('iframe', {
+						id: 'player_1',
+						src: 'http://player.vimeo.com/video/7100569?api=1&player_id=player_1',
+						width: '540',
+						height: '304',
+						frameBorder: '0' })
 				);
 			}
 		}]);
 	
 		return VimeoPlayer;
 	}(_react2.default.Component);
+	
+	//this should implement a generic playerAPI
+	
+	
+	var VimeoAPI = function () {
+		function VimeoAPI(froogaloop) {
+			_classCallCheck(this, VimeoAPI);
+	
+			this.froogaloop = froogaloop;
+		}
+	
+		_createClass(VimeoAPI, [{
+			key: 'play',
+			value: function play() {
+				this.froogaloop.api('play');
+			}
+		}, {
+			key: 'pause',
+			value: function pause() {
+				this.froogaloop.api('pause');
+			}
+		}, {
+			key: 'unload',
+			value: function unload() {
+				this.froogaloop.api('unload');
+			}
+		}, {
+			key: 'seek',
+			value: function seek(secs) {
+				this.froogaloop.api('seekTo', secs);
+			}
+		}, {
+			key: 'getPosition',
+			value: function getPosition(callback) {
+				this.froogaloop.api('getCurrentTime', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getDuration',
+			value: function getDuration(callback) {
+				this.froogaloop.api('getDuration', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'isPaused',
+			value: function isPaused(callback) {
+				this.froogaloop.api('paused', function (value, player_id) {
+					callback(value);
+				});
+			}
+	
+			//additional optional get functions
+	
+		}, {
+			key: 'getColor',
+			value: function getColor(callback) {
+				this.froogaloop.api('getColor', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVolume',
+			value: function getVolume(callback) {
+				this.froogaloop.api('getVolume', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoUrl',
+			value: function getVideoUrl(callback) {
+				this.froogaloop.api('getVideoUrl', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoEmbedCode',
+			value: function getVideoEmbedCode(callback) {
+				this.froogaloop.api('getVideoEmbedCode', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoWidth',
+			value: function getVideoWidth(callback) {
+				this.froogaloop.api('getVideoWidth', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoHeight',
+			value: function getVideoHeight(callback) {
+				this.froogaloop.api('getVideoHeight', function (value, player_id) {
+					callback(value);
+				});
+			}
+	
+			//additional optional set functions
+	
+		}, {
+			key: 'setVolume',
+			value: function setVolume(volume) {
+				this.froogaloop.api('setVolume', volume);
+			}
+		}, {
+			key: 'setLoop',
+			value: function setLoop(loop) {
+				this.froogaloop.api('setLoop', loop ? 1 : 0);
+			}
+		}, {
+			key: 'setColor',
+			value: function setColor(color) {
+				//'ff0000'
+				this.froogaloop.api('setColor', color);
+			}
+		}]);
+	
+		return VimeoAPI;
+	}();
 	
 	exports.default = VimeoPlayer;
 
@@ -62010,21 +62171,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 664);
-	
-	var _VimeoPlayer2 = _interopRequireDefault(_VimeoPlayer);
-	
-	var _VideoTimeBar = __webpack_require__(/*! ./components/annotation/VideoTimeBar */ 668);
-	
-	var _VideoTimeBar2 = _interopRequireDefault(_VideoTimeBar);
-	
 	var _AnnotationBox = __webpack_require__(/*! ./components/annotation/AnnotationBox */ 631);
 	
 	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
-	
-	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 665);
-	
-	var _SegmentationControls2 = _interopRequireDefault(_SegmentationControls);
 	
 	var _TimeUtil = __webpack_require__(/*! ./util/TimeUtil */ 38);
 	
@@ -62034,9 +62183,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
-	var _mousetrap = __webpack_require__(/*! mousetrap */ 669);
+	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 668);
 	
-	var _mousetrap2 = _interopRequireDefault(_mousetrap);
+	var _FlexPlayer2 = _interopRequireDefault(_FlexPlayer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -62055,7 +62204,133 @@ return /******/ (function(modules) { // webpackBootstrap
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationRecipe).call(this, props));
 	
 			_this.state = {
-				froogaloop: null, //specific API for Vimeo player
+				user: 'JaapTest',
+				playerAPI: null
+			};
+			return _this;
+		}
+	
+		_createClass(AnnotationRecipe, [{
+			key: 'onPlayerReady',
+			value: function onPlayerReady(playerAPI) {
+				console.debug('The recipe also knows');
+				this.setState({ playerAPI: playerAPI });
+			}
+	
+			/************************************** Timeline controls ***************************************/
+	
+		}, {
+			key: 'render',
+			value: function render() {
+	
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-7' },
+							_react2.default.createElement(_FlexPlayer2.default, { player: this.props.ingredients.playerType,
+								onPlayerReady: this.onPlayerReady.bind(this) })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-5' },
+							_react2.default.createElement(
+								_FlexBox2.default,
+								null,
+								_react2.default.createElement(_AnnotationBox2.default, {
+									start: this.state.start,
+									end: this.state.end,
+									user: this.state.user,
+									playerAPI: this.state.playerAPI,
+									annotationModes: this.props.ingredients.annotationModes
+								})
+							)
+						)
+					)
+				);
+			}
+		}]);
+	
+		return AnnotationRecipe;
+	}(_react2.default.Component);
+	
+	exports.default = AnnotationRecipe;
+
+/***/ },
+/* 668 */
+/*!***********************************!*\
+  !*** ./app/player/FlexPlayer.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 664);
+	
+	var _VimeoPlayer2 = _interopRequireDefault(_VimeoPlayer);
+	
+	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 669);
+	
+	var _VideoTimeBar2 = _interopRequireDefault(_VideoTimeBar);
+	
+	var _SegmentationControls = __webpack_require__(/*! ../components/annotation/SegmentationControls */ 665);
+	
+	var _SegmentationControls2 = _interopRequireDefault(_SegmentationControls);
+	
+	var _TimeUtil = __webpack_require__(/*! ../util/TimeUtil */ 38);
+	
+	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
+	
+	var _FlexBox = __webpack_require__(/*! ../components/FlexBox */ 31);
+	
+	var _FlexBox2 = _interopRequireDefault(_FlexBox);
+	
+	var _mousetrap = __webpack_require__(/*! mousetrap */ 670);
+	
+	var _mousetrap2 = _interopRequireDefault(_mousetrap);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	/*
+	This component contains a player, segmentation controls & timebar.
+	
+	This class receives a (generic) playerAPI from the implementing player component.
+	Currently only the VimeoPlayer.js has been implemented.
+	
+	It is able to pass the playerAPI to its owner. This is useful e.g. for the current AnnotationRecipe,
+	who needs to pass on this API to the AnnotationBox (so it's possible to seek the video when clicking on an annotation)
+	*/
+	
+	var FlexPlayer = function (_React$Component) {
+		_inherits(FlexPlayer, _React$Component);
+	
+		function FlexPlayer(props) {
+			_classCallCheck(this, FlexPlayer);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FlexPlayer).call(this, props));
+	
+			_this.state = {
+				playerAPI: null,
 				curPosition: 0,
 				duration: 0,
 				start: -1,
@@ -62069,11 +62344,19 @@ return /******/ (function(modules) { // webpackBootstrap
 		//TODO make sure to offer support for rendering different players, now it's just Vimeo (ArtTube needs this)
 	
 	
-		_createClass(AnnotationRecipe, [{
+		_createClass(FlexPlayer, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.initPlayer(this.props.ingredients.playerType);
 				this.initKeyBindings();
+			}
+		}, {
+			key: 'onPlayerReady',
+			value: function onPlayerReady(playerAPI) {
+				console.debug('The player is ready for some fun');
+				this.setState({ playerAPI: playerAPI });
+				if (this.props.onPlayerReady) {
+					this.props.onPlayerReady(playerAPI);
+				}
 			}
 		}, {
 			key: 'initKeyBindings',
@@ -62090,11 +62373,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				//pause & play shortcut
 				Mousetrap.bind('space', function () {
 					if (!this.checkFocus.call(this)) {
-						if (this.state.paused) {
+						if (this.state.paused === false) {
 							//FIXME, this does not work yet!
-							this.pause.call(this);
+							this.state.playerAPI.pause();
 						} else {
-							this.play.call(this);
+							this.state.playerAPI.play();
 						}
 					}
 				}.bind(this));
@@ -62195,176 +62478,18 @@ return /******/ (function(modules) { // webpackBootstrap
 					f.call(this, args);
 				}
 			}
-		}, {
-			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {}
-		}, {
-			key: 'initPlayer',
-			value: function initPlayer(type) {
-				if (type == 'vimeo') {
-					//console.debug('Mounted the iframe HTML, rendering the player');
-					var vimeoPlayers = document.querySelectorAll('iframe');
-					var vimeoPlayer = null;
-					for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
-						vimeoPlayer = vimeoPlayers[i];
-						$f(vimeoPlayer).addEvent('ready', this.vimeoPlayerMounted.bind(this));
-					}
-				} else {
-					console.error('Please specify a valid playerType');
-				}
-			}
-		}, {
-			key: 'vimeoPlayerMounted',
-			value: function vimeoPlayerMounted(playerId) {
-				var eventCallbacks = {
-					loadProgress: this.loadProgress.bind(this),
-					playProgress: this.playProgress.bind(this),
-					play: this.onPlay.bind(this),
-					pause: this.onPause.bind(this),
-					finish: this.onFinish.bind(this),
-					seek: this.onSeek.bind(this)
-				};
-				//console.debug('Rendered the player, setting up the player API');
-				this.setState({
-					froogaloop: $f(playerId)
-				});
-				for (var key in eventCallbacks) {
-					this.state.froogaloop.addEvent(key, eventCallbacks[key]);
-				}
-			}
-	
-			/*************************************** Vimeo player callbacks ***************************************/
-	
-			//these functions are mandatory for the annotation player to work
-	
-		}, {
-			key: 'play',
-			value: function play() {
-				this.state.froogaloop.api('play');
-			}
-		}, {
-			key: 'pause',
-			value: function pause() {
-				this.state.froogaloop.api('pause');
-			}
-		}, {
-			key: 'unload',
-			value: function unload() {
-				this.state.froogaloop.api('unload');
-			}
-		}, {
-			key: 'seek',
-			value: function seek(secs) {
-				this.state.froogaloop.api('seekTo', secs);
-			}
-		}, {
-			key: 'getPosition',
-			value: function getPosition(callback) {
-				this.state.froogaloop.api('getCurrentTime', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getDuration',
-			value: function getDuration(callback) {
-				this.state.froogaloop.api('getDuration', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'isPaused',
-			value: function isPaused(callback) {
-				this.state.froogaloop.api('paused', function (value, player_id) {
-					callback(value);
-				});
-			}
-	
-			//additional optional get functions
-	
-		}, {
-			key: 'getColor',
-			value: function getColor(callback) {
-				this.state.froogaloop.api('getColor', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVolume',
-			value: function getVolume(callback) {
-				this.state.froogaloop.api('getVolume', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoUrl',
-			value: function getVideoUrl(callback) {
-				this.state.froogaloop.api('getVideoUrl', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoEmbedCode',
-			value: function getVideoEmbedCode(callback) {
-				this.state.froogaloop.api('getVideoEmbedCode', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoWidth',
-			value: function getVideoWidth(callback) {
-				this.state.froogaloop.api('getVideoWidth', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoHeight',
-			value: function getVideoHeight(callback) {
-				this.state.froogaloop.api('getVideoHeight', function (value, player_id) {
-					callback(value);
-				});
-			}
-	
-			//additional optional set functions
-	
-		}, {
-			key: 'setVolume',
-			value: function setVolume(volume) {
-				this.state.froogaloop.api('setVolume', volume);
-			}
-		}, {
-			key: 'setLoop',
-			value: function setLoop(loop) {
-				this.state.froogaloop.api('setLoop', loop ? 1 : 0);
-			}
-		}, {
-			key: 'setColor',
-			value: function setColor(color) {
-				//'ff0000'
-				this.state.froogaloop.api('setColor', color);
-			}
 	
 			/*************************************** Player event callbacks ***************************************/
 	
 		}, {
-			key: 'loadProgress',
-			value: function loadProgress(data) {
-				// console.debug('loadProgress event : ' +
-				//          data.percent + ' : ' +
-				//          data.bytesLoaded + ' : ' +
-				//          data.bytesTotal + ' : ' +
-				//          data.duration
-				//      );
-			}
-		}, {
 			key: 'playProgress',
 			value: function playProgress(data) {
-				//console.debug('playProgress event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
-				this.getPosition(this.onGetPosition.bind(this));
+				this.state.playerAPI.getPosition(this.onGetPosition.bind(this));
 			}
 		}, {
 			key: 'onPlay',
 			value: function onPlay(data) {
-				this.getDuration(this.onGetDuration.bind(this));
+				this.state.playerAPI.getDuration(this.onGetDuration.bind(this));
 				this.setState({ paused: false });
 			}
 		}, {
@@ -62375,21 +62500,28 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'onPause',
 			value: function onPause(paused) {
-				this.setState({ paused: paused });
-			}
-		}, {
-			key: 'onFinish',
-			value: function onFinish(data) {}
-		}, {
-			key: 'onSeek',
-			value: function onSeek(data) {
-				//console.debug('seek event : ' + data.seconds + ' : ' + data.percent + ' : ' + data.duration);
+				this.setState({ paused: true });
 			}
 		}, {
 			key: 'onGetPosition',
 			value: function onGetPosition(value) {
 				this.setState({ curPosition: value });
 			}
+		}, {
+			key: 'loadProgress',
+			value: function loadProgress(data) {
+				//TODO do something with this?
+			}
+		}, {
+			key: 'onFinish',
+			value: function onFinish(data) {
+				//TODO do something with this?
+			}
+		}, {
+			key: 'onSeek',
+			value: function onSeek(data) {}
+			//TODO do something with this?
+	
 	
 			/************************************** Segmentation controls ***************************************/
 	
@@ -62397,23 +62529,23 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'setManualStart',
 			value: function setManualStart(start) {
 				this.setState({ start: start });
-				this.seek(this.state.start);
+				this.state.playerAPI.seek(this.state.start);
 			}
 		}, {
 			key: 'setManualEnd',
 			value: function setManualEnd(end) {
 				this.setState({ end: end });
-				this.seek(this.state.end);
+				this.state.playerAPI.seek(this.state.end);
 			}
 		}, {
 			key: 'playStart',
 			value: function playStart() {
-				this.seek(this.state.start);
+				this.state.playerAPI.seek(this.state.start);
 			}
 		}, {
 			key: 'playEnd',
 			value: function playEnd() {
-				this.seek(this.state.end);
+				this.state.playerAPI.seek(this.state.end);
 			}
 		}, {
 			key: 'setStart',
@@ -62448,7 +62580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					$('#end_time').val(_TimeUtil2.default.formatTime(this.state.end));
 					//this.updateBar();
 					if (skipPause == undefined) {
-						this.pause(true);
+						this.state.playerAPI.pause();
 					}
 				} else {
 					alert('The end time must be bigger than the start time');
@@ -62457,12 +62589,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'rw',
 			value: function rw(t) {
-				this.seek(this.state.curPosition - t);
+				this.state.playerAPI.seek(this.state.curPosition - t);
 			}
 		}, {
 			key: 'ff',
 			value: function ff(t) {
-				this.seek(this.state.curPosition + t);
+				this.state.playerAPI.seek(this.state.curPosition + t);
 			}
 	
 			/************************************** Timeline controls ***************************************/
@@ -62478,6 +62610,28 @@ return /******/ (function(modules) { // webpackBootstrap
 					playStart: this.playStart.bind(this),
 					playEnd: this.playEnd.bind(this)
 				};
+	
+				var playerEventCallbacks = {
+					playProgress: this.playProgress.bind(this),
+					onPlay: this.onPlay.bind(this),
+					onPause: this.onPause.bind(this),
+					onFinish: this.onFinish.bind(this),
+					loadProgress: this.loadProgress.bind(this),
+					onSeek: this.onSeek.bind(this)
+				};
+	
+				var player = '';
+				if (this.props.player == 'vimeo') {
+					player = _react2.default.createElement(_VimeoPlayer2.default, {
+						eventCallbacks: playerEventCallbacks,
+						onPlayerReady: this.onPlayerReady.bind(this) });
+				} else if (this.props.player == 'jwplayer') {
+					player = _react2.default.createElement(
+						'div',
+						null,
+						'This player will be implemented in the not too distant future'
+					);
+				}
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -62486,35 +62640,20 @@ return /******/ (function(modules) { // webpackBootstrap
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-7' },
+							{ className: 'col-md-12' },
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,
-								_react2.default.createElement(_VimeoPlayer2.default, null)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'col-md-5' },
-							_react2.default.createElement(
-								_FlexBox2.default,
-								null,
-								_react2.default.createElement(_AnnotationBox2.default, {
-									start: this.state.start,
-									end: this.state.end,
-									user: this.state.user,
-									seek: this.seek.bind(this),
-									annotationModes: this.props.ingredients.annotationModes
-								})
+								player
 							)
 						)
 					),
-					_react2.default.createElement(
+					this.state.playerAPI ? _react2.default.createElement(
 						'div',
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-7' },
+							{ className: 'col-md-12' },
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,
@@ -62523,25 +62662,25 @@ return /******/ (function(modules) { // webpackBootstrap
 									curPosition: this.state.curPosition,
 									start: this.state.start,
 									end: this.state.end,
-									seek: this.seek.bind(this)
+									seek: this.state.playerAPI.seek
 								}),
 								_react2.default.createElement('br', null),
 								_react2.default.createElement('br', null),
 								_react2.default.createElement(_SegmentationControls2.default, { controls: controls })
 							)
 						)
-					)
+					) : null
 				);
 			}
 		}]);
 	
-		return AnnotationRecipe;
+		return FlexPlayer;
 	}(_react2.default.Component);
 	
-	exports.default = AnnotationRecipe;
+	exports.default = FlexPlayer;
 
 /***/ },
-/* 668 */
+/* 669 */
 /*!****************************************************!*\
   !*** ./app/components/annotation/VideoTimeBar.jsx ***!
   \****************************************************/
@@ -62659,7 +62798,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VideoTimeBar;
 
 /***/ },
-/* 669 */
+/* 670 */
 /*!**********************************!*\
   !*** ./~/mousetrap/mousetrap.js ***!
   \**********************************/

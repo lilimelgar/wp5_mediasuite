@@ -47,7 +47,7 @@ class AnnotationBox extends React.Component {
 	//TODO neatly tie in with the player via an access object
 	//TODO also make sure the timebar is updated with the in and out points
 	playAnnotation(annotation) {
-		this.props.seek(annotation.start);
+		this.props.playerAPI.api('seekTo', annotation.start);
 	}
 
 	saveAnnotation(annotation) {

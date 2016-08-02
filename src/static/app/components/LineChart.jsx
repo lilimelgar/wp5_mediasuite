@@ -7,6 +7,9 @@ Necessary updates / TODO:
 	of each query/line
 4. many more improvements are possible, use your imagination
 
+try out: https://plot.ly/javascript/
+https://p5js.org/get-started/
+
 */
 
 import React from 'react';
