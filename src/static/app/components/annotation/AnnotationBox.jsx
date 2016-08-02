@@ -44,14 +44,16 @@ class AnnotationBox extends React.Component {
 		})
 	}
 
-	//TODO neatly tie in with the player via an access object
 	//TODO also make sure the timebar is updated with the in and out points
 	playAnnotation(annotation) {
-		this.props.playerAPI.api('seekTo', annotation.start);
+		this.props.playerAPI.setActiveSegment({
+			start : annotation.start, end : annotation.end
+		}, true, true)
 	}
 
+	//TODO after lunch
 	saveAnnotation(annotation) {
-		AnnotationAPI.saveAnnotation(annotation, this.props.start, this.props.end, function(data) {
+		AnnotationAPI.saveAnnotation(annotation, function(data) {
 			this.onSave(data);
 		}.bind(this));
 	}
@@ -117,8 +119,7 @@ class AnnotationBox extends React.Component {
 							annotation={this.state.annotation}
 							saveAnnotation={this.saveAnnotation.bind(this)}
 							annotationModes={this.props.annotationModes}
-							start={this.props.start}
-							end={this.props.end}
+							playerAPI={ this.props.playerAPI}
 							user={this.props.user}
 						/>
 					</FlexModal>: null

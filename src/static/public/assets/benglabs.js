@@ -12283,12 +12283,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	var AnnotationAPI = {
 	
-		saveAnnotation: function saveAnnotation(annotation, start, end, callback) {
+		saveAnnotation: function saveAnnotation(annotation, callback) {
 			var url = _config.ANNOTATION_API_BASE + '/annotation';
 			var method = 'POST';
-			annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example", annotation.start = start, //grab this from the player
-			annotation.end = end; //grab this from the player
-	
+			annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example";
 			if (annotation.annotationId) {
 				url += '/' + annotation.annotationId;
 				method = 'PUT';
@@ -46267,7 +46265,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57290,18 +57288,22 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 			}
 	
-			//TODO neatly tie in with the player via an access object
 			//TODO also make sure the timebar is updated with the in and out points
 	
 		}, {
 			key: 'playAnnotation',
 			value: function playAnnotation(annotation) {
-				this.props.playerAPI.api('seekTo', annotation.start);
+				this.props.playerAPI.setActiveSegment({
+					start: annotation.start, end: annotation.end
+				}, true, true);
 			}
+	
+			//TODO after lunch
+	
 		}, {
 			key: 'saveAnnotation',
 			value: function saveAnnotation(annotation) {
-				_AnnotationAPI2.default.saveAnnotation(annotation, this.props.start, this.props.end, function (data) {
+				_AnnotationAPI2.default.saveAnnotation(annotation, function (data) {
 					this.onSave(data);
 				}.bind(this));
 			}
@@ -57383,8 +57385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							annotation: this.state.annotation,
 							saveAnnotation: this.saveAnnotation.bind(this),
 							annotationModes: this.props.annotationModes,
-							start: this.props.start,
-							end: this.props.end,
+							playerAPI: this.props.playerAPI,
 							user: this.props.user
 						})
 					) : null
@@ -57483,10 +57484,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				var annotation = this.props.annotation;
 				if (!annotation) {
 					annotation = {
-						user: this.props.user,
-						start: this.props.start,
-						end: this.props.end
+						user: this.props.user
 					};
+					var activeSegment = this.props.playerAPI.getActiveSegment();
+					if (activeSegment) {
+						annotation.start = activeSegment.start;
+						annotation.end = activeSegment.end;
+					}
 				}
 				var data = {};
 				if (this.state.classifications.length > 0) {
@@ -61594,9 +61598,44 @@ return /******/ (function(modules) { // webpackBootstrap
 			_classCallCheck(this, VimeoAPI);
 	
 			this.froogaloop = froogaloop;
+			this.activeSegment = null;
+			this.observers = [];
 		}
 	
 		_createClass(VimeoAPI, [{
+			key: 'addObserver',
+			value: function addObserver(obj) {
+				this.observers.push(obj);
+			}
+		}, {
+			key: 'removeObserver',
+			value: function removeObserver(obj) {
+				this.observers.splice(this.observers.indexOf(obj), 1);
+			}
+		}, {
+			key: 'notifyObservers',
+			value: function notifyObservers() {
+				for (var i = 0; i < this.observers.length; i++) {
+					this.observers[i].update();
+				}
+			}
+		}, {
+			key: 'getActiveSegment',
+			value: function getActiveSegment() {
+				return this.activeSegment;
+			}
+		}, {
+			key: 'setActiveSegment',
+			value: function setActiveSegment(activeSegment, play, notify) {
+				this.activeSegment = activeSegment;
+				if (play) {
+					this.seek(activeSegment.start);
+				}
+				if (notify) {
+					this.notifyObservers();
+				}
+			}
+		}, {
 			key: 'play',
 			value: function play() {
 				this.froogaloop.api('play');
@@ -62213,7 +62252,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			_this.state = {
 				user: 'JaapTest',
-				playerAPI: null
+				playerAPI: null,
+				start: null,
+				end: null
 			};
 			return _this;
 		}
@@ -62221,7 +62262,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		_createClass(AnnotationRecipe, [{
 			key: 'onPlayerReady',
 			value: function onPlayerReady(playerAPI) {
-				console.debug('The recipe also knows');
 				this.setState({ playerAPI: playerAPI });
 			}
 	
@@ -62249,13 +62289,9 @@ return /******/ (function(modules) { // webpackBootstrap
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,
-								_react2.default.createElement(_AnnotationBox2.default, {
-									start: this.state.start,
-									end: this.state.end,
-									user: this.state.user,
+								_react2.default.createElement(_AnnotationBox2.default, { user: this.state.user,
 									playerAPI: this.state.playerAPI,
-									annotationModes: this.props.ingredients.annotationModes
-								})
+									annotationModes: this.props.ingredients.annotationModes })
 							)
 						)
 					)
@@ -62361,8 +62397,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'onPlayerReady',
 			value: function onPlayerReady(playerAPI) {
-				console.debug('The player is ready for some fun');
+				playerAPI.addObserver(this);
 				this.setState({ playerAPI: playerAPI });
+				//pass on the API to the owner
 				if (this.props.onPlayerReady) {
 					this.props.onPlayerReady(playerAPI);
 				}
@@ -62376,6 +62413,19 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (f) {
 					f.call(this, args);
 				}
+			}
+	
+			//called by the playerAPI (this component is an observer of that. I know it's ugly, will make it pretty later)
+	
+		}, {
+			key: 'update',
+			value: function update() {
+				console.debug('updating the active segment');
+				var activeSegment = this.state.playerAPI.getActiveSegment();
+				this.setState({
+					start: activeSegment.start,
+					end: activeSegment.end
+				});
 			}
 	
 			/*************************************** Player event callbacks ***************************************/
@@ -62612,6 +62662,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'render',
 			value: function render() {
+				//update the activeSegment in the playerAPI
+				if (this.state.start != -1 && this.state.end != -1 && this.state.playerAPI) {
+					this.state.playerAPI.setActiveSegment({
+						start: this.state.start,
+						end: this.state.end
+					});
+				}
+	
 				var controls = {
 					setManualStart: this.setManualStart.bind(this),
 					setManualEnd: this.setManualEnd.bind(this),

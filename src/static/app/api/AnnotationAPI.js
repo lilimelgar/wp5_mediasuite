@@ -1,12 +1,9 @@
 const AnnotationAPI = {
 
-	saveAnnotation : function(annotation, start, end, callback) {
+	saveAnnotation : function(annotation, callback) {
 		var url = _config.ANNOTATION_API_BASE + '/annotation';
 		var method = 'POST';
-		annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example",
-		annotation.start = start, //grab this from the player
-		annotation.end = end //grab this from the player
-
+		annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example";
 		if(annotation.annotationId) {
 			url += '/' + annotation.annotationId;
 			method = 'PUT';

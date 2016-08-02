@@ -38,8 +38,11 @@ class FlexPlayer extends React.Component {
 	}
 
 	onPlayerReady(playerAPI) {
-		console.debug('The player is ready for some fun');
-		this.setState({playerAPI : playerAPI});
+		playerAPI.addObserver(this);
+		this.setState(
+			{playerAPI : playerAPI}
+		);
+		//pass on the API to the owner
 		if(this.props.onPlayerReady) {
 			this.props.onPlayerReady(playerAPI);
 		}
@@ -52,6 +55,16 @@ class FlexPlayer extends React.Component {
 	    if(f) {
 	        f.call(this, args);
 	    }
+	}
+
+	//called by the playerAPI (this component is an observer of that. I know it's ugly, will make it pretty later)
+	update() {
+		console.debug('updating the active segment');
+		let activeSegment = this.state.playerAPI.getActiveSegment();
+		this.setState({
+			start : activeSegment.start,
+			end : activeSegment.end
+		})
 	}
 
 	/*************************************** Player event callbacks ***************************************/
@@ -263,6 +276,14 @@ class FlexPlayer extends React.Component {
 	}
 
 	render() {
+		//update the activeSegment in the playerAPI
+		if(this.state.start != -1 && this.state.end != -1 && this.state.playerAPI) {
+			this.state.playerAPI.setActiveSegment({
+				start : this.state.start,
+				end : this.state.end
+			});
+		}
+
 		const controls = {
 			setManualStart : this.setManualStart.bind(this),
 			setManualEnd : this.setManualEnd.bind(this),

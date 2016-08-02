@@ -63,6 +63,36 @@ class VimeoAPI {
 
 	constructor(froogaloop) {
 		this.froogaloop = froogaloop;
+		this.activeSegment = null;
+		this.observers = [];
+	}
+
+	addObserver(obj) {
+		this.observers.push(obj);
+	}
+
+	removeObserver(obj) {
+		this.observers.splice(this.observers.indexOf(obj), 1);
+	}
+
+	notifyObservers() {
+		for(let i=0;i<this.observers.length;i++) {
+			this.observers[i].update();
+		}
+	}
+
+	getActiveSegment() {
+		return this.activeSegment;
+	}
+
+	setActiveSegment(activeSegment, play, notify) {
+		this.activeSegment = activeSegment;
+		if(play) {
+			this.seek(activeSegment.start)
+		}
+		if(notify) {
+			this.notifyObservers();
+		}
 	}
 
 	play() {

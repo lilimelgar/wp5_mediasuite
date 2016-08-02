@@ -11,12 +11,13 @@ class AnnotationRecipe extends React.Component {
 		super(props);
 		this.state = {
 			user : 'JaapTest',
-			playerAPI : null
+			playerAPI : null,
+			start : null,
+			end : null
 		}
 	}
 
 	onPlayerReady(playerAPI) {
-		console.debug('The recipe also knows');
 		this.setState({playerAPI : playerAPI});
 	}
 
@@ -33,13 +34,9 @@ class AnnotationRecipe extends React.Component {
 					</div>
 					<div className="col-md-5">
 						<FlexBox>
-							<AnnotationBox
-								start={this.state.start}
-								end={this.state.end}
-								user={this.state.user}
+							<AnnotationBox user={this.state.user}
 								playerAPI={this.state.playerAPI}
-								annotationModes={this.props.ingredients.annotationModes}
-							/>
+								annotationModes={this.props.ingredients.annotationModes}/>
 						</FlexBox>
 					</div>
 				</div>
