@@ -80,19 +80,11 @@ class LinkingForm extends React.Component {
 				poster = (<img src={res.poster} style={{maxWidth:'100px'}}/>);
 			}
 			return(
-				<li key={'result__' + index}
-					className="list-group-item interactive"
-					onDoubleClick={this.addLink.bind(this, res)}>
-					<table className="table">
-						<tbody>
-							<tr>
-								<td>{poster}</td>
-								<td><label className="media-heading">{res.label ? res.label : res.title}</label></td>
-								<td>{res.description}</td>
-							</tr>
-						</tbody>
-					</table>
-				</li>
+				<tr key={'result__' + index} onDoubleClick={this.addLink.bind(this, res)}>
+					<td>{poster}</td>
+					<td><label className="media-heading">{res.label ? res.label : res.title}</label></td>
+					<td>{res.description}</td>
+				</tr>
 			)
 		}, this)
 
@@ -128,9 +120,11 @@ class LinkingForm extends React.Component {
 							<div style={{height: '400px', overflow: 'auto'}}>
 								<h4>Gevonden resultaten <small>Dubbelklik een gevonden resultaat om deze toe te voegen</small></h4>
 								<div className="well">
-									<ul className="list-group">
-										{results}
-									</ul>
+									<table className="table table-bordered">
+										<tbody>
+											{results}
+										</tbody>
+									</table>
 								</div>
 							</div>: null}
 					</div>

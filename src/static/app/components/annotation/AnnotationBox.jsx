@@ -34,11 +34,11 @@ class AnnotationBox extends React.Component {
 		});
 	}
 
-	addAnnotation() {
-		this.setState({
-			annotation : null
-		}, this.props.handleShowModal())
-	}
+	// addAnnotation() {
+	// 	this.setState({
+	// 		annotation : null
+	// 	}, this.props.handleShowModal())
+	// }
 
 	setAnnotation(annotation) {
 		this.setState({
@@ -46,9 +46,8 @@ class AnnotationBox extends React.Component {
 		})
 	}
 
-	//TODO after lunch
 	saveAnnotation(annotation) {
-		AnnotationAPI.saveAnnotation(annotation, function(data) {
+		AnnotationAPI.saveAnnotation(this.props.annotationTarget, annotation, function(data) {
 			this.onSave(data);
 		}.bind(this));
 	}
@@ -80,16 +79,6 @@ class AnnotationBox extends React.Component {
 		this.loadAnnotationsFromServer();
 	}
 
-	// handleShowModal() {
-	// 	this.setState({showModal: true})
-	// }
-
-	// handleHideModal() {
-	// 	this.setState({showModal: false})
-	// }
-
-	//TODO rewrite with flexmodal
-	//TODO pass along the save & delete functions
 	render() {
 		return (
 			<div className="commentBox">
@@ -100,9 +89,6 @@ class AnnotationBox extends React.Component {
 					playerAPI={this.props.playerAPI}
 					editAnnotation={this.props.handleShowModal.bind(this)}
 					deleteAnnotation={this.deleteAnnotation.bind(this)}/> : null}
-				<button type="button" className="btn btn-info" onClick={this.addAnnotation.bind(this)}>
-					Nieuw
-				</button>
 
 				{this.props.showModal ?
 					<FlexModal

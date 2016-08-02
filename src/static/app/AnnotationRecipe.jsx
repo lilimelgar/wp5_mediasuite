@@ -5,6 +5,7 @@ import TimeUtil from './util/TimeUtil';
 import FlexBox from './components/FlexBox';
 import FlexPlayer from './player/FlexPlayer';
 
+//TODO this can later be integrated into Recipe.jsx. It's no longer necessary to have different types of recipes
 class AnnotationRecipe extends React.Component {
 
 	constructor(props) {
@@ -13,12 +14,22 @@ class AnnotationRecipe extends React.Component {
 			user : 'JaapTest',
 			playerAPI : null,
 			start : null,
-			end : null
+			end : null,
+			currentMediaObject : { //later make sure that this can be changed with some selection component
+				url : 'http://player.vimeo.com/video/110756897?api=1&amp;player_id=player_1'
+			}
 		}
 	}
 
 	onPlayerReady(playerAPI) {
 		this.setState({playerAPI : playerAPI});
+	}
+
+	//test to see if it works when setting a new video
+	dummyChangeVideo() {
+		this.setState({
+			currentMediaObject : {url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1'}
+		});
 	}
 
 	/************************************** Timeline controls ***************************************/
@@ -27,27 +38,22 @@ class AnnotationRecipe extends React.Component {
 		return (
 			<div>
 				<div className="row">
+					<button type="button" className="btn btn-info"
+						onClick={this.dummyChangeVideo.bind(this)}>
+						Andere video
+					</button>
+					<br/>
 					<div className="col-md-12">
 						<FlexPlayer player={this.props.ingredients.playerType}
 							onPlayerReady={this.onPlayerReady.bind(this)}
 							annotationSupport={this.props.ingredients.annotationSupport}
-							annotationModes={this.props.ingredients.annotationModes}/>
+							annotationModes={this.props.ingredients.annotationModes}
+							mediaObject={this.state.currentMediaObject}/>
 					</div>
 				</div>
 			</div>
 		)
 	}
-
-	/*
-	<div className="col-md-5">
-						<FlexBox>
-							<AnnotationBox user={this.state.user}
-								showList={false}
-								playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
-								annotationModes={this.props.ingredients.annotationModes}/>
-						</FlexBox>
-					</div>
-	*/
 
 }
 

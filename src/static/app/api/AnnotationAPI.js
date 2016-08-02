@@ -1,9 +1,9 @@
 const AnnotationAPI = {
 
-	saveAnnotation : function(annotation, callback) {
+	saveAnnotation : function(resourceURI, annotation, callback) {
 		var url = _config.ANNOTATION_API_BASE + '/annotation';
 		var method = 'POST';
-		annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example";
+		annotation.resourceURI = resourceURI; //think about what this should be. It could be an object
 		if(annotation.annotationId) {
 			url += '/' + annotation.annotationId;
 			method = 'PUT';
@@ -13,8 +13,8 @@ const AnnotationAPI = {
 			url : url,
 			type : method,
 			data : JSON.stringify(annotation),
-			//dataType : 'application/json',
 			success : function(data) {
+				console.debug(data);
 				if(callback){
 					callback(data);
 				}

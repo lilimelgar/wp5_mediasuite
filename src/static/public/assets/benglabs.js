@@ -12283,10 +12283,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	var AnnotationAPI = {
 	
-		saveAnnotation: function saveAnnotation(annotation, callback) {
+		saveAnnotation: function saveAnnotation(resourceURI, annotation, callback) {
 			var url = _config.ANNOTATION_API_BASE + '/annotation';
 			var method = 'POST';
-			annotation.resourceURI = "http://data.beeldengeluid.nl/arttube-vimeo-example";
+			annotation.resourceURI = resourceURI; //think about what this should be. It could be an object
 			if (annotation.annotationId) {
 				url += '/' + annotation.annotationId;
 				method = 'PUT';
@@ -12296,8 +12296,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				url: url,
 				type: method,
 				data: JSON.stringify(annotation),
-				//dataType : 'application/json',
 				success: function success(data) {
+					console.debug(data);
 					if (callback) {
 						callback(data);
 					}
@@ -57275,13 +57275,13 @@ return /******/ (function(modules) { // webpackBootstrap
 					}.bind(this)
 				});
 			}
-		}, {
-			key: 'addAnnotation',
-			value: function addAnnotation() {
-				this.setState({
-					annotation: null
-				}, this.props.handleShowModal());
-			}
+	
+			// addAnnotation() {
+			// 	this.setState({
+			// 		annotation : null
+			// 	}, this.props.handleShowModal())
+			// }
+	
 		}, {
 			key: 'setAnnotation',
 			value: function setAnnotation(annotation) {
@@ -57289,13 +57289,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					annotation: annotation
 				});
 			}
-	
-			//TODO after lunch
-	
 		}, {
 			key: 'saveAnnotation',
 			value: function saveAnnotation(annotation) {
-				_AnnotationAPI2.default.saveAnnotation(annotation, function (data) {
+				_AnnotationAPI2.default.saveAnnotation(this.props.annotationTarget, annotation, function (data) {
 					this.onSave(data);
 				}.bind(this));
 			}
@@ -57330,18 +57327,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function componentDidMount() {
 				this.loadAnnotationsFromServer();
 			}
-	
-			// handleShowModal() {
-			// 	this.setState({showModal: true})
-			// }
-	
-			// handleHideModal() {
-			// 	this.setState({showModal: false})
-			// }
-	
-			//TODO rewrite with flexmodal
-			//TODO pass along the save & delete functions
-	
 		}, {
 			key: 'render',
 			value: function render() {
@@ -57355,11 +57340,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						playerAPI: this.props.playerAPI,
 						editAnnotation: this.props.handleShowModal.bind(this),
 						deleteAnnotation: this.deleteAnnotation.bind(this) }) : null,
-					_react2.default.createElement(
-						'button',
-						{ type: 'button', className: 'btn btn-info', onClick: this.addAnnotation.bind(this) },
-						'Nieuw'
-					),
 					this.props.showModal ? _react2.default.createElement(
 						_FlexModal2.default,
 						{
@@ -61173,40 +61153,26 @@ return /******/ (function(modules) { // webpackBootstrap
 						poster = React.createElement('img', { src: res.poster, style: { maxWidth: '100px' } });
 					}
 					return React.createElement(
-						'li',
-						{ key: 'result__' + index,
-							className: 'list-group-item interactive',
-							onDoubleClick: _this2.addLink.bind(_this2, res) },
+						'tr',
+						{ key: 'result__' + index, onDoubleClick: _this2.addLink.bind(_this2, res) },
 						React.createElement(
-							'table',
-							{ className: 'table' },
+							'td',
+							null,
+							poster
+						),
+						React.createElement(
+							'td',
+							null,
 							React.createElement(
-								'tbody',
-								null,
-								React.createElement(
-									'tr',
-									null,
-									React.createElement(
-										'td',
-										null,
-										poster
-									),
-									React.createElement(
-										'td',
-										null,
-										React.createElement(
-											'label',
-											{ className: 'media-heading' },
-											res.label ? res.label : res.title
-										)
-									),
-									React.createElement(
-										'td',
-										null,
-										res.description
-									)
-								)
+								'label',
+								{ className: 'media-heading' },
+								res.label ? res.label : res.title
 							)
+						),
+						React.createElement(
+							'td',
+							null,
+							res.description
 						)
 					);
 				}, this);
@@ -61287,9 +61253,13 @@ return /******/ (function(modules) { // webpackBootstrap
 									'div',
 									{ className: 'well' },
 									React.createElement(
-										'ul',
-										{ className: 'list-group' },
-										results
+										'table',
+										{ className: 'table table-bordered' },
+										React.createElement(
+											'tbody',
+											null,
+											results
+										)
 									)
 								)
 							) : null
@@ -61575,7 +61545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					{ id: 'video_player' },
 					_react2.default.createElement('iframe', {
 						id: 'player_1',
-						src: 'http://player.vimeo.com/video/7100569?api=1&player_id=player_1',
+						src: this.props.mediaObject.url,
 						width: '540',
 						height: '304',
 						frameBorder: '0' })
@@ -62243,6 +62213,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	//TODO this can later be integrated into Recipe.jsx. It's no longer necessary to have different types of recipes
 	var AnnotationRecipe = function (_React$Component) {
 		_inherits(AnnotationRecipe, _React$Component);
 	
@@ -62255,7 +62226,10 @@ return /******/ (function(modules) { // webpackBootstrap
 				user: 'JaapTest',
 				playerAPI: null,
 				start: null,
-				end: null
+				end: null,
+				currentMediaObject: { //later make sure that this can be changed with some selection component
+					url: 'http://player.vimeo.com/video/110756897?api=1&amp;player_id=player_1'
+				}
 			};
 			return _this;
 		}
@@ -62264,6 +62238,16 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'onPlayerReady',
 			value: function onPlayerReady(playerAPI) {
 				this.setState({ playerAPI: playerAPI });
+			}
+	
+			//test to see if it works when setting a new video
+	
+		}, {
+			key: 'dummyChangeVideo',
+			value: function dummyChangeVideo() {
+				this.setState({
+					currentMediaObject: { url: 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1' }
+				});
 			}
 	
 			/************************************** Timeline controls ***************************************/
@@ -62278,28 +62262,24 @@ return /******/ (function(modules) { // webpackBootstrap
 						'div',
 						{ className: 'row' },
 						_react2.default.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-info',
+								onClick: this.dummyChangeVideo.bind(this) },
+							'Andere video'
+						),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-12' },
 							_react2.default.createElement(_FlexPlayer2.default, { player: this.props.ingredients.playerType,
 								onPlayerReady: this.onPlayerReady.bind(this),
 								annotationSupport: this.props.ingredients.annotationSupport,
-								annotationModes: this.props.ingredients.annotationModes })
+								annotationModes: this.props.ingredients.annotationModes,
+								mediaObject: this.state.currentMediaObject })
 						)
 					)
 				);
 			}
-	
-			/*
-	  <div className="col-md-5">
-	  					<FlexBox>
-	  						<AnnotationBox user={this.state.user}
-	  							showList={false}
-	  							playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
-	  							annotationModes={this.props.ingredients.annotationModes}/>
-	  					</FlexBox>
-	  				</div>
-	  */
-	
 		}]);
 	
 		return AnnotationRecipe;
@@ -62682,10 +62662,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		}, {
 			key: 'addAnnotation',
-			value: function addAnnotation(target) {
+			value: function addAnnotation(type) {
+				var annotationTarget = this.props.mediaObject.url;
+				if (type == 'segment') {
+					annotationTarget += '#t=' + this.state.start + ',' + this.state.end;
+				}
 				this.setState({
 					showAnnotationModal: true,
-					annotationTarget: target
+					annotationTarget: annotationTarget
 				});
 			}
 		}, {
@@ -62750,6 +62734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var player = '';
 				if (this.props.player == 'vimeo') {
 					player = _react2.default.createElement(_VimeoPlayer2.default, {
+						mediaObject: this.props.mediaObject,
 						eventCallbacks: playerEventCallbacks,
 						onPlayerReady: this.onPlayerReady.bind(this) });
 				} else if (this.props.player == 'jwplayer') {

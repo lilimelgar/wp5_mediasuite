@@ -47,7 +47,7 @@ class VimeoPlayer extends React.Component {
 			<div id="video_player">
 				<iframe
 					id="player_1"
-					src="http://player.vimeo.com/video/7100569?api=1&amp;player_id=player_1"
+					src={this.props.mediaObject.url}
 					width="540"
 					height="304"
 					frameBorder="0">

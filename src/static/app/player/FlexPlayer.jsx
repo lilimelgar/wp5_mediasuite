@@ -289,10 +289,14 @@ class FlexPlayer extends React.Component {
 
 	/* ----- THESE 3 FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
 
-	addAnnotation(target) {
+	addAnnotation(type) {
+		let annotationTarget = this.props.mediaObject.url;
+		if(type == 'segment') {
+			annotationTarget += '#t=' + this.state.start + ',' + this.state.end;
+		}
 		this.setState({
 			showAnnotationModal: true,
-			annotationTarget: target
+			annotationTarget: annotationTarget
 		});
 	}
 
@@ -352,6 +356,7 @@ class FlexPlayer extends React.Component {
 		let player = '';
 		if(this.props.player == 'vimeo') {
 			player = (<VimeoPlayer
+				mediaObject={this.props.mediaObject}
 				eventCallbacks={playerEventCallbacks}
 				onPlayerReady={this.onPlayerReady.bind(this)}/>);
 		} else if (this.props.player == 'jwplayer') {
