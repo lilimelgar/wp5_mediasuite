@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import TimeUtil from '../../util/TimeUtil';
 
 class SegmentationControls extends React.Component {
 
@@ -8,15 +9,20 @@ class SegmentationControls extends React.Component {
 	}
 
 	setManualStart() {
-		var s = $('#start_time').val();
-	    console.debug(s);
-		this.props.controls.setManualStart(moment.duration(s).asSeconds());
+		this.props.controls.setManualStart(
+			moment.duration(this.refs.startTime.value).asSeconds()
+		);
 	}
 
 	setManualEnd() {
-		var s = $('#end_time').val();
-	    console.debug(s);
-		this.props.controls.setManualEnd(moment.duration(s).asSeconds());
+		this.props.controls.setManualEnd(
+			moment.duration(this.refs.endTime.value).asSeconds()
+		);
+	}
+
+	componentDidUpdate() {
+		this.refs.startTime.value = TimeUtil.formatTime(this.props.start);
+		this.refs.endTime.value = TimeUtil.formatTime(this.props.end);
 	}
 
 	setStart() {
@@ -43,7 +49,8 @@ class SegmentationControls extends React.Component {
 						<span className="input-group-addon start-group">
 							Start
 						</span>
-						<input id="start_time" type="text" className="form-control" placeholder="00:00:00"/>
+						<input ref="startTime" type="text" className="form-control" placeholder="00:00:00"
+							defaultValue={TimeUtil.formatTime(this.props.start)}/>
 						<span className="input-group-btn">
 							<button className="btn btn-default" type="button" onClick={this.setManualStart.bind(this)}
 								title="When you press this the start time will be set to the time you entered in the input field">
@@ -63,7 +70,8 @@ class SegmentationControls extends React.Component {
 				<div className="col-sm-6">
 					<div className="input-group">
 						<span className="input-group-addon end-group">&nbsp;End&nbsp;</span>
-						<input id="end_time" type="text" className="form-control" placeholder="00:00:00"/>
+						<input ref="endTime" type="text" className="form-control" placeholder="00:00:00"
+							defaultValue={TimeUtil.formatTime(this.props.end)}/>
 						<span className="input-group-btn">
 							<button className="btn btn-default" type="button" onClick={this.setManualEnd.bind(this)}
 								title="When you press this the end time will be set to the time you entered in the input field">

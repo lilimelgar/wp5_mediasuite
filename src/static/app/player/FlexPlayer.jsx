@@ -26,8 +26,9 @@ class FlexPlayer extends React.Component {
 			duration : 0,
 			start : -1,
 			end : -1,
-			paused : true,
-			user : 'JaapTest'
+			paused : true,//FIXME call the player API instead (isPaused)?
+			user : 'JaapTest',
+			fragmentMode : false
 		}
 	}
 
@@ -42,114 +43,6 @@ class FlexPlayer extends React.Component {
 		if(this.props.onPlayerReady) {
 			this.props.onPlayerReady(playerAPI);
 		}
-	}
-
-	initKeyBindings() {
-		//Mousetrap.bind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], this.testKey.bind(this));
-
-		Mousetrap.bind('left', function() {
-			this.checkFocus.call(this, this.rw, 60);
-	    }.bind(this));
-	    Mousetrap.bind('right', function() {
-	        this.checkFocus.call(this, this.ff, 60);
-	    }.bind(this));
-
-	    //pause & play shortcut
-	    Mousetrap.bind('space', function() {
-	        if(!this.checkFocus.call(this)) {
-	            if(this.state.paused === false) {//FIXME, this does not work yet!
-	                this.state.playerAPI.pause();
-	            } else {
-	                this.state.playerAPI.play();
-	            }
-	        }
-	    }.bind(this));
-
-	    //start & end shortcuts
-	    Mousetrap.bind('i', function() {
-	        this.checkFocus.call(this, this.setStart);
-	    }.bind(this));
-	    Mousetrap.bind('o', function() {
-	        this.checkFocus.call(this, this.setEnd);
-	    }.bind(this));
-	    Mousetrap.bind('shift+i', function() {
-	        this.checkFocus.call(this, this.playStart);
-	    }.bind(this));
-	    Mousetrap.bind('shift+o', function() {
-	        this.checkFocus.call(this, this.playEnd);
-	    }.bind(this));
-
-	    //anchor functions
-	    Mousetrap.bind(']', function() {
-	        this.checkFocus.call(this, this.nextAnchor);
-	    }.bind(this));
-	    Mousetrap.bind('[', function() {
-	        this.checkFocus.call(this, this.previousAnchor);
-	    }.bind(this));
-	    Mousetrap.bind('ctrl+s', function() {
-	        this.checkFocus.call(this, this.saveAnchor);
-	    }.bind(this));
-	    Mousetrap.bind('ctrl+n', function() {
-	        this.checkFocus.call(this, this.newAnchor);
-	    }.bind(this));
-
-	    //fast forward shortcuts (somehow cannot create these in a loop...)
-	    Mousetrap.bind('1', function() {
-	        this.checkFocus.call(this, this.ff, 1);
-	    }.bind(this));
-	    Mousetrap.bind('2', function() {
-	        this.checkFocus.call(this, this.ff, 2);
-	    }.bind(this));
-	    Mousetrap.bind('3', function() {
-	        this.checkFocus.call(this, this.ff, 3);
-	    }.bind(this));
-	    Mousetrap.bind('4', function() {
-	        this.checkFocus.call(this, this.ff, 4);
-	    }.bind(this));
-	    Mousetrap.bind('5', function() {
-	        this.checkFocus.call(this, this.ff, 5);
-	    }.bind(this));
-	    Mousetrap.bind('6', function() {
-	        this.checkFocus.call(this, this.ff, 6);
-	    }.bind(this));
-	    Mousetrap.bind('7', function() {
-	        this.checkFocus.call(this, this.ff, 7);
-	    }.bind(this));
-	    Mousetrap.bind('8', function() {
-	        this.checkFocus.call(this, this.ff, 8);
-	    }.bind(this));
-	    Mousetrap.bind('9', function() {
-	        this.checkFocus.call(this, this.ff, 9);
-	    }.bind(this));
-
-	    //rewind shortcuts
-	    Mousetrap.bind('shift+1', function() {
-	        this.checkFocus.call(this, this.rw, 1);
-	    }.bind(this));
-	    Mousetrap.bind('shift+2', function() {
-	        this.checkFocus.call(this, this.rw, 2);
-	    }.bind(this));
-	    Mousetrap.bind('shift+3', function() {
-	        this.checkFocus.call(this, this.rw, 3);
-	    }.bind(this));
-	    Mousetrap.bind('shift+4', function() {
-	        this.checkFocus.call(this, this.rw, 4);
-	    }.bind(this));
-	    Mousetrap.bind('shift+5', function() {
-	        this.checkFocus.call(this, this.rw, 5);
-	    }.bind(this));
-	    Mousetrap.bind('shift+6', function() {
-	        this.checkFocus.call(this, this.rw, 6);
-	    }.bind(this));
-	    Mousetrap.bind('shift+7', function() {
-	        this.checkFocus.call(this, this.rw, 7);
-	    }.bind(this));
-	    Mousetrap.bind('shift+8', function() {
-	        this.checkFocus.call(this, this.rw, 8);
-	    }.bind(this));
-	    Mousetrap.bind('shift+9', function() {
-	        this.checkFocus.call(this, this.rw, 9);
-	    }.bind(this));
 	}
 
 	checkFocus(f, args) {
@@ -225,9 +118,6 @@ class FlexPlayer extends React.Component {
 	    }
 	    if((this.state.end != -1 && temp < this.state.end) || this.state.end == -1) {
 	        this.setState({start : temp});
-			//$('#video_start').text(TimeUtil.formatTime(this.state.start));
-	        $('#start_time').val(TimeUtil.formatTime(this.state.start));
-	        //this.updateBar();
 	    } else {
 	        alert('The start must be smaller than the end time');
 	    }
@@ -242,9 +132,6 @@ class FlexPlayer extends React.Component {
 	    }
 	    if((this.state.start != -1 && temp > this.state.start) || this.state.start == -1) {
 	        this.setState({end : temp});
-	        //$('#video_end').text(TimeUtil.formatTime(this.state.end));
-	        $('#end_time').val(TimeUtil.formatTime(this.state.end));
-	        //this.updateBar();
 	        if(skipPause == undefined) {
 	            this.state.playerAPI.pause();
 	        }
@@ -261,7 +148,119 @@ class FlexPlayer extends React.Component {
 		this.state.playerAPI.seek(this.state.curPosition + t);
 	}
 
-	/************************************** Timeline controls ***************************************/
+	//Note: for now the fragment mode only enables the user to inspect the current
+	//fragment in isolation (only the VideoTimeBar is changed to show only the active segment)
+	switchMode() {
+		if(this.state.start != -1 && this.state.end != -1) {
+			if(this.state.fragmentMode === false) {
+				this.playStart();
+				//TODO make it play after switching!
+			}
+			this.setState({fragmentMode : !this.state.fragmentMode});
+		} else {
+			alert('You can only switch to fragment mode when you have an active start & end point set');
+		}
+	}
+
+	/************************************** Keyboard controls ***************************************/
+
+	initKeyBindings() {
+		//Mousetrap.bind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], this.testKey.bind(this));
+
+		Mousetrap.bind('left', function() {
+			this.checkFocus.call(this, this.rw, 60);
+	    }.bind(this));
+	    Mousetrap.bind('right', function() {
+	        this.checkFocus.call(this, this.ff, 60);
+	    }.bind(this));
+
+	    //pause & play shortcut
+	    Mousetrap.bind('space', function() {
+	        if(!this.checkFocus.call(this)) {
+	            if(this.state.paused === false) {//FIXME, this does not work yet!
+	                this.state.playerAPI.pause();
+	            } else {
+	                this.state.playerAPI.play();
+	            }
+	        }
+	    }.bind(this));
+
+	    //start & end shortcuts
+	    Mousetrap.bind('i', function() {
+	        this.checkFocus.call(this, this.setStart);
+	    }.bind(this));
+	    Mousetrap.bind('o', function() {
+	        this.checkFocus.call(this, this.setEnd);
+	    }.bind(this));
+	    Mousetrap.bind('shift+i', function() {
+	        this.checkFocus.call(this, this.playStart);
+	    }.bind(this));
+	    Mousetrap.bind('shift+o', function() {
+	        this.checkFocus.call(this, this.playEnd);
+	    }.bind(this));
+
+	    Mousetrap.bind('shift+f', function() {
+	    	this.checkFocus.call(this, this.switchMode);
+	    }.bind(this));
+
+	    //fast forward shortcuts (somehow cannot create these in a loop...)
+	    Mousetrap.bind('1', function() {
+	        this.checkFocus.call(this, this.ff, 1);
+	    }.bind(this));
+	    Mousetrap.bind('2', function() {
+	        this.checkFocus.call(this, this.ff, 2);
+	    }.bind(this));
+	    Mousetrap.bind('3', function() {
+	        this.checkFocus.call(this, this.ff, 3);
+	    }.bind(this));
+	    Mousetrap.bind('4', function() {
+	        this.checkFocus.call(this, this.ff, 4);
+	    }.bind(this));
+	    Mousetrap.bind('5', function() {
+	        this.checkFocus.call(this, this.ff, 5);
+	    }.bind(this));
+	    Mousetrap.bind('6', function() {
+	        this.checkFocus.call(this, this.ff, 6);
+	    }.bind(this));
+	    Mousetrap.bind('7', function() {
+	        this.checkFocus.call(this, this.ff, 7);
+	    }.bind(this));
+	    Mousetrap.bind('8', function() {
+	        this.checkFocus.call(this, this.ff, 8);
+	    }.bind(this));
+	    Mousetrap.bind('9', function() {
+	        this.checkFocus.call(this, this.ff, 9);
+	    }.bind(this));
+
+	    //rewind shortcuts
+	    Mousetrap.bind('shift+1', function() {
+	        this.checkFocus.call(this, this.rw, 1);
+	    }.bind(this));
+	    Mousetrap.bind('shift+2', function() {
+	        this.checkFocus.call(this, this.rw, 2);
+	    }.bind(this));
+	    Mousetrap.bind('shift+3', function() {
+	        this.checkFocus.call(this, this.rw, 3);
+	    }.bind(this));
+	    Mousetrap.bind('shift+4', function() {
+	        this.checkFocus.call(this, this.rw, 4);
+	    }.bind(this));
+	    Mousetrap.bind('shift+5', function() {
+	        this.checkFocus.call(this, this.rw, 5);
+	    }.bind(this));
+	    Mousetrap.bind('shift+6', function() {
+	        this.checkFocus.call(this, this.rw, 6);
+	    }.bind(this));
+	    Mousetrap.bind('shift+7', function() {
+	        this.checkFocus.call(this, this.rw, 7);
+	    }.bind(this));
+	    Mousetrap.bind('shift+8', function() {
+	        this.checkFocus.call(this, this.rw, 8);
+	    }.bind(this));
+	    Mousetrap.bind('shift+9', function() {
+	        this.checkFocus.call(this, this.rw, 9);
+	    }.bind(this));
+	}
 
 	render() {
 		const controls = {
@@ -297,22 +296,23 @@ class FlexPlayer extends React.Component {
 						<FlexBox>
 							{player}
 						</FlexBox>
-
 					</div>
 				</div>
 				{this.state.playerAPI ?
 					<div className="row">
 						<div className="col-md-12">
 							<FlexBox>
-								<VideoTimeBar
-									duration={this.state.duration}
+								<VideoTimeBar duration={this.state.duration}
 									curPosition={this.state.curPosition}
 									start={this.state.start}
 									end={this.state.end}
-									seek={this.state.playerAPI.seek}
-								/>
-								<br/><br/>
-								<SegmentationControls controls={controls}/>
+									playerAPI={this.state.playerAPI}
+									fragmentMode={this.state.fragmentMode}/>
+								<br/>
+								<br/>
+								<SegmentationControls controls={controls}
+									start={this.state.start}
+									end={this.state.end}/>
 							</FlexBox>
 						</div>
 					</div> : null}

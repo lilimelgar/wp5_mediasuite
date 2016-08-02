@@ -61731,6 +61731,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
+	var _TimeUtil = __webpack_require__(/*! ../../util/TimeUtil */ 38);
+	
+	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61751,16 +61755,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		_createClass(SegmentationControls, [{
 			key: 'setManualStart',
 			value: function setManualStart() {
-				var s = $('#start_time').val();
-				console.debug(s);
-				this.props.controls.setManualStart(_moment2.default.duration(s).asSeconds());
+				this.props.controls.setManualStart(_moment2.default.duration(this.refs.startTime.value).asSeconds());
 			}
 		}, {
 			key: 'setManualEnd',
 			value: function setManualEnd() {
-				var s = $('#end_time').val();
-				console.debug(s);
-				this.props.controls.setManualEnd(_moment2.default.duration(s).asSeconds());
+				this.props.controls.setManualEnd(_moment2.default.duration(this.refs.endTime.value).asSeconds());
+			}
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				this.refs.startTime.value = _TimeUtil2.default.formatTime(this.props.start);
+				this.refs.endTime.value = _TimeUtil2.default.formatTime(this.props.end);
 			}
 		}, {
 			key: 'setStart',
@@ -61799,7 +61805,8 @@ return /******/ (function(modules) { // webpackBootstrap
 								{ className: 'input-group-addon start-group' },
 								'Start'
 							),
-							_react2.default.createElement('input', { id: 'start_time', type: 'text', className: 'form-control', placeholder: '00:00:00' }),
+							_react2.default.createElement('input', { ref: 'startTime', type: 'text', className: 'form-control', placeholder: '00:00:00',
+								defaultValue: _TimeUtil2.default.formatTime(this.props.start) }),
 							_react2.default.createElement(
 								'span',
 								{ className: 'input-group-btn' },
@@ -61835,7 +61842,8 @@ return /******/ (function(modules) { // webpackBootstrap
 								{ className: 'input-group-addon end-group' },
 								' End '
 							),
-							_react2.default.createElement('input', { id: 'end_time', type: 'text', className: 'form-control', placeholder: '00:00:00' }),
+							_react2.default.createElement('input', { ref: 'endTime', type: 'text', className: 'form-control', placeholder: '00:00:00',
+								defaultValue: _TimeUtil2.default.formatTime(this.props.end) }),
 							_react2.default.createElement(
 								'span',
 								{ className: 'input-group-btn' },
@@ -62335,8 +62343,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				duration: 0,
 				start: -1,
 				end: -1,
-				paused: true,
-				user: 'JaapTest'
+				paused: true, //FIXME call the player API instead (isPaused)?
+				user: 'JaapTest',
+				fragmentMode: false
 			};
 			return _this;
 		}
@@ -62357,116 +62366,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (this.props.onPlayerReady) {
 					this.props.onPlayerReady(playerAPI);
 				}
-			}
-		}, {
-			key: 'initKeyBindings',
-			value: function initKeyBindings() {
-				//Mousetrap.bind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], this.testKey.bind(this));
-	
-				Mousetrap.bind('left', function () {
-					this.checkFocus.call(this, this.rw, 60);
-				}.bind(this));
-				Mousetrap.bind('right', function () {
-					this.checkFocus.call(this, this.ff, 60);
-				}.bind(this));
-	
-				//pause & play shortcut
-				Mousetrap.bind('space', function () {
-					if (!this.checkFocus.call(this)) {
-						if (this.state.paused === false) {
-							//FIXME, this does not work yet!
-							this.state.playerAPI.pause();
-						} else {
-							this.state.playerAPI.play();
-						}
-					}
-				}.bind(this));
-	
-				//start & end shortcuts
-				Mousetrap.bind('i', function () {
-					this.checkFocus.call(this, this.setStart);
-				}.bind(this));
-				Mousetrap.bind('o', function () {
-					this.checkFocus.call(this, this.setEnd);
-				}.bind(this));
-				Mousetrap.bind('shift+i', function () {
-					this.checkFocus.call(this, this.playStart);
-				}.bind(this));
-				Mousetrap.bind('shift+o', function () {
-					this.checkFocus.call(this, this.playEnd);
-				}.bind(this));
-	
-				//anchor functions
-				Mousetrap.bind(']', function () {
-					this.checkFocus.call(this, this.nextAnchor);
-				}.bind(this));
-				Mousetrap.bind('[', function () {
-					this.checkFocus.call(this, this.previousAnchor);
-				}.bind(this));
-				Mousetrap.bind('ctrl+s', function () {
-					this.checkFocus.call(this, this.saveAnchor);
-				}.bind(this));
-				Mousetrap.bind('ctrl+n', function () {
-					this.checkFocus.call(this, this.newAnchor);
-				}.bind(this));
-	
-				//fast forward shortcuts (somehow cannot create these in a loop...)
-				Mousetrap.bind('1', function () {
-					this.checkFocus.call(this, this.ff, 1);
-				}.bind(this));
-				Mousetrap.bind('2', function () {
-					this.checkFocus.call(this, this.ff, 2);
-				}.bind(this));
-				Mousetrap.bind('3', function () {
-					this.checkFocus.call(this, this.ff, 3);
-				}.bind(this));
-				Mousetrap.bind('4', function () {
-					this.checkFocus.call(this, this.ff, 4);
-				}.bind(this));
-				Mousetrap.bind('5', function () {
-					this.checkFocus.call(this, this.ff, 5);
-				}.bind(this));
-				Mousetrap.bind('6', function () {
-					this.checkFocus.call(this, this.ff, 6);
-				}.bind(this));
-				Mousetrap.bind('7', function () {
-					this.checkFocus.call(this, this.ff, 7);
-				}.bind(this));
-				Mousetrap.bind('8', function () {
-					this.checkFocus.call(this, this.ff, 8);
-				}.bind(this));
-				Mousetrap.bind('9', function () {
-					this.checkFocus.call(this, this.ff, 9);
-				}.bind(this));
-	
-				//rewind shortcuts
-				Mousetrap.bind('shift+1', function () {
-					this.checkFocus.call(this, this.rw, 1);
-				}.bind(this));
-				Mousetrap.bind('shift+2', function () {
-					this.checkFocus.call(this, this.rw, 2);
-				}.bind(this));
-				Mousetrap.bind('shift+3', function () {
-					this.checkFocus.call(this, this.rw, 3);
-				}.bind(this));
-				Mousetrap.bind('shift+4', function () {
-					this.checkFocus.call(this, this.rw, 4);
-				}.bind(this));
-				Mousetrap.bind('shift+5', function () {
-					this.checkFocus.call(this, this.rw, 5);
-				}.bind(this));
-				Mousetrap.bind('shift+6', function () {
-					this.checkFocus.call(this, this.rw, 6);
-				}.bind(this));
-				Mousetrap.bind('shift+7', function () {
-					this.checkFocus.call(this, this.rw, 7);
-				}.bind(this));
-				Mousetrap.bind('shift+8', function () {
-					this.checkFocus.call(this, this.rw, 8);
-				}.bind(this));
-				Mousetrap.bind('shift+9', function () {
-					this.checkFocus.call(this, this.rw, 9);
-				}.bind(this));
 			}
 		}, {
 			key: 'checkFocus',
@@ -62558,9 +62457,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				if (this.state.end != -1 && temp < this.state.end || this.state.end == -1) {
 					this.setState({ start: temp });
-					//$('#video_start').text(TimeUtil.formatTime(this.state.start));
-					$('#start_time').val(_TimeUtil2.default.formatTime(this.state.start));
-					//this.updateBar();
 				} else {
 					alert('The start must be smaller than the end time');
 				}
@@ -62576,9 +62472,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				if (this.state.start != -1 && temp > this.state.start || this.state.start == -1) {
 					this.setState({ end: temp });
-					//$('#video_end').text(TimeUtil.formatTime(this.state.end));
-					$('#end_time').val(_TimeUtil2.default.formatTime(this.state.end));
-					//this.updateBar();
 					if (skipPause == undefined) {
 						this.state.playerAPI.pause();
 					}
@@ -62597,8 +62490,125 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.state.playerAPI.seek(this.state.curPosition + t);
 			}
 	
-			/************************************** Timeline controls ***************************************/
+			//Note: for now the fragment mode only enables the user to inspect the current
+			//fragment in isolation (only the VideoTimeBar is changed to show only the active segment)
 	
+		}, {
+			key: 'switchMode',
+			value: function switchMode() {
+				if (this.state.start != -1 && this.state.end != -1) {
+					if (this.state.fragmentMode === false) {
+						this.playStart();
+						//TODO make it play after switching!
+					}
+					this.setState({ fragmentMode: !this.state.fragmentMode });
+				} else {
+					alert('You can only switch to fragment mode when you have an active start & end point set');
+				}
+			}
+	
+			/************************************** Keyboard controls ***************************************/
+	
+		}, {
+			key: 'initKeyBindings',
+			value: function initKeyBindings() {
+				//Mousetrap.bind(['* k', 'ctrl+r', `up up down down left right left right b a enter`], this.testKey.bind(this));
+	
+				Mousetrap.bind('left', function () {
+					this.checkFocus.call(this, this.rw, 60);
+				}.bind(this));
+				Mousetrap.bind('right', function () {
+					this.checkFocus.call(this, this.ff, 60);
+				}.bind(this));
+	
+				//pause & play shortcut
+				Mousetrap.bind('space', function () {
+					if (!this.checkFocus.call(this)) {
+						if (this.state.paused === false) {
+							//FIXME, this does not work yet!
+							this.state.playerAPI.pause();
+						} else {
+							this.state.playerAPI.play();
+						}
+					}
+				}.bind(this));
+	
+				//start & end shortcuts
+				Mousetrap.bind('i', function () {
+					this.checkFocus.call(this, this.setStart);
+				}.bind(this));
+				Mousetrap.bind('o', function () {
+					this.checkFocus.call(this, this.setEnd);
+				}.bind(this));
+				Mousetrap.bind('shift+i', function () {
+					this.checkFocus.call(this, this.playStart);
+				}.bind(this));
+				Mousetrap.bind('shift+o', function () {
+					this.checkFocus.call(this, this.playEnd);
+				}.bind(this));
+	
+				Mousetrap.bind('shift+f', function () {
+					this.checkFocus.call(this, this.switchMode);
+				}.bind(this));
+	
+				//fast forward shortcuts (somehow cannot create these in a loop...)
+				Mousetrap.bind('1', function () {
+					this.checkFocus.call(this, this.ff, 1);
+				}.bind(this));
+				Mousetrap.bind('2', function () {
+					this.checkFocus.call(this, this.ff, 2);
+				}.bind(this));
+				Mousetrap.bind('3', function () {
+					this.checkFocus.call(this, this.ff, 3);
+				}.bind(this));
+				Mousetrap.bind('4', function () {
+					this.checkFocus.call(this, this.ff, 4);
+				}.bind(this));
+				Mousetrap.bind('5', function () {
+					this.checkFocus.call(this, this.ff, 5);
+				}.bind(this));
+				Mousetrap.bind('6', function () {
+					this.checkFocus.call(this, this.ff, 6);
+				}.bind(this));
+				Mousetrap.bind('7', function () {
+					this.checkFocus.call(this, this.ff, 7);
+				}.bind(this));
+				Mousetrap.bind('8', function () {
+					this.checkFocus.call(this, this.ff, 8);
+				}.bind(this));
+				Mousetrap.bind('9', function () {
+					this.checkFocus.call(this, this.ff, 9);
+				}.bind(this));
+	
+				//rewind shortcuts
+				Mousetrap.bind('shift+1', function () {
+					this.checkFocus.call(this, this.rw, 1);
+				}.bind(this));
+				Mousetrap.bind('shift+2', function () {
+					this.checkFocus.call(this, this.rw, 2);
+				}.bind(this));
+				Mousetrap.bind('shift+3', function () {
+					this.checkFocus.call(this, this.rw, 3);
+				}.bind(this));
+				Mousetrap.bind('shift+4', function () {
+					this.checkFocus.call(this, this.rw, 4);
+				}.bind(this));
+				Mousetrap.bind('shift+5', function () {
+					this.checkFocus.call(this, this.rw, 5);
+				}.bind(this));
+				Mousetrap.bind('shift+6', function () {
+					this.checkFocus.call(this, this.rw, 6);
+				}.bind(this));
+				Mousetrap.bind('shift+7', function () {
+					this.checkFocus.call(this, this.rw, 7);
+				}.bind(this));
+				Mousetrap.bind('shift+8', function () {
+					this.checkFocus.call(this, this.rw, 8);
+				}.bind(this));
+				Mousetrap.bind('shift+9', function () {
+					this.checkFocus.call(this, this.rw, 9);
+				}.bind(this));
+			}
 		}, {
 			key: 'render',
 			value: function render() {
@@ -62657,16 +62667,17 @@ return /******/ (function(modules) { // webpackBootstrap
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,
-								_react2.default.createElement(_VideoTimeBar2.default, {
-									duration: this.state.duration,
+								_react2.default.createElement(_VideoTimeBar2.default, { duration: this.state.duration,
 									curPosition: this.state.curPosition,
 									start: this.state.start,
 									end: this.state.end,
-									seek: this.state.playerAPI.seek
-								}),
+									playerAPI: this.state.playerAPI,
+									fragmentMode: this.state.fragmentMode }),
 								_react2.default.createElement('br', null),
 								_react2.default.createElement('br', null),
-								_react2.default.createElement(_SegmentationControls2.default, { controls: controls })
+								_react2.default.createElement(_SegmentationControls2.default, { controls: controls,
+									start: this.state.start,
+									end: this.state.end })
 							)
 						)
 					) : null
@@ -62740,37 +62751,64 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'seek',
 			value: function seek(event) {
-				var c = document.getElementById("timebar_canvas");
-				var mousePos = this.getMousePos(c, event);
-				var dur = this.props.duration;
-				var pos = dur / 100 * (mousePos.x / (c.width / 100));
-				this.props.seek(pos);
+				if (this.props.fragmentMode === false) {
+					var c = document.getElementById("timebar_canvas");
+					var mousePos = this.getMousePos(c, event);
+					var dur = this.props.duration;
+					var pos = dur / 100 * (mousePos.x / (c.width / 100));
+					this.props.playerAPI.seek(pos);
+				} else {
+					var c = document.getElementById("timebar_canvas");
+					var mousePos = this.getMousePos(c, event);
+					var dur = this.props.end - this.props.start;
+					var pos = dur / 100 * (mousePos.x / (c.width / 100));
+					this.props.playerAPI.seek(this.props.start + pos);
+				}
 			}
 		}, {
 			key: 'componentDidUpdate',
 			value: function componentDidUpdate() {
 				var c = document.getElementById("timebar_canvas");
 				var dur = -1;
-				var dur = this.props.duration;
+				var elapsed = -1;
 				var t = this.props.curPosition;
 				if (!t) {
 					t = this.props.start;
 				}
-				var formattedTime = _TimeUtil2.default.formatTime(t);
-				var elapsed = c.width / 100 * (t / (dur / 100));
-				var startPoint = c.width / 100 * (this.props.start / (dur / 100));
-				var endPoint = c.width / 100 * (this.props.end / (dur / 100));
-				var ctx = c.getContext("2d");
-				ctx.clearRect(0, 0, c.width, c.height);
-				ctx.fillStyle = "#FF0000";
-				ctx.fillRect(0, 0, elapsed, c.height / 3); //time progressing
-				ctx.fillStyle = "#00FF00";
-				ctx.fillRect(startPoint, 0, 3, c.height); //time progressing
-				ctx.fillStyle = "#FFFF00";
-				ctx.fillRect(endPoint, 0, 3, c.height); //time progressing
-				ctx.font = "20px Verdana";
-				ctx.fillStyle = "#FFFFFF";
-				ctx.fillText(formattedTime, 10, c.height - 5);
+				if (this.props.fragmentMode === false) {
+					dur = this.props.duration;
+					var formattedTime = _TimeUtil2.default.formatTime(t);
+					elapsed = c.width / 100 * (t / (dur / 100));
+					var startPoint = c.width / 100 * (this.props.start / (dur / 100));
+					var endPoint = c.width / 100 * (this.props.end / (dur / 100));
+					var ctx = c.getContext("2d");
+					ctx.clearRect(0, 0, c.width, c.height);
+					ctx.fillStyle = "#FF0000";
+					ctx.fillRect(0, 0, elapsed, c.height / 3); //time progressing
+					ctx.fillStyle = "#00FF00";
+					ctx.fillRect(startPoint, 0, 3, c.height); //time progressing
+					ctx.fillStyle = "#FFFF00";
+					ctx.fillRect(endPoint, 0, 3, c.height); //time progressing
+					ctx.font = "20px Verdana";
+					ctx.fillStyle = "#FFFFFF";
+					ctx.fillText(formattedTime, 10, c.height - 5);
+				} else {
+					dur = this.props.end - this.props.start;
+					var dt = t - this.props.start;
+					var formattedTime = _TimeUtil2.default.formatTime(t);
+					elapsed = c.width / 100 * (dt / (dur / 100));
+					var ctx = c.getContext("2d");
+					ctx.clearRect(0, 0, c.width, c.height);
+					ctx.fillStyle = "#FF0000";
+					ctx.fillRect(0, 0, elapsed, c.height / 3); //time progressing
+					ctx.font = "20px Verdana";
+					ctx.fillStyle = "#FFFF00";
+					ctx.fillText(formattedTime, 10, c.height - 5);
+				}
+				//stop the player when the fragment reaches its end
+				if (elapsed >= c.width) {
+					this.props.playerAPI.pause();
+				}
 			}
 		}, {
 			key: 'getMousePos',
