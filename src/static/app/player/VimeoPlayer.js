@@ -87,6 +87,7 @@ class VimeoAPI {
 		return this.activeSegment;
 	}
 
+	//TODO this should also include the video url, so it can switch video!!!
 	setActiveSegment(activeSegment, play, notify) {
 		this.activeSegment = activeSegment;
 		if(play) {
