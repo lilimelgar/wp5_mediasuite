@@ -16,15 +16,18 @@ class AnnotationList extends React.Component {
 					annotation={annotation}
 					editAnnotation={this.props.editAnnotation}
 					setAnnotation={this.props.setAnnotation}
-					playAnnotation={this.props.playAnnotation}
+					playerAPI={this.props.playerAPI}
 					deleteAnnotation={this.props.deleteAnnotation}
 				/>
 			);
 		}, this);
 		return (
-			<ul className="list-group">
-				{commentNodes}
-			</ul>
+			<div>
+				<h3>Saved annotations</h3>
+				<ul className="list-group">
+					{commentNodes}
+				</ul>
+			</div>
 		);
 	}
 };

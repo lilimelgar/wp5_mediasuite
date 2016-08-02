@@ -7,27 +7,24 @@
 		"search" : "facet-search",
 		"collections" : ["arttube-connect"],
 		"playerType" : "vimeo",
+		"annotationSupport" : ["query", "video", "segment", "annotation"],
 		"annotationModes" : [
 			{
 				"type" : "classify",
-				"vocabularies" : ["GTAA", "DBpedia"],
-				"targets" : ["query", "video", "segment", "annotation"]
+				"vocabularies" : ["GTAA", "DBpedia"]
 			},
 			{
-				"type" : "comment",
-				"targets" : ["query", "video", "segment", "annotation"]
+				"type" : "comment"
 			},
 			{
 				"type" : "link",
 				"apis" : [
 					{"name" : "wikidata"},
 					{"name" : "europeana"}
-				],
-				"targets" : ["video", "segment"]
+				]
 			},
 			{
-				"type" : "bookmark",
-				"targets" : ["query", "video", "segment"]
+				"type" : "bookmark"
 			}
 		]
 	}

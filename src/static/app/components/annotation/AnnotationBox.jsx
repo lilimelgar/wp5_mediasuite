@@ -12,10 +12,12 @@ class AnnotationBox extends React.Component {
 
 	constructor(props) {
 		super(props);
+		console.debug('render this thing');
 		this.state = {
 			annotation : null,
 			annotations: [],
-			showModal : false
+			showModal : this.props.showModal == null ? false : this.props.showModal,
+			showList : this.props.showList != null ? this.props.showList : true
 		};
 	}
 
@@ -35,20 +37,13 @@ class AnnotationBox extends React.Component {
 	addAnnotation() {
 		this.setState({
 			annotation : null
-		}, this.handleShowModal.bind(this))
+		}, this.props.handleShowModal())
 	}
 
 	setAnnotation(annotation) {
 		this.setState({
 			annotation : annotation
 		})
-	}
-
-	//TODO also make sure the timebar is updated with the in and out points
-	playAnnotation(annotation) {
-		this.props.playerAPI.setActiveSegment({
-			start : annotation.start, end : annotation.end
-		}, true, true)
 	}
 
 	//TODO after lunch
@@ -64,7 +59,7 @@ class AnnotationBox extends React.Component {
 		});
 		annotations.push(annotation);
 		$('#annotation__modal').modal('hide');//TODO ugly, but without this the static backdrop won't disappear!
-		this.handleHideModal();
+		this.props.handleHideModal();
 		this.setState({annotations : annotations});
 	}
 
@@ -85,41 +80,40 @@ class AnnotationBox extends React.Component {
 		this.loadAnnotationsFromServer();
 	}
 
-	handleShowModal() {
-		this.setState({showModal: true})
-	}
+	// handleShowModal() {
+	// 	this.setState({showModal: true})
+	// }
 
-	handleHideModal() {
-		this.setState({showModal: false})
-	}
+	// handleHideModal() {
+	// 	this.setState({showModal: false})
+	// }
 
 	//TODO rewrite with flexmodal
 	//TODO pass along the save & delete functions
 	render() {
 		return (
 			<div className="commentBox">
-				<h3>Saved annotations</h3>
-				<AnnotationList
+				{this.state.showList ? <AnnotationList
 					activeAnnotation={this.state.annotation}
 					annotations={this.state.annotations}
 					setAnnotation={this.setAnnotation.bind(this)}
-					playAnnotation={this.playAnnotation.bind(this)}
-					editAnnotation={this.handleShowModal.bind(this)}
-					deleteAnnotation={this.deleteAnnotation.bind(this)}/>
+					playerAPI={this.props.playerAPI}
+					editAnnotation={this.props.handleShowModal.bind(this)}
+					deleteAnnotation={this.deleteAnnotation.bind(this)}/> : null}
 				<button type="button" className="btn btn-info" onClick={this.addAnnotation.bind(this)}>
 					Nieuw
 				</button>
 
-				{this.state.showModal ?
+				{this.props.showModal ?
 					<FlexModal
 						elementId="annotation__modal"
-						handleHideModal={this.handleHideModal.bind(this)}
-						title="Add annotation">
+						handleHideModal={this.props.handleHideModal.bind(this)}
+						title={'Add annotation to: ' + this.props.annotationTarget}>
 						<AnnotationCreator
 							annotation={this.state.annotation}
 							saveAnnotation={this.saveAnnotation.bind(this)}
 							annotationModes={this.props.annotationModes}
-							playerAPI={ this.props.playerAPI}
+							playerAPI={this.props.playerAPI}
 							user={this.props.user}
 						/>
 					</FlexModal>: null

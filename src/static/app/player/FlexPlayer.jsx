@@ -5,6 +5,7 @@ import SegmentationControls from '../components/annotation/SegmentationControls'
 import TimeUtil from '../util/TimeUtil';
 import FlexBox from '../components/FlexBox';
 import MouseTrap from 'mousetrap';
+import AnnotationBox from '../components/annotation/AnnotationBox';
 
 /*
 This component contains a player, segmentation controls & timebar.
@@ -28,7 +29,9 @@ class FlexPlayer extends React.Component {
 			end : -1,
 			paused : true,//FIXME call the player API instead (isPaused)?
 			user : 'JaapTest',
-			fragmentMode : false
+			fragmentMode : false,
+			showAnnotationModal : false,
+			annotationTarget : null
 		}
 	}
 
@@ -59,7 +62,6 @@ class FlexPlayer extends React.Component {
 
 	//called by the playerAPI (this component is an observer of that. I know it's ugly, will make it pretty later)
 	update() {
-		console.debug('updating the active segment');
 		let activeSegment = this.state.playerAPI.getActiveSegment();
 		this.setState({
 			start : activeSegment.start,
@@ -275,6 +277,33 @@ class FlexPlayer extends React.Component {
 	    }.bind(this));
 	}
 
+	hasAnnotationSupport() {
+		if(this.props.annotationSupport != null) {
+			if(this.props.annotationSupport.indexOf("video") != -1 ||
+				this.props.annotationSupport.indexOf("segment") != -1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/* ----- THESE 3 FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
+
+	addAnnotation(target) {
+		this.setState({
+			showAnnotationModal: true,
+			annotationTarget: target
+		});
+	}
+
+	handleShowModal() {
+		this.setState({showAnnotationModal: true})
+	}
+
+	handleHideModal() {
+		this.setState({showAnnotationModal: false})
+	}
+
 	render() {
 		//update the activeSegment in the playerAPI
 		if(this.state.start != -1 && this.state.end != -1 && this.state.playerAPI) {
@@ -282,6 +311,24 @@ class FlexPlayer extends React.Component {
 				start : this.state.start,
 				end : this.state.end
 			});
+		}
+
+		let annotationBox = '';
+		if(this.hasAnnotationSupport()) {
+			annotationBox = (
+				<div className="col-md-5">
+					<FlexBox>
+						<AnnotationBox user={this.state.user}
+							showList={true}
+							playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
+							annotationModes={this.props.annotationModes}
+							showModal={this.state.showAnnotationModal}
+							annotationTarget={this.state.annotationTarget}
+							handleHideModal={this.handleHideModal.bind(this)}
+							handleShowModal={this.handleShowModal.bind(this)}/>
+					</FlexBox>
+				</div>
+			)
 		}
 
 		const controls = {
@@ -313,15 +360,24 @@ class FlexPlayer extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<div className="col-md-12">
+					<div className="col-md-7">
 						<FlexBox>
 							{player}
 						</FlexBox>
+						<button type="button" className="btn btn-info"
+							onClick={this.addAnnotation.bind(this, 'video')}>
+							Annoteer Video
+						</button>
+						<button type="button" className="btn btn-info"
+							onClick={this.addAnnotation.bind(this, 'segment')}>
+							Annoteer Segment
+						</button>
 					</div>
+					{annotationBox}
 				</div>
 				{this.state.playerAPI ?
 					<div className="row">
-						<div className="col-md-12">
+						<div className="col-md-7">
 							<FlexBox>
 								<VideoTimeBar duration={this.state.duration}
 									curPosition={this.state.curPosition}

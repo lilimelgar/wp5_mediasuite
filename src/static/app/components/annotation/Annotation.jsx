@@ -12,7 +12,9 @@ class Annotation extends React.Component {
 	}
 
 	playAnnotation() {
-		this.props.playAnnotation(this.props.annotation);
+		this.props.playerAPI.setActiveSegment({
+			start : this.props.annotation.start, end : this.props.annotation.end
+		}, true, true);
 	}
 
 	editAnnotation() {

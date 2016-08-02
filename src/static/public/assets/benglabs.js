@@ -57251,10 +57251,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationBox).call(this, props));
 	
+			console.debug('render this thing');
 			_this.state = {
 				annotation: null,
 				annotations: [],
-				showModal: false
+				showModal: _this.props.showModal == null ? false : _this.props.showModal,
+				showList: _this.props.showList != null ? _this.props.showList : true
 			};
 			return _this;
 		}
@@ -57278,7 +57280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function addAnnotation() {
 				this.setState({
 					annotation: null
-				}, this.handleShowModal.bind(this));
+				}, this.props.handleShowModal());
 			}
 		}, {
 			key: 'setAnnotation',
@@ -57286,16 +57288,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.setState({
 					annotation: annotation
 				});
-			}
-	
-			//TODO also make sure the timebar is updated with the in and out points
-	
-		}, {
-			key: 'playAnnotation',
-			value: function playAnnotation(annotation) {
-				this.props.playerAPI.setActiveSegment({
-					start: annotation.start, end: annotation.end
-				}, true, true);
 			}
 	
 			//TODO after lunch
@@ -57315,7 +57307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 				annotations.push(annotation);
 				$('#annotation__modal').modal('hide'); //TODO ugly, but without this the static backdrop won't disappear!
-				this.handleHideModal();
+				this.props.handleHideModal();
 				this.setState({ annotations: annotations });
 			}
 		}, {
@@ -57338,16 +57330,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function componentDidMount() {
 				this.loadAnnotationsFromServer();
 			}
-		}, {
-			key: 'handleShowModal',
-			value: function handleShowModal() {
-				this.setState({ showModal: true });
-			}
-		}, {
-			key: 'handleHideModal',
-			value: function handleHideModal() {
-				this.setState({ showModal: false });
-			}
+	
+			// handleShowModal() {
+			// 	this.setState({showModal: true})
+			// }
+	
+			// handleHideModal() {
+			// 	this.setState({showModal: false})
+			// }
 	
 			//TODO rewrite with flexmodal
 			//TODO pass along the save & delete functions
@@ -57358,29 +57348,24 @@ return /******/ (function(modules) { // webpackBootstrap
 				return _react2.default.createElement(
 					'div',
 					{ className: 'commentBox' },
-					_react2.default.createElement(
-						'h3',
-						null,
-						'Saved annotations'
-					),
-					_react2.default.createElement(_AnnotationList2.default, {
+					this.state.showList ? _react2.default.createElement(_AnnotationList2.default, {
 						activeAnnotation: this.state.annotation,
 						annotations: this.state.annotations,
 						setAnnotation: this.setAnnotation.bind(this),
-						playAnnotation: this.playAnnotation.bind(this),
-						editAnnotation: this.handleShowModal.bind(this),
-						deleteAnnotation: this.deleteAnnotation.bind(this) }),
+						playerAPI: this.props.playerAPI,
+						editAnnotation: this.props.handleShowModal.bind(this),
+						deleteAnnotation: this.deleteAnnotation.bind(this) }) : null,
 					_react2.default.createElement(
 						'button',
 						{ type: 'button', className: 'btn btn-info', onClick: this.addAnnotation.bind(this) },
 						'Nieuw'
 					),
-					this.state.showModal ? _react2.default.createElement(
+					this.props.showModal ? _react2.default.createElement(
 						_FlexModal2.default,
 						{
 							elementId: 'annotation__modal',
-							handleHideModal: this.handleHideModal.bind(this),
-							title: 'Add annotation' },
+							handleHideModal: this.props.handleHideModal.bind(this),
+							title: 'Add annotation to: ' + this.props.annotationTarget },
 						_react2.default.createElement(_AnnotationCreator2.default, {
 							annotation: this.state.annotation,
 							saveAnnotation: this.saveAnnotation.bind(this),
@@ -61369,14 +61354,23 @@ return /******/ (function(modules) { // webpackBootstrap
 						annotation: annotation,
 						editAnnotation: this.props.editAnnotation,
 						setAnnotation: this.props.setAnnotation,
-						playAnnotation: this.props.playAnnotation,
+						playerAPI: this.props.playerAPI,
 						deleteAnnotation: this.props.deleteAnnotation
 					});
 				}, this);
 				return _react2.default.createElement(
-					'ul',
-					{ className: 'list-group' },
-					commentNodes
+					'div',
+					null,
+					_react2.default.createElement(
+						'h3',
+						null,
+						'Saved annotations'
+					),
+					_react2.default.createElement(
+						'ul',
+						{ className: 'list-group' },
+						commentNodes
+					)
 				);
 			}
 		}]);
@@ -61436,7 +61430,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'playAnnotation',
 			value: function playAnnotation() {
-				this.props.playAnnotation(this.props.annotation);
+				this.props.playerAPI.setActiveSegment({
+					start: this.props.annotation.start, end: this.props.annotation.end
+				}, true, true);
 			}
 		}, {
 			key: 'editAnnotation',
@@ -61602,6 +61598,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			this.observers = [];
 		}
 	
+		/* ------------ These functions should be in a super class ------------- */
+	
 		_createClass(VimeoAPI, [{
 			key: 'addObserver',
 			value: function addObserver(obj) {
@@ -61635,6 +61633,9 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.notifyObservers();
 				}
 			}
+	
+			/* ------------ Implemented API calls ------------- */
+	
 		}, {
 			key: 'play',
 			value: function play() {
@@ -62270,7 +62271,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'render',
 			value: function render() {
-	
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -62279,24 +62279,27 @@ return /******/ (function(modules) { // webpackBootstrap
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-7' },
+							{ className: 'col-md-12' },
 							_react2.default.createElement(_FlexPlayer2.default, { player: this.props.ingredients.playerType,
-								onPlayerReady: this.onPlayerReady.bind(this) })
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'col-md-5' },
-							_react2.default.createElement(
-								_FlexBox2.default,
-								null,
-								_react2.default.createElement(_AnnotationBox2.default, { user: this.state.user,
-									playerAPI: this.state.playerAPI,
-									annotationModes: this.props.ingredients.annotationModes })
-							)
+								onPlayerReady: this.onPlayerReady.bind(this),
+								annotationSupport: this.props.ingredients.annotationSupport,
+								annotationModes: this.props.ingredients.annotationModes })
 						)
 					)
 				);
 			}
+	
+			/*
+	  <div className="col-md-5">
+	  					<FlexBox>
+	  						<AnnotationBox user={this.state.user}
+	  							showList={false}
+	  							playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
+	  							annotationModes={this.props.ingredients.annotationModes}/>
+	  					</FlexBox>
+	  				</div>
+	  */
+	
 		}]);
 	
 		return AnnotationRecipe;
@@ -62347,6 +62350,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 	
+	var _AnnotationBox = __webpack_require__(/*! ../components/annotation/AnnotationBox */ 631);
+	
+	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62381,7 +62388,9 @@ return /******/ (function(modules) { // webpackBootstrap
 				end: -1,
 				paused: true, //FIXME call the player API instead (isPaused)?
 				user: 'JaapTest',
-				fragmentMode: false
+				fragmentMode: false,
+				showAnnotationModal: false,
+				annotationTarget: null
 			};
 			return _this;
 		}
@@ -62420,7 +62429,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'update',
 			value: function update() {
-				console.debug('updating the active segment');
 				var activeSegment = this.state.playerAPI.getActiveSegment();
 				this.setState({
 					start: activeSegment.start,
@@ -62660,6 +62668,37 @@ return /******/ (function(modules) { // webpackBootstrap
 				}.bind(this));
 			}
 		}, {
+			key: 'hasAnnotationSupport',
+			value: function hasAnnotationSupport() {
+				if (this.props.annotationSupport != null) {
+					if (this.props.annotationSupport.indexOf("video") != -1 || this.props.annotationSupport.indexOf("segment") != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+	
+			/* ----- THESE 3 FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
+	
+		}, {
+			key: 'addAnnotation',
+			value: function addAnnotation(target) {
+				this.setState({
+					showAnnotationModal: true,
+					annotationTarget: target
+				});
+			}
+		}, {
+			key: 'handleShowModal',
+			value: function handleShowModal() {
+				this.setState({ showAnnotationModal: true });
+			}
+		}, {
+			key: 'handleHideModal',
+			value: function handleHideModal() {
+				this.setState({ showAnnotationModal: false });
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				//update the activeSegment in the playerAPI
@@ -62668,6 +62707,26 @@ return /******/ (function(modules) { // webpackBootstrap
 						start: this.state.start,
 						end: this.state.end
 					});
+				}
+	
+				var annotationBox = '';
+				if (this.hasAnnotationSupport()) {
+					annotationBox = _react2.default.createElement(
+						'div',
+						{ className: 'col-md-5' },
+						_react2.default.createElement(
+							_FlexBox2.default,
+							null,
+							_react2.default.createElement(_AnnotationBox2.default, { user: this.state.user,
+								showList: true,
+								playerAPI: this.state.playerAPI //FIXME dit is een goeie kandidaat voor React context
+								, annotationModes: this.props.annotationModes,
+								showModal: this.state.showAnnotationModal,
+								annotationTarget: this.state.annotationTarget,
+								handleHideModal: this.handleHideModal.bind(this),
+								handleShowModal: this.handleShowModal.bind(this) })
+						)
+					);
 				}
 	
 				var controls = {
@@ -62708,20 +62767,33 @@ return /******/ (function(modules) { // webpackBootstrap
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-12' },
+							{ className: 'col-md-7' },
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,
 								player
+							),
+							_react2.default.createElement(
+								'button',
+								{ type: 'button', className: 'btn btn-info',
+									onClick: this.addAnnotation.bind(this, 'video') },
+								'Annoteer Video'
+							),
+							_react2.default.createElement(
+								'button',
+								{ type: 'button', className: 'btn btn-info',
+									onClick: this.addAnnotation.bind(this, 'segment') },
+								'Annoteer Segment'
 							)
-						)
+						),
+						annotationBox
 					),
 					this.state.playerAPI ? _react2.default.createElement(
 						'div',
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-12' },
+							{ className: 'col-md-7' },
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,

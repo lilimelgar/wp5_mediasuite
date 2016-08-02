@@ -67,6 +67,8 @@ class VimeoAPI {
 		this.observers = [];
 	}
 
+	/* ------------ These functions should be in a super class ------------- */
+
 	addObserver(obj) {
 		this.observers.push(obj);
 	}
@@ -94,6 +96,8 @@ class VimeoAPI {
 			this.notifyObservers();
 		}
 	}
+
+	/* ------------ Implemented API calls ------------- */
 
 	play() {
 		this.froogaloop.api('play');
