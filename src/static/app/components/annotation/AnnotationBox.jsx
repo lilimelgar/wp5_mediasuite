@@ -34,12 +34,6 @@ class AnnotationBox extends React.Component {
 		});
 	}
 
-	// addAnnotation() {
-	// 	this.setState({
-	// 		annotation : null
-	// 	}, this.props.handleShowModal())
-	// }
-
 	setAnnotation(annotation) {
 		this.setState({
 			annotation : annotation
@@ -79,6 +73,7 @@ class AnnotationBox extends React.Component {
 		this.loadAnnotationsFromServer();
 	}
 
+	//TODO maybe add a part where you can view the active annotation here as well
 	render() {
 		return (
 			<div className="commentBox">

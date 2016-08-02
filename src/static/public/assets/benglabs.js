@@ -46265,7 +46265,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57275,13 +57275,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					}.bind(this)
 				});
 			}
-	
-			// addAnnotation() {
-			// 	this.setState({
-			// 		annotation : null
-			// 	}, this.props.handleShowModal())
-			// }
-	
 		}, {
 			key: 'setAnnotation',
 			value: function setAnnotation(annotation) {
@@ -57327,6 +57320,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function componentDidMount() {
 				this.loadAnnotationsFromServer();
 			}
+	
+			//TODO maybe add a part where you can view the active annotation here as well
+	
 		}, {
 			key: 'render',
 			value: function render() {
@@ -62265,15 +62261,22 @@ return /******/ (function(modules) { // webpackBootstrap
 						'div',
 						{ className: 'row' },
 						_react2.default.createElement(
-							'button',
-							{ type: 'button', className: 'btn btn-info',
-								onClick: this.dummyChangeVideo.bind(this) },
-							'Andere video'
-						),
-						_react2.default.createElement('br', null),
-						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'input-group' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'input-group-btn' },
+									_react2.default.createElement(
+										'button',
+										{ type: 'button', className: 'btn btn-info',
+											onClick: this.dummyChangeVideo.bind(this) },
+										'Andere video'
+									)
+								)
+							),
 							_react2.default.createElement(_FlexPlayer2.default, { player: this.props.ingredients.playerType,
 								onPlayerReady: this.onPlayerReady.bind(this),
 								annotationSupport: this.props.ingredients.annotationSupport,
@@ -62762,16 +62765,24 @@ return /******/ (function(modules) { // webpackBootstrap
 								player
 							),
 							_react2.default.createElement(
-								'button',
-								{ type: 'button', className: 'btn btn-info',
-									onClick: this.addAnnotation.bind(this, 'video') },
-								'Annoteer Video'
-							),
-							_react2.default.createElement(
-								'button',
-								{ type: 'button', className: 'btn btn-info',
-									onClick: this.addAnnotation.bind(this, 'segment') },
-								'Annoteer Segment'
+								'div',
+								{ className: 'input-group' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'input-group-btn' },
+									_react2.default.createElement(
+										'button',
+										{ type: 'button', className: 'btn btn-default',
+											onClick: this.addAnnotation.bind(this, 'video') },
+										'Annoteer Video'
+									),
+									_react2.default.createElement(
+										'button',
+										{ type: 'button', className: 'btn btn-default',
+											onClick: this.addAnnotation.bind(this, 'segment') },
+										'Annoteer Segment'
+									)
+								)
 							)
 						),
 						annotationBox

@@ -369,14 +369,18 @@ class FlexPlayer extends React.Component {
 						<FlexBox>
 							{player}
 						</FlexBox>
-						<button type="button" className="btn btn-info"
-							onClick={this.addAnnotation.bind(this, 'video')}>
-							Annoteer Video
-						</button>
-						<button type="button" className="btn btn-info"
-							onClick={this.addAnnotation.bind(this, 'segment')}>
-							Annoteer Segment
-						</button>
+						<div className="input-group">
+							<span className="input-group-btn">
+								<button type="button" className="btn btn-default"
+									onClick={this.addAnnotation.bind(this, 'video')}>
+									Annoteer Video
+								</button>
+								<button type="button" className="btn btn-default"
+									onClick={this.addAnnotation.bind(this, 'segment')}>
+									Annoteer Segment
+								</button>
+							</span>
+						</div>
 					</div>
 					{annotationBox}
 				</div>

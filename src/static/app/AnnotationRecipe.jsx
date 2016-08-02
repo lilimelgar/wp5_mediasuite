@@ -38,12 +38,15 @@ class AnnotationRecipe extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<button type="button" className="btn btn-info"
-						onClick={this.dummyChangeVideo.bind(this)}>
-						Andere video
-					</button>
-					<br/>
 					<div className="col-md-12">
+						<div className="input-group">
+							<span className="input-group-btn">
+								<button type="button" className="btn btn-info"
+									onClick={this.dummyChangeVideo.bind(this)}>
+									Andere video
+								</button>
+							</span>
+						</div>
 						<FlexPlayer player={this.props.ingredients.playerType}
 							onPlayerReady={this.onPlayerReady.bind(this)}
 							annotationSupport={this.props.ingredients.annotationSupport}
