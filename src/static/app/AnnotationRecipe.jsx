@@ -1,6 +1,5 @@
 import React from 'react';
 
-import AnnotationBox from './components/annotation/AnnotationBox';
 import TimeUtil from './util/TimeUtil';
 import FlexBox from './components/FlexBox';
 import FlexPlayer from './player/FlexPlayer';

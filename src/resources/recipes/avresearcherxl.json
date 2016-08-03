@@ -9,6 +9,36 @@
 			"labs-catalogue-aggr",
 			"nisv_programguides"
 		],
-		"lineChart": true
+		"lineChart": true,
+		"annotationSupport" : {
+			"currentQuery" : {
+				"modes" : ["bookmark"]
+			},
+			"singleItem" : {
+				"modes" : ["bookmark"]
+			},
+			"mediaObject" : {
+				"modes" : ["classify", "comment", "link"]
+			},
+			"mediaSegment" : {
+				"modes" : ["classify", "comment", "link"]
+			},
+			"annotation" : {
+				"modes" : ["comment"]
+			}
+		},
+		"annotationModes" : {
+			"classify" : {
+				"vocabularies" : ["GTAA", "DBpedia"]
+			},
+			"link" : {
+				"apis" : [
+					{"name" : "wikidata"},
+					{"name" : "europeana"}
+				]
+			},
+			"bookmark" : {},
+			"comment" : {}
+		}
 	}
 }

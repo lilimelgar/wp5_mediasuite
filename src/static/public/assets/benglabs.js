@@ -13532,7 +13532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		return React.createElement('div', { className: 'invisible' });
 	};
 	
-	//the CLARIAH facet search component
+	//COMPONENT OUTPUT: the results of each query => {collectionId, results, dateField}
 	
 	var FacetSearchComponent = function (_React$Component) {
 		_inherits(FacetSearchComponent, _React$Component);
@@ -13545,7 +13545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			_this.initSearchKit();
 			_this.state = {
 				displayFacets: _this.props.facets ? true : false,
-				collectionId: _this.props.blockId
+				collectionId: _this.props.collectionId
 			};
 			return _this;
 		}
@@ -13562,14 +13562,15 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 	
 				//now this function is triggered for the linechart only, but it can be any function in the recipe.
-				if (this.props.onQueryOutput) {
+				if (this.props.onOutput) {
 					var removalFn = this.skInstance.addResultsListener(function (results) {
 						setTimeout(function () {
 							//this propagates the query output back to the recipe, who will delegate it further to any configured visualisation
-							this.props.onQueryOutput(this.props.blockId, //currently this is the same as the collection ID in the collection API
-							results, //the results of the query that was last issued
-							this.props.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
-							);
+							this.props.onOutput('facet-search', {
+								collectionId: this.props.collectionId, //currently this is the same as the collection ID in the collection API
+								results: results, //the results of the query that was last issued
+								dateField: this.props.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
+							});
 						}.bind(_this2), 1000);
 					});
 				}
@@ -13671,7 +13672,7 @@ return /******/ (function(modules) { // webpackBootstrap
 									{ className: 'sk-result_action-bar sk-action-bar' },
 									React.createElement(_searchkit.Hits, {
 										hitsPerPage: 10,
-										itemComponent: React.createElement(_FlexHits2.default, { collectionId: this.props.blockId })
+										itemComponent: React.createElement(_FlexHits2.default, { collectionId: this.props.collectionId })
 										//sourceFilter={this.props.sourceFilter}
 									}),
 									React.createElement(_searchkit.NoHits, { translations: {
@@ -61431,6 +61432,9 @@ return /******/ (function(modules) { // webpackBootstrap
 						onClick: this.setAnnotation.bind(this),
 						onDoubleClick: this.editAnnotation.bind(this)
 					},
+					_react2.default.createElement('i', { className: 'glyphicon glyphicon-remove interactive',
+						onClick: this.deleteAnnotation.bind(this) }),
+					' ',
 					_react2.default.createElement(
 						'abbr',
 						null,
@@ -61442,8 +61446,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						')'
 					),
 					' ',
-					_react2.default.createElement('i', { className: 'glyphicon glyphicon-remove interactive',
-						onClick: this.deleteAnnotation.bind(this) }),
 					_react2.default.createElement('i', { className: 'glyphicon glyphicon-play interactive',
 						onClick: this.playAnnotation.bind(this) })
 				);
@@ -61907,13 +61909,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _CollectionSelector = __webpack_require__(/*! ./components/CollectionSelector.jsx */ 26);
-	
-	var _CollectionSelector2 = _interopRequireDefault(_CollectionSelector);
-	
 	var _FacetSearchComponent = __webpack_require__(/*! ./components/FacetSearchComponent.jsx */ 32);
 	
 	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
+	
+	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch.jsx */ 671);
+	
+	var _ComparativeSearch2 = _interopRequireDefault(_ComparativeSearch);
 	
 	var _LineChart = __webpack_require__(/*! ./components/LineChart.jsx */ 30);
 	
@@ -61948,36 +61950,33 @@ return /******/ (function(modules) { // webpackBootstrap
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Recipe).call(this, props));
 	
 			_this.state = {
-				searchBlocks: [], //holds the FacetSearchComponents that are currently on the screen
-				queryOutputs: null, //if this state var is updated the LineChart is rerendered (default React behavior)
-				activeSearchTab: null //add the active collections
+				user: 'JaapTest',
+				lineChartData: null
 			};
 			return _this;
 		}
 	
-		//the queryOutputs variable are consumed by multiquery visualisations (currently only the LineChart component is available)
+		//this function receives all output of components that generate output and orchestrates where
+		//to pass it to based on the ingredients of the recipe
 	
 	
 		_createClass(Recipe, [{
-			key: 'updateQueryOutput',
-			value: function updateQueryOutput(queryId, output, dateField) {
-				var queryOutputs = this.state.queryOutputs ? this.state.queryOutputs : {};
-				var timelineData = this.prepareTimeline(queryId, output, dateField);
-				queryOutputs[queryId] = {
-					output: output,
-					dateField: dateField,
-					timeline: timelineData
-				};
-				this.setState({ queryOutputs: queryOutputs });
+			key: 'onComponentOutput',
+			value: function onComponentOutput(componentType, data) {
+				if (componentType == 'facet-search') {
+					var lineChartData = this.state.lineChartData ? this.state.lineChartData : {};
+					var timelineData = this.prepareTimeline(data.collectionId, data.results, data.dateField);
+					lineChartData[data.collectionId] = {
+						output: data.output,
+						dateField: data.dateField,
+						timeline: timelineData
+					};
+					this.setState({ lineChartData: lineChartData });
+				}
 			}
 	
-			//parse the ingredients before rendering
+			//TODO move this stuff to some utility that can transform query data in other formats suitable for other components
 	
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.loadCollections(this.props.ingredients.collections);
-			}
 		}, {
 			key: 'prepareTimeline',
 			value: function prepareTimeline(queryId, queryOutput, dateField) {
@@ -61996,170 +61995,23 @@ return /******/ (function(modules) { // webpackBootstrap
 				return timelineData;
 			}
 		}, {
-			key: 'loadCollections',
-			value: function loadCollections(collectionIds) {
-				for (var i = 0; i < collectionIds.length; i++) {
-					var collectionId = collectionIds[i];
-					_CollectionAPI2.default.getCollectionStats(collectionId, function (data) {
-						var b = this.state.searchBlocks;
-						b.push(this.createSearchBlock(data));
-						this.setState({
-							searchBlocks: b
-						});
-						if (b && b.length > 0) {
-							this.setState({
-								activeSearchTab: b[0].elementId
-							});
-						}
-					}.bind(this));
-				}
-			}
-		}, {
-			key: 'createSearchBlock',
-			value: function createSearchBlock(stats) {
-				var config = _CollectionUtil2.default.determineConfig(stats.service.collection);
-				var docType = _CollectionUtil2.default.determineDocType(stats, config);
-				var searchableFields = _CollectionUtil2.default.determineSearchableFields(stats, config);
-				var dateFields = _CollectionUtil2.default.determineDateFields(stats, config);
-				var facets = _CollectionUtil2.default.determineFacets(dateFields, config);
-	
-				var block = { //TODO optimize this later so most things are passed via the config, i.e. collection mapping
-					elementId: stats.service.collection,
-					dateFields: dateFields,
-					prefixQueryFields: searchableFields,
-					facets: facets,
-					sourceFilter: config.getSnippetFields()
-				};
-				return block;
-			}
-		}, {
-			key: 'toggleMinimize',
-			value: function toggleMinimize(blockId, event) {
-				var activeBlocks = this.state.activeBlocks;
-	
-				if (activeBlocks.indexOf(blockId) != -1) {
-					activeBlocks.splice(activeBlocks.indexOf(blockId), 1);
-				} else {
-					activeBlocks.push(blockId);
-				}
-				this.setState({ activeBlocks: activeBlocks });
-			}
-	
-			//TODO this function needs to be properly checked to see if all stuff is removed properly
-			//FIXME update the stuff in the LineChart!
-	
-		}, {
-			key: 'removeCollection',
-			value: function removeCollection(collectionId) {
-				var b = this.state.searchBlocks;
-				var qops = this.state.queryOutputs;
-				for (var i = b.length - 1; i >= 0; i--) {
-					if (b[i].elementId == collectionId) {
-						b.splice(i, 1);
-						if (qops != null && qops[collectionId]) {
-							delete qops[collectionId];
-						}
-					}
-				}
-				this.setState({
-					searchBlocks: b,
-					queryOutputs: qops
-				});
-			}
-	
-			//TODO this function should never load a collection that has been already loaded
-	
-		}, {
-			key: 'onEditCollections',
-			value: function onEditCollections(collectionId) {
-				this.loadCollections([collectionId]);
-			}
-		}, {
 			key: 'render',
 			value: function render() {
-				//for drawing the tabs
-				var searchTabs = this.state.searchBlocks.map(function (searchBox) {
-					var _this2 = this;
-	
-					return _react2.default.createElement(
-						'li',
-						{ key: searchBox.elementId + '__tab_option', className: this.state.activeSearchTab == searchBox.elementId ? 'active' : '' },
-						_react2.default.createElement(
-							'a',
-							{ 'data-toggle': 'tab', href: '#' + searchBox.elementId },
-							searchBox.elementId,
-							_react2.default.createElement('i', { className: 'glyphicon glyphicon-minus', onClick: function onClick() {
-									return _this2.removeCollection(searchBox.elementId);
-								} })
-						)
-					);
-				}, this);
-	
-				//these are the facet search UI blocks put into different tabs
-				var searchTabContents = this.state.searchBlocks.map(function (searchBox) {
-					return _react2.default.createElement(
-						'div',
-						{
-							key: searchBox.elementId + '__tab_content',
-							id: searchBox.elementId,
-							className: this.state.activeSearchTab == searchBox.elementId ? 'tab-pane active' : 'tab-pane'
-						},
-						_react2.default.createElement(
-							'h3',
-							null,
-							searchBox.elementId
-						),
-						_react2.default.createElement(_FacetSearchComponent2.default, {
-							key: searchBox.elementId + '__sk',
-							blockId: searchBox.elementId,
-							searchAPI: _config.SEARCH_API_BASE,
-							indexPath: '/search/' + searchBox.elementId,
-							onQueryOutput: this.updateQueryOutput.bind(this),
-							prefixQueryFields: searchBox.prefixQueryFields,
-							dateFields: searchBox.dateFields,
-							facets: searchBox.facets,
-							sourceFilter: searchBox.sourceFilter
-						})
-					);
-				}, this);
-	
 				var lineChart = null;
 				if (this.props.ingredients.lineChart) {
 					lineChart = _react2.default.createElement(
 						_FlexBox2.default,
 						null,
-						_react2.default.createElement(_LineChart2.default, { data: this.state.queryOutputs })
-					);
-				}
-	
-				var collectionSelector = null;
-				if (this.props.ingredients.collectionSelector) {
-					collectionSelector = _react2.default.createElement(
-						_FlexBox2.default,
-						null,
-						_react2.default.createElement(_CollectionSelector2.default, { onEditCollections: this.onEditCollections.bind(this) })
+						_react2.default.createElement(_LineChart2.default, { data: this.state.lineChartData })
 					);
 				}
 	
 				return _react2.default.createElement(
 					'div',
 					null,
-					collectionSelector,
 					lineChart,
-					_react2.default.createElement(
-						_FlexBox2.default,
-						null,
-						_react2.default.createElement(
-							'ul',
-							{ className: 'nav nav-tabs' },
-							searchTabs
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'tab-content' },
-							searchTabContents
-						)
-					)
+					_react2.default.createElement(_ComparativeSearch2.default, { collections: this.props.ingredients.collections,
+						onOutput: this.onComponentOutput.bind(this) })
 				);
 			}
 		}]);
@@ -62187,10 +62039,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
-	
-	var _AnnotationBox = __webpack_require__(/*! ./components/annotation/AnnotationBox */ 631);
-	
-	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
 	
 	var _TimeUtil = __webpack_require__(/*! ./util/TimeUtil */ 38);
 	
@@ -64010,6 +63858,230 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}) (typeof window !== 'undefined' ? window : null, typeof  window !== 'undefined' ? document : null);
 
+
+/***/ },
+/* 671 */
+/*!**********************************************!*\
+  !*** ./app/components/ComparativeSearch.jsx ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _FacetSearchComponent = __webpack_require__(/*! ./FacetSearchComponent */ 32);
+	
+	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
+	
+	var _FlexBox = __webpack_require__(/*! ./FlexBox */ 31);
+	
+	var _FlexBox2 = _interopRequireDefault(_FlexBox);
+	
+	var _CollectionAPI = __webpack_require__(/*! ../api/CollectionAPI */ 24);
+	
+	var _CollectionAPI2 = _interopRequireDefault(_CollectionAPI);
+	
+	var _CollectionUtil = __webpack_require__(/*! ../util/CollectionUtil */ 34);
+	
+	var _CollectionUtil2 = _interopRequireDefault(_CollectionUtil);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ComparativeSearch = function (_React$Component) {
+		_inherits(ComparativeSearch, _React$Component);
+	
+		function ComparativeSearch(props) {
+			_classCallCheck(this, ComparativeSearch);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ComparativeSearch).call(this, props));
+	
+			_this.state = {
+				activeCollections: _this.props.collections,
+				searchBlocks: [], //holds the FacetSearchComponents that are currently on the screen
+				activeSearchTab: null //add the active collections
+			};
+			return _this;
+		}
+	
+		_createClass(ComparativeSearch, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.loadCollections(this.props.collections);
+			}
+	
+			/* ------------------------ GENERATING DATA FOR THE SEARCH TABS --------------------- */
+	
+		}, {
+			key: 'loadCollections',
+			value: function loadCollections(collectionIds) {
+				for (var i = 0; i < collectionIds.length; i++) {
+					var collectionId = collectionIds[i];
+					_CollectionAPI2.default.getCollectionStats(collectionId, function (data) {
+						var b = this.state.searchBlocks;
+						b.push(this.createSearchBlock(data));
+						this.setState({
+							searchBlocks: b
+						});
+						if (b && b.length > 0) {
+							this.setState({
+								activeSearchTab: b[0].collectionId
+							});
+						}
+					}.bind(this));
+				}
+			}
+		}, {
+			key: 'createSearchBlock',
+			value: function createSearchBlock(stats) {
+				var config = _CollectionUtil2.default.determineConfig(stats.service.collection);
+				var docType = _CollectionUtil2.default.determineDocType(stats, config);
+				var searchableFields = _CollectionUtil2.default.determineSearchableFields(stats, config);
+				var dateFields = _CollectionUtil2.default.determineDateFields(stats, config);
+				var facets = _CollectionUtil2.default.determineFacets(dateFields, config);
+	
+				var block = { //TODO optimize this later so most things are passed via the config, i.e. collection mapping
+					collectionId: stats.service.collection,
+					dateFields: dateFields,
+					prefixQueryFields: searchableFields,
+					facets: facets,
+					sourceFilter: config.getSnippetFields()
+				};
+				return block;
+			}
+	
+			/* ------------------------ COLLECTION CRUD --------------------- */
+	
+		}, {
+			key: 'removeCollection',
+			value: function removeCollection(collectionId) {
+				var b = this.state.searchBlocks;
+				var qops = this.state.queryOutputs;
+				for (var i = b.length - 1; i >= 0; i--) {
+					if (b[i].collectionId == collectionId) {
+						b.splice(i, 1);
+						if (qops != null && qops[collectionId]) {
+							delete qops[collectionId];
+						}
+					}
+				}
+				this.setState({
+					searchBlocks: b,
+					queryOutputs: qops
+				});
+			}
+	
+			//TODO this function should never load a collection that has been already loaded
+	
+		}, {
+			key: 'onEditCollections',
+			value: function onEditCollections(collectionId) {
+				this.loadCollections([collectionId]);
+			}
+	
+			/* ---------------------- OUTPUT COMMUNICATION ------------------- */
+	
+			//this function should be standard for any component that outputs data to the recipe
+	
+		}, {
+			key: 'onOutput',
+			value: function onOutput(componentType, data) {
+				this.props.onOutput(componentType, data);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				//for drawing the tabs
+				var searchTabs = this.state.searchBlocks.map(function (searchBox) {
+					var _this2 = this;
+	
+					return React.createElement(
+						'li',
+						{ key: searchBox.collectionId + '__tab_option', className: this.state.activeSearchTab == searchBox.collectionId ? 'active' : '' },
+						React.createElement(
+							'a',
+							{ 'data-toggle': 'tab', href: '#' + searchBox.collectionId },
+							searchBox.collectionId,
+							React.createElement('i', { className: 'glyphicon glyphicon-minus', onClick: function onClick() {
+									return _this2.removeCollection(searchBox.collectionId);
+								} })
+						)
+					);
+				}, this);
+	
+				//these are the facet search UI blocks put into different tabs
+				var searchTabContents = this.state.searchBlocks.map(function (searchBox) {
+					return React.createElement(
+						'div',
+						{
+							key: searchBox.collectionId + '__tab_content',
+							id: searchBox.collectionId,
+							className: this.state.activeSearchTab == searchBox.collectionId ? 'tab-pane active' : 'tab-pane'
+						},
+						React.createElement(
+							'h3',
+							null,
+							searchBox.collectionId
+						),
+						React.createElement(_FacetSearchComponent2.default, {
+							key: searchBox.collectionId + '__sk',
+							collectionId: searchBox.collectionId,
+							searchAPI: _config.SEARCH_API_BASE,
+							indexPath: '/search/' + searchBox.collectionId,
+							onOutput: this.onOutput.bind(this),
+							prefixQueryFields: searchBox.prefixQueryFields,
+							dateFields: searchBox.dateFields,
+							facets: searchBox.facets,
+							sourceFilter: searchBox.sourceFilter
+						})
+					);
+				}, this);
+	
+				var collectionSelector = null;
+				if (this.props.collectionSelector === true) {
+					collectionSelector = React.createElement(
+						_FlexBox2.default,
+						null,
+						React.createElement(CollectionSelector, { onEditCollections: this.onEditCollections.bind(this) })
+					);
+				}
+	
+				return React.createElement(
+					'div',
+					null,
+					collectionSelector,
+					React.createElement(
+						_FlexBox2.default,
+						null,
+						React.createElement(
+							'ul',
+							{ className: 'nav nav-tabs' },
+							searchTabs
+						),
+						React.createElement(
+							'div',
+							{ className: 'tab-content' },
+							searchTabContents
+						)
+					)
+				);
+			}
+		}]);
+	
+		return ComparativeSearch;
+	}(React.Component);
+	
+	exports.default = ComparativeSearch;
 
 /***/ }
 /******/ ])

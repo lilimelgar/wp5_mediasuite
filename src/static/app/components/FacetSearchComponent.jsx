@@ -42,7 +42,7 @@ const NumericRefinementOption = (props) => (
 	</div>
  )
 
-//the CLARIAH facet search component
+//COMPONENT OUTPUT: the results of each query => {collectionId, results, dateField}
 class FacetSearchComponent extends React.Component {
 
 	constructor(props) {
@@ -50,7 +50,7 @@ class FacetSearchComponent extends React.Component {
 		this.initSearchKit();
 		this.state = {
 			displayFacets: this.props.facets ? true : false,
-			collectionId: this.props.blockId
+			collectionId: this.props.collectionId
 		};
 	}
 
@@ -62,15 +62,15 @@ class FacetSearchComponent extends React.Component {
 		});
 
 		//now this function is triggered for the linechart only, but it can be any function in the recipe.
-		if(this.props.onQueryOutput) {
+		if(this.props.onOutput) {
 			let removalFn = this.skInstance.addResultsListener((results)=> {
 		  		setTimeout(function() {
 		  			//this propagates the query output back to the recipe, who will delegate it further to any configured visualisation
-		  			this.props.onQueryOutput(
-						this.props.blockId, //currently this is the same as the collection ID in the collection API
-						results, //the results of the query that was last issued
-						this.props.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
-					);
+		  			this.props.onOutput('facet-search', {
+						collectionId : this.props.collectionId, //currently this is the same as the collection ID in the collection API
+						results : results, //the results of the query that was last issued
+						dateField : this.props.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
+					});
 		  		}.bind(this), 1000);
 			});
 		}
@@ -158,7 +158,7 @@ class FacetSearchComponent extends React.Component {
 							<div className="sk-result_action-bar sk-action-bar">
 								<Hits
 									hitsPerPage={10}
-									itemComponent={<FlexHits collectionId={this.props.blockId}/>}
+									itemComponent={<FlexHits collectionId={this.props.collectionId}/>}
 									//sourceFilter={this.props.sourceFilter}
 								/>
 
