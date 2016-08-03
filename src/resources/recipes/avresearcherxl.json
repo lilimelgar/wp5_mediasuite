@@ -4,12 +4,14 @@
 	"type" : "search",
 	"description" : "Zoek door meerdere collecties tegelijkertijd; filter resultaten op basis van facetten of tag clouds; visualiseer je output in grafieken",
 	"ingredients" : {
-		"collectionSelector": true,
-		"collections": [
-			"labs-catalogue-aggr",
-			"nisv_programguides"
-		],
-		"lineChart": true,
+		"comparativeSearch" : {
+			"collections": [
+				"labs-catalogue-aggr",
+				"nisv_programguides"
+			],
+			"collectionSelector" : true,
+			"output" : "lineChart"
+		},
 		"annotationSupport" : {
 			"currentQuery" : {
 				"modes" : ["bookmark"]

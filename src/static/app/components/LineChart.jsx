@@ -14,6 +14,7 @@ https://p5js.org/get-started/
 
 import React from 'react';
 
+//TODO this component should just draw the data it receives. No data formatting should be done here!
 class LineChart extends React.Component {
 	constructor(props) {
 		super(props);

@@ -17,7 +17,9 @@ TODO
 
 */
 
-import * as React from 'react';
+import React from 'react';
+import CollectionAPI from '../api/CollectionAPI';
+import CollectionUtil from '../util/CollectionUtil';
 import FlexHits from './FlexHits';
 
 import {
@@ -47,16 +49,46 @@ class FacetSearchComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.initSearchKit();
 		this.state = {
-			displayFacets: this.props.facets ? true : false,
-			collectionId: this.props.collectionId
+			collectionConfig : null,
+			displayFacets: false
 		};
+		this.init();
+	}
+
+	/* ------------------------ GENERATING DATA FOR THE SEARCH TABS --------------------- */
+
+	init() {
+  		CollectionAPI.getCollectionStats(this.props.collection, function(data) {
+  			let collectionConfig = this.generateCollectionConfig(data);
+  			this.setState(
+  				{
+	  				collectionConfig: collectionConfig,
+	  				displayFacets: collectionConfig.facets ? true : false
+	  			},
+	  			this.initSearchKit()//init the searchkit after the collectionConfig has been loaded
+	  		);
+  		}.bind(this));
+	}
+
+	generateCollectionConfig(stats) {
+		let config = CollectionUtil.determineConfig(stats.service.collection);
+		let docType = CollectionUtil.determineDocType(stats, config);
+		let searchableFields = CollectionUtil.determineSearchableFields(stats, config);
+		let dateFields = CollectionUtil.determineDateFields(stats, config);
+		let facets = CollectionUtil.determineFacets(dateFields, config);
+		return {//TODO optimize this later so most things are passed via the config, i.e. collection mapping
+			collectionId : stats.service.collection,
+			dateFields: dateFields,
+			prefixQueryFields: searchableFields,
+			facets: facets,
+			sourceFilter: config.getSnippetFields()
+		}
 	}
 
 	initSearchKit() {
 		this.skInstance = new SearchkitManager(this.props.searchAPI, {
-			searchUrlPath: this.props.indexPath,
+			searchUrlPath: '/search/' + this.props.collection,
 			useHistory: false,
 			searchOnLoad: false
 		});
@@ -67,9 +99,9 @@ class FacetSearchComponent extends React.Component {
 		  		setTimeout(function() {
 		  			//this propagates the query output back to the recipe, who will delegate it further to any configured visualisation
 		  			this.props.onOutput('facet-search', {
-						collectionId : this.props.collectionId, //currently this is the same as the collection ID in the collection API
+						collectionId : this.props.collection, //currently this is the same as the collection ID in the collection API
 						results : results, //the results of the query that was last issued
-						dateField : this.props.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
+						dateField : this.state.collectionConfig.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
 					});
 		  		}.bind(this), 1000);
 			});
@@ -86,97 +118,109 @@ class FacetSearchComponent extends React.Component {
 	}
 
 	render() {
-		var filterBlocks = '';
-		if(this.props.facets) {
-			filterBlocks = this.props.facets.map(function(facet) {
-				if(!facet.ranges) {
-					return (
-						<RefinementListFilter
-							key={facet.id + '__facet'}
-							field={facet.field}
-							title={facet.title}
-							id={facet.id}
-							operator={facet.operator}
-							size={facet.size}
-							/>
-					);
-				} else {
-					//TODO this bit has to be replaced with a daterangefilter whenever searchkit releases that
-					return (
-						//<DynamicRangeFilter field={facet.field} id={facet.id} title={facet.title}/>
+		var filterBlocks = null;
+		var facetSearch = null;
 
-						<NumericRefinementListFilter
-							key={facet.id + '__facet'}
-							field={facet.field}
-							title={facet.title}
-							id={facet.id}
-							size={facet.size}
-							options={facet.ranges}
-							itemComponent={NumericRefinementOption}
-							/>
-					);
-				}
-			}, this);
+		//only render when there is a collectionConfig available
+		if(this.state.collectionConfig) {
+
+			if(this.state.collectionConfig.facets) {
+				filterBlocks = this.state.collectionConfig.facets.map(function(facet) {
+					if(!facet.ranges) {
+						return (
+							<RefinementListFilter
+								key={facet.id + '__facet'}
+								field={facet.field}
+								title={facet.title}
+								id={facet.id}
+								operator={facet.operator}
+								size={facet.size}
+								/>
+						);
+					} else {
+						//TODO this bit has to be replaced with a daterangefilter whenever searchkit releases that
+						return (
+							//<DynamicRangeFilter field={facet.field} id={facet.id} title={facet.title}/>
+
+							<NumericRefinementListFilter
+								key={facet.id + '__facet'}
+								field={facet.field}
+								title={facet.title}
+								id={facet.id}
+								size={facet.size}
+								options={facet.ranges}
+								itemComponent={NumericRefinementOption}
+								/>
+						);
+					}
+				}, this);
+			}
+
+			facetSearch = (
+				<SearchkitProvider searchkit={this.skInstance}>
+					<div className={this.state.minimized ? 'hidden' : ''}>
+
+						<div className="search-box">
+							<SearchBox
+								autofocus={true}
+								searchOnChange={false}
+								//searchThrottleTime={400}
+								prefixQueryFields={this.state.collectionConfig.prefixQueryFields}
+								/>
+						</div>
+
+						<div>
+							<HitsStats/>
+
+							<form>
+								<div className="checkbox">
+									<label>
+										<input type="checkbox" onChange={this.toggleFacets.bind(this)}/> Filter results
+									</label>
+	  							</div>
+							</form>
+
+							Results per page: <PageSizeSelector options={[10,20,50]} listComponent={Select} />
+						</div>
+
+						<div className="sk-layout__body">
+
+
+							<div className={this.state.displayFacets ? '' : 'hidden'}>
+								{filterBlocks}
+							</div>
+
+
+							<div className="sk-layout__results sk-results-list">
+								<div className="sk-result_action-bar sk-action-bar">
+									<Hits
+										hitsPerPage={10}
+										itemComponent={<FlexHits collection={this.props.collection}/>}
+										//sourceFilter={this.props.sourceFilter}
+									/>
+
+									<NoHits translations={{
+										 "NoHits.NoResultsFound":"No results found were found for {query}",
+										 "NoHits.DidYouMean":"Search for {suggestion}",
+										 "NoHits.SearchWithoutFilters":"Search for {query} without filters"
+									}}/>
+									<InitialLoader/>
+								</div>
+							</div>
+
+						</div>
+
+						<Pagination showNumbers={true}/>
+
+					</div>
+				</SearchkitProvider>
+			)
 		}
 
 		return (
-			<SearchkitProvider searchkit={this.skInstance}>
-				<div className={this.state.minimized ? 'hidden' : ''}>
-
-					<div className="search-box">
-						<SearchBox
-							autofocus={true}
-							searchOnChange={false}
-							//searchThrottleTime={400}
-							prefixQueryFields={this.props.prefixQueryFields}
-							/>
-					</div>
-
-					<div>
-						<HitsStats/>
-
-						<form>
-							<div className="checkbox">
-								<label>
-									<input type="checkbox" onChange={this.toggleFacets.bind(this)}/> Filter results
-								</label>
-  							</div>
-						</form>
-
-						Results per page: <PageSizeSelector options={[10,20,50]} listComponent={Select} />
-					</div>
-
-					<div className="sk-layout__body">
-
-
-						<div className={this.state.displayFacets ? '' : 'hidden'}>
-							{filterBlocks}
-						</div>
-
-
-						<div className="sk-layout__results sk-results-list">
-							<div className="sk-result_action-bar sk-action-bar">
-								<Hits
-									hitsPerPage={10}
-									itemComponent={<FlexHits collectionId={this.props.collectionId}/>}
-									//sourceFilter={this.props.sourceFilter}
-								/>
-
-								<NoHits translations={{
-									 "NoHits.NoResultsFound":"No results found were found for {query}",
-									 "NoHits.DidYouMean":"Search for {suggestion}",
-									 "NoHits.SearchWithoutFilters":"Search for {query} without filters"
-								}}/>
-								<InitialLoader/>
-							</div>
-						</div>
-
-					</div>
-
-					<Pagination showNumbers={true}/>
-
-				</div>
-			</SearchkitProvider>
+			<div>
+				{facetSearch}
+			</div>
 		);
 	}
 }

@@ -4,10 +4,10 @@
 	"type" : "search",
 	"description" : "Doorzoek de catalogus van Beeld en Geluid",
 	"ingredients" : {
-		"collectionSelector": false,
-		"collections": [
-			"labs-catalogue-aggr"
-		],
-		"lineChart": false
+		"facetSearch" : {
+			"collection": [
+				"labs-catalogue-aggr"
+			]
+		}
 	}
 }

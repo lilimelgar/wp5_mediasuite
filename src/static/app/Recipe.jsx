@@ -5,9 +5,6 @@ import ComparativeSearch from './components/ComparativeSearch.jsx';
 import LineChart from './components/LineChart.jsx';
 import FlexBox from './components/FlexBox.jsx';
 
-import CollectionUtil from './util/CollectionUtil.js';
-import CollectionAPI from './api/CollectionAPI.js';
-
 class Recipe extends React.Component {
 	constructor(props) {
 		super(props);
@@ -50,16 +47,31 @@ class Recipe extends React.Component {
 	}
 
 	render() {
-		var lineChart = null;
-		if(this.props.ingredients.lineChart) {
-			lineChart = <FlexBox><LineChart data={this.state.lineChartData}/></FlexBox>;
+		var comparativeSearch = null;
+		var facetSearch = null;
+		var lineChart = null; //WARNING: in theory there can be more linecharts defined!
+
+		//first generate the input components to see if they require output components, such as the lineChart
+		if(this.props.ingredients.comparativeSearch) {
+			comparativeSearch = (<ComparativeSearch collections={this.props.ingredients.comparativeSearch.collections}
+					onOutput={this.onComponentOutput.bind(this)}
+					collectionSelector={this.props.ingredients.comparativeSearch.collectionSelector}/>);
+
+			if(this.props.ingredients.comparativeSearch.output == 'lineChart') {
+				lineChart = <FlexBox><LineChart data={this.state.lineChartData}/></FlexBox>;
+			}
+		}
+		if(this.props.ingredients.facetSearch) {
+			facetSearch = (<FacetSearchComponent
+				collection={this.props.ingredients.facetSearch.collection}
+				searchAPI={_config.SEARCH_API_BASE}/>);
 		}
 
 		return (
 			<div>
+				{facetSearch}
 				{lineChart}
-				<ComparativeSearch collections={this.props.ingredients.collections}
-					onOutput={this.onComponentOutput.bind(this)}/>
+				{comparativeSearch}
 			</div>
 		);
 	}

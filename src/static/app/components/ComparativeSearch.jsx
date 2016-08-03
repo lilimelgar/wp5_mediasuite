@@ -1,82 +1,45 @@
+import CollectionSelector from './CollectionSelector';
 import FacetSearchComponent from './FacetSearchComponent';
 import FlexBox from './FlexBox';
-import CollectionAPI from '../api/CollectionAPI';
-import CollectionUtil from '../util/CollectionUtil';
 
 class ComparativeSearch extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeCollections : this.props.collections,
-			searchBlocks: [],//holds the FacetSearchComponents that are currently on the screen
-			activeSearchTab: null //add the active collections
+			collections : this.props.collections,
+			activeCollection: this.props.collections.length > 0 ? this.props.collections[0] : null
 		}
 	}
 
 	componentDidMount() {
-		this.loadCollections(this.props.collections);
-	}
 
-	/* ------------------------ GENERATING DATA FOR THE SEARCH TABS --------------------- */
-
-	loadCollections(collectionIds) {
-		for(let i=0;i<collectionIds.length;i++) {
-	  		let collectionId = collectionIds[i];
-	  		CollectionAPI.getCollectionStats(collectionId, function(data) {
-	  			let b = this.state.searchBlocks;
-	  			b.push(this.createSearchBlock(data));
-	  			this.setState({
-	  				searchBlocks: b
-	  			});
-	  			if(b && b.length > 0) {
-	  				this.setState({
-	  					activeSearchTab: b[0].collectionId
-	  				})
-	  			}
-	  		}.bind(this));
-  		}
-	}
-
-	createSearchBlock(stats) {
-		let config = CollectionUtil.determineConfig(stats.service.collection);
-		let docType = CollectionUtil.determineDocType(stats, config);
-		let searchableFields = CollectionUtil.determineSearchableFields(stats, config);
-		let dateFields = CollectionUtil.determineDateFields(stats, config);
-		let facets = CollectionUtil.determineFacets(dateFields, config);
-
-		var block = {//TODO optimize this later so most things are passed via the config, i.e. collection mapping
-			collectionId : stats.service.collection,
-			dateFields: dateFields,
-			prefixQueryFields: searchableFields,
-			facets: facets,
-			sourceFilter: config.getSnippetFields()
-		}
-		return block;
 	}
 
 	/* ------------------------ COLLECTION CRUD --------------------- */
 
 	removeCollection(collectionId) {
-		let b = this.state.searchBlocks;
-		let qops = this.state.queryOutputs;
-		for(let i=b.length-1;i>=0;i--) {
-			if(b[i].collectionId == collectionId) {
-				b.splice(i, 1);
-				if(qops != null && qops[collectionId]) {
-					delete qops[collectionId];
-				}
-			}
+		let cs = this.state.collections;
+		let index = cs.indexOf(collectionId);
+		if(index != -1) {
+			cs.splice(index, 1);
+			this.setState({
+				collections : cs,
+				activeCollection : cs.length > 0 ? cs[0] : null
+			});
 		}
-	  	this.setState({
-			searchBlocks : b,
-			queryOutputs : qops
-		})
 	}
 
 	//TODO this function should never load a collection that has been already loaded
 	onEditCollections(collectionId) {
-		this.loadCollections([collectionId]);
+		let cs = this.state.collections;
+		if(cs.indexOf(collectionId) == -1) {
+			cs.push(collectionId);
+			this.setState({
+				collections : cs,
+				activeCollection : collectionId
+			});
+		}
 	}
 
 	/* ---------------------- OUTPUT COMMUNICATION ------------------- */
@@ -88,39 +51,28 @@ class ComparativeSearch extends React.Component {
 
 	render() {
 		//for drawing the tabs
-		var searchTabs = this.state.searchBlocks.map(function(searchBox) {
+		var searchTabs = this.state.collections.map(function(c) {
 			return (
-				<li key={searchBox.collectionId + '__tab_option'} className={
-					this.state.activeSearchTab == searchBox.collectionId ? 'active' : ''
-				}><a data-toggle="tab" href={'#' + searchBox.collectionId}>
-				{searchBox.collectionId}
-				<i className="glyphicon glyphicon-minus" onClick={
-					() => (this.removeCollection(searchBox.collectionId))
-				}></i>
-				</a></li>
-				)
+				<li key={c + '__tab_option'}
+					className={this.state.activeCollection == c ? 'active' : ''}>
+					<a data-toggle="tab" href={'#' + c}>
+						{c}
+						<i className="glyphicon glyphicon-minus" onClick={this.removeCollection.bind(this, c)}></i>
+					</a>
+				</li>)
 		}, this)
 
 		//these are the facet search UI blocks put into different tabs
-		var searchTabContents = this.state.searchBlocks.map(function(searchBox) {
+		var searchTabContents = this.state.collections.map(function(c) {
 			return (
-				<div
-					key={searchBox.collectionId + '__tab_content'}
-					id={searchBox.collectionId}
-					className={this.state.activeSearchTab == searchBox.collectionId ? 'tab-pane active' : 'tab-pane'}
-				>
-					<h3>{searchBox.collectionId}</h3>
-					<FacetSearchComponent
-						key={searchBox.collectionId + '__sk'}
-						collectionId={searchBox.collectionId}
+				<div key={c + '__tab_content'}
+					id={c}
+					className={this.state.activeCollection == c ? 'tab-pane active' : 'tab-pane'}>
+					<h3>{c}</h3>
+					<FacetSearchComponent key={c + '__sk'}
+						collection={c}
 						searchAPI={_config.SEARCH_API_BASE}
-						indexPath={'/search/' + searchBox.collectionId}
-						onOutput={this.onOutput.bind(this)}
-						prefixQueryFields={searchBox.prefixQueryFields}
-						dateFields={searchBox.dateFields}
-						facets={searchBox.facets}
-						sourceFilter={searchBox.sourceFilter}
-					/>
+						onOutput={this.onOutput.bind(this)}/>
 				</div>
 				);
 		}, this);

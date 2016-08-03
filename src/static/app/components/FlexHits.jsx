@@ -9,7 +9,7 @@ class FlexHits extends React.Component {
 		super(props);
 		this.state = {
 			showModal : false,
-			config: CollectionUtil.determineConfig(this.props.collectionId)
+			config: CollectionUtil.determineConfig(this.props.collection)
 		};
 	}
 

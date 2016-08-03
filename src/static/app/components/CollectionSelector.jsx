@@ -11,8 +11,9 @@ class CollectionSelector extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			activeCollection: '',
+			activeDocumentType: '',
 			activeCollectionStats: null,
-			activeDocumentType: null,
 			activeDateField: null,
 			activeAnalysisField: null
 		}
@@ -21,56 +22,52 @@ class CollectionSelector extends React.Component {
 		});
 	}
 
-	componentDidMount() {
+	setDocumentTypes(event) {
+		let collectionId = event.target.value;
+		this.setState(
+			{activeCollection : collectionId},
+			CollectionAPI.getCollectionStats(collectionId, (data) => {
+				console.debug('fetched the collections stats for ' + collectionId);
+				console.debug(data);
+				this.setState(
+					{
+						activeCollectionStats : data,
+						activeDocumentTypeStats : data.collection_statistics.document_types[0],
+						activeDocumentType : data.collection_statistics.document_types[0].doc_type
+					}
+				);
+			})
+		)
 
-	}
-
-	setDocumentTypes() {
-		let select = document.getElementById("collection_select");
-		let collectionId = select.options[select.selectedIndex].value;
-
-		CollectionAPI.getCollectionStats(collectionId, (data) => {
-			console.debug('fetched the collections stats for ' + collectionId);
-			console.debug(data);
-
-			this.setState(
-				{
-					activeCollection: collectionId,
-					activeCollectionStats : data,
-					activeDocumentTypeStats : data.collection_statistics.document_types[0],
-					activeDocumentType : data.collection_statistics.document_types[0].doc_type
-				}
-			);
-		});
 	}
 
 	setCollectionFields() {
-		let select = document.getElementById("doctype_select");
-		let docType = select.options[select.selectedIndex].value;
+		this.setState(
+			{activeCollection : event.target.value},
 
-		console.debug('fetching document type info');
-
-		this.state.activeCollectionStats.collection_statistics.document_types.forEach((docTypeStats) => {
-			if (docTypeStats.doc_type === docType) {
-				this.setState(
-					{
-						activeDocumentType : docTypeStats.doc_type,
-						activeDocumentTypeStats : docTypeStats
-					}
-				);
-			}
-		})
+			this.state.activeCollectionStats.collection_statistics.document_types.forEach((docTypeStats) => {
+				if (docTypeStats.doc_type === this.state.activeCollection) {
+					this.setState(
+						{
+							activeDocumentType : docTypeStats.doc_type,
+							activeDocumentTypeStats : docTypeStats
+						}
+					);
+				}
+			})
+		);
 	}
 
 	//TODO make this a good function for adding/removing selected collections
 	addCollection(e) {
 		e.preventDefault();
-		let collectionId = $('#collection_select option:selected').val();
-		//propagate the choice to the overarching Recipe.jsx (TODO this should be reflected as a state var instead)
-		if(this.props.onEditCollections) {
-			this.props.onEditCollections(collectionId);
+		let collectionId = this.state.activeCollection;
+		if(collectionId != '') {
+			if(this.props.onEditCollections) {
+				this.props.onEditCollections(collectionId);
+			}
+			this.setState({activeCollection : ''});
 		}
-		document.getElementById('collection_select').selectedIndex = 0;
 	}
 
 	render() {
@@ -93,8 +90,10 @@ class CollectionSelector extends React.Component {
 
 			collectionSelect = (
 				<fieldset className="form-group">
-					<label htmlFor="collection_select">Select collection</label>
-					<select className="form-control" id="collection_select" onChange={this.setDocumentTypes.bind(this)}>
+					<label>Select collection</label>
+					<select className="form-control"
+						value={this.state.activeCollection}
+						onChange={this.setDocumentTypes.bind(this)}>
 						{collectionOptions}
 					</select>
 				</fieldset>
@@ -111,8 +110,10 @@ class CollectionSelector extends React.Component {
 
 				documentTypeSelect = (
 					<fieldset className="form-group">
-						<label htmlFor="doctype_select">Select document type</label>
-						<select className="form-control" id="doctype_select" onChange={this.setCollectionFields.bind(this)}>
+						<label>Select document type</label>
+						<select className="form-control"
+							value={this.state.activeDocType}
+							onChange={this.setCollectionFields.bind(this)}>
 							{docTypeOptions}
 						</select>
 					</fieldset>
@@ -143,7 +144,7 @@ class CollectionSelector extends React.Component {
 				</div>
 			)
 		} else {
-			console.debug('no collection data available yet');
+			console.debug('Loading collection list');
 			return (<h3 key="collection_list_loading">Loading collection list...</h3>)
 		}
 	}
