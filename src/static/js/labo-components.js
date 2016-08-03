@@ -4,13 +4,15 @@ function showComponent(componentId) {
 	var component = null;
 
 	switch(componentId) {
-		case 'Annotation player': component = getAnnotationPlayer();break;
 		case 'Collection stats': component = getCollectionStats();break;
 		case 'Collection analyser': component = getCollectionAnalyser();break;
 		case 'Facet search': component = getFacetSearchComponent();break;
+		case 'Annotation player': component = getAnnotationPlayer();break;
+		case 'JWPlayer': component = getJWPlayer();break;
+		case 'Vimeo player': component = getVimeoPlayer();break;
 		case 'Line chart': component = getLineChartComponent();break;
-
 	}
+
 	if(component) {
 		ReactDOM.render(
 			<div className="container">
@@ -25,7 +27,7 @@ function showComponent(componentId) {
 
 function getAnnotationPlayer() {
 	var FlexPlayer = clariah.FlexPlayer;
-	var mediaObject = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'}
+	var mediaObject = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'};
 	var annotationSupport = {
 		"currentQuery" : {
 			"modes" : ["bookmark"]
@@ -55,12 +57,28 @@ function getAnnotationPlayer() {
 		},
 		"bookmark" : {},
 		"comment" : {}
-	}
+	};
 	return (
 		<FlexPlayer user="Component test"
 			annotationSupport={annotationSupport}
 			annotationModes={annotationModes}
 			mediaObject={mediaObject}/>
+	);
+}
+
+function getVimeoPlayer() {
+	var VimeoPlayer = clariah.VimeoPlayer;
+	var mediaObject = {url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1'};
+	return (
+		<VimeoPlayer mediaObject={mediaObject}/>
+	);
+}
+
+function getJWPlayer() {
+	var JWPlayer = clariah.JWPlayer;
+	var mediaObject = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'};
+	return (
+		<JWPlayer mediaObject={mediaObject}/>
 	);
 }
 

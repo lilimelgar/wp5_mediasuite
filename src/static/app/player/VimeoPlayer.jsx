@@ -39,19 +39,23 @@ class VimeoPlayer extends React.Component {
 	}
 
 	setupEventCallbacks() {
-		const eventCallbacks = {
-			loadProgress : this.props.eventCallbacks.loadProgress.bind(this),
-		    playProgress : this.props.eventCallbacks.playProgress.bind(this),
-		    play : this.props.eventCallbacks.onPlay.bind(this),
-		    pause : this.props.eventCallbacks.onPause.bind(this),
-		    finish : this.props.eventCallbacks.onFinish.bind(this),
-		    seek : this.props.eventCallbacks.onSeek.bind(this)
+		if(this.props.eventCallbacks) {
+			const eventCallbacks = {
+				loadProgress : this.props.eventCallbacks.loadProgress.bind(this),
+			    playProgress : this.props.eventCallbacks.playProgress.bind(this),
+			    play : this.props.eventCallbacks.onPlay.bind(this),
+			    pause : this.props.eventCallbacks.onPause.bind(this),
+			    finish : this.props.eventCallbacks.onFinish.bind(this),
+			    seek : this.props.eventCallbacks.onSeek.bind(this)
+			}
+			for(let key in eventCallbacks) {
+				this.state.froogaloop.addEvent(key, eventCallbacks[key]);
+			}
 		}
-		for(let key in eventCallbacks) {
-			this.state.froogaloop.addEvent(key, eventCallbacks[key]);
+		if(this.props.onPlayerReady) {
+			//send back the api to the owning component
+			this.props.onPlayerReady(new VimeoAPI(this.state.froogaloop));
 		}
-		//send back the api to the owning component
-		this.props.onPlayerReady(new VimeoAPI(this.state.froogaloop));
 	}
 
 	render() {

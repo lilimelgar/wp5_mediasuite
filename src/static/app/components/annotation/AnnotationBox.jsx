@@ -25,6 +25,16 @@ class AnnotationBox extends React.Component {
 		};
 	}
 
+	componentDidMount() {
+		AnnotationAPI.getAnnotations(function(data) {
+			this.onLoadAnnotations(data);
+		}.bind(this));
+	}
+
+	onLoadAnnotations(data) {
+		this.setState(data);
+	}
+
 	setAnnotation(annotation) {
 		this.setState({
 			annotation : annotation
@@ -58,17 +68,6 @@ class AnnotationBox extends React.Component {
 			return e.annotationId != annotationId;
 		});
 		this.setState({annotations : annotations});
-	}
-
-	componentDidMount() {
-		AnnotationAPI.getAnnotations(function(data) {
-			console.debug(data);
-			this.onLoadAnnotations(data);
-		}.bind(this));
-	}
-
-	onLoadAnnotations(data) {
-		this.setState(data);
 	}
 
 	//TODO maybe add a part where you can view the active annotation here as well

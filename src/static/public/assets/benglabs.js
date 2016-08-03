@@ -46327,7 +46327,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57328,6 +57328,18 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	
 		_createClass(AnnotationBox, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				_AnnotationAPI2.default.getAnnotations(function (data) {
+					this.onLoadAnnotations(data);
+				}.bind(this));
+			}
+		}, {
+			key: 'onLoadAnnotations',
+			value: function onLoadAnnotations(data) {
+				this.setState(data);
+			}
+		}, {
 			key: 'setAnnotation',
 			value: function setAnnotation(annotation) {
 				this.setState({
@@ -57366,19 +57378,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					return e.annotationId != annotationId;
 				});
 				this.setState({ annotations: annotations });
-			}
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				_AnnotationAPI2.default.getAnnotations(function (data) {
-					console.debug(data);
-					this.onLoadAnnotations(data);
-				}.bind(this));
-			}
-		}, {
-			key: 'onLoadAnnotations',
-			value: function onLoadAnnotations(data) {
-				this.setState(data);
 			}
 	
 			//TODO maybe add a part where you can view the active annotation here as well
@@ -62137,19 +62136,23 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'setupEventCallbacks',
 			value: function setupEventCallbacks() {
-				var eventCallbacks = {
-					loadProgress: this.props.eventCallbacks.loadProgress.bind(this),
-					playProgress: this.props.eventCallbacks.playProgress.bind(this),
-					play: this.props.eventCallbacks.onPlay.bind(this),
-					pause: this.props.eventCallbacks.onPause.bind(this),
-					finish: this.props.eventCallbacks.onFinish.bind(this),
-					seek: this.props.eventCallbacks.onSeek.bind(this)
-				};
-				for (var key in eventCallbacks) {
-					this.state.froogaloop.addEvent(key, eventCallbacks[key]);
+				if (this.props.eventCallbacks) {
+					var eventCallbacks = {
+						loadProgress: this.props.eventCallbacks.loadProgress.bind(this),
+						playProgress: this.props.eventCallbacks.playProgress.bind(this),
+						play: this.props.eventCallbacks.onPlay.bind(this),
+						pause: this.props.eventCallbacks.onPause.bind(this),
+						finish: this.props.eventCallbacks.onFinish.bind(this),
+						seek: this.props.eventCallbacks.onSeek.bind(this)
+					};
+					for (var key in eventCallbacks) {
+						this.state.froogaloop.addEvent(key, eventCallbacks[key]);
+					}
 				}
-				//send back the api to the owning component
-				this.props.onPlayerReady(new VimeoAPI(this.state.froogaloop));
+				if (this.props.onPlayerReady) {
+					//send back the api to the owning component
+					this.props.onPlayerReady(new VimeoAPI(this.state.froogaloop));
+				}
 			}
 		}, {
 			key: 'render',
@@ -62389,9 +62392,19 @@ return /******/ (function(modules) { // webpackBootstrap
 					image: null,
 					autostart: false,
 					key: 'cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg=='
-				}).on('bufferChange', this.props.eventCallbacks.loadProgress.bind(this)).on('time', this.props.eventCallbacks.playProgress.bind(this)).on('play', this.props.eventCallbacks.onPlay.bind(this)).on('pause', this.props.eventCallbacks.onPause.bind(this)).on('complete', this.props.eventCallbacks.onFinish.bind(this)).on('seek', this.props.eventCallbacks.onSeek.bind(this));
+				});
+				if (this.props.eventCallbacks) {
+					jw.on('bufferChange', this.props.eventCallbacks.loadProgress.bind(this)).on('time', this.props.eventCallbacks.playProgress.bind(this)).on('play', this.props.eventCallbacks.onPlay.bind(this)).on('pause', this.props.eventCallbacks.onPause.bind(this)).on('complete', this.props.eventCallbacks.onFinish.bind(this)).on('seek', this.props.eventCallbacks.onSeek.bind(this));
+				}
 	
-				this.setState({ jw: jw }, this.props.onPlayerReady(new JWPlayerAPI(jw)));
+				this.setState({ jw: jw }, this.onReady.bind(this));
+			}
+		}, {
+			key: 'onReady',
+			value: function onReady() {
+				if (this.props.onPlayerReady) {
+					this.props.onPlayerReady(new JWPlayerAPI(this.state.jw));
+				}
 			}
 		}, {
 			key: 'componentWillUnmount',
