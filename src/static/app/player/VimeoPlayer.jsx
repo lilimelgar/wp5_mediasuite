@@ -13,7 +13,6 @@ class VimeoPlayer extends React.Component {
 	}
 
 	componentDidMount() {
-		console.debug('Mounted the iframe HTML, rendering the player');
 		var vimeoPlayers = document.querySelectorAll('iframe');
 		var vimeoPlayer = null;
 		for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
@@ -23,9 +22,13 @@ class VimeoPlayer extends React.Component {
 		}
 	}
 
+	componentDidUpdate() {
+		console.debug('UPDATING VIMEO');
+	}
+
 	componentWillUnmount() {
-		console.debug('unmounting player');
 		this.state.froogaloop.api('unload');
+		this.setState({froogaloop : null});
 	}
 
 	playerReady(playerId) {

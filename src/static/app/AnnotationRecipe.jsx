@@ -52,7 +52,6 @@ class AnnotationRecipe extends React.Component {
 							</span>
 						</div>
 						<FlexPlayer user={this.state.user}
-							player={this.props.ingredients.playerType}
 							onPlayerReady={this.onPlayerReady.bind(this)}
 							annotationSupport={this.props.ingredients.annotationSupport}
 							annotationModes={this.props.ingredients.annotationModes}

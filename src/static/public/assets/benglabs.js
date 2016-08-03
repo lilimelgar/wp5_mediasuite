@@ -7,7 +7,7 @@
 		exports["clariah"] = factory(require("React"), require("ReactDOM"));
 	else
 		root["clariah"] = factory(root["React"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_28__, __WEBPACK_EXTERNAL_MODULE_146__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_27__, __WEBPACK_EXTERNAL_MODULE_146__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -12024,10 +12024,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.SegmentationControls = exports.VimeoPlayer = exports.AnnotationBox = exports.TimeUtil = exports.CollectionUtil = exports.CollectionDataUtil = exports.SpeechAndernieuwsConfig = exports.NISVProgramGuideConfig = exports.NISVCatalogueConfig = exports.CollectionConfig = exports.FlexComponentInfo = exports.FlexModal = exports.FlexHits = exports.FlexBox = exports.LineChart = exports.ItemDetails = exports.SearchSnippet = exports.FacetSearchComponent = exports.CollectionAnalyser = exports.CollectionStats = exports.CollectionSelector = exports.SearchAPI = exports.CollectionAPI = exports.AnnotationAPI = undefined;
+	exports.SegmentationControls = exports.JWPlayer = exports.VimeoPlayer = exports.FlexPlayer = exports.AnnotationBox = exports.TimeUtil = exports.CollectionUtil = exports.CollectionDataUtil = exports.SpeechAndernieuwsConfig = exports.NISVProgramGuideConfig = exports.NISVCatalogueConfig = exports.CollectionConfig = exports.FlexComponentInfo = exports.FlexModal = exports.FlexHits = exports.FlexBox = exports.LineChart = exports.ItemDetails = exports.SearchSnippet = exports.FacetSearchComponent = exports.CollectionAnalyser = exports.CollectionStats = exports.CollectionSelector = exports.SearchAPI = exports.CollectionAPI = exports.AnnotationAPI = undefined;
 	exports.cookRecipe = cookRecipe;
 	
-	var _AnnotationAPI = __webpack_require__(/*! ./api/AnnotationAPI.js */ 23);
+	var _AnnotationAPI = __webpack_require__(/*! ./api/AnnotationAPI */ 23);
 	
 	Object.defineProperty(exports, 'AnnotationAPI', {
 		enumerable: true,
@@ -12036,7 +12036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _CollectionAPI = __webpack_require__(/*! ./api/CollectionAPI.js */ 24);
+	var _CollectionAPI = __webpack_require__(/*! ./api/CollectionAPI */ 24);
 	
 	Object.defineProperty(exports, 'CollectionAPI', {
 		enumerable: true,
@@ -12045,7 +12045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _SearchAPI = __webpack_require__(/*! ./api/SearchAPI.js */ 25);
+	var _SearchAPI = __webpack_require__(/*! ./api/SearchAPI */ 25);
 	
 	Object.defineProperty(exports, 'SearchAPI', {
 		enumerable: true,
@@ -12054,7 +12054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _CollectionSelector = __webpack_require__(/*! ./components/CollectionSelector.jsx */ 26);
+	var _CollectionSelector = __webpack_require__(/*! ./components/CollectionSelector */ 26);
 	
 	Object.defineProperty(exports, 'CollectionSelector', {
 		enumerable: true,
@@ -12063,7 +12063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _CollectionStats = __webpack_require__(/*! ./components/CollectionStats.jsx */ 27);
+	var _CollectionStats = __webpack_require__(/*! ./components/CollectionStats */ 28);
 	
 	Object.defineProperty(exports, 'CollectionStats', {
 		enumerable: true,
@@ -12072,7 +12072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _CollectionAnalyser = __webpack_require__(/*! ./components/CollectionAnalyser.jsx */ 29);
+	var _CollectionAnalyser = __webpack_require__(/*! ./components/CollectionAnalyser */ 29);
 	
 	Object.defineProperty(exports, 'CollectionAnalyser', {
 		enumerable: true,
@@ -12081,7 +12081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FacetSearchComponent = __webpack_require__(/*! ./components/FacetSearchComponent.jsx */ 32);
+	var _FacetSearchComponent = __webpack_require__(/*! ./components/FacetSearchComponent */ 32);
 	
 	Object.defineProperty(exports, 'FacetSearchComponent', {
 		enumerable: true,
@@ -12090,7 +12090,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _SearchSnippet = __webpack_require__(/*! ./components/SearchSnippet.jsx */ 147);
+	var _SearchSnippet = __webpack_require__(/*! ./components/SearchSnippet */ 147);
 	
 	Object.defineProperty(exports, 'SearchSnippet', {
 		enumerable: true,
@@ -12099,7 +12099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _ItemDetails = __webpack_require__(/*! ./components/ItemDetails.jsx */ 148);
+	var _ItemDetails = __webpack_require__(/*! ./components/ItemDetails */ 148);
 	
 	Object.defineProperty(exports, 'ItemDetails', {
 		enumerable: true,
@@ -12108,7 +12108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _LineChart = __webpack_require__(/*! ./components/LineChart.jsx */ 30);
+	var _LineChart = __webpack_require__(/*! ./components/LineChart */ 30);
 	
 	Object.defineProperty(exports, 'LineChart', {
 		enumerable: true,
@@ -12117,7 +12117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexBox = __webpack_require__(/*! ./components/FlexBox.jsx */ 31);
+	var _FlexBox = __webpack_require__(/*! ./components/FlexBox */ 31);
 	
 	Object.defineProperty(exports, 'FlexBox', {
 		enumerable: true,
@@ -12126,7 +12126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexHits = __webpack_require__(/*! ./components/FlexHits.jsx */ 144);
+	var _FlexHits = __webpack_require__(/*! ./components/FlexHits */ 144);
 	
 	Object.defineProperty(exports, 'FlexHits', {
 		enumerable: true,
@@ -12135,7 +12135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexModal = __webpack_require__(/*! ./components/FlexModal.jsx */ 145);
+	var _FlexModal = __webpack_require__(/*! ./components/FlexModal */ 145);
 	
 	Object.defineProperty(exports, 'FlexModal', {
 		enumerable: true,
@@ -12144,7 +12144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexComponentInfo = __webpack_require__(/*! ./components/FlexComponentInfo.jsx */ 630);
+	var _FlexComponentInfo = __webpack_require__(/*! ./components/FlexComponentInfo */ 630);
 	
 	Object.defineProperty(exports, 'FlexComponentInfo', {
 		enumerable: true,
@@ -12153,7 +12153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _CollectionConfig = __webpack_require__(/*! ./collection/mappings/CollectionConfig.jsx */ 34);
+	var _CollectionConfig = __webpack_require__(/*! ./collection/mappings/CollectionConfig */ 34);
 	
 	Object.defineProperty(exports, 'CollectionConfig', {
 		enumerable: true,
@@ -12162,7 +12162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _NISVCatalogueConfig = __webpack_require__(/*! ./collection/mappings/NISVCatalogueConfig.jsx */ 36);
+	var _NISVCatalogueConfig = __webpack_require__(/*! ./collection/mappings/NISVCatalogueConfig */ 36);
 	
 	Object.defineProperty(exports, 'NISVCatalogueConfig', {
 		enumerable: true,
@@ -12171,7 +12171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _NISVProgramGuideConfig = __webpack_require__(/*! ./collection/mappings/NISVProgramGuideConfig.jsx */ 142);
+	var _NISVProgramGuideConfig = __webpack_require__(/*! ./collection/mappings/NISVProgramGuideConfig */ 142);
 	
 	Object.defineProperty(exports, 'NISVProgramGuideConfig', {
 		enumerable: true,
@@ -12180,7 +12180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _SpeechAndernieuwsConfig = __webpack_require__(/*! ./collection/mappings/SpeechAndernieuwsConfig.jsx */ 143);
+	var _SpeechAndernieuwsConfig = __webpack_require__(/*! ./collection/mappings/SpeechAndernieuwsConfig */ 143);
 	
 	Object.defineProperty(exports, 'SpeechAndernieuwsConfig', {
 		enumerable: true,
@@ -12189,7 +12189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _CollectionDataUtil = __webpack_require__(/*! ./util/CollectionDataUtil.js */ 35);
+	var _CollectionDataUtil = __webpack_require__(/*! ./util/CollectionDataUtil */ 35);
 	
 	Object.defineProperty(exports, 'CollectionDataUtil', {
 		enumerable: true,
@@ -12198,7 +12198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _CollectionUtil = __webpack_require__(/*! ./util/CollectionUtil.js */ 33);
+	var _CollectionUtil = __webpack_require__(/*! ./util/CollectionUtil */ 33);
 	
 	Object.defineProperty(exports, 'CollectionUtil', {
 		enumerable: true,
@@ -12207,7 +12207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _TimeUtil = __webpack_require__(/*! ./util/TimeUtil.js */ 37);
+	var _TimeUtil = __webpack_require__(/*! ./util/TimeUtil */ 37);
 	
 	Object.defineProperty(exports, 'TimeUtil', {
 		enumerable: true,
@@ -12216,7 +12216,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _AnnotationBox = __webpack_require__(/*! ./components/annotation/AnnotationBox.jsx */ 631);
+	var _AnnotationBox = __webpack_require__(/*! ./components/annotation/AnnotationBox */ 631);
 	
 	Object.defineProperty(exports, 'AnnotationBox', {
 		enumerable: true,
@@ -12225,7 +12225,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer.js */ 664);
+	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 664);
+	
+	Object.defineProperty(exports, 'FlexPlayer', {
+		enumerable: true,
+		get: function get() {
+			return _interopRequireDefault(_FlexPlayer).default;
+		}
+	});
+	
+	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 665);
 	
 	Object.defineProperty(exports, 'VimeoPlayer', {
 		enumerable: true,
@@ -12234,7 +12243,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls.jsx */ 665);
+	var _JWPlayer = __webpack_require__(/*! ./player/JWPlayer */ 666);
+	
+	Object.defineProperty(exports, 'JWPlayer', {
+		enumerable: true,
+		get: function get() {
+			return _interopRequireDefault(_JWPlayer).default;
+		}
+	});
+	
+	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 668);
 	
 	Object.defineProperty(exports, 'SegmentationControls', {
 		enumerable: true,
@@ -12245,11 +12263,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 146);
 	
-	var _Recipe = __webpack_require__(/*! ./Recipe.jsx */ 666);
+	var _Recipe = __webpack_require__(/*! ./Recipe */ 670);
 	
 	var _Recipe2 = _interopRequireDefault(_Recipe);
 	
-	var _AnnotationRecipe = __webpack_require__(/*! ./AnnotationRecipe.jsx */ 668);
+	var _AnnotationRecipe = __webpack_require__(/*! ./AnnotationRecipe */ 672);
 	
 	var _AnnotationRecipe2 = _interopRequireDefault(_AnnotationRecipe);
 	
@@ -12469,7 +12487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -12679,6 +12697,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 27 */
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_27__;
+
+/***/ },
+/* 28 */
 /*!********************************************!*\
   !*** ./app/components/CollectionStats.jsx ***!
   \********************************************/
@@ -12692,7 +12719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -12817,15 +12844,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = CollectionStats;
 
 /***/ },
-/* 28 */
-/*!************************!*\
-  !*** external "React" ***!
-  \************************/
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_28__;
-
-/***/ },
 /* 29 */
 /*!***********************************************!*\
   !*** ./app/components/CollectionAnalyser.jsx ***!
@@ -12840,7 +12858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -12848,7 +12866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _CollectionAPI2 = _interopRequireDefault(_CollectionAPI);
 	
-	var _CollectionStats = __webpack_require__(/*! ./CollectionStats.jsx */ 27);
+	var _CollectionStats = __webpack_require__(/*! ./CollectionStats.jsx */ 28);
 	
 	var _CollectionStats2 = _interopRequireDefault(_CollectionStats);
 	
@@ -13199,7 +13217,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -13416,7 +13434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -13486,7 +13504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -13864,7 +13882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -14032,7 +14050,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -28630,7 +28648,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -28743,7 +28761,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -28845,7 +28863,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -28955,7 +28973,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -29067,7 +29085,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -29145,7 +29163,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -29412,7 +29430,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../ui */ 517);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -41163,7 +41181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var pure_render_1 = __webpack_require__(/*! ./pure-render */ 442);
 	var FastClick = (function (_super) {
 	    __extends(FastClick, _super);
@@ -41324,7 +41342,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var shouldPureComponentUpdate_1 = __webpack_require__(/*! ./shouldPureComponentUpdate */ 444);
 	var PureRenderComponent = (function (_super) {
 	    __extends(PureRenderComponent, _super);
@@ -41350,7 +41368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var SearchkitComponent_1 = __webpack_require__(/*! ./SearchkitComponent */ 448);
 	var LoadingComponent = (function (_super) {
 	    __extends(LoadingComponent, _super);
@@ -41381,7 +41399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var SearchkitManager_1 = __webpack_require__(/*! ../SearchkitManager */ 449);
 	var support_1 = __webpack_require__(/*! ../support */ 155);
 	var block = __webpack_require__(/*! bem-cn */ 440);
@@ -46309,7 +46327,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -47421,7 +47439,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var omitBy = __webpack_require__(/*! lodash/omitBy */ 360);
 	var isUndefined = __webpack_require__(/*! lodash/isUndefined */ 277);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -47463,7 +47481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var SearchkitManager_1 = __webpack_require__(/*! ../SearchkitManager */ 449);
 	var SearchkitProvider = (function (_super) {
 	    __extends(SearchkitProvider, _super);
@@ -47550,7 +47568,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var _1 = __webpack_require__(/*! ../../../ */ 149);
 	var bemBlock = __webpack_require__(/*! bem-cn */ 440);
 	var size = __webpack_require__(/*! lodash/size */ 312);
@@ -47769,7 +47787,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var bemBlock = __webpack_require__(/*! bem-cn */ 440);
 	var core_1 = __webpack_require__(/*! ../../../core */ 152);
 	var Panel = (function (_super) {
@@ -47842,7 +47860,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var compact = __webpack_require__(/*! lodash/compact */ 292);
 	var mixClasses = function () {
 	    var classes = [];
@@ -47906,7 +47924,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var _1 = __webpack_require__(/*! ../../../ */ 149);
 	function itemRenderer(props) {
 	    var bemBlocks = props.bemBlocks, onClick = props.onClick, active = props.active, disabled = props.disabled, style = props.style, itemKey = props.itemKey, label = props.label, count = props.count, showCount = props.showCount, showCheckbox = props.showCheckbox;
@@ -47979,7 +47997,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var ItemListComponents_1 = __webpack_require__(/*! ./ItemListComponents */ 528);
 	var _1 = __webpack_require__(/*! ../../../ */ 149);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -48050,7 +48068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var ItemComponents_1 = __webpack_require__(/*! ./ItemComponents */ 526);
 	var pure_render_1 = __webpack_require__(/*! ../../../core/react/pure-render */ 442);
 	var block = __webpack_require__(/*! bem-cn */ 440);
@@ -48189,7 +48207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../core */ 152);
 	var block = __webpack_require__(/*! bem-cn */ 440);
 	var map = __webpack_require__(/*! lodash/map */ 270);
@@ -48264,7 +48282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var _1 = __webpack_require__(/*! ../../../ */ 149);
 	var ItemComponents_1 = __webpack_require__(/*! ./ItemComponents */ 526);
 	var block = __webpack_require__(/*! bem-cn */ 440);
@@ -48677,7 +48695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var _1 = __webpack_require__(/*! ../../../ */ 149);
 	var block = __webpack_require__(/*! bem-cn */ 440);
 	var maxBy = __webpack_require__(/*! lodash/maxBy */ 430);
@@ -48734,7 +48752,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var block = __webpack_require__(/*! bem-cn */ 440);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var get = __webpack_require__(/*! lodash/get */ 253);
@@ -48886,7 +48904,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var identity = __webpack_require__(/*! lodash/identity */ 266);
 	var Rcslider = __webpack_require__(/*! rc-slider */ 543);
 	var block = __webpack_require__(/*! bem-cn */ 440);
@@ -48969,7 +48987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -50103,7 +50121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -50153,7 +50171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -50277,7 +50295,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -50522,7 +50540,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -51015,7 +51033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -51268,7 +51286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -52533,7 +52551,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -52874,7 +52892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.isSameChildren = isSameChildren;
 	exports.mergeChildren = mergeChildren;
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -52995,7 +53013,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -53641,7 +53659,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -53701,7 +53719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -53899,7 +53917,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -54047,7 +54065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -54122,7 +54140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var PropTypes = React.PropTypes;
 	exports.RangePropTypes = {
 	    onChange: PropTypes.func.isRequired,
@@ -54161,7 +54179,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var _1 = __webpack_require__(/*! ./ */ 538);
 	var core_1 = __webpack_require__(/*! ../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -54209,7 +54227,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var SearchBox_1 = __webpack_require__(/*! ../../search-box/SearchBox */ 590);
 	var ui_1 = __webpack_require__(/*! ../../../ui */ 517);
@@ -54367,7 +54385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var throttle = __webpack_require__(/*! lodash/throttle */ 591);
@@ -54812,7 +54830,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var ResetFiltersDisplay = (function (_super) {
@@ -54904,7 +54922,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../ui */ 517);
 	var bemBlock = __webpack_require__(/*! bem-cn */ 440);
@@ -55046,7 +55064,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var size = __webpack_require__(/*! lodash/size */ 312);
@@ -55131,7 +55149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var map = __webpack_require__(/*! lodash/map */ 270);
@@ -55213,7 +55231,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../../ui */ 517);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -55317,7 +55335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var map = __webpack_require__(/*! lodash/map */ 270);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -55433,7 +55451,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var NoHitsErrorDisplay_1 = __webpack_require__(/*! ./NoHitsErrorDisplay */ 603);
 	var NoHitsDisplay_1 = __webpack_require__(/*! ./NoHitsDisplay */ 604);
@@ -55538,7 +55556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var NoHitsErrorDisplay = (function (_super) {
 	    __extends(NoHitsErrorDisplay, _super);
@@ -55567,7 +55585,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var NoHitsDisplay = (function (_super) {
 	    __extends(NoHitsDisplay, _super);
@@ -55619,7 +55637,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var InitialViewDisplay = (function (_super) {
@@ -55680,7 +55698,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var get = __webpack_require__(/*! lodash/get */ 253);
@@ -55745,7 +55763,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../ui */ 517);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -56119,7 +56137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../ui */ 517);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -56187,7 +56205,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../core */ 152);
 	var map = __webpack_require__(/*! lodash/map */ 270);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -56256,7 +56274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var map = __webpack_require__(/*! lodash/map */ 270);
@@ -56338,7 +56356,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var Rcslider = __webpack_require__(/*! rc-slider */ 543);
 	var core_1 = __webpack_require__(/*! ../../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../../ui */ 517);
@@ -56523,7 +56541,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var FacetFilterProps_1 = __webpack_require__(/*! ./FacetFilterProps */ 618);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../ui */ 517);
@@ -56632,7 +56650,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	exports.FacetFilterPropTypes = defaults({
@@ -56768,7 +56786,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var TagFilter = (function (_super) {
 	    __extends(TagFilter, _super);
@@ -56865,7 +56883,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var TagFilter_1 = __webpack_require__(/*! ./TagFilter */ 622);
 	var map = __webpack_require__(/*! lodash/map */ 270);
 	var TagFilterList = (function (_super) {
@@ -56895,7 +56913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var core_1 = __webpack_require__(/*! ../../../../core */ 152);
 	var ui_1 = __webpack_require__(/*! ../../../ui */ 517);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
@@ -57027,7 +57045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var React = __webpack_require__(/*! react */ 28);
+	var React = __webpack_require__(/*! react */ 27);
 	var omit = __webpack_require__(/*! lodash/omit */ 371);
 	var defaults = __webpack_require__(/*! lodash/defaults */ 503);
 	var core_1 = __webpack_require__(/*! ../../../core */ 152);
@@ -57139,7 +57157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -57255,7 +57273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -57290,6 +57308,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	//TODO the annotation list does not show only items that are relevant for the current annotation target:
 	//it simply shows all annotations
 	
+	//http://andrewhfarmer.com/react-ajax-best-practices/
+	
 	var AnnotationBox = function (_React$Component) {
 		_inherits(AnnotationBox, _React$Component);
 	
@@ -57308,20 +57328,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	
 		_createClass(AnnotationBox, [{
-			key: 'loadAnnotationsFromServer',
-			value: function loadAnnotationsFromServer() {
-				$.ajax({
-					url: _config.ANNOTATION_API_BASE + '/annotation',
-					type: 'GET',
-					success: function (data) {
-						this.setState(data);
-					}.bind(this),
-					error: function (xhr, status, err) {
-						console.error(this.props.url, status, err.toString());
-					}.bind(this)
-				});
-			}
-		}, {
 			key: 'setAnnotation',
 			value: function setAnnotation(annotation) {
 				this.setState({
@@ -57364,7 +57370,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.loadAnnotationsFromServer();
+				_AnnotationAPI2.default.getAnnotations(function (data) {
+					console.debug(data);
+					this.onLoadAnnotations(data);
+				}.bind(this));
+			}
+		}, {
+			key: 'onLoadAnnotations',
+			value: function onLoadAnnotations(data) {
+				this.setState(data);
 			}
 	
 			//TODO maybe add a part where you can view the active annotation here as well
@@ -57624,7 +57638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -58124,7 +58138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -59168,7 +59182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -59682,7 +59696,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = undefined;
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 650);
 	
@@ -59768,7 +59782,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	exports["default"] = _react.PropTypes.shape({
 	  subscribe: _react.PropTypes.func.isRequired,
@@ -59822,7 +59836,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = connect;
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 650);
 	
@@ -60342,7 +60356,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -60949,7 +60963,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -61342,7 +61356,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -61420,7 +61434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -61518,988 +61532,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 664 */
 /*!***********************************!*\
-  !*** ./app/player/VimeoPlayer.js ***!
-  \***********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 28);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//this is the first player that is supported in LABO (ArtTube requires Vimeo)
-	//https://github.com/vimeo/player.js
-	
-	var VimeoPlayer = function (_React$Component) {
-		_inherits(VimeoPlayer, _React$Component);
-	
-		function VimeoPlayer(props) {
-			_classCallCheck(this, VimeoPlayer);
-	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(VimeoPlayer).call(this, props));
-	
-			_this.state = {
-				froogaloop: null
-			};
-			return _this;
-		}
-	
-		_createClass(VimeoPlayer, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				console.debug('Mounted the iframe HTML, rendering the player');
-				var vimeoPlayers = document.querySelectorAll('iframe');
-				var vimeoPlayer = null;
-				for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
-					vimeoPlayer = vimeoPlayers[i];
-	
-					$f(vimeoPlayer).addEvent('ready', this.playerReady.bind(this));
-				}
-			}
-		}, {
-			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {
-				console.debug('unmounting player');
-				this.state.froogaloop.api('unload');
-			}
-		}, {
-			key: 'playerReady',
-			value: function playerReady(playerId) {
-				//console.debug('Rendered the player, setting up the player API');
-				this.setState({
-					froogaloop: $f(playerId)
-				}, this.setupEventCallbacks.bind(this));
-			}
-		}, {
-			key: 'setupEventCallbacks',
-			value: function setupEventCallbacks() {
-				var eventCallbacks = {
-					loadProgress: this.props.eventCallbacks.loadProgress.bind(this),
-					playProgress: this.props.eventCallbacks.playProgress.bind(this),
-					play: this.props.eventCallbacks.onPlay.bind(this),
-					pause: this.props.eventCallbacks.onPause.bind(this),
-					finish: this.props.eventCallbacks.onFinish.bind(this),
-					seek: this.props.eventCallbacks.onSeek.bind(this)
-				};
-				for (var key in eventCallbacks) {
-					this.state.froogaloop.addEvent(key, eventCallbacks[key]);
-				}
-				//send back the api to the owning component
-				this.props.onPlayerReady(new VimeoAPI(this.state.froogaloop));
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ id: 'video_player' },
-					_react2.default.createElement('iframe', {
-						id: 'player_1',
-						src: this.props.mediaObject.url,
-						width: '540',
-						height: '304',
-						frameBorder: '0' })
-				);
-			}
-		}]);
-	
-		return VimeoPlayer;
-	}(_react2.default.Component);
-	
-	//this should implement a generic playerAPI
-	
-	
-	var VimeoAPI = function () {
-		function VimeoAPI(froogaloop) {
-			_classCallCheck(this, VimeoAPI);
-	
-			this.froogaloop = froogaloop;
-			this.activeSegment = null;
-			this.observers = [];
-		}
-	
-		/* ------------ These functions should be in a super class ------------- */
-	
-		_createClass(VimeoAPI, [{
-			key: 'addObserver',
-			value: function addObserver(obj) {
-				this.observers.push(obj);
-			}
-		}, {
-			key: 'removeObserver',
-			value: function removeObserver(obj) {
-				this.observers.splice(this.observers.indexOf(obj), 1);
-			}
-		}, {
-			key: 'notifyObservers',
-			value: function notifyObservers() {
-				for (var i = 0; i < this.observers.length; i++) {
-					this.observers[i].update();
-				}
-			}
-		}, {
-			key: 'getActiveSegment',
-			value: function getActiveSegment() {
-				return this.activeSegment;
-			}
-	
-			//TODO this should also include the video url, so it can switch video!!!
-	
-		}, {
-			key: 'setActiveSegment',
-			value: function setActiveSegment(activeSegment, play, notify) {
-				this.activeSegment = activeSegment;
-				if (play) {
-					this.seek(activeSegment.start);
-				}
-				if (notify) {
-					this.notifyObservers();
-				}
-			}
-	
-			/* ------------ Implemented API calls ------------- */
-	
-		}, {
-			key: 'play',
-			value: function play() {
-				this.froogaloop.api('play');
-			}
-		}, {
-			key: 'pause',
-			value: function pause() {
-				this.froogaloop.api('pause');
-			}
-		}, {
-			key: 'seek',
-			value: function seek(secs) {
-				this.froogaloop.api('seekTo', secs);
-			}
-		}, {
-			key: 'getPosition',
-			value: function getPosition(callback) {
-				this.froogaloop.api('getCurrentTime', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getDuration',
-			value: function getDuration(callback) {
-				this.froogaloop.api('getDuration', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'isPaused',
-			value: function isPaused(callback) {
-				this.froogaloop.api('paused', function (value, player_id) {
-					callback(value);
-				});
-			}
-	
-			/* ----------------------- non-essential player specific calls ----------------------- */
-	
-		}, {
-			key: 'unload',
-			value: function unload() {
-				this.froogaloop.api('unload');
-			}
-		}, {
-			key: 'getColor',
-			value: function getColor(callback) {
-				this.froogaloop.api('getColor', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVolume',
-			value: function getVolume(callback) {
-				this.froogaloop.api('getVolume', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoUrl',
-			value: function getVideoUrl(callback) {
-				this.froogaloop.api('getVideoUrl', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoEmbedCode',
-			value: function getVideoEmbedCode(callback) {
-				this.froogaloop.api('getVideoEmbedCode', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoWidth',
-			value: function getVideoWidth(callback) {
-				this.froogaloop.api('getVideoWidth', function (value, player_id) {
-					callback(value);
-				});
-			}
-		}, {
-			key: 'getVideoHeight',
-			value: function getVideoHeight(callback) {
-				this.froogaloop.api('getVideoHeight', function (value, player_id) {
-					callback(value);
-				});
-			}
-	
-			//additional optional set functions
-	
-		}, {
-			key: 'setVolume',
-			value: function setVolume(volume) {
-				this.froogaloop.api('setVolume', volume);
-			}
-		}, {
-			key: 'setLoop',
-			value: function setLoop(loop) {
-				this.froogaloop.api('setLoop', loop ? 1 : 0);
-			}
-		}, {
-			key: 'setColor',
-			value: function setColor(color) {
-				//'ff0000'
-				this.froogaloop.api('setColor', color);
-			}
-		}]);
-	
-		return VimeoAPI;
-	}();
-	
-	exports.default = VimeoPlayer;
-
-/***/ },
-/* 665 */
-/*!************************************************************!*\
-  !*** ./app/components/annotation/SegmentationControls.jsx ***!
-  \************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 28);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _moment = __webpack_require__(/*! moment */ 38);
-	
-	var _moment2 = _interopRequireDefault(_moment);
-	
-	var _TimeUtil = __webpack_require__(/*! ../../util/TimeUtil */ 37);
-	
-	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var SegmentationControls = function (_React$Component) {
-		_inherits(SegmentationControls, _React$Component);
-	
-		function SegmentationControls(props) {
-			_classCallCheck(this, SegmentationControls);
-	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(SegmentationControls).call(this, props));
-		}
-	
-		_createClass(SegmentationControls, [{
-			key: 'setManualStart',
-			value: function setManualStart() {
-				this.props.controls.setManualStart(_moment2.default.duration(this.refs.startTime.value).asSeconds());
-			}
-		}, {
-			key: 'setManualEnd',
-			value: function setManualEnd() {
-				this.props.controls.setManualEnd(_moment2.default.duration(this.refs.endTime.value).asSeconds());
-			}
-		}, {
-			key: 'componentDidUpdate',
-			value: function componentDidUpdate() {
-				this.refs.startTime.value = _TimeUtil2.default.formatTime(this.props.start);
-				this.refs.endTime.value = _TimeUtil2.default.formatTime(this.props.end);
-			}
-		}, {
-			key: 'setStart',
-			value: function setStart() {
-				this.props.controls.setStart();
-			}
-		}, {
-			key: 'setEnd',
-			value: function setEnd() {
-				this.props.controls.setEnd();
-			}
-		}, {
-			key: 'playStart',
-			value: function playStart() {
-				this.props.controls.playStart();
-			}
-		}, {
-			key: 'playEnd',
-			value: function playEnd() {
-				this.props.controls.playEnd();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'row' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-sm-6' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'input-group' },
-							_react2.default.createElement(
-								'span',
-								{ className: 'input-group-addon start-group' },
-								'Start'
-							),
-							_react2.default.createElement('input', { ref: 'startTime', type: 'text', className: 'form-control', placeholder: '00:00:00',
-								defaultValue: _TimeUtil2.default.formatTime(this.props.start) }),
-							_react2.default.createElement(
-								'span',
-								{ className: 'input-group-btn' },
-								_react2.default.createElement(
-									'button',
-									{ className: 'btn btn-default', type: 'button', onClick: this.setManualStart.bind(this),
-										title: 'When you press this the start time will be set to the time you entered in the input field' },
-									'Set'
-								),
-								_react2.default.createElement(
-									'button',
-									{ className: 'btn btn-default', type: 'button', onClick: this.setStart.bind(this),
-										title: 'When you press this the start time will be same as the current player time (press i)' },
-									'Copy'
-								),
-								_react2.default.createElement(
-									'button',
-									{ className: 'btn btn-default', type: 'button', onClick: this.playStart.bind(this),
-										title: 'When you press this, the player will skip to the defined starting point (SHIFT+i)' },
-									'Go!'
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-sm-6' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'input-group' },
-							_react2.default.createElement(
-								'span',
-								{ className: 'input-group-addon end-group' },
-								' End '
-							),
-							_react2.default.createElement('input', { ref: 'endTime', type: 'text', className: 'form-control', placeholder: '00:00:00',
-								defaultValue: _TimeUtil2.default.formatTime(this.props.end) }),
-							_react2.default.createElement(
-								'span',
-								{ className: 'input-group-btn' },
-								_react2.default.createElement(
-									'button',
-									{ className: 'btn btn-default', type: 'button', onClick: this.setManualEnd.bind(this),
-										title: 'When you press this the end time will be set to the time you entered in the input field' },
-									'Set'
-								),
-								_react2.default.createElement(
-									'button',
-									{ className: 'btn btn-default', type: 'button', onClick: this.setEnd.bind(this),
-										title: 'When you press this the end time will be same as the current player time (press o)' },
-									'Copy'
-								),
-								_react2.default.createElement(
-									'button',
-									{ className: 'btn btn-default', type: 'button', onClick: this.playEnd.bind(this),
-										title: 'When you press this, the player will skip to the defined end point (SHIFT+o)' },
-									'Go!'
-								)
-							)
-						)
-					)
-				);
-			}
-		}]);
-	
-		return SegmentationControls;
-	}(_react2.default.Component);
-	
-	;
-	
-	exports.default = SegmentationControls;
-
-/***/ },
-/* 666 */
-/*!************************!*\
-  !*** ./app/Recipe.jsx ***!
-  \************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 28);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _FacetSearchComponent = __webpack_require__(/*! ./components/FacetSearchComponent.jsx */ 32);
-	
-	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
-	
-	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch.jsx */ 667);
-	
-	var _ComparativeSearch2 = _interopRequireDefault(_ComparativeSearch);
-	
-	var _LineChart = __webpack_require__(/*! ./components/LineChart.jsx */ 30);
-	
-	var _LineChart2 = _interopRequireDefault(_LineChart);
-	
-	var _FlexBox = __webpack_require__(/*! ./components/FlexBox.jsx */ 31);
-	
-	var _FlexBox2 = _interopRequireDefault(_FlexBox);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//TODO pass the user as (React) context
-	//TODO pass the annotationSupport as (React) context
-	
-	var Recipe = function (_React$Component) {
-		_inherits(Recipe, _React$Component);
-	
-		function Recipe(props) {
-			_classCallCheck(this, Recipe);
-	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Recipe).call(this, props));
-	
-			_this.state = {
-				user: 'JaapTest',
-				lineChartData: null
-			};
-			return _this;
-		}
-	
-		//this function receives all output of components that generate output and orchestrates where
-		//to pass it to based on the ingredients of the recipe
-	
-	
-		_createClass(Recipe, [{
-			key: 'onComponentOutput',
-			value: function onComponentOutput(componentType, data) {
-				if (componentType == 'facet-search') {
-					var lineChartData = this.state.lineChartData ? this.state.lineChartData : {};
-					var timelineData = this.prepareTimeline(data.collectionId, data.results, data.dateField);
-					lineChartData[data.collectionId] = {
-						output: data.output,
-						dateField: data.dateField,
-						timeline: timelineData
-					};
-					this.setState({ lineChartData: lineChartData });
-				}
-			}
-	
-			//TODO move this stuff to some utility that can transform query data in other formats suitable for other components
-	
-		}, {
-			key: 'prepareTimeline',
-			value: function prepareTimeline(queryId, queryOutput, dateField) {
-				var timelineData = [];
-				for (var key in queryOutput.aggregations) {
-					if (key.indexOf(dateField) != -1) {
-						var buckets = queryOutput.aggregations[key][dateField].buckets;
-						buckets.forEach(function (bucket) {
-							var year = parseInt(bucket.key);
-							if (!isNaN(year)) {
-								timelineData.push({ "year": year, "count": bucket.doc_count, "query": queryId });
-							}
-						});
-					}
-				}
-				return timelineData;
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var comparativeSearch = null;
-				var facetSearch = null;
-				var lineChart = null; //WARNING: in theory there can be more linecharts defined!
-	
-				//first generate the input components to see if they require output components, such as the lineChart
-				if (this.props.ingredients.comparativeSearch) {
-					comparativeSearch = _react2.default.createElement(_ComparativeSearch2.default, { user: this.state.user,
-						collections: this.props.ingredients.comparativeSearch.collections,
-						onOutput: this.onComponentOutput.bind(this),
-						collectionSelector: this.props.ingredients.comparativeSearch.collectionSelector,
-						annotationSupport: this.props.ingredients.annotationSupport,
-						annotationModes: this.props.ingredients.annotationModes });
-	
-					//TODO only render when there is linechart data
-					if (this.props.ingredients.comparativeSearch.output == 'lineChart') {
-						lineChart = _react2.default.createElement(
-							_FlexBox2.default,
-							null,
-							_react2.default.createElement(_LineChart2.default, { data: this.state.lineChartData })
-						);
-					}
-				}
-				if (this.props.ingredients.facetSearch) {
-					facetSearch = _react2.default.createElement(_FacetSearchComponent2.default, {
-						collection: this.props.ingredients.facetSearch.collection,
-						searchAPI: _config.SEARCH_API_BASE });
-				}
-	
-				return _react2.default.createElement(
-					'div',
-					null,
-					facetSearch,
-					lineChart,
-					comparativeSearch
-				);
-			}
-		}]);
-	
-		return Recipe;
-	}(_react2.default.Component);
-	
-	exports.default = Recipe;
-
-/***/ },
-/* 667 */
-/*!**********************************************!*\
-  !*** ./app/components/ComparativeSearch.jsx ***!
-  \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _CollectionSelector = __webpack_require__(/*! ./CollectionSelector */ 26);
-	
-	var _CollectionSelector2 = _interopRequireDefault(_CollectionSelector);
-	
-	var _FacetSearchComponent = __webpack_require__(/*! ./FacetSearchComponent */ 32);
-	
-	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
-	
-	var _AnnotationBox = __webpack_require__(/*! ./annotation/AnnotationBox */ 631);
-	
-	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
-	
-	var _FlexBox = __webpack_require__(/*! ./FlexBox */ 31);
-	
-	var _FlexBox2 = _interopRequireDefault(_FlexBox);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ComparativeSearch = function (_React$Component) {
-		_inherits(ComparativeSearch, _React$Component);
-	
-		function ComparativeSearch(props) {
-			_classCallCheck(this, ComparativeSearch);
-	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ComparativeSearch).call(this, props));
-	
-			_this.state = {
-				user: _this.props.user,
-				collections: _this.props.collections,
-				activeCollection: _this.props.collections.length > 0 ? _this.props.collections[0] : null,
-				currentOutput: null, //could also be a default state value for components which implement onOutput
-				showAnnotationModal: false, //only if there is annotationSupport and only for classify, comment & link
-				annotationTarget: null //only if there is annotationSupport and only for classify, comment & link
-			};
-			return _this;
-		}
-	
-		/* ------------------------ COLLECTION CRUD --------------------- */
-	
-		_createClass(ComparativeSearch, [{
-			key: 'removeCollection',
-			value: function removeCollection(collectionId) {
-				var cs = this.state.collections;
-				var index = cs.indexOf(collectionId);
-				if (index != -1) {
-					cs.splice(index, 1);
-					this.setState({
-						collections: cs,
-						activeCollection: cs.length > 0 ? cs[0] : null
-					});
-				}
-			}
-	
-			//TODO this function should never load a collection that has been already loaded
-	
-		}, {
-			key: 'onEditCollections',
-			value: function onEditCollections(collectionId) {
-				var cs = this.state.collections;
-				if (cs.indexOf(collectionId) == -1) {
-					cs.push(collectionId);
-					this.setState({
-						collections: cs,
-						activeCollection: collectionId
-					});
-				}
-			}
-	
-			/* ---------------------- (FUTURE) DEFAULT COMPONENT FUNCTIONS ------------------- */
-	
-			//this function should be standard for any component that outputs data to the recipe
-	
-		}, {
-			key: 'onOutput',
-			value: function onOutput(componentType, data) {
-				this.props.onOutput(componentType, data);
-				this.setState({ currentOutput: data });
-			}
-	
-			/* ----------------------- FOR ANNOTATION SUPPORT (candidates for utility or super class)----- */
-	
-			//this function should check if the annotation support is relevant for itself
-	
-		}, {
-			key: 'hasAnnotationSupport',
-			value: function hasAnnotationSupport() {
-				if (this.props.annotationSupport != null) {
-					if (this.props.annotationSupport.currentQuery || this.props.annotationSupport.singleItem) {
-						return true;
-					}
-				}
-				return false;
-			}
-	
-			//TODO implement for real
-	
-		}, {
-			key: 'addAnnotation',
-			value: function addAnnotation(type) {
-				var annotationTarget = 'test ' + type;
-				this.setState({
-					showAnnotationModal: true,
-					annotationTarget: annotationTarget
-				});
-			}
-		}, {
-			key: 'bookmark',
-			value: function bookmark(type) {
-				console.debug('bookmarking:  ' + type);
-				console.debug(this.props.annotationSupport[type]);
-				if (this.props.annotationSupport[type].modes.indexOf('bookmark') != -1) {
-					if (type == 'currentQuery' && this.state.currentOutput != null) {
-						console.debug('bookmarked this query:');
-						console.debug(this.state.currentOutput.results.query);
-					}
-				}
-			}
-		}, {
-			key: 'handleShowModal',
-			value: function handleShowModal() {
-				this.setState({ showAnnotationModal: true });
-			}
-		}, {
-			key: 'handleHideModal',
-			value: function handleHideModal() {
-				this.setState({ showAnnotationModal: false });
-			}
-	
-			/* ---------------------- RENDER ------------------- */
-	
-		}, {
-			key: 'render',
-			value: function render() {
-				var collectionSelector = null;
-				var annotationBox = null; // in case there is annotation support configured
-	
-				//for drawing the tabs
-				var searchTabs = this.state.collections.map(function (c) {
-					return React.createElement(
-						'li',
-						{ key: c + '__tab_option',
-							className: this.state.activeCollection == c ? 'active' : '' },
-						React.createElement(
-							'a',
-							{ 'data-toggle': 'tab', href: '#' + c },
-							c,
-							React.createElement('i', { className: 'glyphicon glyphicon-minus', onClick: this.removeCollection.bind(this, c) })
-						)
-					);
-				}, this);
-	
-				//these are the facet search UI blocks put into different tabs
-				var searchTabContents = this.state.collections.map(function (c) {
-					return React.createElement(
-						'div',
-						{ key: c + '__tab_content',
-							id: c,
-							className: this.state.activeCollection == c ? 'tab-pane active' : 'tab-pane' },
-						React.createElement(
-							'h3',
-							null,
-							c
-						),
-						React.createElement(_FacetSearchComponent2.default, { key: c + '__sk',
-							collection: c,
-							searchAPI: _config.SEARCH_API_BASE,
-							onOutput: this.onOutput.bind(this) })
-					);
-				}, this);
-	
-				//only show if configured
-				if (this.props.collectionSelector === true) {
-					collectionSelector = React.createElement(
-						_FlexBox2.default,
-						null,
-						React.createElement(_CollectionSelector2.default, { onEditCollections: this.onEditCollections.bind(this) })
-					);
-				}
-	
-				//only show if configured
-				if (this.hasAnnotationSupport()) {
-					annotationBox = React.createElement(
-						_FlexBox2.default,
-						null,
-						React.createElement(_AnnotationBox2.default, { user: this.state.user,
-							showList: true,
-							annotationModes: this.props.annotationModes,
-							showModal: this.state.showAnnotationModal,
-							annotationTarget: this.state.annotationTarget,
-							handleHideModal: this.handleHideModal.bind(this),
-							handleShowModal: this.handleShowModal.bind(this) })
-					);
-				}
-	
-				return React.createElement(
-					'div',
-					null,
-					collectionSelector,
-					React.createElement(
-						'div',
-						{ className: 'row' },
-						React.createElement(
-							'div',
-							{ className: 'col-md-8' },
-							React.createElement(
-								_FlexBox2.default,
-								null,
-								React.createElement(
-									'button',
-									{ type: 'button', className: 'btn btn-default',
-										onClick: this.bookmark.bind(this, 'currentQuery') },
-									'Bookmark current query'
-								),
-								' ',
-								React.createElement(
-									'button',
-									{ type: 'button', className: 'btn btn-default',
-										onClick: this.addAnnotation.bind(this, 'singleItem') },
-									'Annotate test'
-								),
-								React.createElement('br', null),
-								React.createElement('br', null),
-								React.createElement(
-									'ul',
-									{ className: 'nav nav-tabs' },
-									searchTabs
-								),
-								React.createElement(
-									'div',
-									{ className: 'tab-content' },
-									searchTabContents
-								)
-							)
-						),
-						React.createElement(
-							'div',
-							{ className: 'col-md-4' },
-							annotationBox
-						)
-					)
-				);
-			}
-		}]);
-	
-		return ComparativeSearch;
-	}(React.Component);
-	
-	exports.default = ComparativeSearch;
-
-/***/ },
-/* 668 */
-/*!**********************************!*\
-  !*** ./app/AnnotationRecipe.jsx ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 28);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _TimeUtil = __webpack_require__(/*! ./util/TimeUtil */ 37);
-	
-	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
-	
-	var _FlexBox = __webpack_require__(/*! ./components/FlexBox */ 31);
-	
-	var _FlexBox2 = _interopRequireDefault(_FlexBox);
-	
-	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 669);
-	
-	var _FlexPlayer2 = _interopRequireDefault(_FlexPlayer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//TODO this can later be integrated into Recipe.jsx. It's no longer necessary to have different types of recipes
-	var AnnotationRecipe = function (_React$Component) {
-		_inherits(AnnotationRecipe, _React$Component);
-	
-		function AnnotationRecipe(props) {
-			_classCallCheck(this, AnnotationRecipe);
-	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationRecipe).call(this, props));
-	
-			_this.state = {
-				user: 'JaapTest',
-				playerAPI: null,
-				start: null,
-				end: null,
-				currentMediaObject: { //later make sure that this can be changed with some selection component
-					url: 'http://player.vimeo.com/video/110756897?api=1&amp;player_id=player_1'
-				}
-			};
-			return _this;
-		}
-	
-		_createClass(AnnotationRecipe, [{
-			key: 'onPlayerReady',
-			value: function onPlayerReady(playerAPI) {
-				this.setState({ playerAPI: playerAPI });
-			}
-	
-			//test to see if it works when setting a new video
-	
-		}, {
-			key: 'dummyChangeVideo',
-			value: function dummyChangeVideo() {
-				var mo = { url: 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4' };
-				if (this.state.currentMediaObject.url.indexOf('player.vimeo.com') == -1) {
-					mo = { url: 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1' };
-				}
-				this.setState({
-					currentMediaObject: mo
-				});
-			}
-	
-			/************************************** Timeline controls ***************************************/
-	
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'div',
-						{ className: 'row' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'col-md-12' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'input-group' },
-								_react2.default.createElement(
-									'span',
-									{ className: 'input-group-btn' },
-									_react2.default.createElement(
-										'button',
-										{ type: 'button', className: 'btn btn-info',
-											onClick: this.dummyChangeVideo.bind(this) },
-										'Andere video'
-									)
-								)
-							),
-							_react2.default.createElement(_FlexPlayer2.default, { user: this.state.user,
-								player: this.props.ingredients.playerType,
-								onPlayerReady: this.onPlayerReady.bind(this),
-								annotationSupport: this.props.ingredients.annotationSupport,
-								annotationModes: this.props.ingredients.annotationModes,
-								mediaObject: this.state.currentMediaObject })
-						)
-					)
-				);
-			}
-		}]);
-	
-		return AnnotationRecipe;
-	}(_react2.default.Component);
-	
-	exports.default = AnnotationRecipe;
-
-/***/ },
-/* 669 */
-/*!***********************************!*\
   !*** ./app/player/FlexPlayer.jsx ***!
   \***********************************/
 /***/ function(module, exports, __webpack_require__) {
@@ -62512,23 +61544,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 664);
+	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 665);
 	
 	var _VimeoPlayer2 = _interopRequireDefault(_VimeoPlayer);
 	
-	var _JWPlayer = __webpack_require__(/*! ./JWPlayer */ 672);
+	var _JWPlayer = __webpack_require__(/*! ./JWPlayer */ 666);
 	
 	var _JWPlayer2 = _interopRequireDefault(_JWPlayer);
 	
-	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 670);
+	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 667);
 	
 	var _VideoTimeBar2 = _interopRequireDefault(_VideoTimeBar);
 	
-	var _SegmentationControls = __webpack_require__(/*! ../components/annotation/SegmentationControls */ 665);
+	var _SegmentationControls = __webpack_require__(/*! ../components/annotation/SegmentationControls */ 668);
 	
 	var _SegmentationControls2 = _interopRequireDefault(_SegmentationControls);
 	
@@ -62540,7 +61572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
-	var _mousetrap = __webpack_require__(/*! mousetrap */ 671);
+	var _mousetrap = __webpack_require__(/*! mousetrap */ 669);
 	
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 	
@@ -63029,7 +62061,451 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = FlexPlayer;
 
 /***/ },
-/* 670 */
+/* 665 */
+/*!************************************!*\
+  !*** ./app/player/VimeoPlayer.jsx ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//this is the first player that is supported in LABO (ArtTube requires Vimeo)
+	//https://github.com/vimeo/player.js
+	
+	var VimeoPlayer = function (_React$Component) {
+		_inherits(VimeoPlayer, _React$Component);
+	
+		function VimeoPlayer(props) {
+			_classCallCheck(this, VimeoPlayer);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(VimeoPlayer).call(this, props));
+	
+			_this.state = {
+				froogaloop: null
+			};
+			return _this;
+		}
+	
+		_createClass(VimeoPlayer, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var vimeoPlayers = document.querySelectorAll('iframe');
+				var vimeoPlayer = null;
+				for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
+					vimeoPlayer = vimeoPlayers[i];
+	
+					$f(vimeoPlayer).addEvent('ready', this.playerReady.bind(this));
+				}
+			}
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				console.debug('UPDATING VIMEO');
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				this.state.froogaloop.api('unload');
+				this.setState({ froogaloop: null });
+			}
+		}, {
+			key: 'playerReady',
+			value: function playerReady(playerId) {
+				//console.debug('Rendered the player, setting up the player API');
+				this.setState({
+					froogaloop: $f(playerId)
+				}, this.setupEventCallbacks.bind(this));
+			}
+		}, {
+			key: 'setupEventCallbacks',
+			value: function setupEventCallbacks() {
+				var eventCallbacks = {
+					loadProgress: this.props.eventCallbacks.loadProgress.bind(this),
+					playProgress: this.props.eventCallbacks.playProgress.bind(this),
+					play: this.props.eventCallbacks.onPlay.bind(this),
+					pause: this.props.eventCallbacks.onPause.bind(this),
+					finish: this.props.eventCallbacks.onFinish.bind(this),
+					seek: this.props.eventCallbacks.onSeek.bind(this)
+				};
+				for (var key in eventCallbacks) {
+					this.state.froogaloop.addEvent(key, eventCallbacks[key]);
+				}
+				//send back the api to the owning component
+				this.props.onPlayerReady(new VimeoAPI(this.state.froogaloop));
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ id: 'video_player' },
+					_react2.default.createElement('iframe', {
+						id: 'player_1',
+						src: this.props.mediaObject.url,
+						width: '540',
+						height: '304',
+						frameBorder: '0' })
+				);
+			}
+		}]);
+	
+		return VimeoPlayer;
+	}(_react2.default.Component);
+	
+	//this should implement a generic playerAPI
+	
+	
+	var VimeoAPI = function () {
+		function VimeoAPI(froogaloop) {
+			_classCallCheck(this, VimeoAPI);
+	
+			this.froogaloop = froogaloop;
+			this.activeSegment = null;
+			this.observers = [];
+		}
+	
+		/* ------------ These functions should be in a super class ------------- */
+	
+		_createClass(VimeoAPI, [{
+			key: 'addObserver',
+			value: function addObserver(obj) {
+				this.observers.push(obj);
+			}
+		}, {
+			key: 'removeObserver',
+			value: function removeObserver(obj) {
+				this.observers.splice(this.observers.indexOf(obj), 1);
+			}
+		}, {
+			key: 'notifyObservers',
+			value: function notifyObservers() {
+				for (var i = 0; i < this.observers.length; i++) {
+					this.observers[i].update();
+				}
+			}
+		}, {
+			key: 'getActiveSegment',
+			value: function getActiveSegment() {
+				return this.activeSegment;
+			}
+	
+			//TODO this should also include the video url, so it can switch video!!!
+	
+		}, {
+			key: 'setActiveSegment',
+			value: function setActiveSegment(activeSegment, play, notify) {
+				this.activeSegment = activeSegment;
+				if (play) {
+					this.seek(activeSegment.start);
+				}
+				if (notify) {
+					this.notifyObservers();
+				}
+			}
+	
+			/* ------------ Implemented API calls ------------- */
+	
+		}, {
+			key: 'play',
+			value: function play() {
+				this.froogaloop.api('play');
+			}
+		}, {
+			key: 'pause',
+			value: function pause() {
+				this.froogaloop.api('pause');
+			}
+		}, {
+			key: 'seek',
+			value: function seek(secs) {
+				this.froogaloop.api('seekTo', secs);
+			}
+		}, {
+			key: 'getPosition',
+			value: function getPosition(callback) {
+				this.froogaloop.api('getCurrentTime', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getDuration',
+			value: function getDuration(callback) {
+				this.froogaloop.api('getDuration', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'isPaused',
+			value: function isPaused(callback) {
+				this.froogaloop.api('paused', function (value, player_id) {
+					callback(value);
+				});
+			}
+	
+			/* ----------------------- non-essential player specific calls ----------------------- */
+	
+		}, {
+			key: 'unload',
+			value: function unload() {
+				this.froogaloop.api('unload');
+			}
+		}, {
+			key: 'getColor',
+			value: function getColor(callback) {
+				this.froogaloop.api('getColor', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVolume',
+			value: function getVolume(callback) {
+				this.froogaloop.api('getVolume', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoUrl',
+			value: function getVideoUrl(callback) {
+				this.froogaloop.api('getVideoUrl', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoEmbedCode',
+			value: function getVideoEmbedCode(callback) {
+				this.froogaloop.api('getVideoEmbedCode', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoWidth',
+			value: function getVideoWidth(callback) {
+				this.froogaloop.api('getVideoWidth', function (value, player_id) {
+					callback(value);
+				});
+			}
+		}, {
+			key: 'getVideoHeight',
+			value: function getVideoHeight(callback) {
+				this.froogaloop.api('getVideoHeight', function (value, player_id) {
+					callback(value);
+				});
+			}
+	
+			//additional optional set functions
+	
+		}, {
+			key: 'setVolume',
+			value: function setVolume(volume) {
+				this.froogaloop.api('setVolume', volume);
+			}
+		}, {
+			key: 'setLoop',
+			value: function setLoop(loop) {
+				this.froogaloop.api('setLoop', loop ? 1 : 0);
+			}
+		}, {
+			key: 'setColor',
+			value: function setColor(color) {
+				//'ff0000'
+				this.froogaloop.api('setColor', color);
+			}
+		}]);
+	
+		return VimeoAPI;
+	}();
+	
+	exports.default = VimeoPlayer;
+
+/***/ },
+/* 666 */
+/*!*********************************!*\
+  !*** ./app/player/JWPlayer.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//key: cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg==
+	//https://developer.jwplayer.com/jw-player/docs/developer-guide/api/javascript_api_reference
+	
+	var JWPlayer = function (_React$Component) {
+		_inherits(JWPlayer, _React$Component);
+	
+		function JWPlayer(props) {
+			_classCallCheck(this, JWPlayer);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(JWPlayer).call(this, props));
+	
+			_this.state = {
+				jw: null
+			};
+			return _this;
+		}
+	
+		_createClass(JWPlayer, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var jw = jwplayer("video_player").setup({
+					file: this.props.mediaObject.url,
+					width: '100%',
+					controls: true,
+					image: null,
+					autostart: false,
+					key: 'cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg=='
+				}).on('bufferChange', this.props.eventCallbacks.loadProgress.bind(this)).on('time', this.props.eventCallbacks.playProgress.bind(this)).on('play', this.props.eventCallbacks.onPlay.bind(this)).on('pause', this.props.eventCallbacks.onPause.bind(this)).on('complete', this.props.eventCallbacks.onFinish.bind(this)).on('seek', this.props.eventCallbacks.onSeek.bind(this));
+	
+				this.setState({ jw: jw }, this.props.onPlayerReady(new JWPlayerAPI(jw)));
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				console.debug('removing the player');
+				this.state.jw.remove();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement('div', { id: 'video_player' });
+			}
+		}]);
+	
+		return JWPlayer;
+	}(_react2.default.Component);
+	
+	//this should implement a generic playerAPI
+	
+	
+	var JWPlayerAPI = function () {
+		function JWPlayerAPI(api) {
+			_classCallCheck(this, JWPlayerAPI);
+	
+			this.api = api;
+			this.activeSegment = null;
+			this.observers = [];
+		}
+	
+		/* ------------ These functions should be in a super class ------------- */
+	
+		_createClass(JWPlayerAPI, [{
+			key: 'addObserver',
+			value: function addObserver(obj) {
+				this.observers.push(obj);
+			}
+		}, {
+			key: 'removeObserver',
+			value: function removeObserver(obj) {
+				this.observers.splice(this.observers.indexOf(obj), 1);
+			}
+		}, {
+			key: 'notifyObservers',
+			value: function notifyObservers() {
+				for (var i = 0; i < this.observers.length; i++) {
+					this.observers[i].update();
+				}
+			}
+		}, {
+			key: 'getActiveSegment',
+			value: function getActiveSegment() {
+				return this.activeSegment;
+			}
+	
+			//TODO this should also include the video url, so it can switch video!!!
+	
+		}, {
+			key: 'setActiveSegment',
+			value: function setActiveSegment(activeSegment, play, notify) {
+				this.activeSegment = activeSegment;
+				if (play) {
+					this.seek(activeSegment.start);
+				}
+				if (notify) {
+					this.notifyObservers();
+				}
+			}
+	
+			/* ------------ Implemented API calls ------------- */
+	
+		}, {
+			key: 'play',
+			value: function play() {
+				this.api.play();
+			}
+		}, {
+			key: 'pause',
+			value: function pause() {
+				this.api.pause();
+			}
+		}, {
+			key: 'seek',
+			value: function seek(secs) {
+				this.api.seek(secs);
+			}
+		}, {
+			key: 'getPosition',
+			value: function getPosition(callback) {
+				callback(this.api.getPosition());
+			}
+		}, {
+			key: 'getDuration',
+			value: function getDuration(callback) {
+				callback(this.api.getDuration());
+			}
+		}, {
+			key: 'isPaused',
+			value: function isPaused(callback) {
+				callback(this.api.getState() == 'paused');
+			}
+	
+			/* ----------------------- non-essential player specific calls ----------------------- */
+	
+			//TODO
+	
+		}]);
+	
+		return JWPlayerAPI;
+	}();
+	
+	exports.default = JWPlayer;
+
+/***/ },
+/* 667 */
 /*!****************************************************!*\
   !*** ./app/components/annotation/VideoTimeBar.jsx ***!
   \****************************************************/
@@ -63043,7 +62519,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -63174,7 +62650,178 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VideoTimeBar;
 
 /***/ },
-/* 671 */
+/* 668 */
+/*!************************************************************!*\
+  !*** ./app/components/annotation/SegmentationControls.jsx ***!
+  \************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _moment = __webpack_require__(/*! moment */ 38);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _TimeUtil = __webpack_require__(/*! ../../util/TimeUtil */ 37);
+	
+	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SegmentationControls = function (_React$Component) {
+		_inherits(SegmentationControls, _React$Component);
+	
+		function SegmentationControls(props) {
+			_classCallCheck(this, SegmentationControls);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(SegmentationControls).call(this, props));
+		}
+	
+		_createClass(SegmentationControls, [{
+			key: 'setManualStart',
+			value: function setManualStart() {
+				this.props.controls.setManualStart(_moment2.default.duration(this.refs.startTime.value).asSeconds());
+			}
+		}, {
+			key: 'setManualEnd',
+			value: function setManualEnd() {
+				this.props.controls.setManualEnd(_moment2.default.duration(this.refs.endTime.value).asSeconds());
+			}
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				this.refs.startTime.value = _TimeUtil2.default.formatTime(this.props.start);
+				this.refs.endTime.value = _TimeUtil2.default.formatTime(this.props.end);
+			}
+		}, {
+			key: 'setStart',
+			value: function setStart() {
+				this.props.controls.setStart();
+			}
+		}, {
+			key: 'setEnd',
+			value: function setEnd() {
+				this.props.controls.setEnd();
+			}
+		}, {
+			key: 'playStart',
+			value: function playStart() {
+				this.props.controls.playStart();
+			}
+		}, {
+			key: 'playEnd',
+			value: function playEnd() {
+				this.props.controls.playEnd();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'row' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-sm-6' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'input-group' },
+							_react2.default.createElement(
+								'span',
+								{ className: 'input-group-addon start-group' },
+								'Start'
+							),
+							_react2.default.createElement('input', { ref: 'startTime', type: 'text', className: 'form-control', placeholder: '00:00:00',
+								defaultValue: _TimeUtil2.default.formatTime(this.props.start) }),
+							_react2.default.createElement(
+								'span',
+								{ className: 'input-group-btn' },
+								_react2.default.createElement(
+									'button',
+									{ className: 'btn btn-default', type: 'button', onClick: this.setManualStart.bind(this),
+										title: 'When you press this the start time will be set to the time you entered in the input field' },
+									'Set'
+								),
+								_react2.default.createElement(
+									'button',
+									{ className: 'btn btn-default', type: 'button', onClick: this.setStart.bind(this),
+										title: 'When you press this the start time will be same as the current player time (press i)' },
+									'Copy'
+								),
+								_react2.default.createElement(
+									'button',
+									{ className: 'btn btn-default', type: 'button', onClick: this.playStart.bind(this),
+										title: 'When you press this, the player will skip to the defined starting point (SHIFT+i)' },
+									'Go!'
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-sm-6' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'input-group' },
+							_react2.default.createElement(
+								'span',
+								{ className: 'input-group-addon end-group' },
+								' End '
+							),
+							_react2.default.createElement('input', { ref: 'endTime', type: 'text', className: 'form-control', placeholder: '00:00:00',
+								defaultValue: _TimeUtil2.default.formatTime(this.props.end) }),
+							_react2.default.createElement(
+								'span',
+								{ className: 'input-group-btn' },
+								_react2.default.createElement(
+									'button',
+									{ className: 'btn btn-default', type: 'button', onClick: this.setManualEnd.bind(this),
+										title: 'When you press this the end time will be set to the time you entered in the input field' },
+									'Set'
+								),
+								_react2.default.createElement(
+									'button',
+									{ className: 'btn btn-default', type: 'button', onClick: this.setEnd.bind(this),
+										title: 'When you press this the end time will be same as the current player time (press o)' },
+									'Copy'
+								),
+								_react2.default.createElement(
+									'button',
+									{ className: 'btn btn-default', type: 'button', onClick: this.playEnd.bind(this),
+										title: 'When you press this, the player will skip to the defined end point (SHIFT+o)' },
+									'Go!'
+								)
+							)
+						)
+					)
+				);
+			}
+		}]);
+	
+		return SegmentationControls;
+	}(_react2.default.Component);
+	
+	;
+	
+	exports.default = SegmentationControls;
+
+/***/ },
+/* 669 */
 /*!**********************************!*\
   !*** ./~/mousetrap/mousetrap.js ***!
   \**********************************/
@@ -64221,10 +63868,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 672 */
-/*!*********************************!*\
-  !*** ./app/player/JWPlayer.jsx ***!
-  \*********************************/
+/* 670 */
+/*!************************!*\
+  !*** ./app/Recipe.jsx ***!
+  \************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64235,9 +63882,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 28);
+	var _react = __webpack_require__(/*! react */ 27);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _FacetSearchComponent = __webpack_require__(/*! ./components/FacetSearchComponent.jsx */ 32);
+	
+	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
+	
+	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch.jsx */ 671);
+	
+	var _ComparativeSearch2 = _interopRequireDefault(_ComparativeSearch);
+	
+	var _LineChart = __webpack_require__(/*! ./components/LineChart.jsx */ 30);
+	
+	var _LineChart2 = _interopRequireDefault(_LineChart);
+	
+	var _FlexBox = __webpack_require__(/*! ./components/FlexBox.jsx */ 31);
+	
+	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -64247,147 +63910,501 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	//key: cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg==
-	//https://developer.jwplayer.com/jw-player/docs/developer-guide/api/javascript_api_reference
+	//TODO pass the user as (React) context
+	//TODO pass the annotationSupport as (React) context
 	
-	var JWPlayer = function (_React$Component) {
-		_inherits(JWPlayer, _React$Component);
+	var Recipe = function (_React$Component) {
+		_inherits(Recipe, _React$Component);
 	
-		function JWPlayer(props) {
-			_classCallCheck(this, JWPlayer);
+		function Recipe(props) {
+			_classCallCheck(this, Recipe);
 	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(JWPlayer).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Recipe).call(this, props));
 	
 			_this.state = {
-				jw: null
+				user: 'JaapTest',
+				lineChartData: null
 			};
 			return _this;
 		}
 	
-		_createClass(JWPlayer, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var jw = jwplayer("video_player").setup({
-					file: this.props.mediaObject.url,
-					width: '100%',
-					controls: false,
-					image: null,
-					autostart: false,
-					key: 'cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg=='
-				}).on('bufferChange', this.props.eventCallbacks.loadProgress.bind(this)).on('time', this.props.eventCallbacks.playProgress.bind(this)).on('play', this.props.eventCallbacks.onPlay.bind(this)).on('pause', this.props.eventCallbacks.onPause.bind(this)).on('complete', this.props.eventCallbacks.onFinish.bind(this)).on('seek', this.props.eventCallbacks.onSeek.bind(this));
+		//this function receives all output of components that generate output and orchestrates where
+		//to pass it to based on the ingredients of the recipe
 	
-				this.setState({ jw: jw }, this.props.onPlayerReady(new JWPlayerAPI(jw)));
+	
+		_createClass(Recipe, [{
+			key: 'onComponentOutput',
+			value: function onComponentOutput(componentType, data) {
+				if (componentType == 'facet-search') {
+					var lineChartData = this.state.lineChartData ? this.state.lineChartData : {};
+					var timelineData = this.prepareTimeline(data.collectionId, data.results, data.dateField);
+					lineChartData[data.collectionId] = {
+						output: data.output,
+						dateField: data.dateField,
+						timeline: timelineData
+					};
+					this.setState({ lineChartData: lineChartData });
+				}
 			}
+	
+			//TODO move this stuff to some utility that can transform query data in other formats suitable for other components
+	
 		}, {
-			key: 'componentWillUnmount',
-			value: function componentWillUnmount() {
-				console.debug('removing the player');
-				this.state.jw.remove();
+			key: 'prepareTimeline',
+			value: function prepareTimeline(queryId, queryOutput, dateField) {
+				var timelineData = [];
+				for (var key in queryOutput.aggregations) {
+					if (key.indexOf(dateField) != -1) {
+						var buckets = queryOutput.aggregations[key][dateField].buckets;
+						buckets.forEach(function (bucket) {
+							var year = parseInt(bucket.key);
+							if (!isNaN(year)) {
+								timelineData.push({ "year": year, "count": bucket.doc_count, "query": queryId });
+							}
+						});
+					}
+				}
+				return timelineData;
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement('div', { id: 'video_player' });
+				var comparativeSearch = null;
+				var facetSearch = null;
+				var lineChart = null; //WARNING: in theory there can be more linecharts defined!
+	
+				//first generate the input components to see if they require output components, such as the lineChart
+				if (this.props.ingredients.comparativeSearch) {
+					comparativeSearch = _react2.default.createElement(_ComparativeSearch2.default, { user: this.state.user,
+						collections: this.props.ingredients.comparativeSearch.collections,
+						onOutput: this.onComponentOutput.bind(this),
+						collectionSelector: this.props.ingredients.comparativeSearch.collectionSelector,
+						annotationSupport: this.props.ingredients.annotationSupport,
+						annotationModes: this.props.ingredients.annotationModes });
+	
+					//TODO only render when there is linechart data
+					if (this.props.ingredients.comparativeSearch.output == 'lineChart') {
+						lineChart = _react2.default.createElement(
+							_FlexBox2.default,
+							null,
+							_react2.default.createElement(_LineChart2.default, { data: this.state.lineChartData })
+						);
+					}
+				}
+				if (this.props.ingredients.facetSearch) {
+					facetSearch = _react2.default.createElement(_FacetSearchComponent2.default, {
+						collection: this.props.ingredients.facetSearch.collection,
+						searchAPI: _config.SEARCH_API_BASE });
+				}
+	
+				return _react2.default.createElement(
+					'div',
+					null,
+					facetSearch,
+					lineChart,
+					comparativeSearch
+				);
 			}
 		}]);
 	
-		return JWPlayer;
+		return Recipe;
 	}(_react2.default.Component);
 	
-	//this should implement a generic playerAPI
+	exports.default = Recipe;
+
+/***/ },
+/* 671 */
+/*!**********************************************!*\
+  !*** ./app/components/ComparativeSearch.jsx ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 	
-	var JWPlayerAPI = function () {
-		function JWPlayerAPI(api) {
-			_classCallCheck(this, JWPlayerAPI);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-			this.api = api;
-			this.activeSegment = null;
-			this.observers = [];
+	var _CollectionSelector = __webpack_require__(/*! ./CollectionSelector */ 26);
+	
+	var _CollectionSelector2 = _interopRequireDefault(_CollectionSelector);
+	
+	var _FacetSearchComponent = __webpack_require__(/*! ./FacetSearchComponent */ 32);
+	
+	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
+	
+	var _AnnotationBox = __webpack_require__(/*! ./annotation/AnnotationBox */ 631);
+	
+	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
+	
+	var _FlexBox = __webpack_require__(/*! ./FlexBox */ 31);
+	
+	var _FlexBox2 = _interopRequireDefault(_FlexBox);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ComparativeSearch = function (_React$Component) {
+		_inherits(ComparativeSearch, _React$Component);
+	
+		function ComparativeSearch(props) {
+			_classCallCheck(this, ComparativeSearch);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ComparativeSearch).call(this, props));
+	
+			_this.state = {
+				user: _this.props.user,
+				collections: _this.props.collections,
+				activeCollection: _this.props.collections.length > 0 ? _this.props.collections[0] : null,
+				currentOutput: null, //could also be a default state value for components which implement onOutput
+				showAnnotationModal: false, //only if there is annotationSupport and only for classify, comment & link
+				annotationTarget: null //only if there is annotationSupport and only for classify, comment & link
+			};
+			return _this;
 		}
 	
-		/* ------------ These functions should be in a super class ------------- */
+		/* ------------------------ COLLECTION CRUD --------------------- */
 	
-		_createClass(JWPlayerAPI, [{
-			key: 'addObserver',
-			value: function addObserver(obj) {
-				this.observers.push(obj);
-			}
-		}, {
-			key: 'removeObserver',
-			value: function removeObserver(obj) {
-				this.observers.splice(this.observers.indexOf(obj), 1);
-			}
-		}, {
-			key: 'notifyObservers',
-			value: function notifyObservers() {
-				for (var i = 0; i < this.observers.length; i++) {
-					this.observers[i].update();
-				}
-			}
-		}, {
-			key: 'getActiveSegment',
-			value: function getActiveSegment() {
-				return this.activeSegment;
-			}
-	
-			//TODO this should also include the video url, so it can switch video!!!
-	
-		}, {
-			key: 'setActiveSegment',
-			value: function setActiveSegment(activeSegment, play, notify) {
-				this.activeSegment = activeSegment;
-				if (play) {
-					this.seek(activeSegment.start);
-				}
-				if (notify) {
-					this.notifyObservers();
+		_createClass(ComparativeSearch, [{
+			key: 'removeCollection',
+			value: function removeCollection(collectionId) {
+				var cs = this.state.collections;
+				var index = cs.indexOf(collectionId);
+				if (index != -1) {
+					cs.splice(index, 1);
+					this.setState({
+						collections: cs,
+						activeCollection: cs.length > 0 ? cs[0] : null
+					});
 				}
 			}
 	
-			/* ------------ Implemented API calls ------------- */
+			//TODO this function should never load a collection that has been already loaded
 	
 		}, {
-			key: 'play',
-			value: function play() {
-				this.api.play();
-			}
-		}, {
-			key: 'pause',
-			value: function pause() {
-				this.api.pause();
-			}
-		}, {
-			key: 'seek',
-			value: function seek(secs) {
-				this.api.seek(secs);
-			}
-		}, {
-			key: 'getPosition',
-			value: function getPosition(callback) {
-				callback(this.api.getPosition());
-			}
-		}, {
-			key: 'getDuration',
-			value: function getDuration(callback) {
-				callback(this.api.getDuration());
-			}
-		}, {
-			key: 'isPaused',
-			value: function isPaused(callback) {
-				callback(this.api.getState() == 'paused');
+			key: 'onEditCollections',
+			value: function onEditCollections(collectionId) {
+				var cs = this.state.collections;
+				if (cs.indexOf(collectionId) == -1) {
+					cs.push(collectionId);
+					this.setState({
+						collections: cs,
+						activeCollection: collectionId
+					});
+				}
 			}
 	
-			/* ----------------------- non-essential player specific calls ----------------------- */
+			/* ---------------------- (FUTURE) DEFAULT COMPONENT FUNCTIONS ------------------- */
 	
-			//TODO
+			//this function should be standard for any component that outputs data to the recipe
 	
+		}, {
+			key: 'onOutput',
+			value: function onOutput(componentType, data) {
+				this.props.onOutput(componentType, data);
+				this.setState({ currentOutput: data });
+			}
+	
+			/* ----------------------- FOR ANNOTATION SUPPORT (candidates for utility or super class)----- */
+	
+			//this function should check if the annotation support is relevant for itself
+	
+		}, {
+			key: 'hasAnnotationSupport',
+			value: function hasAnnotationSupport() {
+				if (this.props.annotationSupport != null) {
+					if (this.props.annotationSupport.currentQuery || this.props.annotationSupport.singleItem) {
+						return true;
+					}
+				}
+				return false;
+			}
+	
+			//TODO implement for real
+	
+		}, {
+			key: 'addAnnotation',
+			value: function addAnnotation(type) {
+				var annotationTarget = 'test ' + type;
+				this.setState({
+					showAnnotationModal: true,
+					annotationTarget: annotationTarget
+				});
+			}
+		}, {
+			key: 'bookmark',
+			value: function bookmark(type) {
+				console.debug('bookmarking:  ' + type);
+				console.debug(this.props.annotationSupport[type]);
+				if (this.props.annotationSupport[type].modes.indexOf('bookmark') != -1) {
+					if (type == 'currentQuery' && this.state.currentOutput != null) {
+						console.debug('bookmarked this query:');
+						console.debug(this.state.currentOutput.results.query);
+					}
+				}
+			}
+		}, {
+			key: 'handleShowModal',
+			value: function handleShowModal() {
+				this.setState({ showAnnotationModal: true });
+			}
+		}, {
+			key: 'handleHideModal',
+			value: function handleHideModal() {
+				this.setState({ showAnnotationModal: false });
+			}
+	
+			/* ---------------------- RENDER ------------------- */
+	
+		}, {
+			key: 'render',
+			value: function render() {
+				var collectionSelector = null;
+				var annotationBox = null; // in case there is annotation support configured
+	
+				//for drawing the tabs
+				var searchTabs = this.state.collections.map(function (c) {
+					return React.createElement(
+						'li',
+						{ key: c + '__tab_option',
+							className: this.state.activeCollection == c ? 'active' : '' },
+						React.createElement(
+							'a',
+							{ 'data-toggle': 'tab', href: '#' + c },
+							c,
+							React.createElement('i', { className: 'glyphicon glyphicon-minus', onClick: this.removeCollection.bind(this, c) })
+						)
+					);
+				}, this);
+	
+				//these are the facet search UI blocks put into different tabs
+				var searchTabContents = this.state.collections.map(function (c) {
+					return React.createElement(
+						'div',
+						{ key: c + '__tab_content',
+							id: c,
+							className: this.state.activeCollection == c ? 'tab-pane active' : 'tab-pane' },
+						React.createElement(
+							'h3',
+							null,
+							c
+						),
+						React.createElement(_FacetSearchComponent2.default, { key: c + '__sk',
+							collection: c,
+							searchAPI: _config.SEARCH_API_BASE,
+							onOutput: this.onOutput.bind(this) })
+					);
+				}, this);
+	
+				//only show if configured
+				if (this.props.collectionSelector === true) {
+					collectionSelector = React.createElement(
+						_FlexBox2.default,
+						null,
+						React.createElement(_CollectionSelector2.default, { onEditCollections: this.onEditCollections.bind(this) })
+					);
+				}
+	
+				//only show if configured
+				if (this.hasAnnotationSupport()) {
+					annotationBox = React.createElement(
+						_FlexBox2.default,
+						null,
+						React.createElement(_AnnotationBox2.default, { user: this.state.user,
+							showList: true,
+							annotationModes: this.props.annotationModes,
+							showModal: this.state.showAnnotationModal,
+							annotationTarget: this.state.annotationTarget,
+							handleHideModal: this.handleHideModal.bind(this),
+							handleShowModal: this.handleShowModal.bind(this) })
+					);
+				}
+	
+				return React.createElement(
+					'div',
+					null,
+					collectionSelector,
+					React.createElement(
+						'div',
+						{ className: 'row' },
+						React.createElement(
+							'div',
+							{ className: 'col-md-8' },
+							React.createElement(
+								_FlexBox2.default,
+								null,
+								React.createElement(
+									'button',
+									{ type: 'button', className: 'btn btn-default',
+										onClick: this.bookmark.bind(this, 'currentQuery') },
+									'Bookmark current query'
+								),
+								' ',
+								React.createElement(
+									'button',
+									{ type: 'button', className: 'btn btn-default',
+										onClick: this.addAnnotation.bind(this, 'singleItem') },
+									'Annotate test'
+								),
+								React.createElement('br', null),
+								React.createElement('br', null),
+								React.createElement(
+									'ul',
+									{ className: 'nav nav-tabs' },
+									searchTabs
+								),
+								React.createElement(
+									'div',
+									{ className: 'tab-content' },
+									searchTabContents
+								)
+							)
+						),
+						React.createElement(
+							'div',
+							{ className: 'col-md-4' },
+							annotationBox
+						)
+					)
+				);
+			}
 		}]);
 	
-		return JWPlayerAPI;
-	}();
+		return ComparativeSearch;
+	}(React.Component);
 	
-	exports.default = JWPlayer;
+	exports.default = ComparativeSearch;
+
+/***/ },
+/* 672 */
+/*!**********************************!*\
+  !*** ./app/AnnotationRecipe.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _TimeUtil = __webpack_require__(/*! ./util/TimeUtil */ 37);
+	
+	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
+	
+	var _FlexBox = __webpack_require__(/*! ./components/FlexBox */ 31);
+	
+	var _FlexBox2 = _interopRequireDefault(_FlexBox);
+	
+	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 664);
+	
+	var _FlexPlayer2 = _interopRequireDefault(_FlexPlayer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//TODO this can later be integrated into Recipe.jsx. It's no longer necessary to have different types of recipes
+	var AnnotationRecipe = function (_React$Component) {
+		_inherits(AnnotationRecipe, _React$Component);
+	
+		function AnnotationRecipe(props) {
+			_classCallCheck(this, AnnotationRecipe);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationRecipe).call(this, props));
+	
+			_this.state = {
+				user: 'JaapTest',
+				playerAPI: null,
+				start: null,
+				end: null,
+				currentMediaObject: { //later make sure that this can be changed with some selection component
+					url: 'http://player.vimeo.com/video/110756897?api=1&amp;player_id=player_1'
+				}
+			};
+			return _this;
+		}
+	
+		_createClass(AnnotationRecipe, [{
+			key: 'onPlayerReady',
+			value: function onPlayerReady(playerAPI) {
+				this.setState({ playerAPI: playerAPI });
+			}
+	
+			//test to see if it works when setting a new video
+	
+		}, {
+			key: 'dummyChangeVideo',
+			value: function dummyChangeVideo() {
+				var mo = { url: 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4' };
+				if (this.state.currentMediaObject.url.indexOf('player.vimeo.com') == -1) {
+					mo = { url: 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1' };
+				}
+				this.setState({
+					currentMediaObject: mo
+				});
+			}
+	
+			/************************************** Timeline controls ***************************************/
+	
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-12' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'input-group' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'input-group-btn' },
+									_react2.default.createElement(
+										'button',
+										{ type: 'button', className: 'btn btn-info',
+											onClick: this.dummyChangeVideo.bind(this) },
+										'Andere video'
+									)
+								)
+							),
+							_react2.default.createElement(_FlexPlayer2.default, { user: this.state.user,
+								onPlayerReady: this.onPlayerReady.bind(this),
+								annotationSupport: this.props.ingredients.annotationSupport,
+								annotationModes: this.props.ingredients.annotationModes,
+								mediaObject: this.state.currentMediaObject })
+						)
+					)
+				);
+			}
+		}]);
+	
+		return AnnotationRecipe;
+	}(_react2.default.Component);
+	
+	exports.default = AnnotationRecipe;
 
 /***/ }
 /******/ ])

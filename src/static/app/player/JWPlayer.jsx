@@ -16,7 +16,7 @@ class JWPlayer extends React.Component {
 		const jw = jwplayer("video_player").setup({
 			file: this.props.mediaObject.url,
 			width:'100%',
-			controls : false,
+			controls : true,
 			image: null,
 			autostart: false,
 			key: 'cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg=='

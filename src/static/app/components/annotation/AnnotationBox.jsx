@@ -11,6 +11,8 @@ import FlexModal from '../FlexModal.jsx';
 //TODO the annotation list does not show only items that are relevant for the current annotation target:
 //it simply shows all annotations
 
+//http://andrewhfarmer.com/react-ajax-best-practices/
+
 class AnnotationBox extends React.Component {
 
 	constructor(props) {
@@ -21,19 +23,6 @@ class AnnotationBox extends React.Component {
 			showModal : this.props.showModal == null ? false : this.props.showModal,
 			showList : this.props.showList != null ? this.props.showList : true
 		};
-	}
-
-	loadAnnotationsFromServer() {
-		$.ajax({
-			url : _config.ANNOTATION_API_BASE + '/annotation',
-			type : 'GET',
-			success: function(data) {
-				this.setState(data);
-			}.bind(this),
-			error: function(xhr, status, err) {
-				console.error(this.props.url, status, err.toString());
-			}.bind(this)
-		});
 	}
 
 	setAnnotation(annotation) {
@@ -72,7 +61,14 @@ class AnnotationBox extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadAnnotationsFromServer();
+		AnnotationAPI.getAnnotations(function(data) {
+			console.debug(data);
+			this.onLoadAnnotations(data);
+		}.bind(this));
+	}
+
+	onLoadAnnotations(data) {
+		this.setState(data);
 	}
 
 	//TODO maybe add a part where you can view the active annotation here as well

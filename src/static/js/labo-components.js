@@ -4,7 +4,7 @@ function showComponent(componentId) {
 	var component = null;
 
 	switch(componentId) {
-		case 'Collection selector': component = getCollectionSelector();break;
+		case 'Annotation player': component = getAnnotationPlayer();break;
 		case 'Collection stats': component = getCollectionStats();break;
 		case 'Collection analyser': component = getCollectionAnalyser();break;
 		case 'Facet search': component = getFacetSearchComponent();break;
@@ -23,6 +23,47 @@ function showComponent(componentId) {
 	}
 }
 
+function getAnnotationPlayer() {
+	var FlexPlayer = clariah.FlexPlayer;
+	var mediaObject = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'}
+	var annotationSupport = {
+		"currentQuery" : {
+			"modes" : ["bookmark"]
+		},
+		"singleItem" : {
+			"modes" : ["bookmark"]
+		},
+		"mediaObject" : {
+			"modes" : ["classify", "comment", "link"]
+		},
+		"mediaSegment" : {
+			"modes" : ["classify", "comment", "link"]
+		},
+		"annotation" : {
+			"modes" : ["comment"]
+		}
+	};
+	var annotationModes = {
+		"classify" : {
+			"vocabularies" : ["GTAA", "DBpedia"]
+		},
+		"link" : {
+			"apis" : [
+				{"name" : "wikidata"},
+				{"name" : "europeana"}
+			]
+		},
+		"bookmark" : {},
+		"comment" : {}
+	}
+	return (
+		<FlexPlayer user="Component test"
+			annotationSupport={annotationSupport}
+			annotationModes={annotationModes}
+			mediaObject={mediaObject}/>
+	);
+}
+
 /*******************************************************************************
 ************************** Collection components ******************************
 *******************************************************************************/
@@ -31,18 +72,6 @@ function getCollectionSelector() {
 	var CollectionSelector = clariah.CollectionSelector;
 	return (
 		<CollectionSelector/>
-	)
-}
-
-function getCollectionStats() {
-	var CollectionStats = clariah.CollectionStats;
-	var data = {
-		service : {
-			collection : 'Test collection'
-		}
-	}
-	return (
-		<CollectionStats data={data}/>
 	)
 }
 
@@ -69,7 +98,8 @@ function getFacetSearchComponent() {
 				on different facets. Coming up: configuration options for end users"
 				config={config}
 			>
-				<FacetSearchComponent/>
+				<FacetSearchComponent collection="labs-catalogue-aggr"
+				searchAPI={_config.SEARCH_API_BASE}/>
 			</FlexComponentInfo>
 
 		</div>

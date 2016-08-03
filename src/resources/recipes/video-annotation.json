@@ -4,9 +4,11 @@
 	"type" : "annotation",
 	"description" : "Segment and annotate video",
 	"ingredients" : {
-		"search" : "facet-search",
-		"collections" : ["arttube-connect"],
-		"playerType" : "vimeo",
+		"apiSearch" : {
+			"api": [
+				"arttube-connect"
+			]
+		},
 		"annotationSupport" : {
 			"currentQuery" : {
 				"modes" : ["bookmark"]
