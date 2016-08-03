@@ -1,6 +1,7 @@
 import React from 'react';
 
 //this is the first player that is supported in LABO (ArtTube requires Vimeo)
+//https://github.com/vimeo/player.js
 
 class VimeoPlayer extends React.Component {
 
@@ -18,11 +19,23 @@ class VimeoPlayer extends React.Component {
 		for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
 			vimeoPlayer = vimeoPlayers[i];
 
-			$f(vimeoPlayer).addEvent('ready', this.vimeoPlayerMounted.bind(this));
+			$f(vimeoPlayer).addEvent('ready', this.playerReady.bind(this));
 		}
 	}
 
-	vimeoPlayerMounted(playerId) {
+	componentWillUnmount() {
+		console.debug('unmounting player');
+		this.state.froogaloop.api('unload');
+	}
+
+	playerReady(playerId) {
+		//console.debug('Rendered the player, setting up the player API');
+		this.setState({
+			froogaloop : $f(playerId)
+		}, this.setupEventCallbacks.bind(this));
+	}
+
+	setupEventCallbacks() {
 		const eventCallbacks = {
 			loadProgress : this.props.eventCallbacks.loadProgress.bind(this),
 		    playProgress : this.props.eventCallbacks.playProgress.bind(this),
@@ -31,10 +44,6 @@ class VimeoPlayer extends React.Component {
 		    finish : this.props.eventCallbacks.onFinish.bind(this),
 		    seek : this.props.eventCallbacks.onSeek.bind(this)
 		}
-		//console.debug('Rendered the player, setting up the player API');
-		this.setState({
-			froogaloop : $f(playerId)
-		});
 		for(let key in eventCallbacks) {
 			this.state.froogaloop.addEvent(key, eventCallbacks[key]);
 		}
@@ -108,10 +117,6 @@ class VimeoAPI {
 		this.froogaloop.api('pause');
 	}
 
-	unload() {
-		this.froogaloop.api('unload');
-	}
-
 	seek(secs) {
 		this.froogaloop.api('seekTo', secs);
 	}
@@ -134,7 +139,12 @@ class VimeoAPI {
 		});
 	}
 
-	//additional optional get functions
+	/* ----------------------- non-essential player specific calls ----------------------- */
+
+	unload() {
+		this.froogaloop.api('unload');
+	}
+
 	getColor(callback) {
 		this.froogaloop.api('getColor', function (value, player_id) {
 			callback(value);

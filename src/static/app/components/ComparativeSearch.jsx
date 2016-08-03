@@ -150,20 +150,16 @@ class ComparativeSearch extends React.Component {
 				<div className="row">
 					<div className="col-md-8">
 						<FlexBox>
-							<div className="input-group">
-								<span className="input-group-btn">
-									<button type="button" className="btn btn-default"
-										onClick={this.bookmark.bind(this, 'currentQuery')}>
-										Bookmark current query
-									</button>
-								</span>
-								<span className="input-group-btn">
-									<button type="button" className="btn btn-default"
-										onClick={this.addAnnotation.bind(this, 'singleItem')}>
-										Annotate test
-									</button>
-								</span>
-							</div>
+							<button type="button" className="btn btn-default"
+								onClick={this.bookmark.bind(this, 'currentQuery')}>
+								Bookmark current query
+							</button>
+							&nbsp;
+							<button type="button" className="btn btn-default"
+								onClick={this.addAnnotation.bind(this, 'singleItem')}>
+								Annotate test
+							</button>
+							<br/>
 							<br/>
 							<ul className="nav nav-tabs">
 								{searchTabs}

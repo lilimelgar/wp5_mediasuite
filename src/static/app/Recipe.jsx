@@ -63,6 +63,7 @@ class Recipe extends React.Component {
 					annotationSupport={this.props.ingredients.annotationSupport}
 					annotationModes={this.props.ingredients.annotationModes}/>);
 
+			//TODO only render when there is linechart data
 			if(this.props.ingredients.comparativeSearch.output == 'lineChart') {
 				lineChart = <FlexBox><LineChart data={this.state.lineChartData}/></FlexBox>;
 			}

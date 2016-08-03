@@ -1,5 +1,6 @@
 import React from 'react';
 import VimeoPlayer from './VimeoPlayer';
+import JWPlayer from './JWPlayer';
 import VideoTimeBar from '../components/annotation/VideoTimeBar';
 import SegmentationControls from '../components/annotation/SegmentationControls';
 import TimeUtil from '../util/TimeUtil';
@@ -351,14 +352,21 @@ class FlexPlayer extends React.Component {
 		    onSeek : this.onSeek.bind(this)
 		}
 
-		let player = '';
-		if(this.props.player == 'vimeo') {
-			player = (<VimeoPlayer
-				mediaObject={this.props.mediaObject}
-				eventCallbacks={playerEventCallbacks}
-				onPlayerReady={this.onPlayerReady.bind(this)}/>);
-		} else if (this.props.player == 'jwplayer') {
-			player = (<div>This player will be implemented in the not too distant future</div>);
+		let player = null;
+		if(this.props.mediaObject) {
+			if(this.props.mediaObject.url.indexOf('player.vimeo.com') != -1)  {
+				player = (
+					<VimeoPlayer mediaObject={this.props.mediaObject}
+					eventCallbacks={playerEventCallbacks}
+					onPlayerReady={this.onPlayerReady.bind(this)}/>
+				);
+			} else if (this.props.mediaObject.url.indexOf('.mp4') != -1) {
+				player = (
+					<JWPlayer mediaObject={this.props.mediaObject}
+					eventCallbacks={playerEventCallbacks}
+					onPlayerReady={this.onPlayerReady.bind(this)}/>
+				);
+			}
 		}
 		return (
 			<div>

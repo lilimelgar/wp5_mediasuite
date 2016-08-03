@@ -57298,7 +57298,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationBox).call(this, props));
 	
-			console.debug('render this thing');
 			_this.state = {
 				annotation: null,
 				annotations: [],
@@ -61544,6 +61543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	//this is the first player that is supported in LABO (ArtTube requires Vimeo)
+	//https://github.com/vimeo/player.js
 	
 	var VimeoPlayer = function (_React$Component) {
 		_inherits(VimeoPlayer, _React$Component);
@@ -61568,12 +61568,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				for (var i = 0, length = vimeoPlayers.length; i < length; i++) {
 					vimeoPlayer = vimeoPlayers[i];
 	
-					$f(vimeoPlayer).addEvent('ready', this.vimeoPlayerMounted.bind(this));
+					$f(vimeoPlayer).addEvent('ready', this.playerReady.bind(this));
 				}
 			}
 		}, {
-			key: 'vimeoPlayerMounted',
-			value: function vimeoPlayerMounted(playerId) {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				console.debug('unmounting player');
+				this.state.froogaloop.api('unload');
+			}
+		}, {
+			key: 'playerReady',
+			value: function playerReady(playerId) {
+				//console.debug('Rendered the player, setting up the player API');
+				this.setState({
+					froogaloop: $f(playerId)
+				}, this.setupEventCallbacks.bind(this));
+			}
+		}, {
+			key: 'setupEventCallbacks',
+			value: function setupEventCallbacks() {
 				var eventCallbacks = {
 					loadProgress: this.props.eventCallbacks.loadProgress.bind(this),
 					playProgress: this.props.eventCallbacks.playProgress.bind(this),
@@ -61582,10 +61596,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					finish: this.props.eventCallbacks.onFinish.bind(this),
 					seek: this.props.eventCallbacks.onSeek.bind(this)
 				};
-				//console.debug('Rendered the player, setting up the player API');
-				this.setState({
-					froogaloop: $f(playerId)
-				});
 				for (var key in eventCallbacks) {
 					this.state.froogaloop.addEvent(key, eventCallbacks[key]);
 				}
@@ -61675,11 +61685,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				this.froogaloop.api('pause');
 			}
 		}, {
-			key: 'unload',
-			value: function unload() {
-				this.froogaloop.api('unload');
-			}
-		}, {
 			key: 'seek',
 			value: function seek(secs) {
 				this.froogaloop.api('seekTo', secs);
@@ -61706,8 +61711,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 			}
 	
-			//additional optional get functions
+			/* ----------------------- non-essential player specific calls ----------------------- */
 	
+		}, {
+			key: 'unload',
+			value: function unload() {
+				this.froogaloop.api('unload');
+			}
 		}, {
 			key: 'getColor',
 			value: function getColor(callback) {
@@ -62062,6 +62072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						annotationSupport: this.props.ingredients.annotationSupport,
 						annotationModes: this.props.ingredients.annotationModes });
 	
+					//TODO only render when there is linechart data
 					if (this.props.ingredients.comparativeSearch.output == 'lineChart') {
 						lineChart = _react2.default.createElement(
 							_FlexBox2.default,
@@ -62320,29 +62331,19 @@ return /******/ (function(modules) { // webpackBootstrap
 								_FlexBox2.default,
 								null,
 								React.createElement(
-									'div',
-									{ className: 'input-group' },
-									React.createElement(
-										'span',
-										{ className: 'input-group-btn' },
-										React.createElement(
-											'button',
-											{ type: 'button', className: 'btn btn-default',
-												onClick: this.bookmark.bind(this, 'currentQuery') },
-											'Bookmark current query'
-										)
-									),
-									React.createElement(
-										'span',
-										{ className: 'input-group-btn' },
-										React.createElement(
-											'button',
-											{ type: 'button', className: 'btn btn-default',
-												onClick: this.addAnnotation.bind(this, 'singleItem') },
-											'Annotate test'
-										)
-									)
+									'button',
+									{ type: 'button', className: 'btn btn-default',
+										onClick: this.bookmark.bind(this, 'currentQuery') },
+									'Bookmark current query'
 								),
+								' ',
+								React.createElement(
+									'button',
+									{ type: 'button', className: 'btn btn-default',
+										onClick: this.addAnnotation.bind(this, 'singleItem') },
+									'Annotate test'
+								),
+								React.createElement('br', null),
 								React.createElement('br', null),
 								React.createElement(
 									'ul',
@@ -62442,8 +62443,12 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'dummyChangeVideo',
 			value: function dummyChangeVideo() {
+				var mo = { url: 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4' };
+				if (this.state.currentMediaObject.url.indexOf('player.vimeo.com') == -1) {
+					mo = { url: 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1' };
+				}
 				this.setState({
-					currentMediaObject: { url: 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1' }
+					currentMediaObject: mo
 				});
 			}
 	
@@ -62514,6 +62519,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 664);
 	
 	var _VimeoPlayer2 = _interopRequireDefault(_VimeoPlayer);
+	
+	var _JWPlayer = __webpack_require__(/*! ./JWPlayer */ 672);
+	
+	var _JWPlayer2 = _interopRequireDefault(_JWPlayer);
 	
 	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 670);
 	
@@ -62934,18 +62943,17 @@ return /******/ (function(modules) { // webpackBootstrap
 					onSeek: this.onSeek.bind(this)
 				};
 	
-				var player = '';
-				if (this.props.player == 'vimeo') {
-					player = _react2.default.createElement(_VimeoPlayer2.default, {
-						mediaObject: this.props.mediaObject,
-						eventCallbacks: playerEventCallbacks,
-						onPlayerReady: this.onPlayerReady.bind(this) });
-				} else if (this.props.player == 'jwplayer') {
-					player = _react2.default.createElement(
-						'div',
-						null,
-						'This player will be implemented in the not too distant future'
-					);
+				var player = null;
+				if (this.props.mediaObject) {
+					if (this.props.mediaObject.url.indexOf('player.vimeo.com') != -1) {
+						player = _react2.default.createElement(_VimeoPlayer2.default, { mediaObject: this.props.mediaObject,
+							eventCallbacks: playerEventCallbacks,
+							onPlayerReady: this.onPlayerReady.bind(this) });
+					} else if (this.props.mediaObject.url.indexOf('.mp4') != -1) {
+						player = _react2.default.createElement(_JWPlayer2.default, { mediaObject: this.props.mediaObject,
+							eventCallbacks: playerEventCallbacks,
+							onPlayerReady: this.onPlayerReady.bind(this) });
+					}
 				}
 				return _react2.default.createElement(
 					'div',
@@ -64211,6 +64219,175 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}) (typeof window !== 'undefined' ? window : null, typeof  window !== 'undefined' ? document : null);
 
+
+/***/ },
+/* 672 */
+/*!*********************************!*\
+  !*** ./app/player/JWPlayer.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 28);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//key: cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg==
+	//https://developer.jwplayer.com/jw-player/docs/developer-guide/api/javascript_api_reference
+	
+	var JWPlayer = function (_React$Component) {
+		_inherits(JWPlayer, _React$Component);
+	
+		function JWPlayer(props) {
+			_classCallCheck(this, JWPlayer);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(JWPlayer).call(this, props));
+	
+			_this.state = {
+				jw: null
+			};
+			return _this;
+		}
+	
+		_createClass(JWPlayer, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var jw = jwplayer("video_player").setup({
+					file: this.props.mediaObject.url,
+					width: '100%',
+					controls: false,
+					image: null,
+					autostart: false,
+					key: 'cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg=='
+				}).on('bufferChange', this.props.eventCallbacks.loadProgress.bind(this)).on('time', this.props.eventCallbacks.playProgress.bind(this)).on('play', this.props.eventCallbacks.onPlay.bind(this)).on('pause', this.props.eventCallbacks.onPause.bind(this)).on('complete', this.props.eventCallbacks.onFinish.bind(this)).on('seek', this.props.eventCallbacks.onSeek.bind(this));
+	
+				this.setState({ jw: jw }, this.props.onPlayerReady(new JWPlayerAPI(jw)));
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				console.debug('removing the player');
+				this.state.jw.remove();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement('div', { id: 'video_player' });
+			}
+		}]);
+	
+		return JWPlayer;
+	}(_react2.default.Component);
+	
+	//this should implement a generic playerAPI
+	
+	
+	var JWPlayerAPI = function () {
+		function JWPlayerAPI(api) {
+			_classCallCheck(this, JWPlayerAPI);
+	
+			this.api = api;
+			this.activeSegment = null;
+			this.observers = [];
+		}
+	
+		/* ------------ These functions should be in a super class ------------- */
+	
+		_createClass(JWPlayerAPI, [{
+			key: 'addObserver',
+			value: function addObserver(obj) {
+				this.observers.push(obj);
+			}
+		}, {
+			key: 'removeObserver',
+			value: function removeObserver(obj) {
+				this.observers.splice(this.observers.indexOf(obj), 1);
+			}
+		}, {
+			key: 'notifyObservers',
+			value: function notifyObservers() {
+				for (var i = 0; i < this.observers.length; i++) {
+					this.observers[i].update();
+				}
+			}
+		}, {
+			key: 'getActiveSegment',
+			value: function getActiveSegment() {
+				return this.activeSegment;
+			}
+	
+			//TODO this should also include the video url, so it can switch video!!!
+	
+		}, {
+			key: 'setActiveSegment',
+			value: function setActiveSegment(activeSegment, play, notify) {
+				this.activeSegment = activeSegment;
+				if (play) {
+					this.seek(activeSegment.start);
+				}
+				if (notify) {
+					this.notifyObservers();
+				}
+			}
+	
+			/* ------------ Implemented API calls ------------- */
+	
+		}, {
+			key: 'play',
+			value: function play() {
+				this.api.play();
+			}
+		}, {
+			key: 'pause',
+			value: function pause() {
+				this.api.pause();
+			}
+		}, {
+			key: 'seek',
+			value: function seek(secs) {
+				this.api.seek(secs);
+			}
+		}, {
+			key: 'getPosition',
+			value: function getPosition(callback) {
+				callback(this.api.getPosition());
+			}
+		}, {
+			key: 'getDuration',
+			value: function getDuration(callback) {
+				callback(this.api.getDuration());
+			}
+		}, {
+			key: 'isPaused',
+			value: function isPaused(callback) {
+				callback(this.api.getState() == 'paused');
+			}
+	
+			/* ----------------------- non-essential player specific calls ----------------------- */
+	
+			//TODO
+	
+		}]);
+	
+		return JWPlayerAPI;
+	}();
+	
+	exports.default = JWPlayer;
 
 /***/ }
 /******/ ])

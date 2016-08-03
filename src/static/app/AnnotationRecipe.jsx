@@ -26,9 +26,14 @@ class AnnotationRecipe extends React.Component {
 
 	//test to see if it works when setting a new video
 	dummyChangeVideo() {
+		let mo = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'}
+		if(this.state.currentMediaObject.url.indexOf('player.vimeo.com') == -1) {
+			mo = {url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1'}
+		}
 		this.setState({
-			currentMediaObject : {url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1'}
+			currentMediaObject : mo
 		});
+
 	}
 
 	/************************************** Timeline controls ***************************************/

@@ -15,7 +15,6 @@ class AnnotationBox extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.debug('render this thing');
 		this.state = {
 			annotation : null,
 			annotations: [],
