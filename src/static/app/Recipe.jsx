@@ -5,6 +5,9 @@ import ComparativeSearch from './components/ComparativeSearch.jsx';
 import LineChart from './components/LineChart.jsx';
 import FlexBox from './components/FlexBox.jsx';
 
+//TODO pass the user as (React) context
+//TODO pass the annotationSupport as (React) context
+
 class Recipe extends React.Component {
 	constructor(props) {
 		super(props);
@@ -53,9 +56,12 @@ class Recipe extends React.Component {
 
 		//first generate the input components to see if they require output components, such as the lineChart
 		if(this.props.ingredients.comparativeSearch) {
-			comparativeSearch = (<ComparativeSearch collections={this.props.ingredients.comparativeSearch.collections}
+			comparativeSearch = (<ComparativeSearch user={this.state.user}
+					collections={this.props.ingredients.comparativeSearch.collections}
 					onOutput={this.onComponentOutput.bind(this)}
-					collectionSelector={this.props.ingredients.comparativeSearch.collectionSelector}/>);
+					collectionSelector={this.props.ingredients.comparativeSearch.collectionSelector}
+					annotationSupport={this.props.ingredients.annotationSupport}
+					annotationModes={this.props.ingredients.annotationModes}/>);
 
 			if(this.props.ingredients.comparativeSearch.output == 'lineChart') {
 				lineChart = <FlexBox><LineChart data={this.state.lineChartData}/></FlexBox>;

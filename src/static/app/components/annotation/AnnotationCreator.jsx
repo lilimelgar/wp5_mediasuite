@@ -21,9 +21,16 @@ class AnnotationCreator extends React.Component {
 				links = this.props.annotation.data.links;
 			}
 		}
+		let activeTab = null;
+		for(let i=0;i<Object.keys(this.props.annotationModes).length;i++) {
+			if(Object.keys(this.props.annotationModes)[i] != 'bookmark') {
+				activeTab = Object.keys(this.props.annotationModes)[i];
+				break;
+			}
+		}
 		this.state = {
 			modes : this.props.annotationModes,
-			activeTab : this.props.annotationModes[0].type,
+			activeTab : activeTab,
 			classifications : classifications,
 			comments : comments,
 			links : links
@@ -41,10 +48,12 @@ class AnnotationCreator extends React.Component {
 			annotation = {
 				user : this.props.user
 			};
-			let activeSegment = this.props.playerAPI.getActiveSegment();
-			if(activeSegment) {
-				annotation.start = activeSegment.start;
-				annotation.end = activeSegment.end;
+			if(this.props.playerAPI) {
+				let activeSegment = this.props.playerAPI.getActiveSegment();
+				if(activeSegment) {
+					annotation.start = activeSegment.start;
+					annotation.end = activeSegment.end;
+				}
 			}
 		}
 		var data = {};
@@ -63,50 +72,52 @@ class AnnotationCreator extends React.Component {
 
 	render() {
 		//generate the tabs from the configured modes
-		const tabs = this.state.modes.map(function(mode) {
+		const tabs = Object.keys(this.state.modes).map(function(mode) {
+			if(mode == 'bookmark') return null;
 			return (
 				<li
-					key={mode.type + '__tab_option'}
-					className={this.state.activeTab == mode.type ? 'active' : ''}
+					key={mode + '__tab_option'}
+					className={this.state.activeTab == mode ? 'active' : ''}
 				>
-					<a data-toggle="tab" href={'#' + mode.type}>
-						{mode.type}
+					<a data-toggle="tab" href={'#' + mode}>
+						{mode}
 					</a>
 				</li>
 				)
 		}, this)
 
 		//generate the content of each tab (a form based on a annotation mode/motivation)
-		var tabContents = this.state.modes.map(function(mode) {
+		var tabContents = Object.keys(this.state.modes).map(function(mode) {
+			if(mode == 'bookmark') return null;
 			let form = '';
-			switch(mode.type) {
+			switch(mode) {
 				case 'comment' : form = (
 					<CommentingForm
 						data={this.state.comments}
-						config={mode}
+						config={this.state.modes[mode]}
 						updateAnnotationData={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 				case 'classify' : form = (
 					<ClassifyingForm
 						data={this.state.classifications}
-						config={mode}
+						config={this.state.modes[mode]}
 						updateAnnotationData={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 				case 'link' : form = (
 					<LinkingForm
 						data={this.state.links}
-						config={mode}
+						config={this.state.modes[mode]}
 						updateAnnotationData={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 			}
 			return (
 				<div
-					key={mode.type + '__tab_content'}
-					id={mode.type}
-					className={this.state.activeTab == mode.type ? 'tab-pane active' : 'tab-pane'}>
+					key={mode + '__tab_content'}
+					id={mode}
+					className={this.state.activeTab == mode ? 'tab-pane active' : 'tab-pane'}>
 						{form}
 				</div>
 				);

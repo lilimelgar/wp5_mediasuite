@@ -8,6 +8,9 @@ import FlexModal from '../FlexModal.jsx';
 //TODO make sure the editing form can be shown in a div rather than a pop-up. This is important, because modals
 //prevent you from watching the video while annotating
 
+//TODO the annotation list does not show only items that are relevant for the current annotation target:
+//it simply shows all annotations
+
 class AnnotationBox extends React.Component {
 
 	constructor(props) {

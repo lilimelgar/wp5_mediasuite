@@ -28,7 +28,6 @@ class FlexPlayer extends React.Component {
 			start : -1,
 			end : -1,
 			paused : true,//FIXME call the player API instead (isPaused)?
-			user : 'JaapTest',
 			fragmentMode : false,
 			showAnnotationModal : false,
 			annotationTarget : null
@@ -277,17 +276,16 @@ class FlexPlayer extends React.Component {
 	    }.bind(this));
 	}
 
+	/* ----- THESE FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
+
 	hasAnnotationSupport() {
 		if(this.props.annotationSupport != null) {
-			if(this.props.annotationSupport.indexOf("video") != -1 ||
-				this.props.annotationSupport.indexOf("segment") != -1) {
+			if(this.props.annotationSupport.mediaObject || this.props.annotationSupport.mediaSegment) {
 				return true;
 			}
 		}
 		return false;
 	}
-
-	/* ----- THESE 3 FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
 
 	addAnnotation(type) {
 		let annotationTarget = this.props.mediaObject.url;
@@ -308,6 +306,8 @@ class FlexPlayer extends React.Component {
 		this.setState({showAnnotationModal: false})
 	}
 
+	/* ----------------- just rendering --------------------- */
+
 	render() {
 		//update the activeSegment in the playerAPI
 		if(this.state.start != -1 && this.state.end != -1 && this.state.playerAPI) {
@@ -320,18 +320,16 @@ class FlexPlayer extends React.Component {
 		let annotationBox = '';
 		if(this.hasAnnotationSupport()) {
 			annotationBox = (
-				<div className="col-md-5">
-					<FlexBox>
-						<AnnotationBox user={this.state.user}
-							showList={true}
-							playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
-							annotationModes={this.props.annotationModes}
-							showModal={this.state.showAnnotationModal}
-							annotationTarget={this.state.annotationTarget}
-							handleHideModal={this.handleHideModal.bind(this)}
-							handleShowModal={this.handleShowModal.bind(this)}/>
-					</FlexBox>
-				</div>
+				<FlexBox>
+					<AnnotationBox user={this.props.user}
+						showList={true}
+						playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
+						annotationModes={this.props.annotationModes}
+						showModal={this.state.showAnnotationModal}
+						annotationTarget={this.state.annotationTarget}
+						handleHideModal={this.handleHideModal.bind(this)}
+						handleShowModal={this.handleShowModal.bind(this)}/>
+				</FlexBox>
 			)
 		}
 
@@ -382,7 +380,9 @@ class FlexPlayer extends React.Component {
 							</span>
 						</div>
 					</div>
-					{annotationBox}
+					<div className="col-md-5">
+						{annotationBox}
+					</div>
 				</div>
 				{this.state.playerAPI ?
 					<div className="row">

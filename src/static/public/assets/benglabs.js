@@ -46309,7 +46309,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57287,6 +57287,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	//TODO make sure the editing form can be shown in a div rather than a pop-up. This is important, because modals
 	//prevent you from watching the video while annotating
 	
+	//TODO the annotation list does not show only items that are relevant for the current annotation target:
+	//it simply shows all annotations
+	
 	var AnnotationBox = function (_React$Component) {
 		_inherits(AnnotationBox, _React$Component);
 	
@@ -57465,9 +57468,16 @@ return /******/ (function(modules) { // webpackBootstrap
 					links = _this.props.annotation.data.links;
 				}
 			}
+			var activeTab = null;
+			for (var i = 0; i < Object.keys(_this.props.annotationModes).length; i++) {
+				if (Object.keys(_this.props.annotationModes)[i] != 'bookmark') {
+					activeTab = Object.keys(_this.props.annotationModes)[i];
+					break;
+				}
+			}
 			_this.state = {
 				modes: _this.props.annotationModes,
-				activeTab: _this.props.annotationModes[0].type,
+				activeTab: activeTab,
 				classifications: classifications,
 				comments: comments,
 				links: links
@@ -57491,10 +57501,12 @@ return /******/ (function(modules) { // webpackBootstrap
 					annotation = {
 						user: this.props.user
 					};
-					var activeSegment = this.props.playerAPI.getActiveSegment();
-					if (activeSegment) {
-						annotation.start = activeSegment.start;
-						annotation.end = activeSegment.end;
+					if (this.props.playerAPI) {
+						var activeSegment = this.props.playerAPI.getActiveSegment();
+						if (activeSegment) {
+							annotation.start = activeSegment.start;
+							annotation.end = activeSegment.end;
+						}
 					}
 				}
 				var data = {};
@@ -57514,50 +57526,52 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'render',
 			value: function render() {
 				//generate the tabs from the configured modes
-				var tabs = this.state.modes.map(function (mode) {
+				var tabs = Object.keys(this.state.modes).map(function (mode) {
+					if (mode == 'bookmark') return null;
 					return React.createElement(
 						'li',
 						{
-							key: mode.type + '__tab_option',
-							className: this.state.activeTab == mode.type ? 'active' : ''
+							key: mode + '__tab_option',
+							className: this.state.activeTab == mode ? 'active' : ''
 						},
 						React.createElement(
 							'a',
-							{ 'data-toggle': 'tab', href: '#' + mode.type },
-							mode.type
+							{ 'data-toggle': 'tab', href: '#' + mode },
+							mode
 						)
 					);
 				}, this);
 	
 				//generate the content of each tab (a form based on a annotation mode/motivation)
-				var tabContents = this.state.modes.map(function (mode) {
+				var tabContents = Object.keys(this.state.modes).map(function (mode) {
+					if (mode == 'bookmark') return null;
 					var form = '';
-					switch (mode.type) {
+					switch (mode) {
 						case 'comment':
 							form = React.createElement(_CommentingForm2.default, {
 								data: this.state.comments,
-								config: mode,
+								config: this.state.modes[mode],
 								updateAnnotationData: this.updateAnnotationData.bind(this)
 							});break;
 						case 'classify':
 							form = React.createElement(_ClassifyingForm2.default, {
 								data: this.state.classifications,
-								config: mode,
+								config: this.state.modes[mode],
 								updateAnnotationData: this.updateAnnotationData.bind(this)
 							});break;
 						case 'link':
 							form = React.createElement(_LinkingForm2.default, {
 								data: this.state.links,
-								config: mode,
+								config: this.state.modes[mode],
 								updateAnnotationData: this.updateAnnotationData.bind(this)
 							});break;
 					}
 					return React.createElement(
 						'div',
 						{
-							key: mode.type + '__tab_content',
-							id: mode.type,
-							className: this.state.activeTab == mode.type ? 'tab-pane active' : 'tab-pane' },
+							key: mode + '__tab_content',
+							id: mode,
+							className: this.state.activeTab == mode ? 'tab-pane active' : 'tab-pane' },
 						form
 					);
 				}, this);
@@ -61976,6 +61990,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	//TODO pass the user as (React) context
+	//TODO pass the annotationSupport as (React) context
+	
 	var Recipe = function (_React$Component) {
 		_inherits(Recipe, _React$Component);
 	
@@ -62038,9 +62055,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 				//first generate the input components to see if they require output components, such as the lineChart
 				if (this.props.ingredients.comparativeSearch) {
-					comparativeSearch = _react2.default.createElement(_ComparativeSearch2.default, { collections: this.props.ingredients.comparativeSearch.collections,
+					comparativeSearch = _react2.default.createElement(_ComparativeSearch2.default, { user: this.state.user,
+						collections: this.props.ingredients.comparativeSearch.collections,
 						onOutput: this.onComponentOutput.bind(this),
-						collectionSelector: this.props.ingredients.comparativeSearch.collectionSelector });
+						collectionSelector: this.props.ingredients.comparativeSearch.collectionSelector,
+						annotationSupport: this.props.ingredients.annotationSupport,
+						annotationModes: this.props.ingredients.annotationModes });
 	
 					if (this.props.ingredients.comparativeSearch.output == 'lineChart') {
 						lineChart = _react2.default.createElement(
@@ -62094,6 +62114,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
 	
+	var _AnnotationBox = __webpack_require__(/*! ./annotation/AnnotationBox */ 631);
+	
+	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
+	
 	var _FlexBox = __webpack_require__(/*! ./FlexBox */ 31);
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
@@ -62115,19 +62139,19 @@ return /******/ (function(modules) { // webpackBootstrap
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ComparativeSearch).call(this, props));
 	
 			_this.state = {
+				user: _this.props.user,
 				collections: _this.props.collections,
-				activeCollection: _this.props.collections.length > 0 ? _this.props.collections[0] : null
+				activeCollection: _this.props.collections.length > 0 ? _this.props.collections[0] : null,
+				currentOutput: null, //could also be a default state value for components which implement onOutput
+				showAnnotationModal: false, //only if there is annotationSupport and only for classify, comment & link
+				annotationTarget: null //only if there is annotationSupport and only for classify, comment & link
 			};
 			return _this;
 		}
 	
+		/* ------------------------ COLLECTION CRUD --------------------- */
+	
 		_createClass(ComparativeSearch, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {}
-	
-			/* ------------------------ COLLECTION CRUD --------------------- */
-	
-		}, {
 			key: 'removeCollection',
 			value: function removeCollection(collectionId) {
 				var cs = this.state.collections;
@@ -62156,7 +62180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 	
-			/* ---------------------- OUTPUT COMMUNICATION ------------------- */
+			/* ---------------------- (FUTURE) DEFAULT COMPONENT FUNCTIONS ------------------- */
 	
 			//this function should be standard for any component that outputs data to the recipe
 	
@@ -62164,10 +62188,66 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'onOutput',
 			value: function onOutput(componentType, data) {
 				this.props.onOutput(componentType, data);
+				this.setState({ currentOutput: data });
 			}
+	
+			/* ----------------------- FOR ANNOTATION SUPPORT (candidates for utility or super class)----- */
+	
+			//this function should check if the annotation support is relevant for itself
+	
+		}, {
+			key: 'hasAnnotationSupport',
+			value: function hasAnnotationSupport() {
+				if (this.props.annotationSupport != null) {
+					if (this.props.annotationSupport.currentQuery || this.props.annotationSupport.singleItem) {
+						return true;
+					}
+				}
+				return false;
+			}
+	
+			//TODO implement for real
+	
+		}, {
+			key: 'addAnnotation',
+			value: function addAnnotation(type) {
+				var annotationTarget = 'test ' + type;
+				this.setState({
+					showAnnotationModal: true,
+					annotationTarget: annotationTarget
+				});
+			}
+		}, {
+			key: 'bookmark',
+			value: function bookmark(type) {
+				console.debug('bookmarking:  ' + type);
+				console.debug(this.props.annotationSupport[type]);
+				if (this.props.annotationSupport[type].modes.indexOf('bookmark') != -1) {
+					if (type == 'currentQuery' && this.state.currentOutput != null) {
+						console.debug('bookmarked this query:');
+						console.debug(this.state.currentOutput.results.query);
+					}
+				}
+			}
+		}, {
+			key: 'handleShowModal',
+			value: function handleShowModal() {
+				this.setState({ showAnnotationModal: true });
+			}
+		}, {
+			key: 'handleHideModal',
+			value: function handleHideModal() {
+				this.setState({ showAnnotationModal: false });
+			}
+	
+			/* ---------------------- RENDER ------------------- */
+	
 		}, {
 			key: 'render',
 			value: function render() {
+				var collectionSelector = null;
+				var annotationBox = null; // in case there is annotation support configured
+	
 				//for drawing the tabs
 				var searchTabs = this.state.collections.map(function (c) {
 					return React.createElement(
@@ -62202,7 +62282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					);
 				}, this);
 	
-				var collectionSelector = null;
+				//only show if configured
 				if (this.props.collectionSelector === true) {
 					collectionSelector = React.createElement(
 						_FlexBox2.default,
@@ -62211,22 +62291,75 @@ return /******/ (function(modules) { // webpackBootstrap
 					);
 				}
 	
+				//only show if configured
+				if (this.hasAnnotationSupport()) {
+					annotationBox = React.createElement(
+						_FlexBox2.default,
+						null,
+						React.createElement(_AnnotationBox2.default, { user: this.state.user,
+							showList: true,
+							annotationModes: this.props.annotationModes,
+							showModal: this.state.showAnnotationModal,
+							annotationTarget: this.state.annotationTarget,
+							handleHideModal: this.handleHideModal.bind(this),
+							handleShowModal: this.handleShowModal.bind(this) })
+					);
+				}
+	
 				return React.createElement(
 					'div',
 					null,
 					collectionSelector,
 					React.createElement(
-						_FlexBox2.default,
-						null,
+						'div',
+						{ className: 'row' },
 						React.createElement(
-							'ul',
-							{ className: 'nav nav-tabs' },
-							searchTabs
+							'div',
+							{ className: 'col-md-8' },
+							React.createElement(
+								_FlexBox2.default,
+								null,
+								React.createElement(
+									'div',
+									{ className: 'input-group' },
+									React.createElement(
+										'span',
+										{ className: 'input-group-btn' },
+										React.createElement(
+											'button',
+											{ type: 'button', className: 'btn btn-default',
+												onClick: this.bookmark.bind(this, 'currentQuery') },
+											'Bookmark current query'
+										)
+									),
+									React.createElement(
+										'span',
+										{ className: 'input-group-btn' },
+										React.createElement(
+											'button',
+											{ type: 'button', className: 'btn btn-default',
+												onClick: this.addAnnotation.bind(this, 'singleItem') },
+											'Annotate test'
+										)
+									)
+								),
+								React.createElement('br', null),
+								React.createElement(
+									'ul',
+									{ className: 'nav nav-tabs' },
+									searchTabs
+								),
+								React.createElement(
+									'div',
+									{ className: 'tab-content' },
+									searchTabContents
+								)
+							)
 						),
 						React.createElement(
 							'div',
-							{ className: 'tab-content' },
-							searchTabContents
+							{ className: 'col-md-4' },
+							annotationBox
 						)
 					)
 				);
@@ -62342,7 +62475,8 @@ return /******/ (function(modules) { // webpackBootstrap
 									)
 								)
 							),
-							_react2.default.createElement(_FlexPlayer2.default, { player: this.props.ingredients.playerType,
+							_react2.default.createElement(_FlexPlayer2.default, { user: this.state.user,
+								player: this.props.ingredients.playerType,
 								onPlayerReady: this.onPlayerReady.bind(this),
 								annotationSupport: this.props.ingredients.annotationSupport,
 								annotationModes: this.props.ingredients.annotationModes,
@@ -62438,7 +62572,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				start: -1,
 				end: -1,
 				paused: true, //FIXME call the player API instead (isPaused)?
-				user: 'JaapTest',
 				fragmentMode: false,
 				showAnnotationModal: false,
 				annotationTarget: null
@@ -62718,19 +62851,19 @@ return /******/ (function(modules) { // webpackBootstrap
 					this.checkFocus.call(this, this.rw, 9);
 				}.bind(this));
 			}
+	
+			/* ----- THESE FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
+	
 		}, {
 			key: 'hasAnnotationSupport',
 			value: function hasAnnotationSupport() {
 				if (this.props.annotationSupport != null) {
-					if (this.props.annotationSupport.indexOf("video") != -1 || this.props.annotationSupport.indexOf("segment") != -1) {
+					if (this.props.annotationSupport.mediaObject || this.props.annotationSupport.mediaSegment) {
 						return true;
 					}
 				}
 				return false;
 			}
-	
-			/* ----- THESE 3 FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
-	
 		}, {
 			key: 'addAnnotation',
 			value: function addAnnotation(type) {
@@ -62753,6 +62886,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function handleHideModal() {
 				this.setState({ showAnnotationModal: false });
 			}
+	
+			/* ----------------- just rendering --------------------- */
+	
 		}, {
 			key: 'render',
 			value: function render() {
@@ -62767,20 +62903,16 @@ return /******/ (function(modules) { // webpackBootstrap
 				var annotationBox = '';
 				if (this.hasAnnotationSupport()) {
 					annotationBox = _react2.default.createElement(
-						'div',
-						{ className: 'col-md-5' },
-						_react2.default.createElement(
-							_FlexBox2.default,
-							null,
-							_react2.default.createElement(_AnnotationBox2.default, { user: this.state.user,
-								showList: true,
-								playerAPI: this.state.playerAPI //FIXME dit is een goeie kandidaat voor React context
-								, annotationModes: this.props.annotationModes,
-								showModal: this.state.showAnnotationModal,
-								annotationTarget: this.state.annotationTarget,
-								handleHideModal: this.handleHideModal.bind(this),
-								handleShowModal: this.handleShowModal.bind(this) })
-						)
+						_FlexBox2.default,
+						null,
+						_react2.default.createElement(_AnnotationBox2.default, { user: this.props.user,
+							showList: true,
+							playerAPI: this.state.playerAPI //FIXME dit is een goeie kandidaat voor React context
+							, annotationModes: this.props.annotationModes,
+							showModal: this.state.showAnnotationModal,
+							annotationTarget: this.state.annotationTarget,
+							handleHideModal: this.handleHideModal.bind(this),
+							handleShowModal: this.handleShowModal.bind(this) })
 					);
 				}
 	
@@ -62850,7 +62982,11 @@ return /******/ (function(modules) { // webpackBootstrap
 								)
 							)
 						),
-						annotationBox
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-5' },
+							annotationBox
+						)
 					),
 					this.state.playerAPI ? _react2.default.createElement(
 						'div',
