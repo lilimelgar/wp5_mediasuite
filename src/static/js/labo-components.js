@@ -4,13 +4,21 @@ function showComponent(componentId) {
 	var component = null;
 
 	switch(componentId) {
-		case 'Collection stats': component = getCollectionStats();break;
 		case 'Collection analyser': component = getCollectionAnalyser();break;
-		case 'Facet search': component = getFacetSearchComponent();break;
+		case 'Collection selector': component = getCollectionSelector();break;
+
+		case 'Facet search': component = getFacetSearch();break;
+		case 'Comparative search': component = getComparativeSearch();break;
+
+		case 'Commenting' : component = getCommentingForm();break;
+		case 'Classifying' : component = getClassifyingForm();break;
+		case 'Linking' : component = getLinkingForm();break;
+
 		case 'Annotation player': component = getAnnotationPlayer();break;
 		case 'JWPlayer': component = getJWPlayer();break;
 		case 'Vimeo player': component = getVimeoPlayer();break;
-		case 'Line chart': component = getLineChartComponent();break;
+
+		case 'Line chart': component = getLineChart();break;
 	}
 
 	if(component) {
@@ -24,6 +32,90 @@ function showComponent(componentId) {
 		);
 	}
 }
+
+/*******************************************************************************
+************************** Collection components ******************************
+*******************************************************************************/
+
+function getCollectionSelector() {
+	var CollectionSelector = clariah.CollectionSelector;
+	return (
+		<CollectionSelector/>
+	)
+}
+
+function getCollectionAnalyser() {
+	var CollectionAnalyser = clariah.CollectionAnalyser;
+	return (
+		<CollectionAnalyser/>
+	)
+}
+
+/*******************************************************************************
+************************** Search components ******************************
+*******************************************************************************/
+
+function getFacetSearch() {
+	var FacetSearchComponent = clariah.FacetSearchComponent;
+	var FlexComponentInfo = clariah.FlexComponentInfo;
+	var config = new clariah.NISVCatalogueConfig();
+	return (
+		<div>
+			<FlexComponentInfo
+				title="Facet search"
+				description="This component enables you to search a single collection using full text search and filtering
+				on different facets. Coming up: configuration options for end users"
+				config={config}
+			>
+				<FacetSearchComponent collection="labs-catalogue-aggr"
+				searchAPI={_config.SEARCH_API_BASE}/>
+			</FlexComponentInfo>
+
+		</div>
+	);
+}
+
+function getComparativeSearch() {
+
+}
+
+/*******************************************************************************
+************************** Annotation components ******************************
+*******************************************************************************/
+
+function getCommentingForm() {
+	var CommentingForm = clariah.CommentingForm;
+	return (
+		<CommentingForm/>
+	);
+}
+
+function getClassifyingForm() {
+	var ClassifyingForm = clariah.ClassifyingForm;
+	var config = {
+		vocabularies : ["GTAA", "DBpedia"]
+	}
+	return (
+		<ClassifyingForm config={config}/>
+	);
+}
+
+function getLinkingForm() {
+	var LinkingForm = clariah.LinkingForm;
+	var config = {
+		apis : [
+			{"name" : "wikidata"},
+			{"name" : "europeana"}
+		]
+	}
+	return (
+		<LinkingForm config={config}/>
+	);
+}
+
+/*******************************************************************************
+************************** Play-out components ******************************
+*******************************************************************************/
 
 function getAnnotationPlayer() {
 	var FlexPlayer = clariah.FlexPlayer;
@@ -83,52 +175,10 @@ function getJWPlayer() {
 }
 
 /*******************************************************************************
-************************** Collection components ******************************
-*******************************************************************************/
-
-function getCollectionSelector() {
-	var CollectionSelector = clariah.CollectionSelector;
-	return (
-		<CollectionSelector/>
-	)
-}
-
-function getCollectionAnalyser() {
-	var CollectionAnalyser = clariah.CollectionAnalyser;
-	return (
-		<CollectionAnalyser/>
-	)
-}
-
-/*******************************************************************************
-************************** Search components ******************************
-*******************************************************************************/
-
-function getFacetSearchComponent() {
-	var FacetSearchComponent = clariah.FacetSearchComponent;
-	var FlexComponentInfo = clariah.FlexComponentInfo;
-	var config = new clariah.NISVCatalogueConfig();
-	return (
-		<div>
-			<FlexComponentInfo
-				title="Facet search"
-				description="This component enables you to search a single collection using full text search and filtering
-				on different facets. Coming up: configuration options for end users"
-				config={config}
-			>
-				<FacetSearchComponent collection="labs-catalogue-aggr"
-				searchAPI={_config.SEARCH_API_BASE}/>
-			</FlexComponentInfo>
-
-		</div>
-	)
-}
-
-/*******************************************************************************
 ************************** Data visualisations ******************************
 *******************************************************************************/
 
-function getLineChartComponent() {
+function getLineChart() {
 	var LineChart = clariah.LineChart;
 	var FlexComponentInfo = clariah.FlexComponentInfo;
 	return (

@@ -12024,7 +12024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.SegmentationControls = exports.JWPlayer = exports.VimeoPlayer = exports.FlexPlayer = exports.AnnotationBox = exports.TimeUtil = exports.CollectionUtil = exports.CollectionDataUtil = exports.SpeechAndernieuwsConfig = exports.NISVProgramGuideConfig = exports.NISVCatalogueConfig = exports.CollectionConfig = exports.FlexComponentInfo = exports.FlexModal = exports.FlexHits = exports.FlexBox = exports.LineChart = exports.ItemDetails = exports.SearchSnippet = exports.FacetSearchComponent = exports.CollectionAnalyser = exports.CollectionStats = exports.CollectionSelector = exports.SearchAPI = exports.CollectionAPI = exports.AnnotationAPI = undefined;
+	exports.SegmentationControls = exports.JWPlayer = exports.VimeoPlayer = exports.FlexPlayer = exports.LinkingForm = exports.ClassifyingForm = exports.CommentingForm = exports.AnnotationBox = exports.TimeUtil = exports.CollectionUtil = exports.CollectionDataUtil = exports.SpeechAndernieuwsConfig = exports.NISVProgramGuideConfig = exports.NISVCatalogueConfig = exports.CollectionConfig = exports.FlexComponentInfo = exports.FlexModal = exports.FlexHits = exports.FlexBox = exports.LineChart = exports.ItemDetails = exports.SearchSnippet = exports.FacetSearchComponent = exports.CollectionAnalyser = exports.CollectionStats = exports.CollectionSelector = exports.SearchAPI = exports.CollectionAPI = exports.AnnotationAPI = undefined;
 	exports.cookRecipe = cookRecipe;
 	
 	var _AnnotationAPI = __webpack_require__(/*! ./api/AnnotationAPI */ 23);
@@ -12225,6 +12225,33 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
+	var _CommentingForm = __webpack_require__(/*! ./components/annotation/CommentingForm */ 633);
+	
+	Object.defineProperty(exports, 'CommentingForm', {
+		enumerable: true,
+		get: function get() {
+			return _interopRequireDefault(_CommentingForm).default;
+		}
+	});
+	
+	var _ClassifyingForm = __webpack_require__(/*! ./components/annotation/ClassifyingForm */ 634);
+	
+	Object.defineProperty(exports, 'ClassifyingForm', {
+		enumerable: true,
+		get: function get() {
+			return _interopRequireDefault(_ClassifyingForm).default;
+		}
+	});
+	
+	var _LinkingForm = __webpack_require__(/*! ./components/annotation/LinkingForm */ 661);
+	
+	Object.defineProperty(exports, 'LinkingForm', {
+		enumerable: true,
+		get: function get() {
+			return _interopRequireDefault(_LinkingForm).default;
+		}
+	});
+	
 	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 664);
 	
 	Object.defineProperty(exports, 'FlexPlayer', {
@@ -12328,7 +12355,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 	
 		getAnnotation: function getAnnotation(annotationId) {
-			console.debug('GETTING THIS ANNOTATION: ' + annotationId);
 			if (annotationId) {
 				$.ajax({
 					url: _config.ANNOTATION_API_BASE + '/annotation/' + annotationId,
@@ -46327,7 +46353,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57563,19 +57589,19 @@ return /******/ (function(modules) { // webpackBootstrap
 							form = React.createElement(_CommentingForm2.default, {
 								data: this.state.comments,
 								config: this.state.modes[mode],
-								updateAnnotationData: this.updateAnnotationData.bind(this)
+								onOutput: this.updateAnnotationData.bind(this)
 							});break;
 						case 'classify':
 							form = React.createElement(_ClassifyingForm2.default, {
 								data: this.state.classifications,
 								config: this.state.modes[mode],
-								updateAnnotationData: this.updateAnnotationData.bind(this)
+								onOutput: this.updateAnnotationData.bind(this)
 							});break;
 						case 'link':
 							form = React.createElement(_LinkingForm2.default, {
 								data: this.state.links,
 								config: this.state.modes[mode],
-								updateAnnotationData: this.updateAnnotationData.bind(this)
+								onOutput: this.updateAnnotationData.bind(this)
 							});break;
 					}
 					return React.createElement(
@@ -57655,27 +57681,39 @@ return /******/ (function(modules) { // webpackBootstrap
 		function CommentingForm(props) {
 			_classCallCheck(this, CommentingForm);
 	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(CommentingForm).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CommentingForm).call(this, props));
+	
+			_this.state = {
+				data: _this.props.data ? _this.props.data : []
+			};
+			return _this;
 		}
 	
 		_createClass(CommentingForm, [{
 			key: 'addComment',
 			value: function addComment(e) {
 				e.preventDefault();
-				var cs = this.props.data;
+				var cs = this.state.data;
 				if (cs) {
 					cs.push(this.refs.comment.value);
-					this.props.updateAnnotationData('comments', cs);
+					this.setState({ data: cs }, this.onOutput.bind(this));
 					this.refs.comment.value = '';
 				}
 			}
 		}, {
 			key: 'removeComment',
 			value: function removeComment(index) {
-				var cs = this.props.data;
+				var cs = this.state.data;
 				if (cs) {
 					cs.splice(index, 1);
-					this.props.updateAnnotationData('comments', cs);
+					this.setState({ data: cs }, this.onOutput.bind(this));
+				}
+			}
+		}, {
+			key: 'onOutput',
+			value: function onOutput() {
+				if (this.props.onOutput) {
+					this.props.onOutput('comments', this.state.data);
 				}
 			}
 		}, {
@@ -57683,7 +57721,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				var _this2 = this;
 	
-				var comments = this.props.data.map(function (c, index) {
+				var commentList = null;
+				var comments = this.state.data.map(function (c, index) {
 					return _react2.default.createElement(
 						'li',
 						{ key: 'com__' + index, className: 'list-group-item' },
@@ -57692,6 +57731,23 @@ return /******/ (function(modules) { // webpackBootstrap
 						c
 					);
 				}, this);
+				if (comments.length > 0) {
+					commentList = _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'h4',
+							null,
+							'Added comments'
+						),
+						_react2.default.createElement(
+							'ul',
+							{ className: 'list-group' },
+							comments
+						)
+					);
+				}
+	
 				return _react2.default.createElement(
 					'div',
 					{ key: 'form__comment' },
@@ -57702,16 +57758,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-12' },
-							_react2.default.createElement(
-								'h4',
-								null,
-								'Added comments'
-							),
-							_react2.default.createElement(
-								'ul',
-								{ className: 'list-group' },
-								comments
-							)
+							commentList
 						)
 					),
 					_react2.default.createElement(
@@ -57795,6 +57842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			var vocabulary = _this.props.config.vocabularies ? _this.props.config.vocabularies[0] : null;
 			_this.state = {
+				data: _this.props.data ? _this.props.data : [],
 				value: '', //the label of the selected classification (autocomplete)
 				suggestionId: null, //stores the id/uri of the selected classification (e.g. GTAA URI)
 				suggestions: [], //current list of suggestions shown
@@ -57811,28 +57859,33 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'addClassification',
 			value: function addClassification(e) {
 				e.preventDefault();
-				var cs = this.props.data;
+				var cs = this.state.data;
 				if (cs) {
 					cs.push({
 						id: this.state.suggestionId,
 						label: this.state.value,
 						vocabulary: this.state.vocabulary
 					});
-	
-					/* this calls the owner function, which will update the state, which
-	    in turn will update this.props.data with the added classification */
-					this.props.updateAnnotationData('classifications', cs);
-	
-					this.setState({ value: '' });
+					this.setState({
+						value: '',
+						data: cs
+					}, this.onOutput.bind(this));
 				}
 			}
 		}, {
 			key: 'removeClassification',
 			value: function removeClassification(index) {
-				var cs = this.props.data;
+				var cs = this.state.data;
 				if (cs) {
 					cs.splice(index, 1);
-					this.props.updateAnnotationData('classifications', cs);
+					this.setState({ data: cs }, this.onOutput.bind(this));
+				}
+			}
+		}, {
+			key: 'onOutput',
+			value: function onOutput() {
+				if (this.props.onOutput) {
+					this.props.onOutput('classifications', this.state.data);
 				}
 			}
 		}, {
@@ -57985,7 +58038,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				var _this4 = this;
 	
-				var classifications = this.props.data.map(function (c, index) {
+				var classificationList = null;
+				var classifications = this.state.data.map(function (c, index) {
 					var csClass = 'label label-success tag';
 					if (c.vocabulary == 'DBpedia') {
 						csClass = 'label label-danger tag';
@@ -57999,6 +58053,22 @@ return /******/ (function(modules) { // webpackBootstrap
 						' '
 					);
 				}, this);
+				if (classifications.length > 0) {
+					classificationList = React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'h4',
+							null,
+							'Added classifications'
+						),
+						React.createElement(
+							'div',
+							{ className: 'well' },
+							classifications
+						)
+					);
+				}
 	
 				var inputProps = {
 					placeholder: "Zoek een GTAA term",
@@ -58044,16 +58114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						React.createElement(
 							'div',
 							{ className: 'col-md-12' },
-							React.createElement(
-								'h4',
-								null,
-								'Added classifications'
-							),
-							React.createElement(
-								'div',
-								{ className: 'well' },
-								classifications
-							)
+							classificationList
 						)
 					),
 					React.createElement(
@@ -61132,6 +61193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			var api = _this.props.config.apis ? _this.props.config.apis[0].name : null;
 			_this.state = {
+				data: _this.props.data ? _this.props.data : [],
 				api: api,
 				results: []
 			};
@@ -61151,21 +61213,26 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'addLink',
 			value: function addLink(linkData) {
-				var links = this.props.data;
+				var links = this.state.data;
 				if (links) {
 					links.push(linkData);
-					/* this calls the owner function, which will update the state, which
-	    in turn will update this.props.data with the added classification */
-					this.props.updateAnnotationData('links', links);
+					this.setState({ data: links }, this.onOutput.bind(this));
 				}
 			}
 		}, {
 			key: 'removeLink',
 			value: function removeLink(index) {
-				var links = this.props.data;
+				var links = this.state.data;
 				if (links) {
 					links.splice(index, 1);
-					this.props.updateAnnotationData('links', links);
+					this.setState({ data: links }, this.onOutput.bind(this));
+				}
+			}
+		}, {
+			key: 'onOutput',
+			value: function onOutput() {
+				if (this.props.onOutput) {
+					this.props.onOutput('links', this.state.data);
 				}
 			}
 		}, {
@@ -61187,7 +61254,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				var _this2 = this;
 	
-				var links = this.props.data.map(function (link, index) {
+				var linkList = null;
+				var links = this.state.data.map(function (link, index) {
 					return React.createElement(
 						'li',
 						{ key: 'com__' + index, className: 'list-group-item' },
@@ -61196,6 +61264,22 @@ return /******/ (function(modules) { // webpackBootstrap
 						link.label
 					);
 				}, this);
+				if (links.length > 0) {
+					linkList = React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'h4',
+							null,
+							'Added links'
+						),
+						React.createElement(
+							'ul',
+							{ className: 'list-group' },
+							links
+						)
+					);
+				}
 	
 				//generate the options from the config and add a default one
 				var apiOptions = this.props.config.apis.map(function (api, index) {
@@ -61253,16 +61337,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						React.createElement(
 							'div',
 							{ className: 'col-md-12' },
-							React.createElement(
-								'h4',
-								null,
-								'Added links'
-							),
-							React.createElement(
-								'ul',
-								{ className: 'list-group' },
-								links
-							)
+							linkList
 						)
 					),
 					React.createElement(

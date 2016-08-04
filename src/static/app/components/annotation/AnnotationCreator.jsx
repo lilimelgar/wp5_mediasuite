@@ -95,21 +95,21 @@ class AnnotationCreator extends React.Component {
 					<CommentingForm
 						data={this.state.comments}
 						config={this.state.modes[mode]}
-						updateAnnotationData={this.updateAnnotationData.bind(this)}
+						onOutput={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 				case 'classify' : form = (
 					<ClassifyingForm
 						data={this.state.classifications}
 						config={this.state.modes[mode]}
-						updateAnnotationData={this.updateAnnotationData.bind(this)}
+						onOutput={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 				case 'link' : form = (
 					<LinkingForm
 						data={this.state.links}
 						config={this.state.modes[mode]}
-						updateAnnotationData={this.updateAnnotationData.bind(this)}
+						onOutput={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 			}

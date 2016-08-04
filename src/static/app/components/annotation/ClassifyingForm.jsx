@@ -8,6 +8,7 @@ class ClassifyingForm extends React.Component {
 		super(props);
 		var vocabulary = this.props.config.vocabularies ? this.props.config.vocabularies[0] : null;
 		this.state = {
+			data: this.props.data ? this.props.data : [],
 			value : '', //the label of the selected classification (autocomplete)
 			suggestionId : null, //stores the id/uri of the selected classification (e.g. GTAA URI)
 			suggestions : [], //current list of suggestions shown
@@ -21,27 +22,31 @@ class ClassifyingForm extends React.Component {
 
 	addClassification(e) {
 		e.preventDefault();
-		var cs = this.props.data;
+		var cs = this.state.data;
 		if(cs) {
 			cs.push({
 				id : this.state.suggestionId,
 				label: this.state.value,
 				vocabulary : this.state.vocabulary
 			});
-
-			/* this calls the owner function, which will update the state, which
-			in turn will update this.props.data with the added classification */
-			this.props.updateAnnotationData('classifications', cs);
-
-			this.setState({value : ''});
+			this.setState({
+				value : '',
+				data : cs
+			}, this.onOutput.bind(this));
 		}
 	}
 
 	removeClassification(index) {
-		var cs = this.props.data;
+		var cs = this.state.data;
 		if(cs) {
 			cs.splice(index, 1);
-			this.props.updateAnnotationData('classifications', cs);
+			this.setState({data : cs}, this.onOutput.bind(this));
+		}
+	}
+
+	onOutput() {
+		if(this.props.onOutput) {
+			this.props.onOutput('classifications', this.state.data);
 		}
 	}
 
@@ -128,7 +133,8 @@ class ClassifyingForm extends React.Component {
 	} /* ------------------- end of specific react-autosuggest functions ------------------- */
 
 	render() {
-		const classifications = this.props.data.map((c, index) => {
+		let classificationList = null;
+		const classifications = this.state.data.map((c, index) => {
 			let csClass = 'label label-success tag';
 			if(c.vocabulary == 'DBpedia') {
 				csClass = 'label label-danger tag';
@@ -143,6 +149,16 @@ class ClassifyingForm extends React.Component {
 				</span>
 			)
 		}, this);
+		if(classifications.length > 0) {
+			classificationList = (
+				<div>
+					<h4>Added classifications</h4>
+					<div className="well">
+						{classifications}
+					</div>
+				</div>
+			)
+		}
 
 		const inputProps = {
 			placeholder: "Zoek een GTAA term",
@@ -183,10 +199,7 @@ class ClassifyingForm extends React.Component {
 				<br/>
 				<div className="row">
 					<div className="col-md-12">
-						<h4>Added classifications</h4>
-						<div className="well">
-							{classifications}
-						</div>
+						{classificationList}
 					</div>
 				</div>
 				<div className="row">

@@ -71,16 +71,31 @@
                                     <div class="collapse in" id="menu_search">
                                         <ul class="nav nav-list">
                                             <li><a href="#" onclick="showComponent('Facet search')">Facet search</a></li>
+                                            <li><a href="#" onclick="showComponent('Comparative search')">Comparative search</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <!-- Annotation components -->
+                                <li class="active">
+                                    <a href="#" data-toggle="collapse" data-target="#menu_annotation" data-parent="#component_menu" class="collapsed">
+                                        <span class="glyphicon glyphicon-inbox"></span> Annotation <span class="caret pull-right"></span>
+                                    </a>
+                                    <div class="collapse in" id="menu_annotation">
+                                        <ul class="nav nav-list">
+                                            <li><a href="#" onclick="showComponent('Commenting')">Commenting</a></li>
+                                            <li><a href="#" onclick="showComponent('Classifying')">Classifying</a></li>
+                                            <li><a href="#" onclick="showComponent('Linking')">Linking</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <!-- Play-out components -->
                                 <li class="active">
-                                    <a href="#" data-toggle="collapse" data-target="#menu_stats" data-parent="#component_menu" class="collapsed">
+                                    <a href="#" data-toggle="collapse" data-target="#menu_playout" data-parent="#component_menu" class="collapsed">
                                         <span class="glyphicon glyphicon-inbox"></span> Play-out <span class="caret pull-right"></span>
                                     </a>
-                                    <div class="collapse in" id="menu_stats">
+                                    <div class="collapse in" id="menu_playout">
                                         <ul class="nav nav-list">
                                             <li><a href="#" onclick="showComponent('Annotation player')">Annotation player</a></li>
                                             <li><a href="#" onclick="showComponent('JWPlayer')">JWPlayer</a></li>
@@ -91,10 +106,10 @@
 
                                 <!-- Data visualisation components -->
                                 <li class="active">
-                                    <a href="#" data-toggle="collapse" data-target="#menu_stats" data-parent="#component_menu" class="collapsed">
+                                    <a href="#" data-toggle="collapse" data-target="#menu_visuals" data-parent="#component_menu" class="collapsed">
                                         <span class="glyphicon glyphicon-inbox"></span> Data visualisations <span class="caret pull-right"></span>
                                     </a>
-                                    <div class="collapse in" id="menu_stats">
+                                    <div class="collapse in" id="menu_visuals">
                                         <ul class="nav nav-list">
                                             <li><a href="#" onclick="showComponent('Line chart')">Line chart (TODO)</a></li>
                                         </ul>

@@ -27,7 +27,6 @@ const AnnotationAPI = {
 	},
 
 	getAnnotation : function(annotationId) {
-		console.debug('GETTING THIS ANNOTATION: ' + annotationId)
 		if(annotationId) {
 			$.ajax({
 				url : _config.ANNOTATION_API_BASE + '/annotation/' + annotationId,

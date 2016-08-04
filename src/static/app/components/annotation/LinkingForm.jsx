@@ -4,6 +4,7 @@ class LinkingForm extends React.Component {
 		super(props);
 		var api = this.props.config.apis ? this.props.config.apis[0].name : null;
 		this.state = {
+			data: this.props.data ? this.props.data : [],
 			api : api,
 			results : []
 		}
@@ -17,20 +18,24 @@ class LinkingForm extends React.Component {
 
 	//TODO make sure that at least one common property is present in the linkData (when hooking up different APIs)
 	addLink(linkData) {
-		var links = this.props.data;
+		var links = this.state.data;
 		if(links) {
 			links.push(linkData);
-			/* this calls the owner function, which will update the state, which
-			in turn will update this.props.data with the added classification */
-			this.props.updateAnnotationData('links', links);
+			this.setState({data : links}, this.onOutput.bind(this));
 		}
 	}
 
 	removeLink(index) {
-		var links = this.props.data;
+		var links = this.state.data;
 		if(links) {
 			links.splice(index, 1);
-			this.props.updateAnnotationData('links', links);
+			this.setState({data : links}, this.onOutput.bind(this));
+		}
+	}
+
+	onOutput() {
+		if(this.props.onOutput) {
+			this.props.onOutput('links', this.state.data);
 		}
 	}
 
@@ -47,7 +52,8 @@ class LinkingForm extends React.Component {
 	}
 
 	render() {
-		const links = this.props.data.map((link, index) => {
+		let linkList = null;
+		const links = this.state.data.map((link, index) => {
 			return (
 				<li key={'com__' + index} className="list-group-item">
 					<i className="glyphicon glyphicon-remove interactive" onClick={this.removeLink.bind(this, index)}></i>
@@ -56,7 +62,16 @@ class LinkingForm extends React.Component {
 				</li>
 			)
 		}, this);
-
+		if(links.length > 0) {
+			linkList = (
+				<div>
+					<h4>Added links</h4>
+					<ul className="list-group">
+						{links}
+					</ul>
+				</div>
+			)
+		}
 
 		//generate the options from the config and add a default one
 		const apiOptions = this.props.config.apis.map((api, index) => {
@@ -93,10 +108,7 @@ class LinkingForm extends React.Component {
 				<br/>
 				<div className="row">
 					<div className="col-md-12">
-						<h4>Added links</h4>
-						<ul className="list-group">
-							{links}
-						</ul>
+						{linkList}
 					</div>
 				</div>
 				<div className="row">

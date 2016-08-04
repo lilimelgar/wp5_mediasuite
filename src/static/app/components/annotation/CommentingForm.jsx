@@ -4,28 +4,38 @@ class CommentingForm extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			data: this.props.data ? this.props.data : []
+		}
 	}
 
 	addComment(e) {
 		e.preventDefault();
-		var cs = this.props.data;
+		var cs = this.state.data;
 		if(cs) {
 			cs.push(this.refs.comment.value);
-			this.props.updateAnnotationData('comments', cs);
+			this.setState({data : cs}, this.onOutput.bind(this));
 			this.refs.comment.value = '';
 		}
 	}
 
 	removeComment(index) {
-		var cs = this.props.data;
+		var cs = this.state.data;
 		if(cs) {
 			cs.splice(index, 1);
-			this.props.updateAnnotationData('comments', cs);
+			this.setState({data : cs}, this.onOutput.bind(this));
+		}
+	}
+
+	onOutput() {
+		if(this.props.onOutput) {
+			this.props.onOutput('comments', this.state.data);
 		}
 	}
 
 	render() {
-		const comments = this.props.data.map((c, index) => {
+		let commentList = null;
+		const comments = this.state.data.map((c, index) => {
 			return (
 				<li key={'com__' + index} className="list-group-item">
 					<i className="glyphicon glyphicon-remove interactive" onClick={this.removeComment.bind(this, index)}></i>
@@ -34,15 +44,23 @@ class CommentingForm extends React.Component {
 				</li>
 			)
 		}, this);
+		if(comments.length > 0) {
+			commentList = (
+				<div>
+					<h4>Added comments</h4>
+					<ul className="list-group">
+						{comments}
+					</ul>
+				</div>
+			)
+		}
+
 		return (
 			<div key="form__comment">
 				<br/>
 				<div className="row">
 					<div className="col-md-12">
-						<h4>Added comments</h4>
-						<ul className="list-group">
-							{comments}
-						</ul>
+						{commentList}
 					</div>
 				</div>
 				<div className="row">

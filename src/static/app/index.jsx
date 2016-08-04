@@ -51,6 +51,9 @@ export {default as TimeUtil} from './util/TimeUtil';
 
 //video annotation
 export {default as AnnotationBox} from './components/annotation/AnnotationBox';
+export {default as CommentingForm} from './components/annotation/CommentingForm';
+export {default as ClassifyingForm} from './components/annotation/ClassifyingForm';
+export {default as LinkingForm} from './components/annotation/LinkingForm';
 export {default as FlexPlayer} from './player/FlexPlayer';
 export {default as VimeoPlayer} from './player/VimeoPlayer';
 export {default as JWPlayer} from './player/JWPlayer';
