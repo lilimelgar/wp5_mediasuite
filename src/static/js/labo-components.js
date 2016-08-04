@@ -76,7 +76,12 @@ function getFacetSearch() {
 }
 
 function getComparativeSearch() {
-
+	var ComparativeSearch = clariah.ComparativeSearch;
+	return (
+		<ComparativeSearch user="Component test user"
+			collections={['labs-catalogue-aggr', 'spraak__andernieuws', 'soundbites']}
+			collectionSelector={true}/>
+	)
 }
 
 /*******************************************************************************

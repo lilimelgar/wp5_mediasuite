@@ -47,7 +47,9 @@ class ComparativeSearch extends React.Component {
 
 	//this function should be standard for any component that outputs data to the recipe
 	onOutput(componentType, data) {
-		this.props.onOutput(componentType, data);
+		if(this.props.onOutput) {
+			this.props.onOutput(componentType, data);
+		}
 		this.setState({currentOutput: data});
 	}
 
@@ -132,15 +134,13 @@ class ComparativeSearch extends React.Component {
 		//only show if configured
 		if(this.hasAnnotationSupport()) {
 			annotationBox = (
-				<FlexBox>
-					<AnnotationBox user={this.state.user}
-						showList={true}
-						annotationModes={this.props.annotationModes}
-						showModal={this.state.showAnnotationModal}
-						annotationTarget={this.state.annotationTarget}
-						handleHideModal={this.handleHideModal.bind(this)}
-						handleShowModal={this.handleShowModal.bind(this)}/>
-				</FlexBox>
+				<AnnotationBox user={this.state.user}
+					showList={false}
+					annotationModes={this.props.annotationModes}
+					showModal={this.state.showAnnotationModal}
+					annotationTarget={this.state.annotationTarget}
+					handleHideModal={this.handleHideModal.bind(this)}
+					handleShowModal={this.handleShowModal.bind(this)}/>
 			)
 		}
 
@@ -148,7 +148,7 @@ class ComparativeSearch extends React.Component {
 			<div>
 				{collectionSelector}
 				<div className="row">
-					<div className="col-md-8">
+					<div className="col-md-12">
 						<FlexBox>
 							<button type="button" className="btn btn-default"
 								onClick={this.bookmark.bind(this, 'currentQuery')}>
@@ -169,9 +169,7 @@ class ComparativeSearch extends React.Component {
 							</div>
 						</FlexBox>
 					</div>
-					<div className="col-md-4">
-						{annotationBox}
-					</div>
+					{annotationBox}
 				</div>
 			</div>
 		)

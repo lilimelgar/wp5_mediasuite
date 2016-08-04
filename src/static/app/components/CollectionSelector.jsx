@@ -27,8 +27,6 @@ class CollectionSelector extends React.Component {
 		this.setState(
 			{activeCollection : collectionId},
 			CollectionAPI.getCollectionStats(collectionId, (data) => {
-				console.debug('fetched the collections stats for ' + collectionId);
-				console.debug(data);
 				this.setState(
 					{
 						activeCollectionStats : data,

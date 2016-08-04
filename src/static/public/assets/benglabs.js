@@ -12024,7 +12024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.SegmentationControls = exports.JWPlayer = exports.VimeoPlayer = exports.FlexPlayer = exports.LinkingForm = exports.ClassifyingForm = exports.CommentingForm = exports.AnnotationBox = exports.TimeUtil = exports.CollectionUtil = exports.CollectionDataUtil = exports.SpeechAndernieuwsConfig = exports.NISVProgramGuideConfig = exports.NISVCatalogueConfig = exports.CollectionConfig = exports.FlexComponentInfo = exports.FlexModal = exports.FlexHits = exports.FlexBox = exports.LineChart = exports.ItemDetails = exports.SearchSnippet = exports.FacetSearchComponent = exports.CollectionAnalyser = exports.CollectionStats = exports.CollectionSelector = exports.SearchAPI = exports.CollectionAPI = exports.AnnotationAPI = undefined;
+	exports.SegmentationControls = exports.JWPlayer = exports.VimeoPlayer = exports.FlexPlayer = exports.LinkingForm = exports.ClassifyingForm = exports.CommentingForm = exports.AnnotationBox = exports.TimeUtil = exports.CollectionUtil = exports.CollectionDataUtil = exports.SpeechAndernieuwsConfig = exports.NISVProgramGuideConfig = exports.NISVCatalogueConfig = exports.CollectionConfig = exports.FlexComponentInfo = exports.FlexModal = exports.FlexHits = exports.FlexBox = exports.LineChart = exports.ItemDetails = exports.SearchSnippet = exports.ComparativeSearch = exports.FacetSearchComponent = exports.CollectionAnalyser = exports.CollectionStats = exports.CollectionSelector = exports.SearchAPI = exports.CollectionAPI = exports.AnnotationAPI = undefined;
 	exports.cookRecipe = cookRecipe;
 	
 	var _AnnotationAPI = __webpack_require__(/*! ./api/AnnotationAPI */ 23);
@@ -12087,6 +12087,15 @@ return /******/ (function(modules) { // webpackBootstrap
 		enumerable: true,
 		get: function get() {
 			return _interopRequireDefault(_FacetSearchComponent).default;
+		}
+	});
+	
+	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch */ 671);
+	
+	Object.defineProperty(exports, 'ComparativeSearch', {
+		enumerable: true,
+		get: function get() {
+			return _interopRequireDefault(_ComparativeSearch).default;
 		}
 	});
 	
@@ -12563,8 +12572,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 				var collectionId = event.target.value;
 				this.setState({ activeCollection: collectionId }, _CollectionAPI2.default.getCollectionStats(collectionId, function (data) {
-					console.debug('fetched the collections stats for ' + collectionId);
-					console.debug(data);
 					_this2.setState({
 						activeCollectionStats: data,
 						activeDocumentTypeStats: data.collection_statistics.document_types[0],
@@ -46353,7 +46360,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -64196,7 +64203,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'onOutput',
 			value: function onOutput(componentType, data) {
-				this.props.onOutput(componentType, data);
+				if (this.props.onOutput) {
+					this.props.onOutput(componentType, data);
+				}
 				this.setState({ currentOutput: data });
 			}
 	
@@ -64302,17 +64311,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 				//only show if configured
 				if (this.hasAnnotationSupport()) {
-					annotationBox = React.createElement(
-						_FlexBox2.default,
-						null,
-						React.createElement(_AnnotationBox2.default, { user: this.state.user,
-							showList: true,
-							annotationModes: this.props.annotationModes,
-							showModal: this.state.showAnnotationModal,
-							annotationTarget: this.state.annotationTarget,
-							handleHideModal: this.handleHideModal.bind(this),
-							handleShowModal: this.handleShowModal.bind(this) })
-					);
+					annotationBox = React.createElement(_AnnotationBox2.default, { user: this.state.user,
+						showList: false,
+						annotationModes: this.props.annotationModes,
+						showModal: this.state.showAnnotationModal,
+						annotationTarget: this.state.annotationTarget,
+						handleHideModal: this.handleHideModal.bind(this),
+						handleShowModal: this.handleShowModal.bind(this) });
 				}
 	
 				return React.createElement(
@@ -64324,7 +64329,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						{ className: 'row' },
 						React.createElement(
 							'div',
-							{ className: 'col-md-8' },
+							{ className: 'col-md-12' },
 							React.createElement(
 								_FlexBox2.default,
 								null,
@@ -64355,11 +64360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								)
 							)
 						),
-						React.createElement(
-							'div',
-							{ className: 'col-md-4' },
-							annotationBox
-						)
+						annotationBox
 					)
 				);
 			}

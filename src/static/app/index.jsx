@@ -26,6 +26,7 @@ export {default as CollectionAnalyser} from './components/CollectionAnalyser';
 
 //search related components
 export {default as FacetSearchComponent} from './components/FacetSearchComponent';
+export {default as ComparativeSearch} from './components/ComparativeSearch';
 export {default as SearchSnippet} from './components/SearchSnippet';
 export {default as ItemDetails} from './components/ItemDetails';
 
