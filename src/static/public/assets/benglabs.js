@@ -46360,7 +46360,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -64265,7 +64265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function render() {
 				var collectionSelector = null;
 				var annotationBox = null; // in case there is annotation support configured
-	
+				var annotationTestButtons = null;
 				//for drawing the tabs
 				var searchTabs = this.state.collections.map(function (c) {
 					return React.createElement(
@@ -64318,6 +64318,25 @@ return /******/ (function(modules) { // webpackBootstrap
 						annotationTarget: this.state.annotationTarget,
 						handleHideModal: this.handleHideModal.bind(this),
 						handleShowModal: this.handleShowModal.bind(this) });
+					annotationTestButtons = React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-default',
+								onClick: this.bookmark.bind(this, 'currentQuery') },
+							'Bookmark current query'
+						),
+						' ',
+						React.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-default',
+								onClick: this.addAnnotation.bind(this, 'singleItem') },
+							'Annotate test'
+						),
+						React.createElement('br', null),
+						React.createElement('br', null)
+					);
 				}
 	
 				return React.createElement(
@@ -64333,21 +64352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							React.createElement(
 								_FlexBox2.default,
 								null,
-								React.createElement(
-									'button',
-									{ type: 'button', className: 'btn btn-default',
-										onClick: this.bookmark.bind(this, 'currentQuery') },
-									'Bookmark current query'
-								),
-								' ',
-								React.createElement(
-									'button',
-									{ type: 'button', className: 'btn btn-default',
-										onClick: this.addAnnotation.bind(this, 'singleItem') },
-									'Annotate test'
-								),
-								React.createElement('br', null),
-								React.createElement('br', null),
+								annotationTestButtons,
 								React.createElement(
 									'ul',
 									{ className: 'nav nav-tabs' },

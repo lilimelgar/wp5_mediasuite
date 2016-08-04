@@ -98,7 +98,7 @@ class ComparativeSearch extends React.Component {
 	render() {
 		var collectionSelector = null;
 		let annotationBox = null; // in case there is annotation support configured
-
+		let annotationTestButtons = null;
 		//for drawing the tabs
 		var searchTabs = this.state.collections.map(function(c) {
 			return (
@@ -142,6 +142,21 @@ class ComparativeSearch extends React.Component {
 					handleHideModal={this.handleHideModal.bind(this)}
 					handleShowModal={this.handleShowModal.bind(this)}/>
 			)
+			annotationTestButtons = (
+				<div>
+					<button type="button" className="btn btn-default"
+						onClick={this.bookmark.bind(this, 'currentQuery')}>
+						Bookmark current query
+					</button>
+					&nbsp;
+					<button type="button" className="btn btn-default"
+						onClick={this.addAnnotation.bind(this, 'singleItem')}>
+						Annotate test
+					</button>
+					<br/>
+					<br/>
+				</div>
+			)
 		}
 
 		return (
@@ -150,17 +165,7 @@ class ComparativeSearch extends React.Component {
 				<div className="row">
 					<div className="col-md-12">
 						<FlexBox>
-							<button type="button" className="btn btn-default"
-								onClick={this.bookmark.bind(this, 'currentQuery')}>
-								Bookmark current query
-							</button>
-							&nbsp;
-							<button type="button" className="btn btn-default"
-								onClick={this.addAnnotation.bind(this, 'singleItem')}>
-								Annotate test
-							</button>
-							<br/>
-							<br/>
+							{annotationTestButtons}
 							<ul className="nav nav-tabs">
 								{searchTabs}
 							</ul>
