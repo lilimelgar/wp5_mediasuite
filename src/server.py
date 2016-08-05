@@ -141,7 +141,7 @@ def autocomplete():
 			options = handler.autoCompleteTable(term.lower(), conceptScheme)
 		elif vocab == 'DBpedia':
 			dac = DBpedia()
-			options = dac.autoComplete(term)
+			options = dac.autoComplete(term)#dbpedia lookup seems down...
 		if options:
 			return Response(simplejson.dumps(options), mimetype='application/json')
 		else:
@@ -156,12 +156,20 @@ def autocomplete():
 def link(api, command):
 	resp = None
 	apiHandler = None
+	params = request.args
 	if api == 'wikidata':
 		apiHandler = WikiData()
+		if command == 'get_entity':
+			params = {
+				'ids' : [request.args.get('id')],
+				'get_references' : True,
+				'props' : ("labels", "descriptions", "sitelinks"),
+				'languages' : ['nl']
+			}
 	elif api == 'europeana':
 		apiHandler = Europeana()
 	if apiHandler:
-		resp = resp = getattr(apiHandler, "%s" % command)(request.args)
+		resp = resp = getattr(apiHandler, "%s" % command)(params)
 	if resp:
 		return Response(simplejson.dumps(resp), mimetype='application/json')
 	return Response(getErrorMessage('Nothing found'), mimetype='application/json')

@@ -129,9 +129,9 @@ class LinkingForm extends React.Component {
 						</form>
 
 						{this.state.results.length > 0 ?
-							<div style={{height: '400px', overflow: 'auto'}}>
+							<div>
 								<h4>Gevonden resultaten <small>Dubbelklik een gevonden resultaat om deze toe te voegen</small></h4>
-								<div className="well">
+								<div className="well" style={{height: '400px', overflow: 'auto'}}>
 									<table className="table table-bordered">
 										<tbody>
 											{results}

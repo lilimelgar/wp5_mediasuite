@@ -12090,7 +12090,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch */ 671);
+	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch */ 630);
 	
 	Object.defineProperty(exports, 'ComparativeSearch', {
 		enumerable: true,
@@ -12153,7 +12153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexComponentInfo = __webpack_require__(/*! ./components/FlexComponentInfo */ 630);
+	var _FlexComponentInfo = __webpack_require__(/*! ./components/FlexComponentInfo */ 664);
 	
 	Object.defineProperty(exports, 'FlexComponentInfo', {
 		enumerable: true,
@@ -12261,7 +12261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 664);
+	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 665);
 	
 	Object.defineProperty(exports, 'FlexPlayer', {
 		enumerable: true,
@@ -12270,7 +12270,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 665);
+	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 666);
 	
 	Object.defineProperty(exports, 'VimeoPlayer', {
 		enumerable: true,
@@ -12279,7 +12279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _JWPlayer = __webpack_require__(/*! ./player/JWPlayer */ 666);
+	var _JWPlayer = __webpack_require__(/*! ./player/JWPlayer */ 667);
 	
 	Object.defineProperty(exports, 'JWPlayer', {
 		enumerable: true,
@@ -12288,7 +12288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 668);
+	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 669);
 	
 	Object.defineProperty(exports, 'SegmentationControls', {
 		enumerable: true,
@@ -12299,7 +12299,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 146);
 	
-	var _Recipe = __webpack_require__(/*! ./Recipe */ 670);
+	var _Recipe = __webpack_require__(/*! ./Recipe */ 671);
 	
 	var _Recipe2 = _interopRequireDefault(_Recipe);
 	
@@ -46360,7 +46360,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57178,7 +57178,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 630 */
 /*!**********************************************!*\
-  !*** ./app/components/FlexComponentInfo.jsx ***!
+  !*** ./app/components/ComparativeSearch.jsx ***!
   \**********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -57190,13 +57190,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 27);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _CollectionSelector = __webpack_require__(/*! ./CollectionSelector.jsx */ 26);
+	var _CollectionSelector = __webpack_require__(/*! ./CollectionSelector */ 26);
 	
 	var _CollectionSelector2 = _interopRequireDefault(_CollectionSelector);
+	
+	var _FacetSearchComponent = __webpack_require__(/*! ./FacetSearchComponent */ 32);
+	
+	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
+	
+	var _AnnotationBox = __webpack_require__(/*! ./annotation/AnnotationBox */ 631);
+	
+	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
+	
+	var _FlexBox = __webpack_require__(/*! ./FlexBox */ 31);
+	
+	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -57206,90 +57214,235 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FlexComponentInfo = function (_React$Component) {
-		_inherits(FlexComponentInfo, _React$Component);
+	var ComparativeSearch = function (_React$Component) {
+		_inherits(ComparativeSearch, _React$Component);
 	
-		function FlexComponentInfo(props) {
-			_classCallCheck(this, FlexComponentInfo);
+		function ComparativeSearch(props) {
+			_classCallCheck(this, ComparativeSearch);
 	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FlexComponentInfo).call(this, props));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ComparativeSearch).call(this, props));
 	
 			_this.state = {
-				componentConfig: null
+				user: _this.props.user,
+				collections: _this.props.collections,
+				activeCollection: _this.props.collections.length > 0 ? _this.props.collections[0] : null,
+				currentOutput: null, //could also be a default state value for components which implement onOutput
+				showAnnotationModal: false, //only if there is annotationSupport and only for classify, comment & link
+				annotationTarget: null //only if there is annotationSupport and only for classify, comment & link
 			};
 			return _this;
 		}
 	
-		_createClass(FlexComponentInfo, [{
-			key: 'generateComponentConfig',
-			value: function generateComponentConfig() {}
+		/* ------------------------ COLLECTION CRUD --------------------- */
 	
-			//TODO extend this to something more elaborate that also includes the component config
+		_createClass(ComparativeSearch, [{
+			key: 'removeCollection',
+			value: function removeCollection(collectionId) {
+				var cs = this.state.collections;
+				var index = cs.indexOf(collectionId);
+				if (index != -1) {
+					cs.splice(index, 1);
+					this.setState({
+						collections: cs,
+						activeCollection: cs.length > 0 ? cs[0] : null
+					});
+				}
+			}
+	
+			//TODO this function should never load a collection that has been already loaded
+	
+		}, {
+			key: 'onEditCollections',
+			value: function onEditCollections(collectionId) {
+				var cs = this.state.collections;
+				if (cs.indexOf(collectionId) == -1) {
+					cs.push(collectionId);
+					this.setState({
+						collections: cs,
+						activeCollection: collectionId
+					});
+				}
+			}
+	
+			/* ---------------------- (FUTURE) DEFAULT COMPONENT FUNCTIONS ------------------- */
+	
+			//this function should be standard for any component that outputs data to the recipe
+	
+		}, {
+			key: 'onOutput',
+			value: function onOutput(componentType, data) {
+				if (this.props.onOutput) {
+					this.props.onOutput(componentType, data);
+				}
+				this.setState({ currentOutput: data });
+			}
+	
+			/* ----------------------- FOR ANNOTATION SUPPORT (candidates for utility or super class)----- */
+	
+			//this function should check if the annotation support is relevant for itself
+	
+		}, {
+			key: 'hasAnnotationSupport',
+			value: function hasAnnotationSupport() {
+				if (this.props.annotationSupport != null) {
+					if (this.props.annotationSupport.currentQuery || this.props.annotationSupport.singleItem) {
+						return true;
+					}
+				}
+				return false;
+			}
+	
+			//TODO implement for real
+	
+		}, {
+			key: 'addAnnotation',
+			value: function addAnnotation(type) {
+				var annotationTarget = 'test ' + type;
+				this.setState({
+					showAnnotationModal: true,
+					annotationTarget: annotationTarget
+				});
+			}
+		}, {
+			key: 'bookmark',
+			value: function bookmark(type) {
+				console.debug('bookmarking:  ' + type);
+				console.debug(this.props.annotationSupport[type]);
+				if (this.props.annotationSupport[type].modes.indexOf('bookmark') != -1) {
+					if (type == 'currentQuery' && this.state.currentOutput != null) {
+						console.debug('bookmarked this query:');
+						console.debug(this.state.currentOutput.results.query);
+					}
+				}
+			}
+		}, {
+			key: 'handleShowModal',
+			value: function handleShowModal() {
+				this.setState({ showAnnotationModal: true });
+			}
+		}, {
+			key: 'handleHideModal',
+			value: function handleHideModal() {
+				this.setState({ showAnnotationModal: false });
+			}
+	
+			/* ---------------------- RENDER ------------------- */
 	
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this2 = this;
+				var collectionSelector = null;
+				var annotationBox = null; // in case there is annotation support configured
+				var annotationTestButtons = null;
+				//for drawing the tabs
+				var searchTabs = this.state.collections.map(function (c) {
+					return React.createElement(
+						'li',
+						{ key: c + '__tab_option',
+							className: this.state.activeCollection == c ? 'active' : '' },
+						React.createElement(
+							'a',
+							{ 'data-toggle': 'tab', href: '#' + c },
+							c,
+							React.createElement('i', { className: 'glyphicon glyphicon-minus', onClick: this.removeCollection.bind(this, c) })
+						)
+					);
+				}, this);
 	
-				//generate the config form TODO
-				// let configFormFields = Object.keys(this.props.config).map((key, index) => {
-				// 	let option = this.props.config[key];
-				// 	if(option.type == 'collection_selector') {
-				// 		return (
-				// 			<CollectionSelector/>
-				// 		)
-				// 	}
-				// })
-	
-				var childrenWithProps = null;
-				if (this.props.config) {
-					(function () {
-						//this.state.componentConfig
-						var config = {
-							key: "testbox",
-							blockId: "labs-catalogue-aggr",
+				//these are the facet search UI blocks put into different tabs
+				var searchTabContents = this.state.collections.map(function (c) {
+					return React.createElement(
+						'div',
+						{ key: c + '__tab_content',
+							id: c,
+							className: this.state.activeCollection == c ? 'tab-pane active' : 'tab-pane' },
+						React.createElement(
+							'h3',
+							null,
+							c
+						),
+						React.createElement(_FacetSearchComponent2.default, { key: c + '__sk',
+							collection: c,
 							searchAPI: _config.SEARCH_API_BASE,
-							indexPath: '/search/labs-catalogue-aggr',
-							prefixQueryFields: _this2.props.config.getSearchableFields(),
-							dateFields: _this2.props.config.getDateFields(),
-							facets: _this2.props.config.getFacets()
-						};
-						childrenWithProps = _react2.default.Children.map(_this2.props.children, function (child) {
-							return _react2.default.cloneElement(child, config);
-						} //this.state.componentConfig
-						);
-					})();
+							onOutput: this.onOutput.bind(this) })
+					);
+				}, this);
+	
+				//only show if configured
+				if (this.props.collectionSelector === true) {
+					collectionSelector = React.createElement(
+						_FlexBox2.default,
+						null,
+						React.createElement(_CollectionSelector2.default, { onEditCollections: this.onEditCollections.bind(this) })
+					);
 				}
-				return _react2.default.createElement(
+	
+				//only show if configured
+				if (this.hasAnnotationSupport()) {
+					annotationBox = React.createElement(_AnnotationBox2.default, { user: this.state.user,
+						showList: false,
+						annotationModes: this.props.annotationModes,
+						showModal: this.state.showAnnotationModal,
+						annotationTarget: this.state.annotationTarget,
+						handleHideModal: this.handleHideModal.bind(this),
+						handleShowModal: this.handleShowModal.bind(this) });
+					annotationTestButtons = React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-default',
+								onClick: this.bookmark.bind(this, 'currentQuery') },
+							'Bookmark current query'
+						),
+						' ',
+						React.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-default',
+								onClick: this.addAnnotation.bind(this, 'singleItem') },
+							'Annotate test'
+						),
+						React.createElement('br', null),
+						React.createElement('br', null)
+					);
+				}
+	
+				return React.createElement(
 					'div',
 					null,
-					_react2.default.createElement(
+					collectionSelector,
+					React.createElement(
 						'div',
-						{ className: 'panel panel-default' },
-						_react2.default.createElement(
+						{ className: 'row' },
+						React.createElement(
 							'div',
-							{ className: 'panel-heading' },
-							_react2.default.createElement(
-								'h3',
-								{ className: 'panel-title' },
-								this.props.title
+							{ className: 'col-md-12' },
+							React.createElement(
+								_FlexBox2.default,
+								null,
+								annotationTestButtons,
+								React.createElement(
+									'ul',
+									{ className: 'nav nav-tabs' },
+									searchTabs
+								),
+								React.createElement(
+									'div',
+									{ className: 'tab-content' },
+									searchTabContents
+								)
 							)
 						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'panel-body' },
-							this.props.description
-						)
-					),
-					childrenWithProps ? childrenWithProps : this.props.children
+						annotationBox
+					)
 				);
 			}
 		}]);
 	
-		return FlexComponentInfo;
-	}(_react2.default.Component);
+		return ComparativeSearch;
+	}(React.Component);
 	
-	exports.default = FlexComponentInfo;
+	exports.default = ComparativeSearch;
 
 /***/ },
 /* 631 */
@@ -61386,7 +61539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							),
 							this.state.results.length > 0 ? React.createElement(
 								'div',
-								{ style: { height: '400px', overflow: 'auto' } },
+								null,
 								React.createElement(
 									'h4',
 									null,
@@ -61399,7 +61552,7 @@ return /******/ (function(modules) { // webpackBootstrap
 								),
 								React.createElement(
 									'div',
-									{ className: 'well' },
+									{ className: 'well', style: { height: '400px', overflow: 'auto' } },
 									React.createElement(
 										'table',
 										{ className: 'table table-bordered' },
@@ -61612,6 +61765,122 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 664 */
+/*!**********************************************!*\
+  !*** ./app/components/FlexComponentInfo.jsx ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _CollectionSelector = __webpack_require__(/*! ./CollectionSelector.jsx */ 26);
+	
+	var _CollectionSelector2 = _interopRequireDefault(_CollectionSelector);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var FlexComponentInfo = function (_React$Component) {
+		_inherits(FlexComponentInfo, _React$Component);
+	
+		function FlexComponentInfo(props) {
+			_classCallCheck(this, FlexComponentInfo);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FlexComponentInfo).call(this, props));
+	
+			_this.state = {
+				componentConfig: null
+			};
+			return _this;
+		}
+	
+		_createClass(FlexComponentInfo, [{
+			key: 'generateComponentConfig',
+			value: function generateComponentConfig() {}
+	
+			//TODO extend this to something more elaborate that also includes the component config
+	
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+	
+				//generate the config form TODO
+				// let configFormFields = Object.keys(this.props.config).map((key, index) => {
+				// 	let option = this.props.config[key];
+				// 	if(option.type == 'collection_selector') {
+				// 		return (
+				// 			<CollectionSelector/>
+				// 		)
+				// 	}
+				// })
+	
+				var childrenWithProps = null;
+				if (this.props.config) {
+					(function () {
+						//this.state.componentConfig
+						var config = {
+							key: "testbox",
+							blockId: "labs-catalogue-aggr",
+							searchAPI: _config.SEARCH_API_BASE,
+							indexPath: '/search/labs-catalogue-aggr',
+							prefixQueryFields: _this2.props.config.getSearchableFields(),
+							dateFields: _this2.props.config.getDateFields(),
+							facets: _this2.props.config.getFacets()
+						};
+						childrenWithProps = _react2.default.Children.map(_this2.props.children, function (child) {
+							return _react2.default.cloneElement(child, config);
+						} //this.state.componentConfig
+						);
+					})();
+				}
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'panel panel-default' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel-heading' },
+							_react2.default.createElement(
+								'h3',
+								{ className: 'panel-title' },
+								this.props.title
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel-body' },
+							this.props.description
+						)
+					),
+					childrenWithProps ? childrenWithProps : this.props.children
+				);
+			}
+		}]);
+	
+		return FlexComponentInfo;
+	}(_react2.default.Component);
+	
+	exports.default = FlexComponentInfo;
+
+/***/ },
+/* 665 */
 /*!***********************************!*\
   !*** ./app/player/FlexPlayer.jsx ***!
   \***********************************/
@@ -61629,19 +61898,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 665);
+	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 666);
 	
 	var _VimeoPlayer2 = _interopRequireDefault(_VimeoPlayer);
 	
-	var _JWPlayer = __webpack_require__(/*! ./JWPlayer */ 666);
+	var _JWPlayer = __webpack_require__(/*! ./JWPlayer */ 667);
 	
 	var _JWPlayer2 = _interopRequireDefault(_JWPlayer);
 	
-	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 667);
+	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 668);
 	
 	var _VideoTimeBar2 = _interopRequireDefault(_VideoTimeBar);
 	
-	var _SegmentationControls = __webpack_require__(/*! ../components/annotation/SegmentationControls */ 668);
+	var _SegmentationControls = __webpack_require__(/*! ../components/annotation/SegmentationControls */ 669);
 	
 	var _SegmentationControls2 = _interopRequireDefault(_SegmentationControls);
 	
@@ -61653,7 +61922,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
-	var _mousetrap = __webpack_require__(/*! mousetrap */ 669);
+	var _mousetrap = __webpack_require__(/*! mousetrap */ 670);
 	
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 	
@@ -62142,7 +62411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = FlexPlayer;
 
 /***/ },
-/* 665 */
+/* 666 */
 /*!************************************!*\
   !*** ./app/player/VimeoPlayer.jsx ***!
   \************************************/
@@ -62421,7 +62690,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VimeoPlayer;
 
 /***/ },
-/* 666 */
+/* 667 */
 /*!*********************************!*\
   !*** ./app/player/JWPlayer.jsx ***!
   \*********************************/
@@ -62600,7 +62869,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JWPlayer;
 
 /***/ },
-/* 667 */
+/* 668 */
 /*!****************************************************!*\
   !*** ./app/components/annotation/VideoTimeBar.jsx ***!
   \****************************************************/
@@ -62745,7 +63014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VideoTimeBar;
 
 /***/ },
-/* 668 */
+/* 669 */
 /*!************************************************************!*\
   !*** ./app/components/annotation/SegmentationControls.jsx ***!
   \************************************************************/
@@ -62916,7 +63185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SegmentationControls;
 
 /***/ },
-/* 669 */
+/* 670 */
 /*!**********************************!*\
   !*** ./~/mousetrap/mousetrap.js ***!
   \**********************************/
@@ -63963,7 +64232,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 670 */
+/* 671 */
 /*!************************!*\
   !*** ./app/Recipe.jsx ***!
   \************************/
@@ -63985,7 +64254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
 	
-	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch.jsx */ 671);
+	var _ComparativeSearch = __webpack_require__(/*! ./components/ComparativeSearch.jsx */ 630);
 	
 	var _ComparativeSearch2 = _interopRequireDefault(_ComparativeSearch);
 	
@@ -64108,275 +64377,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Recipe;
 
 /***/ },
-/* 671 */
-/*!**********************************************!*\
-  !*** ./app/components/ComparativeSearch.jsx ***!
-  \**********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _CollectionSelector = __webpack_require__(/*! ./CollectionSelector */ 26);
-	
-	var _CollectionSelector2 = _interopRequireDefault(_CollectionSelector);
-	
-	var _FacetSearchComponent = __webpack_require__(/*! ./FacetSearchComponent */ 32);
-	
-	var _FacetSearchComponent2 = _interopRequireDefault(_FacetSearchComponent);
-	
-	var _AnnotationBox = __webpack_require__(/*! ./annotation/AnnotationBox */ 631);
-	
-	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
-	
-	var _FlexBox = __webpack_require__(/*! ./FlexBox */ 31);
-	
-	var _FlexBox2 = _interopRequireDefault(_FlexBox);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ComparativeSearch = function (_React$Component) {
-		_inherits(ComparativeSearch, _React$Component);
-	
-		function ComparativeSearch(props) {
-			_classCallCheck(this, ComparativeSearch);
-	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ComparativeSearch).call(this, props));
-	
-			_this.state = {
-				user: _this.props.user,
-				collections: _this.props.collections,
-				activeCollection: _this.props.collections.length > 0 ? _this.props.collections[0] : null,
-				currentOutput: null, //could also be a default state value for components which implement onOutput
-				showAnnotationModal: false, //only if there is annotationSupport and only for classify, comment & link
-				annotationTarget: null //only if there is annotationSupport and only for classify, comment & link
-			};
-			return _this;
-		}
-	
-		/* ------------------------ COLLECTION CRUD --------------------- */
-	
-		_createClass(ComparativeSearch, [{
-			key: 'removeCollection',
-			value: function removeCollection(collectionId) {
-				var cs = this.state.collections;
-				var index = cs.indexOf(collectionId);
-				if (index != -1) {
-					cs.splice(index, 1);
-					this.setState({
-						collections: cs,
-						activeCollection: cs.length > 0 ? cs[0] : null
-					});
-				}
-			}
-	
-			//TODO this function should never load a collection that has been already loaded
-	
-		}, {
-			key: 'onEditCollections',
-			value: function onEditCollections(collectionId) {
-				var cs = this.state.collections;
-				if (cs.indexOf(collectionId) == -1) {
-					cs.push(collectionId);
-					this.setState({
-						collections: cs,
-						activeCollection: collectionId
-					});
-				}
-			}
-	
-			/* ---------------------- (FUTURE) DEFAULT COMPONENT FUNCTIONS ------------------- */
-	
-			//this function should be standard for any component that outputs data to the recipe
-	
-		}, {
-			key: 'onOutput',
-			value: function onOutput(componentType, data) {
-				if (this.props.onOutput) {
-					this.props.onOutput(componentType, data);
-				}
-				this.setState({ currentOutput: data });
-			}
-	
-			/* ----------------------- FOR ANNOTATION SUPPORT (candidates for utility or super class)----- */
-	
-			//this function should check if the annotation support is relevant for itself
-	
-		}, {
-			key: 'hasAnnotationSupport',
-			value: function hasAnnotationSupport() {
-				if (this.props.annotationSupport != null) {
-					if (this.props.annotationSupport.currentQuery || this.props.annotationSupport.singleItem) {
-						return true;
-					}
-				}
-				return false;
-			}
-	
-			//TODO implement for real
-	
-		}, {
-			key: 'addAnnotation',
-			value: function addAnnotation(type) {
-				var annotationTarget = 'test ' + type;
-				this.setState({
-					showAnnotationModal: true,
-					annotationTarget: annotationTarget
-				});
-			}
-		}, {
-			key: 'bookmark',
-			value: function bookmark(type) {
-				console.debug('bookmarking:  ' + type);
-				console.debug(this.props.annotationSupport[type]);
-				if (this.props.annotationSupport[type].modes.indexOf('bookmark') != -1) {
-					if (type == 'currentQuery' && this.state.currentOutput != null) {
-						console.debug('bookmarked this query:');
-						console.debug(this.state.currentOutput.results.query);
-					}
-				}
-			}
-		}, {
-			key: 'handleShowModal',
-			value: function handleShowModal() {
-				this.setState({ showAnnotationModal: true });
-			}
-		}, {
-			key: 'handleHideModal',
-			value: function handleHideModal() {
-				this.setState({ showAnnotationModal: false });
-			}
-	
-			/* ---------------------- RENDER ------------------- */
-	
-		}, {
-			key: 'render',
-			value: function render() {
-				var collectionSelector = null;
-				var annotationBox = null; // in case there is annotation support configured
-				var annotationTestButtons = null;
-				//for drawing the tabs
-				var searchTabs = this.state.collections.map(function (c) {
-					return React.createElement(
-						'li',
-						{ key: c + '__tab_option',
-							className: this.state.activeCollection == c ? 'active' : '' },
-						React.createElement(
-							'a',
-							{ 'data-toggle': 'tab', href: '#' + c },
-							c,
-							React.createElement('i', { className: 'glyphicon glyphicon-minus', onClick: this.removeCollection.bind(this, c) })
-						)
-					);
-				}, this);
-	
-				//these are the facet search UI blocks put into different tabs
-				var searchTabContents = this.state.collections.map(function (c) {
-					return React.createElement(
-						'div',
-						{ key: c + '__tab_content',
-							id: c,
-							className: this.state.activeCollection == c ? 'tab-pane active' : 'tab-pane' },
-						React.createElement(
-							'h3',
-							null,
-							c
-						),
-						React.createElement(_FacetSearchComponent2.default, { key: c + '__sk',
-							collection: c,
-							searchAPI: _config.SEARCH_API_BASE,
-							onOutput: this.onOutput.bind(this) })
-					);
-				}, this);
-	
-				//only show if configured
-				if (this.props.collectionSelector === true) {
-					collectionSelector = React.createElement(
-						_FlexBox2.default,
-						null,
-						React.createElement(_CollectionSelector2.default, { onEditCollections: this.onEditCollections.bind(this) })
-					);
-				}
-	
-				//only show if configured
-				if (this.hasAnnotationSupport()) {
-					annotationBox = React.createElement(_AnnotationBox2.default, { user: this.state.user,
-						showList: false,
-						annotationModes: this.props.annotationModes,
-						showModal: this.state.showAnnotationModal,
-						annotationTarget: this.state.annotationTarget,
-						handleHideModal: this.handleHideModal.bind(this),
-						handleShowModal: this.handleShowModal.bind(this) });
-					annotationTestButtons = React.createElement(
-						'div',
-						null,
-						React.createElement(
-							'button',
-							{ type: 'button', className: 'btn btn-default',
-								onClick: this.bookmark.bind(this, 'currentQuery') },
-							'Bookmark current query'
-						),
-						' ',
-						React.createElement(
-							'button',
-							{ type: 'button', className: 'btn btn-default',
-								onClick: this.addAnnotation.bind(this, 'singleItem') },
-							'Annotate test'
-						),
-						React.createElement('br', null),
-						React.createElement('br', null)
-					);
-				}
-	
-				return React.createElement(
-					'div',
-					null,
-					collectionSelector,
-					React.createElement(
-						'div',
-						{ className: 'row' },
-						React.createElement(
-							'div',
-							{ className: 'col-md-12' },
-							React.createElement(
-								_FlexBox2.default,
-								null,
-								annotationTestButtons,
-								React.createElement(
-									'ul',
-									{ className: 'nav nav-tabs' },
-									searchTabs
-								),
-								React.createElement(
-									'div',
-									{ className: 'tab-content' },
-									searchTabContents
-								)
-							)
-						),
-						annotationBox
-					)
-				);
-			}
-		}]);
-	
-		return ComparativeSearch;
-	}(React.Component);
-	
-	exports.default = ComparativeSearch;
-
-/***/ },
 /* 672 */
 /*!**********************************!*\
   !*** ./app/AnnotationRecipe.jsx ***!
@@ -64403,7 +64403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
-	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 664);
+	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 665);
 	
 	var _FlexPlayer2 = _interopRequireDefault(_FlexPlayer);
 	

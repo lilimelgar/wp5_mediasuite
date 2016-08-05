@@ -37,6 +37,8 @@ class WikiData():
 
 	#this expects a bunch of wikidata ids (e.g Q34 or whatever)
 	def get_entity(self, params):
+		print 'getting entities'
+		print params
 		self.languages = params["languages"]
 		self.ids = params["ids"]
 		self.get_references = params["get_references"]
