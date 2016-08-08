@@ -58,7 +58,7 @@ class LineChart extends React.Component {
 				//create the x axis
 				this.svg.append("g")
 					.attr("class", "x axis")
-					.attr("transform", "translate(10," + this.height + ")")
+					.attr("transform", "translate(0," + this.height + ")")
 					.call(this.xAxis)
 					.append("text")
 					.attr('x', this.width - 50)
@@ -68,7 +68,7 @@ class LineChart extends React.Component {
 				//create the y axis
 				this.svg.append("g")
 					.attr("class", "y axis")
-					.attr("transform", "translate(10,0)")
+					.attr("transform", "translate(0,0)")
 					.call(this.yAxis)
 					.append("text")
 					.attr("transform", "rotate(-90)")
@@ -120,8 +120,8 @@ class LineChart extends React.Component {
 
 	initLineChart(data) {
 		//setup the global d3 variables / elements
-		this.margin = {top: 20, right: 20, bottom: 80, left: 50};
-		this.width = parseInt(d3.select('#chart_div').style('width'), 10)
+		this.margin = {top: 20, right: 20, bottom: 80, left: 70};
+		this.width = parseInt(d3.select('#chart_div').style('width'), 10) - this.margin.left - this.margin.right;
 		//this.width = 960 - this.margin.left - this.margin.right,
 		this.height = 400 - this.margin.top - this.margin.bottom;
 
