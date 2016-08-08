@@ -12153,7 +12153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexComponentInfo = __webpack_require__(/*! ./components/FlexComponentInfo */ 664);
+	var _FlexComponentInfo = __webpack_require__(/*! ./components/FlexComponentInfo */ 663);
 	
 	Object.defineProperty(exports, 'FlexComponentInfo', {
 		enumerable: true,
@@ -12261,7 +12261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 665);
+	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 664);
 	
 	Object.defineProperty(exports, 'FlexPlayer', {
 		enumerable: true,
@@ -12270,7 +12270,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 666);
+	var _VimeoPlayer = __webpack_require__(/*! ./player/VimeoPlayer */ 665);
 	
 	Object.defineProperty(exports, 'VimeoPlayer', {
 		enumerable: true,
@@ -12279,7 +12279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _JWPlayer = __webpack_require__(/*! ./player/JWPlayer */ 667);
+	var _JWPlayer = __webpack_require__(/*! ./player/JWPlayer */ 666);
 	
 	Object.defineProperty(exports, 'JWPlayer', {
 		enumerable: true,
@@ -12288,7 +12288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	});
 	
-	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 669);
+	var _SegmentationControls = __webpack_require__(/*! ./components/annotation/SegmentationControls */ 668);
 	
 	Object.defineProperty(exports, 'SegmentationControls', {
 		enumerable: true,
@@ -12299,11 +12299,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 146);
 	
-	var _Recipe = __webpack_require__(/*! ./Recipe */ 671);
+	var _Recipe = __webpack_require__(/*! ./Recipe */ 670);
 	
 	var _Recipe2 = _interopRequireDefault(_Recipe);
 	
-	var _AnnotationRecipe = __webpack_require__(/*! ./AnnotationRecipe */ 672);
+	var _AnnotationRecipe = __webpack_require__(/*! ./AnnotationRecipe */ 671);
 	
 	var _AnnotationRecipe2 = _interopRequireDefault(_AnnotationRecipe);
 	
@@ -12337,12 +12337,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	var AnnotationAPI = {
 	
-		saveAnnotation: function saveAnnotation(resourceURI, annotation, callback) {
+		saveAnnotation: function saveAnnotation(target, annotation, callback) {
+			console.debug('saving');
+			console.debug(target);
+			console.debug(annotation);
 			var url = _config.ANNOTATION_API_BASE + '/annotation';
 			var method = 'POST';
-			annotation.resourceURI = resourceURI; //think about what this should be. It could be an object
-			if (annotation.annotationId) {
-				url += '/' + annotation.annotationId;
+			annotation.target = target; //see AnnotationUtil.generateW3CTargetObject()
+			if (annotation.id) {
+				url += '/' + annotation.id;
 				method = 'PUT';
 			}
 	
@@ -46359,7 +46362,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57201,6 +57204,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
 	
+	var _AnnotationUtil = __webpack_require__(/*! ../util/AnnotationUtil */ 662);
+	
+	var _AnnotationUtil2 = _interopRequireDefault(_AnnotationUtil);
+	
 	var _FlexBox = __webpack_require__(/*! ./FlexBox */ 31);
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
@@ -57296,10 +57303,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'addAnnotation',
 			value: function addAnnotation(type) {
-				var annotationTarget = 'test ' + type;
 				this.setState({
 					showAnnotationModal: true,
-					annotationTarget: annotationTarget
+					annotationTarget: _AnnotationUtil2.default.generateW3CTargetObject('http://data.beng.nl/test')
 				});
 			}
 		}, {
@@ -57529,16 +57535,15 @@ return /******/ (function(modules) { // webpackBootstrap
 						{
 							elementId: 'annotation__modal',
 							handleHideModal: this.props.hideAnnotationForm.bind(this),
-							title: 'Add annotation to: ' + this.props.annotationTarget },
+							title: 'Add annotation to: ' + this.props.annotationTarget.source },
 						_react2.default.createElement(_AnnotationCreator2.default, {
 							user: this.props.user,
 							activeAnnotation: this.props.activeAnnotation,
+							annotationTarget: this.props.annotationTarget,
 	
 							saveAnnotation: this.saveAnnotation.bind(this),
 	
-							annotationModes: this.props.annotationModes,
-	
-							playerAPI: this.props.playerAPI
+							annotationModes: this.props.annotationModes
 						})
 					) : null
 				);
@@ -57644,13 +57649,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					annotation = {
 						user: this.props.user
 					};
-					if (this.props.playerAPI) {
-						var activeSegment = this.props.playerAPI.getActiveSegment();
-						if (activeSegment) {
-							annotation.start = activeSegment.start;
-							annotation.end = activeSegment.end;
-						}
-					}
 				}
 				var data = {};
 				if (this.state.classifications.length > 0) {
@@ -61524,205 +61522,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 662 */
-/*!******************************************************!*\
-  !*** ./app/components/annotation/AnnotationList.jsx ***!
-  \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
+/*!************************************!*\
+  !*** ./app/util/AnnotationUtil.js ***!
+  \************************************/
+/***/ function(module, exports) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	//aims to implement https://www.w3.org/TR/annotation-model
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var AnnotationUtil = {
 	
-	var _react = __webpack_require__(/*! react */ 27);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Annotation = __webpack_require__(/*! ./Annotation.jsx */ 663);
-	
-	var _Annotation2 = _interopRequireDefault(_Annotation);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AnnotationList = function (_React$Component) {
-		_inherits(AnnotationList, _React$Component);
-	
-		function AnnotationList(props) {
-			_classCallCheck(this, AnnotationList);
-	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationList).call(this, props));
-		}
-	
-		_createClass(AnnotationList, [{
-			key: 'render',
-			value: function render() {
-				var annotations = this.props.annotations.map(function (annotation) {
-					var active = false;
-					if (this.props.activeAnnotation) {
-						active = this.props.activeAnnotation.annotationId === annotation.annotationId;
-					}
-					return _react2.default.createElement(_Annotation2.default, {
-						key: annotation.annotationId,
-						annotation: annotation,
-	
-						active: active,
-	
-						showAnnotationForm: this.props.showAnnotationForm,
-						setAnnotation: this.props.setAnnotation,
-						deleteAnnotation: this.props.deleteAnnotation,
-						playAnnotation: this.props.playAnnotation
-					});
-				}, this);
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h3',
-						null,
-						'Saved annotations'
-					),
-					_react2.default.createElement(
-						'ul',
-						{ className: 'list-group' },
-						annotations
-					)
-				);
+		//media fragments are simply reflected in the source without supplying a selector (for now)
+		//a target always has a source
+		generateW3CTargetObject: function generateW3CTargetObject(uri, start, end) {
+			if (!uri) return null;
+			var source = uri;
+			if (start != -1 && end != -1 && source.indexOf('#t') == -1) {
+				source += '#t=' + start + ',' + end;
 			}
-		}]);
+			return {
+				'source': source
+			};
+		},
 	
-		return AnnotationList;
-	}(_react2.default.Component);
+		extractMediaFragmentFromURI: function extractMediaFragmentFromURI(uri) {
+			var i = uri.indexOf('#t=');
+			if (i != -1) {
+				return uri.substring(i + 3).split(',');
+			}
+			return null;
+		}
+	};
 	
-	;
-	
-	exports.default = AnnotationList;
+	exports.default = AnnotationUtil;
 
 /***/ },
 /* 663 */
-/*!**************************************************!*\
-  !*** ./app/components/annotation/Annotation.jsx ***!
-  \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 27);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _TimeUtil = __webpack_require__(/*! ../../util/TimeUtil */ 37);
-	
-	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Annotation = function (_React$Component) {
-		_inherits(Annotation, _React$Component);
-	
-		function Annotation(props) {
-			_classCallCheck(this, Annotation);
-	
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Annotation).call(this, props));
-		}
-	
-		_createClass(Annotation, [{
-			key: 'setAnnotation',
-			value: function setAnnotation() {
-				if (this.props.setAnnotation) {
-					this.props.setAnnotation(this.props.annotation);
-				}
-			}
-		}, {
-			key: 'playAnnotation',
-			value: function playAnnotation() {
-				if (this.props.playAnnotation) {
-					this.props.playAnnotation(this.props.annotation);
-				}
-			}
-		}, {
-			key: 'deleteAnnotation',
-			value: function deleteAnnotation() {
-				if (this.props.deleteAnnotation) {
-					this.props.deleteAnnotation(this.props.annotation.annotationId);
-				}
-			}
-		}, {
-			key: 'showAnnotationForm',
-			value: function showAnnotationForm() {
-				if (this.props.showAnnotationForm) {
-					this.props.showAnnotationForm();
-				}
-			}
-		}, {
-			key: 'computeClass',
-			value: function computeClass() {
-				var className = 'list-group-item';
-				if (this.props.active) {
-					className += ' active';
-				}
-				return className;
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'li',
-					{
-						className: this.computeClass(),
-						onClick: this.setAnnotation.bind(this),
-						onDoubleClick: this.showAnnotationForm.bind(this),
-						title: this.props.annotation.annotationId
-					},
-					_react2.default.createElement('i', { className: 'glyphicon glyphicon-remove interactive',
-						onClick: this.deleteAnnotation.bind(this) }),
-					' ',
-					_react2.default.createElement(
-						'abbr',
-						null,
-						_TimeUtil2.default.formatTime(this.props.annotation.start),
-						' - ',
-						_TimeUtil2.default.formatTime(this.props.annotation.end),
-						'  (door: ',
-						this.props.annotation.user,
-						')'
-					),
-					' ',
-					_react2.default.createElement('i', { className: 'glyphicon glyphicon-play interactive',
-						onClick: this.playAnnotation.bind(this) })
-				);
-			}
-		}]);
-	
-		return Annotation;
-	}(_react2.default.Component);
-	
-	;
-	
-	exports.default = Annotation;
-
-/***/ },
-/* 664 */
 /*!**********************************************!*\
   !*** ./app/components/FlexComponentInfo.jsx ***!
   \**********************************************/
@@ -61838,7 +61677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = FlexComponentInfo;
 
 /***/ },
-/* 665 */
+/* 664 */
 /*!***********************************!*\
   !*** ./app/player/FlexPlayer.jsx ***!
   \***********************************/
@@ -61856,19 +61695,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 666);
+	var _VimeoPlayer = __webpack_require__(/*! ./VimeoPlayer */ 665);
 	
 	var _VimeoPlayer2 = _interopRequireDefault(_VimeoPlayer);
 	
-	var _JWPlayer = __webpack_require__(/*! ./JWPlayer */ 667);
+	var _JWPlayer = __webpack_require__(/*! ./JWPlayer */ 666);
 	
 	var _JWPlayer2 = _interopRequireDefault(_JWPlayer);
 	
-	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 668);
+	var _VideoTimeBar = __webpack_require__(/*! ../components/annotation/VideoTimeBar */ 667);
 	
 	var _VideoTimeBar2 = _interopRequireDefault(_VideoTimeBar);
 	
-	var _SegmentationControls = __webpack_require__(/*! ../components/annotation/SegmentationControls */ 669);
+	var _SegmentationControls = __webpack_require__(/*! ../components/annotation/SegmentationControls */ 668);
 	
 	var _SegmentationControls2 = _interopRequireDefault(_SegmentationControls);
 	
@@ -61880,7 +61719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
-	var _mousetrap = __webpack_require__(/*! mousetrap */ 670);
+	var _mousetrap = __webpack_require__(/*! mousetrap */ 669);
 	
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 	
@@ -62318,7 +62157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = FlexPlayer;
 
 /***/ },
-/* 666 */
+/* 665 */
 /*!************************************!*\
   !*** ./app/player/VimeoPlayer.jsx ***!
   \************************************/
@@ -62467,9 +62306,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'setActiveSegment',
 			value: function setActiveSegment(activeSegment, play, notify) {
-				this.activeSegment = activeSegment;
+				if (activeSegment) {
+					this.activeSegment = activeSegment;
+				} else {
+					this.activeSegment = { start: 0, end: 0 };
+				}
 				if (play) {
-					this.seek(activeSegment.start);
+					this.seek(this.activeSegment.start);
 				}
 				if (notify) {
 					this.notifyObservers();
@@ -62591,7 +62434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VimeoPlayer;
 
 /***/ },
-/* 667 */
+/* 666 */
 /*!*********************************!*\
   !*** ./app/player/JWPlayer.jsx ***!
   \*********************************/
@@ -62716,9 +62559,13 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'setActiveSegment',
 			value: function setActiveSegment(activeSegment, play, notify) {
-				this.activeSegment = activeSegment;
+				if (activeSegment) {
+					this.activeSegment = activeSegment;
+				} else {
+					this.activeSegment = { start: 0, end: 0 };
+				}
 				if (play) {
-					this.seek(activeSegment.start);
+					this.seek(this.activeSegment.start);
 				}
 				if (notify) {
 					this.notifyObservers();
@@ -62770,7 +62617,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = JWPlayer;
 
 /***/ },
-/* 668 */
+/* 667 */
 /*!****************************************************!*\
   !*** ./app/components/annotation/VideoTimeBar.jsx ***!
   \****************************************************/
@@ -62915,7 +62762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = VideoTimeBar;
 
 /***/ },
-/* 669 */
+/* 668 */
 /*!************************************************************!*\
   !*** ./app/components/annotation/SegmentationControls.jsx ***!
   \************************************************************/
@@ -63086,7 +62933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = SegmentationControls;
 
 /***/ },
-/* 670 */
+/* 669 */
 /*!**********************************!*\
   !*** ./~/mousetrap/mousetrap.js ***!
   \**********************************/
@@ -64133,7 +63980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 671 */
+/* 670 */
 /*!************************!*\
   !*** ./app/Recipe.jsx ***!
   \************************/
@@ -64278,7 +64125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Recipe;
 
 /***/ },
-/* 672 */
+/* 671 */
 /*!**********************************!*\
   !*** ./app/AnnotationRecipe.jsx ***!
   \**********************************/
@@ -64304,19 +64151,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexBox2 = _interopRequireDefault(_FlexBox);
 	
-	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 665);
+	var _FlexPlayer = __webpack_require__(/*! ./player/FlexPlayer */ 664);
 	
 	var _FlexPlayer2 = _interopRequireDefault(_FlexPlayer);
 	
-	var _AnnotationAPI = __webpack_require__(/*! ./api/AnnotationAPI.js */ 23);
+	var _AnnotationAPI = __webpack_require__(/*! ./api/AnnotationAPI */ 23);
 	
 	var _AnnotationAPI2 = _interopRequireDefault(_AnnotationAPI);
+	
+	var _AnnotationUtil = __webpack_require__(/*! ./util/AnnotationUtil */ 662);
+	
+	var _AnnotationUtil2 = _interopRequireDefault(_AnnotationUtil);
 	
 	var _AnnotationBox = __webpack_require__(/*! ./components/annotation/AnnotationBox */ 631);
 	
 	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
 	
-	var _AnnotationList = __webpack_require__(/*! ./components/annotation/AnnotationList */ 662);
+	var _AnnotationList = __webpack_require__(/*! ./components/annotation/AnnotationList */ 672);
 	
 	var _AnnotationList2 = _interopRequireDefault(_AnnotationList);
 	
@@ -64342,6 +64193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				annotations: [],
 				activeAnnotation: null,
 				showAnnotationModal: false,
+				annotationTarget: null,
 				playerAPI: null,
 				start: null,
 				end: null,
@@ -64405,7 +64257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			value: function setActiveAnnotation(annotation) {
 				this.setState({
 					activeAnnotation: annotation,
-					annotationTarget: annotation.resourceURI
+					annotationTarget: annotation.target
 				});
 			}
 	
@@ -64426,11 +64278,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		}, {
 			key: 'addAnnotation',
-			value: function addAnnotation(annotationTarget, start, end) {
-				var at = annotationTarget;
-				if (start != -1 && end != -1 && at.indexOf('#t') == -1) {
-					at += '#t=' + start + ',' + end;
-				}
+			value: function addAnnotation(targetURI, start, end) {
+				var at = _AnnotationUtil2.default.generateW3CTargetObject(targetURI, start, end);
 				if (at) {
 					this.setState({
 						showAnnotationModal: true,
@@ -64442,9 +64291,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'playAnnotation',
 			value: function playAnnotation(annotation) {
-				this.state.playerAPI.setActiveSegment({
-					start: annotation.start, end: annotation.end
-				}, true, true);
+				var interval = _AnnotationUtil2.default.extractMediaFragmentFromURI(annotation.target.source);
+				if (interval) {
+					this.state.playerAPI.setActiveSegment({
+						start: interval[0], end: interval[1]
+					}, true, true);
+				} else {
+					this.state.playerAPI.setActiveSegment(null, true, true);
+				}
 			}
 		}, {
 			key: 'deleteAnnotation',
@@ -64457,7 +64311,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'onDelete',
 			value: function onDelete(annotationId) {
 				var annotations = $.grep(this.state.annotations, function (e) {
-					return e.annotationId != annotationId;
+					return e.id != annotationId;
 				});
 				this.setState({ annotations: annotations });
 			}
@@ -64467,7 +64321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				var ans = this.state.annotations;
 				var update = true;
 				for (var i = 0; i < ans.length; i++) {
-					if (ans[i].annotationId == annotation.annotationId) {
+					if (ans[i].id == annotation.id) {
 						update = false;
 						break;
 					}
@@ -64493,8 +64347,6 @@ return /******/ (function(modules) { // webpackBootstrap
 						, annotationTarget: this.state.annotationTarget //the current target of the active annotation (merge?)
 	
 						, annotationModes: this.props.ingredients.annotationModes //how each annotation mode/motivation is configured
-	
-						, playerAPI: this.state.playerAPI //currently only used for obtaining the current time of the current video
 	
 						, onSave: this.onSave.bind(this) //callback function after saving an annotation
 					});
@@ -64558,6 +64410,203 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react2.default.Component);
 	
 	exports.default = AnnotationRecipe;
+
+/***/ },
+/* 672 */
+/*!******************************************************!*\
+  !*** ./app/components/annotation/AnnotationList.jsx ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Annotation = __webpack_require__(/*! ./Annotation.jsx */ 673);
+	
+	var _Annotation2 = _interopRequireDefault(_Annotation);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AnnotationList = function (_React$Component) {
+		_inherits(AnnotationList, _React$Component);
+	
+		function AnnotationList(props) {
+			_classCallCheck(this, AnnotationList);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationList).call(this, props));
+		}
+	
+		_createClass(AnnotationList, [{
+			key: 'render',
+			value: function render() {
+				var annotations = this.props.annotations.map(function (annotation) {
+					var active = false;
+					if (this.props.activeAnnotation) {
+						active = this.props.activeAnnotation.id === annotation.id;
+					}
+					return _react2.default.createElement(_Annotation2.default, {
+						key: annotation.id,
+						annotation: annotation,
+	
+						active: active,
+	
+						showAnnotationForm: this.props.showAnnotationForm,
+						setAnnotation: this.props.setAnnotation,
+						deleteAnnotation: this.props.deleteAnnotation,
+						playAnnotation: this.props.playAnnotation
+					});
+				}, this);
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h3',
+						null,
+						'Saved annotations'
+					),
+					_react2.default.createElement(
+						'ul',
+						{ className: 'list-group' },
+						annotations
+					)
+				);
+			}
+		}]);
+	
+		return AnnotationList;
+	}(_react2.default.Component);
+	
+	;
+	
+	exports.default = AnnotationList;
+
+/***/ },
+/* 673 */
+/*!**************************************************!*\
+  !*** ./app/components/annotation/Annotation.jsx ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 27);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _TimeUtil = __webpack_require__(/*! ../../util/TimeUtil */ 37);
+	
+	var _TimeUtil2 = _interopRequireDefault(_TimeUtil);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Annotation = function (_React$Component) {
+		_inherits(Annotation, _React$Component);
+	
+		function Annotation(props) {
+			_classCallCheck(this, Annotation);
+	
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Annotation).call(this, props));
+		}
+	
+		_createClass(Annotation, [{
+			key: 'setAnnotation',
+			value: function setAnnotation() {
+				if (this.props.setAnnotation) {
+					this.props.setAnnotation(this.props.annotation);
+				}
+			}
+		}, {
+			key: 'playAnnotation',
+			value: function playAnnotation() {
+				if (this.props.playAnnotation) {
+					this.props.playAnnotation(this.props.annotation);
+				}
+			}
+		}, {
+			key: 'deleteAnnotation',
+			value: function deleteAnnotation() {
+				if (this.props.deleteAnnotation) {
+					this.props.deleteAnnotation(this.props.annotation.id);
+				}
+			}
+		}, {
+			key: 'showAnnotationForm',
+			value: function showAnnotationForm() {
+				if (this.props.showAnnotationForm) {
+					this.props.showAnnotationForm();
+				}
+			}
+		}, {
+			key: 'computeClass',
+			value: function computeClass() {
+				var className = 'list-group-item';
+				if (this.props.active) {
+					className += ' active';
+				}
+				return className;
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'li',
+					{
+						className: this.computeClass(),
+						onClick: this.setAnnotation.bind(this),
+						onDoubleClick: this.showAnnotationForm.bind(this),
+						title: this.props.annotation.id
+					},
+					_react2.default.createElement('i', { className: 'glyphicon glyphicon-remove interactive',
+						onClick: this.deleteAnnotation.bind(this) }),
+					' ',
+					_react2.default.createElement(
+						'abbr',
+						null,
+						this.props.annotation.id,
+						'  (door: ',
+						this.props.annotation.user,
+						')'
+					),
+					' ',
+					_react2.default.createElement('i', { className: 'glyphicon glyphicon-play interactive',
+						onClick: this.playAnnotation.bind(this) })
+				);
+			}
+		}]);
+	
+		return Annotation;
+	}(_react2.default.Component);
+	
+	;
+	
+	exports.default = Annotation;
 
 /***/ }
 /******/ ])

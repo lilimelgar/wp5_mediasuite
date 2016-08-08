@@ -39,16 +39,15 @@ class AnnotationBox extends React.Component {
 					<FlexModal
 						elementId="annotation__modal"
 						handleHideModal={this.props.hideAnnotationForm.bind(this)}
-						title={'Add annotation to: ' + this.props.annotationTarget}>
+						title={'Add annotation to: ' + this.props.annotationTarget.source}>
 						<AnnotationCreator
 							user={this.props.user}
 							activeAnnotation={this.props.activeAnnotation}
+							annotationTarget={this.props.annotationTarget}
 
 							saveAnnotation={this.saveAnnotation.bind(this)}
 
 							annotationModes={this.props.annotationModes}
-
-							playerAPI={this.props.playerAPI}
 						/>
 					</FlexModal>: null
 				}

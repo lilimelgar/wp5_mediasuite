@@ -11,11 +11,11 @@ class AnnotationList extends React.Component {
 		const annotations = this.props.annotations.map(function(annotation) {
 			let active = false;
 			if(this.props.activeAnnotation) {
-				active = this.props.activeAnnotation.annotationId === annotation.annotationId
+				active = this.props.activeAnnotation.id === annotation.id
 			}
 			return (
 				<Annotation
-					key={annotation.annotationId}
+					key={annotation.id}
 					annotation={annotation}
 
 					active={active}

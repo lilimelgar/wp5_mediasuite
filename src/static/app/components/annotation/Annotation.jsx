@@ -21,7 +21,7 @@ class Annotation extends React.Component {
 
 	deleteAnnotation() {
 		if(this.props.deleteAnnotation) {
-			this.props.deleteAnnotation(this.props.annotation.annotationId);
+			this.props.deleteAnnotation(this.props.annotation.id);
 		}
 	}
 
@@ -45,15 +45,14 @@ class Annotation extends React.Component {
 				className={this.computeClass()}
 				onClick={this.setAnnotation.bind(this)}
 				onDoubleClick={this.showAnnotationForm.bind(this)}
-				title={this.props.annotation.annotationId}
+				title={this.props.annotation.id}
 			>
 				<i className="glyphicon glyphicon-remove interactive"
 					onClick={this.deleteAnnotation.bind(this)}>
 				</i>
 				&nbsp;
 				<abbr>
-					{TimeUtil.formatTime(this.props.annotation.start)}&nbsp;-&nbsp;
-					{TimeUtil.formatTime(this.props.annotation.end)}&nbsp;
+					{this.props.annotation.id}&nbsp;
 					(door: {this.props.annotation.user})
 				</abbr>
 				&nbsp;

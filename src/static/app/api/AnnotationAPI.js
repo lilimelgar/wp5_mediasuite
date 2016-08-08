@@ -1,11 +1,14 @@
 const AnnotationAPI = {
 
-	saveAnnotation : function(resourceURI, annotation, callback) {
+	saveAnnotation : function(target, annotation, callback) {
+		console.debug('saving');
+		console.debug(target);
+		console.debug(annotation);
 		var url = _config.ANNOTATION_API_BASE + '/annotation';
 		var method = 'POST';
-		annotation.resourceURI = resourceURI; //think about what this should be. It could be an object
-		if(annotation.annotationId) {
-			url += '/' + annotation.annotationId;
+		annotation.target = target; //see AnnotationUtil.generateW3CTargetObject()
+		if(annotation.id) {
+			url += '/' + annotation.id;
 			method = 'PUT';
 		}
 

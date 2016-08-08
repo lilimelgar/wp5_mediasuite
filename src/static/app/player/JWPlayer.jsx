@@ -84,9 +84,13 @@ class JWPlayerAPI {
 
 	//TODO this should also include the video url, so it can switch video!!!
 	setActiveSegment(activeSegment, play, notify) {
-		this.activeSegment = activeSegment;
+		if(activeSegment) {
+			this.activeSegment = activeSegment;
+		} else {
+			this.activeSegment = {start : 0, end : 0};
+		}
 		if(play) {
-			this.seek(activeSegment.start)
+			this.seek(this.activeSegment.start)
 		}
 		if(notify) {
 			this.notifyObservers();

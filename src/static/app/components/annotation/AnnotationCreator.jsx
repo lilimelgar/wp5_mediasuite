@@ -47,13 +47,6 @@ class AnnotationCreator extends React.Component {
 			annotation = {
 				user : this.props.user
 			};
-			if(this.props.playerAPI) {
-				let activeSegment = this.props.playerAPI.getActiveSegment();
-				if(activeSegment) {
-					annotation.start = activeSegment.start;
-					annotation.end = activeSegment.end;
-				}
-			}
 		}
 		var data = {};
 		if(this.state.classifications.length > 0) {

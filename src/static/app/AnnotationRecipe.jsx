@@ -4,7 +4,8 @@ import TimeUtil from './util/TimeUtil';
 import FlexBox from './components/FlexBox';
 import FlexPlayer from './player/FlexPlayer';
 
-import AnnotationAPI from './api/AnnotationAPI.js';
+import AnnotationAPI from './api/AnnotationAPI';
+import AnnotationUtil from './util/AnnotationUtil'
 import AnnotationBox from './components/annotation/AnnotationBox';
 import AnnotationList from './components/annotation/AnnotationList';
 
@@ -19,6 +20,7 @@ class AnnotationRecipe extends React.Component {
 			annotations: [],
 			activeAnnotation: null,
 			showAnnotationModal : false,
+			annotationTarget : null,
 			playerAPI : null,
 			start : null,
 			end : null,
@@ -68,7 +70,7 @@ class AnnotationRecipe extends React.Component {
 	setActiveAnnotation(annotation) {
 		this.setState({
 			activeAnnotation : annotation,
-			annotationTarget : annotation.resourceURI
+			annotationTarget : annotation.target
 		})
 	}
 
@@ -82,11 +84,8 @@ class AnnotationRecipe extends React.Component {
 		this.setState({showAnnotationModal: false})
 	}
 
-	addAnnotation(annotationTarget, start, end) {
-		let at = annotationTarget;
-		if(start != -1 && end != -1 && at.indexOf('#t') == -1) {
-			at += '#t=' + start + ',' + end;
-		}
+	addAnnotation(targetURI, start, end) {
+		let at = AnnotationUtil.generateW3CTargetObject(targetURI, start, end)
 		if(at) {
 			this.setState({
 				showAnnotationModal: true,
@@ -97,9 +96,14 @@ class AnnotationRecipe extends React.Component {
 	}
 
 	playAnnotation(annotation) {
-		this.state.playerAPI.setActiveSegment({
-			start : annotation.start, end : annotation.end
-		}, true, true);
+		let interval = AnnotationUtil.extractMediaFragmentFromURI(annotation.target.source);
+		if(interval) {
+			this.state.playerAPI.setActiveSegment({
+				start : interval[0], end : interval[1]
+			}, true, true);
+		} else {
+			this.state.playerAPI.setActiveSegment(null, true, true);
+		}
 	}
 
 	deleteAnnotation(annotationId) {
@@ -110,7 +114,7 @@ class AnnotationRecipe extends React.Component {
 
 	onDelete(annotationId) {
 		var annotations = $.grep(this.state.annotations, function(e){
-			return e.annotationId != annotationId;
+			return e.id != annotationId;
 		});
 		this.setState({annotations : annotations});
 	}
@@ -119,7 +123,7 @@ class AnnotationRecipe extends React.Component {
 		let ans = this.state.annotations;
 		let update = true;
 		for(let i=0;i<ans.length;i++) {
-			if(ans[i].annotationId == annotation.annotationId) {
+			if(ans[i].id == annotation.id) {
 				update = false;
 				break;
 			}
@@ -145,8 +149,6 @@ class AnnotationRecipe extends React.Component {
 					annotationTarget={this.state.annotationTarget} //the current target of the active annotation (merge?)
 
 					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
-
-					playerAPI={this.state.playerAPI}//currently only used for obtaining the current time of the current video
 
 					onSave={this.onSave.bind(this)} //callback function after saving an annotation
 				/>

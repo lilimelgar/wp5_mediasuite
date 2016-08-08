@@ -1,6 +1,7 @@
 import CollectionSelector from './CollectionSelector';
 import FacetSearchComponent from './FacetSearchComponent';
 import AnnotationBox from './annotation/AnnotationBox';
+import AnnotationUtil from '../util/AnnotationUtil';
 import FlexBox from './FlexBox';
 
 class ComparativeSearch extends React.Component {
@@ -67,10 +68,9 @@ class ComparativeSearch extends React.Component {
 
 	//TODO implement for real
 	addAnnotation(type) {
-		let annotationTarget = 'test ' + type;
 		this.setState({
 			showAnnotationModal: true,
-			annotationTarget: annotationTarget
+			annotationTarget: AnnotationUtil.generateW3CTargetObject('http://data.beng.nl/test')
 		});
 	}
 
