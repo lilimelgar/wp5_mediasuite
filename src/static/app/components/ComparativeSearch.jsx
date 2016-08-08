@@ -85,11 +85,7 @@ class ComparativeSearch extends React.Component {
 		}
 	}
 
-	handleShowModal() {
-		this.setState({showAnnotationModal: true})
-	}
-
-	handleHideModal() {
+	hideAnnotationForm() {
 		this.setState({showAnnotationModal: false})
 	}
 
@@ -136,7 +132,7 @@ class ComparativeSearch extends React.Component {
 			annotationBox = (
 				<AnnotationBox
 					showModal={this.state.showAnnotationModal}
-					handleHideModal={this.handleHideModal.bind(this)}
+					hideAnnotationForm={this.hideAnnotationForm.bind(this)}
 
 					user={this.state.user}
 					activeAnnotation={null}

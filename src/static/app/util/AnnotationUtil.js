@@ -7,7 +7,7 @@ const AnnotationUtil = {
 	generateW3CTargetObject : function(uri, start, end) {
 		if(!uri) return null;
 		let source = uri;
-		if(start != -1 && end != -1 && source.indexOf('#t') == -1) {
+		if(start && end && start != -1 && end != -1 && source.indexOf('#t') == -1) {
 			source += '#t=' + start + ',' + end;
 		}
 		return {

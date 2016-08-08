@@ -95,14 +95,19 @@ class AnnotationRecipe extends React.Component {
 		}
 	}
 
+	//TODO this function also has to consider the annotationTarget etc
 	playAnnotation(annotation) {
-		let interval = AnnotationUtil.extractMediaFragmentFromURI(annotation.target.source);
-		if(interval) {
-			this.state.playerAPI.setActiveSegment({
-				start : interval[0], end : interval[1]
-			}, true, true);
+		if(annotation.target.source.indexOf(this.state.mediaObject.url) != -1) {
+			let interval = AnnotationUtil.extractMediaFragmentFromURI(annotation.target.source);
+			if(interval) {
+				this.state.playerAPI.setActiveSegment({
+					start : interval[0], end : interval[1]
+				}, true, true);
+			} else {
+				this.state.playerAPI.setActiveSegment(null, true, true);
+			}
 		} else {
-			this.state.playerAPI.setActiveSegment(null, true, true);
+			console.debug('Currently a completely different annotation target is loaded');
 		}
 	}
 
