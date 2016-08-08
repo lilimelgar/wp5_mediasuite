@@ -46360,7 +46360,7 @@ return /******/ (function(modules) { // webpackBootstrap
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -57380,7 +57380,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				//only show if configured
 				if (this.hasAnnotationSupport()) {
 					annotationBox = React.createElement(_AnnotationBox2.default, { user: this.state.user,
-						showList: false,
 						annotationModes: this.props.annotationModes,
 						showModal: this.state.showAnnotationModal,
 						annotationTarget: this.state.annotationTarget,
@@ -57463,19 +57462,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _AnnotationAPI = __webpack_require__(/*! ../../api/AnnotationAPI.js */ 23);
+	var _AnnotationAPI = __webpack_require__(/*! ../../api/AnnotationAPI */ 23);
 	
 	var _AnnotationAPI2 = _interopRequireDefault(_AnnotationAPI);
 	
-	var _AnnotationCreator = __webpack_require__(/*! ./AnnotationCreator.jsx */ 632);
+	var _AnnotationCreator = __webpack_require__(/*! ./AnnotationCreator */ 632);
 	
 	var _AnnotationCreator2 = _interopRequireDefault(_AnnotationCreator);
 	
-	var _AnnotationList = __webpack_require__(/*! ./AnnotationList.jsx */ 662);
-	
-	var _AnnotationList2 = _interopRequireDefault(_AnnotationList);
-	
-	var _FlexModal = __webpack_require__(/*! ../FlexModal.jsx */ 145);
+	var _FlexModal = __webpack_require__(/*! ../FlexModal */ 145);
 	
 	var _FlexModal2 = _interopRequireDefault(_FlexModal);
 	
@@ -57502,39 +57497,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		function AnnotationBox(props) {
 			_classCallCheck(this, AnnotationBox);
 	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationBox).call(this, props));
-	
-			_this.state = {
-				annotation: null,
-				annotations: [],
-				showModal: _this.props.showModal == null ? false : _this.props.showModal,
-				showList: _this.props.showList != null ? _this.props.showList : true
-			};
-			return _this;
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(AnnotationBox).call(this, props));
 		}
 	
 		_createClass(AnnotationBox, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				_AnnotationAPI2.default.getAnnotations(function (data) {
-					this.onLoadAnnotations(data);
-				}.bind(this));
-			}
-		}, {
-			key: 'onLoadAnnotations',
-			value: function onLoadAnnotations(data) {
-				this.setState(data);
-			}
-		}, {
-			key: 'setAnnotation',
-			value: function setAnnotation(annotation) {
-				this.setState({
-					annotation: annotation
-				});
-			}
-		}, {
 			key: 'saveAnnotation',
 			value: function saveAnnotation(annotation) {
+				console.debug('Saving annotation');
+				console.debug(annotation);
 				_AnnotationAPI2.default.saveAnnotation(this.props.annotationTarget, annotation, function (data) {
 					this.onSave(data);
 				}.bind(this));
@@ -57542,28 +57512,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'onSave',
 			value: function onSave(annotation) {
-				var annotations = $.grep(this.state.annotations, function (e) {
-					return e.annotationId != annotation.annotationId;
-				});
-				annotations.push(annotation);
+				console.debug(annotation);
 				$('#annotation__modal').modal('hide'); //TODO ugly, but without this the static backdrop won't disappear!
-				this.props.handleHideModal();
-				this.setState({ annotations: annotations });
-			}
-		}, {
-			key: 'deleteAnnotation',
-			value: function deleteAnnotation(annotationId) {
-				_AnnotationAPI2.default.deleteAnnotation(annotationId, function (data) {
-					this.onDelete(annotationId);
-				}.bind(this));
-			}
-		}, {
-			key: 'onDelete',
-			value: function onDelete(annotationId) {
-				var annotations = $.grep(this.state.annotations, function (e) {
-					return e.annotationId != annotationId;
-				});
-				this.setState({ annotations: annotations });
+				if (this.props.onSave) {
+					this.props.onSave(annotation);
+				}
 			}
 	
 			//TODO maybe add a part where you can view the active annotation here as well
@@ -57571,16 +57524,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'render',
 			value: function render() {
+				console.debug('Trying to render it');
+				console.debug(this.props.annotationModes);
 				return _react2.default.createElement(
 					'div',
-					{ className: 'commentBox' },
-					this.state.showList ? _react2.default.createElement(_AnnotationList2.default, {
-						activeAnnotation: this.state.annotation,
-						annotations: this.state.annotations,
-						setAnnotation: this.setAnnotation.bind(this),
-						playerAPI: this.props.playerAPI,
-						editAnnotation: this.props.handleShowModal.bind(this),
-						deleteAnnotation: this.deleteAnnotation.bind(this) }) : null,
+					null,
 					this.props.showModal ? _react2.default.createElement(
 						_FlexModal2.default,
 						{
@@ -57588,7 +57536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							handleHideModal: this.props.handleHideModal.bind(this),
 							title: 'Add annotation to: ' + this.props.annotationTarget },
 						_react2.default.createElement(_AnnotationCreator2.default, {
-							annotation: this.state.annotation,
+							annotation: this.props.annotation,
 							saveAnnotation: this.saveAnnotation.bind(this),
 							annotationModes: this.props.annotationModes,
 							playerAPI: this.props.playerAPI,
@@ -57655,6 +57603,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			var comments = [];
 			var classifications = [];
 			var links = [];
+			console.debug('wtf');
+			console.debug(_this.props.annotation);
 			if (_this.props.annotation) {
 				if (_this.props.annotation.data.classifications) {
 					classifications = _this.props.annotation.data.classifications;
@@ -57674,7 +57624,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 			_this.state = {
-				modes: _this.props.annotationModes,
 				activeTab: activeTab,
 				classifications: classifications,
 				comments: comments,
@@ -57724,7 +57673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'render',
 			value: function render() {
 				//generate the tabs from the configured modes
-				var tabs = Object.keys(this.state.modes).map(function (mode) {
+				var tabs = Object.keys(this.props.annotationModes).map(function (mode) {
 					if (mode == 'bookmark') return null;
 					return React.createElement(
 						'li',
@@ -57741,26 +57690,26 @@ return /******/ (function(modules) { // webpackBootstrap
 				}, this);
 	
 				//generate the content of each tab (a form based on a annotation mode/motivation)
-				var tabContents = Object.keys(this.state.modes).map(function (mode) {
+				var tabContents = Object.keys(this.props.annotationModes).map(function (mode) {
 					if (mode == 'bookmark') return null;
 					var form = '';
 					switch (mode) {
 						case 'comment':
 							form = React.createElement(_CommentingForm2.default, {
-								data: this.state.comments,
-								config: this.state.modes[mode],
+								data: this.props.annotation && this.props.annotation.data.comments ? this.props.annotation.data.comments : null,
+								config: this.props.annotationModes[mode],
 								onOutput: this.updateAnnotationData.bind(this)
 							});break;
 						case 'classify':
 							form = React.createElement(_ClassifyingForm2.default, {
-								data: this.state.classifications,
-								config: this.state.modes[mode],
+								data: this.props.annotation && this.props.annotation.data.classifications ? this.props.annotation.data.classifications : null,
+								config: this.props.annotationModes[mode],
 								onOutput: this.updateAnnotationData.bind(this)
 							});break;
 						case 'link':
 							form = React.createElement(_LinkingForm2.default, {
-								data: this.state.links,
-								config: this.state.modes[mode],
+								data: this.props.annotation && this.props.annotation.data.links ? this.props.annotation.data.links : null,
+								config: this.props.annotationModes[mode],
 								onOutput: this.updateAnnotationData.bind(this)
 							});break;
 					}
@@ -61360,7 +61309,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			return _this;
 		}
 	
-		/* ------------------- CRUD / loading of classifications ------------------- */
+		/* ------------------- CRUD / loading of links ------------------- */
 	
 		_createClass(LinkingForm, [{
 			key: 'setAPI',
@@ -61618,7 +61567,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		_createClass(AnnotationList, [{
 			key: 'render',
 			value: function render() {
-				var commentNodes = this.props.annotations.map(function (annotation) {
+				var annotations = this.props.annotations.map(function (annotation) {
 					return _react2.default.createElement(_Annotation2.default, {
 						key: annotation.annotationId,
 						activeAnnotation: this.props.activeAnnotation,
@@ -61640,7 +61589,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					_react2.default.createElement(
 						'ul',
 						{ className: 'list-group' },
-						commentNodes
+						annotations
 					)
 				);
 			}
@@ -61926,10 +61875,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _mousetrap2 = _interopRequireDefault(_mousetrap);
 	
-	var _AnnotationBox = __webpack_require__(/*! ../components/annotation/AnnotationBox */ 631);
-	
-	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61939,10 +61884,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	/*
-	This component contains a player, segmentation controls & timebar.
-	
 	This class receives a (generic) playerAPI from the implementing player component.
-	Currently only the VimeoPlayer.js has been implemented.
+	Currently VimeoPlayer.jsx and JWPlayer.jsx have implemented this API.
 	
 	It is able to pass the playerAPI to its owner. This is useful e.g. for the current AnnotationRecipe,
 	who needs to pass on this API to the AnnotationBox (so it's possible to seek the video when clicking on an annotation)
@@ -61964,8 +61907,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				end: -1,
 				paused: true, //FIXME call the player API instead (isPaused)?
 				fragmentMode: false,
-				showAnnotationModal: false,
-				annotationTarget: null
+				showAnnotationModal: false
 			};
 			return _this;
 		}
@@ -62255,28 +62197,6 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				return false;
 			}
-		}, {
-			key: 'addAnnotation',
-			value: function addAnnotation(type) {
-				var annotationTarget = this.props.mediaObject.url;
-				if (type == 'segment') {
-					annotationTarget += '#t=' + this.state.start + ',' + this.state.end;
-				}
-				this.setState({
-					showAnnotationModal: true,
-					annotationTarget: annotationTarget
-				});
-			}
-		}, {
-			key: 'handleShowModal',
-			value: function handleShowModal() {
-				this.setState({ showAnnotationModal: true });
-			}
-		}, {
-			key: 'handleHideModal',
-			value: function handleHideModal() {
-				this.setState({ showAnnotationModal: false });
-			}
 	
 			/* ----------------- just rendering --------------------- */
 	
@@ -62291,20 +62211,26 @@ return /******/ (function(modules) { // webpackBootstrap
 					});
 				}
 	
-				var annotationBox = '';
-				if (this.hasAnnotationSupport()) {
-					annotationBox = _react2.default.createElement(
-						_FlexBox2.default,
-						null,
-						_react2.default.createElement(_AnnotationBox2.default, { user: this.props.user,
-							showList: true,
-							playerAPI: this.state.playerAPI //FIXME dit is een goeie kandidaat voor React context
-							, annotationModes: this.props.annotationModes,
-							showModal: this.state.showAnnotationModal,
-							annotationTarget: this.state.annotationTarget,
-							handleHideModal: this.handleHideModal.bind(this),
-							handleShowModal: this.handleShowModal.bind(this) })
-					);
+				var videoAnnotationButton = null;
+				var segmentAnnotationButton = null;
+	
+				if (this.props.addAnnotation) {
+					if (this.props.annotationSupport.mediaObject) {
+						videoAnnotationButton = _react2.default.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-default',
+								onClick: this.props.addAnnotation.bind(this, this.props.mediaObject.url, -1, -1) },
+							'Annoteer Video'
+						);
+					}
+					if (this.props.annotationSupport.mediaSegment) {
+						segmentAnnotationButton = _react2.default.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-default',
+								onClick: this.props.addAnnotation.bind(this, this.props.mediaObject.url, this.state.start, this.state.end) },
+							'Annoteer Segment'
+						);
+					}
 				}
 	
 				var controls = {
@@ -62345,7 +62271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-7' },
+							{ className: 'col-md-12' },
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,
@@ -62357,25 +62283,10 @@ return /******/ (function(modules) { // webpackBootstrap
 								_react2.default.createElement(
 									'span',
 									{ className: 'input-group-btn' },
-									_react2.default.createElement(
-										'button',
-										{ type: 'button', className: 'btn btn-default',
-											onClick: this.addAnnotation.bind(this, 'video') },
-										'Annoteer Video'
-									),
-									_react2.default.createElement(
-										'button',
-										{ type: 'button', className: 'btn btn-default',
-											onClick: this.addAnnotation.bind(this, 'segment') },
-										'Annoteer Segment'
-									)
+									videoAnnotationButton,
+									segmentAnnotationButton
 								)
 							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'col-md-5' },
-							annotationBox
 						)
 					),
 					this.state.playerAPI ? _react2.default.createElement(
@@ -62383,7 +62294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-7' },
+							{ className: 'col-md-12' },
 							_react2.default.createElement(
 								_FlexBox2.default,
 								null,
@@ -64407,6 +64318,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _FlexPlayer2 = _interopRequireDefault(_FlexPlayer);
 	
+	var _AnnotationAPI = __webpack_require__(/*! ./api/AnnotationAPI.js */ 23);
+	
+	var _AnnotationAPI2 = _interopRequireDefault(_AnnotationAPI);
+	
+	var _AnnotationBox = __webpack_require__(/*! ./components/annotation/AnnotationBox */ 631);
+	
+	var _AnnotationBox2 = _interopRequireDefault(_AnnotationBox);
+	
+	var _AnnotationList = __webpack_require__(/*! ./components/annotation/AnnotationList */ 662);
+	
+	var _AnnotationList2 = _interopRequireDefault(_AnnotationList);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64426,10 +64349,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 			_this.state = {
 				user: 'JaapTest',
+				annotations: [],
+				activeAnnotation: null,
+				showAnnotationModal: false,
 				playerAPI: null,
 				start: null,
 				end: null,
-				currentMediaObject: { //later make sure that this can be changed with some selection component
+				mediaObject: { //later make sure that this can be changed with some selection component
 					url: 'http://player.vimeo.com/video/110756897?api=1&amp;player_id=player_1'
 				}
 			};
@@ -64437,6 +64363,26 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 	
 		_createClass(AnnotationRecipe, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				_AnnotationAPI2.default.getAnnotations(function (data) {
+					this.onLoadAnnotations(data);
+				}.bind(this));
+			}
+	
+			//this sets the annotations in the state object
+	
+		}, {
+			key: 'onLoadAnnotations',
+			value: function onLoadAnnotations(data) {
+				this.setState(data);
+			}
+		}, {
+			key: 'setActiveAnnotation',
+			value: function setActiveAnnotation(annotation) {
+				this.setState({ activeAnnotation: annotation });
+			}
+		}, {
 			key: 'onPlayerReady',
 			value: function onPlayerReady(playerAPI) {
 				this.setState({ playerAPI: playerAPI });
@@ -64448,12 +64394,69 @@ return /******/ (function(modules) { // webpackBootstrap
 			key: 'dummyChangeVideo',
 			value: function dummyChangeVideo() {
 				var mo = { url: 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4' };
-				if (this.state.currentMediaObject.url.indexOf('player.vimeo.com') == -1) {
+				if (this.state.mediaObject.url.indexOf('player.vimeo.com') == -1) {
 					mo = { url: 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1' };
 				}
 				this.setState({
-					currentMediaObject: mo
+					mediaObject: mo
 				});
+			}
+		}, {
+			key: 'handleShowModal',
+			value: function handleShowModal() {
+				this.setState({ showAnnotationModal: true });
+			}
+		}, {
+			key: 'handleHideModal',
+			value: function handleHideModal() {
+				this.setState({ showAnnotationModal: false });
+			}
+		}, {
+			key: 'addAnnotation',
+			value: function addAnnotation(annotationTarget, start, end) {
+				var at = annotationTarget;
+				if (start != -1 && end != -1) {
+					at += '#t=' + start + ',' + end;
+				}
+				if (at) {
+					this.setState({
+						showAnnotationModal: true,
+						annotationTarget: at,
+						activeAnnotation: null
+					});
+				}
+			}
+		}, {
+			key: 'deleteAnnotation',
+			value: function deleteAnnotation(annotationId) {
+				_AnnotationAPI2.default.deleteAnnotation(annotationId, function (data) {
+					this.onDelete(annotationId);
+				}.bind(this));
+			}
+		}, {
+			key: 'onDelete',
+			value: function onDelete(annotationId) {
+				var annotations = $.grep(this.state.annotations, function (e) {
+					return e.annotationId != annotationId;
+				});
+				this.setState({ annotations: annotations });
+			}
+		}, {
+			key: 'onSave',
+			value: function onSave(annotation) {
+				var ans = this.state.annotations;
+				ans.push(annotation);
+				this.setState({ annotations: ans });
+			}
+		}, {
+			key: 'hasAnnotationSupport',
+			value: function hasAnnotationSupport() {
+				if (this.props.ingredients.annotationSupport != null) {
+					if (this.props.ingredients.annotationSupport.mediaObject || this.props.ingredients.annotationSupport.mediaSegment) {
+						return true;
+					}
+				}
+				return false;
 			}
 	
 			/************************************** Timeline controls ***************************************/
@@ -64461,6 +64464,19 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'render',
 			value: function render() {
+				var annotationBox = null;
+				if (this.hasAnnotationSupport()) {
+					annotationBox = _react2.default.createElement(_AnnotationBox2.default, { user: this.state.user,
+						playerAPI: this.state.playerAPI //FIXME dit is een goeie kandidaat voor React context
+						, annotationModes: this.props.ingredients.annotationModes,
+						showModal: this.state.showAnnotationModal,
+						annotation: this.state.activeAnnotation,
+						annotationTarget: this.state.annotationTarget,
+						onSave: this.onSave.bind(this),
+						handleHideModal: this.handleHideModal.bind(this),
+						handleShowModal: this.handleShowModal.bind(this) });
+				}
+	
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -64469,7 +64485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						{ className: 'row' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-md-12' },
+							{ className: 'col-md-7' },
 							_react2.default.createElement(
 								'div',
 								{ className: 'input-group' },
@@ -64488,7 +64504,20 @@ return /******/ (function(modules) { // webpackBootstrap
 								onPlayerReady: this.onPlayerReady.bind(this),
 								annotationSupport: this.props.ingredients.annotationSupport,
 								annotationModes: this.props.ingredients.annotationModes,
-								mediaObject: this.state.currentMediaObject })
+								addAnnotation: this.addAnnotation.bind(this),
+								mediaObject: this.state.mediaObject })
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-5' },
+							_react2.default.createElement(_AnnotationList2.default, {
+								activeAnnotation: this.state.activeAnnotation,
+								annotations: this.state.annotations,
+								setAnnotation: this.setActiveAnnotation.bind(this),
+								playerAPI: this.state.playerAPI,
+								editAnnotation: this.handleShowModal.bind(this),
+								deleteAnnotation: this.deleteAnnotation.bind(this) }),
+							annotationBox
 						)
 					)
 				);

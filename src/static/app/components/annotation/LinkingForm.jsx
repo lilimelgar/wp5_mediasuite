@@ -10,7 +10,7 @@ class LinkingForm extends React.Component {
 		}
 	}
 
-	/* ------------------- CRUD / loading of classifications ------------------- */
+	/* ------------------- CRUD / loading of links ------------------- */
 
 	setAPI(event) {
 		this.setState({api : event.target.value});

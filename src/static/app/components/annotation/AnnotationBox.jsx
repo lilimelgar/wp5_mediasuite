@@ -1,8 +1,7 @@
 import React from 'react';
-import AnnotationAPI from '../../api/AnnotationAPI.js';
-import AnnotationCreator from './AnnotationCreator.jsx';
-import AnnotationList from './AnnotationList.jsx';
-import FlexModal from '../FlexModal.jsx';
+import AnnotationAPI from '../../api/AnnotationAPI';
+import AnnotationCreator from './AnnotationCreator';
+import FlexModal from '../FlexModal';
 
 //TODO dependancy on jquery!! fix this later
 //TODO make sure the editing form can be shown in a div rather than a pop-up. This is important, because modals
@@ -17,78 +16,37 @@ class AnnotationBox extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			annotation : null,
-			annotations: [],
-			showModal : this.props.showModal == null ? false : this.props.showModal,
-			showList : this.props.showList != null ? this.props.showList : true
-		};
-	}
-
-	componentDidMount() {
-		AnnotationAPI.getAnnotations(function(data) {
-			this.onLoadAnnotations(data);
-		}.bind(this));
-	}
-
-	onLoadAnnotations(data) {
-		this.setState(data);
-	}
-
-	setAnnotation(annotation) {
-		this.setState({
-			annotation : annotation
-		})
 	}
 
 	saveAnnotation(annotation) {
+		console.debug('Saving annotation');
+		console.debug(annotation);
 		AnnotationAPI.saveAnnotation(this.props.annotationTarget, annotation, function(data) {
 			this.onSave(data);
 		}.bind(this));
 	}
 
 	onSave(annotation) {
-		var annotations = $.grep(this.state.annotations, function(e){
-			return e.annotationId != annotation.annotationId;
-		});
-		annotations.push(annotation);
+		console.debug(annotation);
 		$('#annotation__modal').modal('hide');//TODO ugly, but without this the static backdrop won't disappear!
-		this.props.handleHideModal();
-		this.setState({annotations : annotations});
-	}
-
-	deleteAnnotation(annotationId) {
-		AnnotationAPI.deleteAnnotation(annotationId, function(data) {
-			this.onDelete(annotationId);
-		}.bind(this));
-	}
-
-	onDelete(annotationId) {
-		var annotations = $.grep(this.state.annotations, function(e){
-			return e.annotationId != annotationId;
-		});
-		this.setState({annotations : annotations});
+		if(this.props.onSave) {
+			this.props.onSave(annotation);
+		}
 	}
 
 	//TODO maybe add a part where you can view the active annotation here as well
 	render() {
+		console.debug('Trying to render it');
+		console.debug(this.props.annotationModes);
 		return (
-			<div className="commentBox">
-				{this.state.showList ? <AnnotationList
-					activeAnnotation={this.state.annotation}
-					annotations={this.state.annotations}
-					setAnnotation={this.setAnnotation.bind(this)}
-					playerAPI={this.props.playerAPI}
-					editAnnotation={this.props.handleShowModal.bind(this)}
-					deleteAnnotation={this.deleteAnnotation.bind(this)}/> : null}
-
+			<div>
 				{this.props.showModal ?
 					<FlexModal
 						elementId="annotation__modal"
 						handleHideModal={this.props.handleHideModal.bind(this)}
 						title={'Add annotation to: ' + this.props.annotationTarget}>
 						<AnnotationCreator
-							annotation={this.state.annotation}
+							annotation={this.props.annotation}
 							saveAnnotation={this.saveAnnotation.bind(this)}
 							annotationModes={this.props.annotationModes}
 							playerAPI={this.props.playerAPI}

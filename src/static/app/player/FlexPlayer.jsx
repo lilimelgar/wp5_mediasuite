@@ -6,13 +6,10 @@ import SegmentationControls from '../components/annotation/SegmentationControls'
 import TimeUtil from '../util/TimeUtil';
 import FlexBox from '../components/FlexBox';
 import MouseTrap from 'mousetrap';
-import AnnotationBox from '../components/annotation/AnnotationBox';
 
 /*
-This component contains a player, segmentation controls & timebar.
-
 This class receives a (generic) playerAPI from the implementing player component.
-Currently only the VimeoPlayer.js has been implemented.
+Currently VimeoPlayer.jsx and JWPlayer.jsx have implemented this API.
 
 It is able to pass the playerAPI to its owner. This is useful e.g. for the current AnnotationRecipe,
 who needs to pass on this API to the AnnotationBox (so it's possible to seek the video when clicking on an annotation)
@@ -30,8 +27,7 @@ class FlexPlayer extends React.Component {
 			end : -1,
 			paused : true,//FIXME call the player API instead (isPaused)?
 			fragmentMode : false,
-			showAnnotationModal : false,
-			annotationTarget : null
+			showAnnotationModal : false
 		}
 	}
 
@@ -288,25 +284,6 @@ class FlexPlayer extends React.Component {
 		return false;
 	}
 
-	addAnnotation(type) {
-		let annotationTarget = this.props.mediaObject.url;
-		if(type == 'segment') {
-			annotationTarget += '#t=' + this.state.start + ',' + this.state.end;
-		}
-		this.setState({
-			showAnnotationModal: true,
-			annotationTarget: annotationTarget
-		});
-	}
-
-	handleShowModal() {
-		this.setState({showAnnotationModal: true})
-	}
-
-	handleHideModal() {
-		this.setState({showAnnotationModal: false})
-	}
-
 	/* ----------------- just rendering --------------------- */
 
 	render() {
@@ -318,20 +295,27 @@ class FlexPlayer extends React.Component {
 			});
 		}
 
-		let annotationBox = '';
-		if(this.hasAnnotationSupport()) {
-			annotationBox = (
-				<FlexBox>
-					<AnnotationBox user={this.props.user}
-						showList={true}
-						playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
-						annotationModes={this.props.annotationModes}
-						showModal={this.state.showAnnotationModal}
-						annotationTarget={this.state.annotationTarget}
-						handleHideModal={this.handleHideModal.bind(this)}
-						handleShowModal={this.handleShowModal.bind(this)}/>
-				</FlexBox>
-			)
+
+		let videoAnnotationButton = null;
+		let segmentAnnotationButton = null;
+
+		if(this.props.addAnnotation) {
+			if(this.props.annotationSupport.mediaObject) {
+				videoAnnotationButton = (
+				<button type="button" className="btn btn-default"
+					onClick={this.props.addAnnotation.bind(
+						this, this.props.mediaObject.url, -1, -1)}>
+					Annoteer Video
+				</button>);
+			}
+			if(this.props.annotationSupport.mediaSegment) {
+				segmentAnnotationButton = (
+					<button type="button" className="btn btn-default"
+						onClick={this.props.addAnnotation.bind(
+							this, this.props.mediaObject.url, this.state.start, this.state.end)}>
+						Annoteer Segment
+					</button>);
+			}
 		}
 
 		const controls = {
@@ -371,30 +355,21 @@ class FlexPlayer extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<div className="col-md-7">
+					<div className="col-md-12">
 						<FlexBox>
 							{player}
 						</FlexBox>
 						<div className="input-group">
 							<span className="input-group-btn">
-								<button type="button" className="btn btn-default"
-									onClick={this.addAnnotation.bind(this, 'video')}>
-									Annoteer Video
-								</button>
-								<button type="button" className="btn btn-default"
-									onClick={this.addAnnotation.bind(this, 'segment')}>
-									Annoteer Segment
-								</button>
+								{videoAnnotationButton}
+								{segmentAnnotationButton}
 							</span>
 						</div>
-					</div>
-					<div className="col-md-5">
-						{annotationBox}
 					</div>
 				</div>
 				{this.state.playerAPI ?
 					<div className="row">
-						<div className="col-md-7">
+						<div className="col-md-12">
 							<FlexBox>
 								<VideoTimeBar duration={this.state.duration}
 									curPosition={this.state.curPosition}

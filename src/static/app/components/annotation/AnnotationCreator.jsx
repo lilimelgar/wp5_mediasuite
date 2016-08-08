@@ -10,6 +10,8 @@ class AnnotationCreator extends React.Component {
 		let comments = [];
 		let classifications = [];
 		let links = [];
+		console.debug('wtf');
+		console.debug(this.props.annotation);
 		if(this.props.annotation) {
 			if(this.props.annotation.data.classifications) {
 				classifications = this.props.annotation.data.classifications;
@@ -29,7 +31,6 @@ class AnnotationCreator extends React.Component {
 			}
 		}
 		this.state = {
-			modes : this.props.annotationModes,
 			activeTab : activeTab,
 			classifications : classifications,
 			comments : comments,
@@ -72,7 +73,7 @@ class AnnotationCreator extends React.Component {
 
 	render() {
 		//generate the tabs from the configured modes
-		const tabs = Object.keys(this.state.modes).map(function(mode) {
+		const tabs = Object.keys(this.props.annotationModes).map(function(mode) {
 			if(mode == 'bookmark') return null;
 			return (
 				<li
@@ -87,28 +88,37 @@ class AnnotationCreator extends React.Component {
 		}, this)
 
 		//generate the content of each tab (a form based on a annotation mode/motivation)
-		var tabContents = Object.keys(this.state.modes).map(function(mode) {
+		var tabContents = Object.keys(this.props.annotationModes).map(function(mode) {
 			if(mode == 'bookmark') return null;
 			let form = '';
 			switch(mode) {
 				case 'comment' : form = (
 					<CommentingForm
-						data={this.state.comments}
-						config={this.state.modes[mode]}
+						data={
+							this.props.annotation && this.props.annotation.data.comments ?
+								this.props.annotation.data.comments : null
+						}
+						config={this.props.annotationModes[mode]}
 						onOutput={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 				case 'classify' : form = (
 					<ClassifyingForm
-						data={this.state.classifications}
-						config={this.state.modes[mode]}
+						data={
+							this.props.annotation && this.props.annotation.data.classifications ?
+								this.props.annotation.data.classifications : null
+						}
+						config={this.props.annotationModes[mode]}
 						onOutput={this.updateAnnotationData.bind(this)}
 					/>
 				);break;
 				case 'link' : form = (
 					<LinkingForm
-						data={this.state.links}
-						config={this.state.modes[mode]}
+						data={
+							this.props.annotation && this.props.annotation.data.links ?
+								this.props.annotation.data.links : null
+						}
+						config={this.props.annotationModes[mode]}
 						onOutput={this.updateAnnotationData.bind(this)}
 					/>
 				);break;

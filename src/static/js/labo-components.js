@@ -14,7 +14,7 @@ function showComponent(componentId) {
 		case 'Classifying' : component = getClassifyingForm();break;
 		case 'Linking' : component = getLinkingForm();break;
 
-		case 'Annotation player': component = getAnnotationPlayer();break;
+		case 'Segmenting player': component = getAnnotationPlayer();break;
 		case 'JWPlayer': component = getJWPlayer();break;
 		case 'Vimeo player': component = getVimeoPlayer();break;
 

@@ -8,7 +8,7 @@ class AnnotationList extends React.Component {
 	}
 
 	render() {
-		var commentNodes = this.props.annotations.map(function(annotation) {
+		const annotations = this.props.annotations.map(function(annotation) {
 			return (
 				<Annotation
 					key={annotation.annotationId}
@@ -25,7 +25,7 @@ class AnnotationList extends React.Component {
 			<div>
 				<h3>Saved annotations</h3>
 				<ul className="list-group">
-					{commentNodes}
+					{annotations}
 				</ul>
 			</div>
 		);
