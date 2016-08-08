@@ -19,7 +19,6 @@ class AnnotationBox extends React.Component {
 	}
 
 	saveAnnotation(annotation) {
-		console.debug('Saving annotation');
 		console.debug(annotation);
 		AnnotationAPI.saveAnnotation(this.props.annotationTarget, annotation, function(data) {
 			this.onSave(data);
@@ -27,30 +26,29 @@ class AnnotationBox extends React.Component {
 	}
 
 	onSave(annotation) {
-		console.debug(annotation);
 		$('#annotation__modal').modal('hide');//TODO ugly, but without this the static backdrop won't disappear!
 		if(this.props.onSave) {
 			this.props.onSave(annotation);
 		}
 	}
 
-	//TODO maybe add a part where you can view the active annotation here as well
 	render() {
-		console.debug('Trying to render it');
-		console.debug(this.props.annotationModes);
 		return (
 			<div>
 				{this.props.showModal ?
 					<FlexModal
 						elementId="annotation__modal"
-						handleHideModal={this.props.handleHideModal.bind(this)}
+						handleHideModal={this.props.hideAnnotationForm.bind(this)}
 						title={'Add annotation to: ' + this.props.annotationTarget}>
 						<AnnotationCreator
-							annotation={this.props.annotation}
-							saveAnnotation={this.saveAnnotation.bind(this)}
-							annotationModes={this.props.annotationModes}
-							playerAPI={this.props.playerAPI}
 							user={this.props.user}
+							activeAnnotation={this.props.activeAnnotation}
+
+							saveAnnotation={this.saveAnnotation.bind(this)}
+
+							annotationModes={this.props.annotationModes}
+
+							playerAPI={this.props.playerAPI}
 						/>
 					</FlexModal>: null
 				}

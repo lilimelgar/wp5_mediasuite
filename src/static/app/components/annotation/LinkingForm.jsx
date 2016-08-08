@@ -19,7 +19,7 @@ class LinkingForm extends React.Component {
 	//TODO make sure that at least one common property is present in the linkData (when hooking up different APIs)
 	addLink(linkData) {
 		var links = this.state.data;
-		if(links) {
+		if(links && linkData) {
 			links.push(linkData);
 			this.setState({data : links}, this.onOutput.bind(this));
 		}

@@ -22,17 +22,12 @@ class VimeoPlayer extends React.Component {
 		}
 	}
 
-	componentDidUpdate() {
-		console.debug('UPDATING VIMEO');
-	}
-
 	componentWillUnmount() {
 		this.state.froogaloop.api('unload');
 		this.setState({froogaloop : null});
 	}
 
 	playerReady(playerId) {
-		//console.debug('Rendered the player, setting up the player API');
 		this.setState({
 			froogaloop : $f(playerId)
 		}, this.setupEventCallbacks.bind(this));

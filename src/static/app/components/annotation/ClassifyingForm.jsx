@@ -21,18 +21,20 @@ class ClassifyingForm extends React.Component {
 	/* ------------------- CRUD / loading of classifications ------------------- */
 
 	addClassification(e) {
-		e.preventDefault();
-		var cs = this.state.data;
-		if(cs) {
-			cs.push({
-				id : this.state.suggestionId,
-				label: this.state.value,
-				vocabulary : this.state.vocabulary
-			});
-			this.setState({
-				value : '',
-				data : cs
-			}, this.onOutput.bind(this));
+		if(this.state.value != '') {
+			e.preventDefault();
+			var cs = this.state.data;
+			if(cs) {
+				cs.push({
+					id : this.state.suggestionId,
+					label: this.state.value,
+					vocabulary : this.state.vocabulary
+				});
+				this.setState({
+					value : '',
+					data : cs
+				}, this.onOutput.bind(this));
+			}
 		}
 	}
 

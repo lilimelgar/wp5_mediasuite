@@ -14,7 +14,6 @@ const AnnotationAPI = {
 			type : method,
 			data : JSON.stringify(annotation),
 			success : function(data) {
-				console.debug(data);
 				if(callback){
 					callback(data);
 				}

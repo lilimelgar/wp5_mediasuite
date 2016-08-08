@@ -10,17 +10,15 @@ class AnnotationCreator extends React.Component {
 		let comments = [];
 		let classifications = [];
 		let links = [];
-		console.debug('wtf');
-		console.debug(this.props.annotation);
-		if(this.props.annotation) {
-			if(this.props.annotation.data.classifications) {
-				classifications = this.props.annotation.data.classifications;
+		if(this.props.activeAnnotation) {
+			if(this.props.activeAnnotation.data.classifications) {
+				classifications = this.props.activeAnnotation.data.classifications;
 			}
-			if(this.props.annotation.data.comments) {
-				comments = this.props.annotation.data.comments;
+			if(this.props.activeAnnotation.data.comments) {
+				comments = this.props.activeAnnotation.data.comments;
 			}
-			if(this.props.annotation.data.links) {
-				links = this.props.annotation.data.links;
+			if(this.props.activeAnnotation.data.links) {
+				links = this.props.activeAnnotation.data.links;
 			}
 		}
 		let activeTab = null;
@@ -44,7 +42,7 @@ class AnnotationCreator extends React.Component {
 
 	//TODO this function looks like it could be more optimized
 	gatherDataAndSave() {
-		var annotation = this.props.annotation;
+		var annotation = this.props.activeAnnotation;
 		if(!annotation) {
 			annotation = {
 				user : this.props.user
@@ -95,8 +93,8 @@ class AnnotationCreator extends React.Component {
 				case 'comment' : form = (
 					<CommentingForm
 						data={
-							this.props.annotation && this.props.annotation.data.comments ?
-								this.props.annotation.data.comments : null
+							this.props.activeAnnotation && this.props.activeAnnotation.data.comments ?
+								this.props.activeAnnotation.data.comments : null
 						}
 						config={this.props.annotationModes[mode]}
 						onOutput={this.updateAnnotationData.bind(this)}
@@ -105,8 +103,8 @@ class AnnotationCreator extends React.Component {
 				case 'classify' : form = (
 					<ClassifyingForm
 						data={
-							this.props.annotation && this.props.annotation.data.classifications ?
-								this.props.annotation.data.classifications : null
+							this.props.activeAnnotation && this.props.activeAnnotation.data.classifications ?
+								this.props.activeAnnotation.data.classifications : null
 						}
 						config={this.props.annotationModes[mode]}
 						onOutput={this.updateAnnotationData.bind(this)}
@@ -115,8 +113,8 @@ class AnnotationCreator extends React.Component {
 				case 'link' : form = (
 					<LinkingForm
 						data={
-							this.props.annotation && this.props.annotation.data.links ?
-								this.props.annotation.data.links : null
+							this.props.activeAnnotation && this.props.activeAnnotation.data.links ?
+								this.props.activeAnnotation.data.links : null
 						}
 						config={this.props.annotationModes[mode]}
 						onOutput={this.updateAnnotationData.bind(this)}

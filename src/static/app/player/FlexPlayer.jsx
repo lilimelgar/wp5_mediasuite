@@ -273,17 +273,6 @@ class FlexPlayer extends React.Component {
 	    }.bind(this));
 	}
 
-	/* ----- THESE FUNCTIONS SHOULD BE IMPORTED FOR ALL COMPONENTS THAT WANT ANNOTATION SUPPORT ----- */
-
-	hasAnnotationSupport() {
-		if(this.props.annotationSupport != null) {
-			if(this.props.annotationSupport.mediaObject || this.props.annotationSupport.mediaSegment) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	/* ----------------- just rendering --------------------- */
 
 	render() {
@@ -299,7 +288,7 @@ class FlexPlayer extends React.Component {
 		let videoAnnotationButton = null;
 		let segmentAnnotationButton = null;
 
-		if(this.props.addAnnotation) {
+		if(this.props.addAnnotation && this.props.annotationSupport) {
 			if(this.props.annotationSupport.mediaObject) {
 				videoAnnotationButton = (
 				<button type="button" className="btn btn-default"

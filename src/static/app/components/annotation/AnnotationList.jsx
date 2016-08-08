@@ -9,15 +9,21 @@ class AnnotationList extends React.Component {
 
 	render() {
 		const annotations = this.props.annotations.map(function(annotation) {
+			let active = false;
+			if(this.props.activeAnnotation) {
+				active = this.props.activeAnnotation.annotationId === annotation.annotationId
+			}
 			return (
 				<Annotation
 					key={annotation.annotationId}
-					activeAnnotation={this.props.activeAnnotation}
 					annotation={annotation}
-					editAnnotation={this.props.editAnnotation}
+
+					active={active}
+
+					showAnnotationForm={this.props.showAnnotationForm}
 					setAnnotation={this.props.setAnnotation}
-					playerAPI={this.props.playerAPI}
 					deleteAnnotation={this.props.deleteAnnotation}
+					playAnnotation={this.props.playAnnotation}
 				/>
 			);
 		}, this);

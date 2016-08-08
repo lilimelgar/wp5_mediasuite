@@ -8,29 +8,33 @@ class Annotation extends React.Component {
 	}
 
 	setAnnotation() {
-		this.props.setAnnotation(this.props.annotation);
+		if(this.props.setAnnotation) {
+			this.props.setAnnotation(this.props.annotation);
+		}
 	}
 
 	playAnnotation() {
-		this.props.playerAPI.setActiveSegment({
-			start : this.props.annotation.start, end : this.props.annotation.end
-		}, true, true);
-	}
-
-	editAnnotation() {
-		this.props.editAnnotation();
+		if(this.props.playAnnotation) {
+			this.props.playAnnotation(this.props.annotation);
+		}
 	}
 
 	deleteAnnotation() {
-		this.props.deleteAnnotation(this.props.annotation.annotationId);
+		if(this.props.deleteAnnotation) {
+			this.props.deleteAnnotation(this.props.annotation.annotationId);
+		}
+	}
+
+	showAnnotationForm() {
+		if(this.props.showAnnotationForm) {
+			this.props.showAnnotationForm();
+		}
 	}
 
 	computeClass() {
 		var className = 'list-group-item';
-		if(this.props.activeAnnotation) {
-			if(this.props.activeAnnotation.annotationId === this.props.annotation.annotationId) {
-				className += ' active';
-			}
+		if(this.props.active) {
+			className += ' active';
 		}
 		return className;
 	}
@@ -40,7 +44,8 @@ class Annotation extends React.Component {
 			<li
 				className={this.computeClass()}
 				onClick={this.setAnnotation.bind(this)}
-				onDoubleClick={this.editAnnotation.bind(this)}
+				onDoubleClick={this.showAnnotationForm.bind(this)}
+				title={this.props.annotation.annotationId}
 			>
 				<i className="glyphicon glyphicon-remove interactive"
 					onClick={this.deleteAnnotation.bind(this)}>

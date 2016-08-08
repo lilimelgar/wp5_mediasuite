@@ -34,18 +34,9 @@ class AnnotationRecipe extends React.Component {
 		}.bind(this));
 	}
 
-	//this sets the annotations in the state object
-	onLoadAnnotations(data) {
-		this.setState(data);
-	}
-
-	setActiveAnnotation(annotation) {
-		this.setState({activeAnnotation : annotation})
-	}
-
-	onPlayerReady(playerAPI) {
-		this.setState({playerAPI : playerAPI});
-	}
+	/* ------------------------------------------------------------------------------
+	------------------------------- VIDEO RELATED FUNCTIONS -------------------------
+	------------------------------------------------------------------------------- */
 
 	//test to see if it works when setting a new video
 	dummyChangeVideo() {
@@ -59,17 +50,41 @@ class AnnotationRecipe extends React.Component {
 
 	}
 
-	handleShowModal() {
+	//whenever the player is ready assign the api to the state. Several components use it as properties
+	onPlayerReady(playerAPI) {
+		this.setState({playerAPI : playerAPI});
+	}
+
+	/* ------------------------------------------------------------------------------
+	------------------------------- ANNOTATION RELATED FUNCTIONS --------------------
+	------------------------------------------------------------------------------- */
+
+	//this sets the annotations in the state object
+	onLoadAnnotations(annotationData) {
+		this.setState(annotationData);
+	}
+
+	//overall there can be only one active annotation
+	setActiveAnnotation(annotation) {
+		this.setState({
+			activeAnnotation : annotation,
+			annotationTarget : annotation.resourceURI
+		})
+	}
+
+	//shows the annotation modal
+	showAnnotationForm() {
 		this.setState({showAnnotationModal: true})
 	}
 
-	handleHideModal() {
+	//hides the annotation modal
+	hideAnnotationForm() {
 		this.setState({showAnnotationModal: false})
 	}
 
 	addAnnotation(annotationTarget, start, end) {
 		let at = annotationTarget;
-		if(start != -1 && end != -1) {
+		if(start != -1 && end != -1 && at.indexOf('#t') == -1) {
 			at += '#t=' + start + ',' + end;
 		}
 		if(at) {
@@ -79,6 +94,12 @@ class AnnotationRecipe extends React.Component {
 				activeAnnotation: null
 			});
 		}
+	}
+
+	playAnnotation(annotation) {
+		this.state.playerAPI.setActiveSegment({
+			start : annotation.start, end : annotation.end
+		}, true, true);
 	}
 
 	deleteAnnotation(annotationId) {
@@ -96,35 +117,39 @@ class AnnotationRecipe extends React.Component {
 
 	onSave(annotation) {
 		let ans = this.state.annotations;
-		ans.push(annotation);
-		this.setState({annotations : ans});
-	}
-
-	hasAnnotationSupport() {
-		if(this.props.ingredients.annotationSupport != null) {
-			if(this.props.ingredients.annotationSupport.mediaObject ||
-				this.props.ingredients.annotationSupport.mediaSegment) {
-				return true;
+		let update = true;
+		for(let i=0;i<ans.length;i++) {
+			if(ans[i].annotationId == annotation.annotationId) {
+				update = false;
+				break;
 			}
 		}
-		return false;
+		if(update) {
+			ans.push(annotation);
+			this.setState({annotations : ans});
+		}
 	}
-
-	/************************************** Timeline controls ***************************************/
 
 	render() {
 		let annotationBox = null;
-		if(this.hasAnnotationSupport()) {
+
+		//on the top level we only check if there is any form of annotationSupport
+		if(this.props.ingredients.annotationSupport) {
 			annotationBox = (
-				<AnnotationBox user={this.state.user}
-					playerAPI={this.state.playerAPI}//FIXME dit is een goeie kandidaat voor React context
-					annotationModes={this.props.ingredients.annotationModes}
-					showModal={this.state.showAnnotationModal}
-					annotation={this.state.activeAnnotation}
-					annotationTarget={this.state.annotationTarget}
-					onSave={this.onSave.bind(this)}
-					handleHideModal={this.handleHideModal.bind(this)}
-					handleShowModal={this.handleShowModal.bind(this)}/>
+				<AnnotationBox
+					showModal={this.state.showAnnotationModal} //show the modal yes/no
+					hideAnnotationForm={this.hideAnnotationForm.bind(this)} //pass along the function to hide the modal
+
+					user={this.state.user} //current user
+					activeAnnotation={this.state.activeAnnotation} //the active annotation
+					annotationTarget={this.state.annotationTarget} //the current target of the active annotation (merge?)
+
+					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
+
+					playerAPI={this.state.playerAPI}//currently only used for obtaining the current time of the current video
+
+					onSave={this.onSave.bind(this)} //callback function after saving an annotation
+				/>
 			)
 		}
 
@@ -141,21 +166,28 @@ class AnnotationRecipe extends React.Component {
 							</span>
 						</div>
 
-						<FlexPlayer user={this.state.user}
-							onPlayerReady={this.onPlayerReady.bind(this)}
-							annotationSupport={this.props.ingredients.annotationSupport}
-							annotationModes={this.props.ingredients.annotationModes}
-							addAnnotation={this.addAnnotation.bind(this)}
-							mediaObject={this.state.mediaObject}/>
+						<FlexPlayer
+							user={this.state.user} //current user
+							mediaObject={this.state.mediaObject} //currently visible media object
+
+							annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
+							annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
+							addAnnotation={this.addAnnotation.bind(this)} //each annotation support should call this function
+
+							onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
+						/>
 					</div>
 					<div className="col-md-5">
 						<AnnotationList
-							activeAnnotation={this.state.activeAnnotation}
-							annotations={this.state.annotations}
-							setAnnotation={this.setActiveAnnotation.bind(this)}
-							playerAPI={this.state.playerAPI}
-							editAnnotation={this.handleShowModal.bind(this)}
-							deleteAnnotation={this.deleteAnnotation.bind(this)}/>
+							activeAnnotation={this.state.activeAnnotation} //the active annotation
+							annotations={this.state.annotations} //the list of annotations TODO move this to the list itself
+
+							showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
+							setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
+							deleteAnnotation={this.deleteAnnotation.bind(this)} //when clicking X, remove the annotation
+
+							playAnnotation={this.playAnnotation.bind(this)} //when clicking 'play' on an annotation
+						/>
 
 						{annotationBox}
 					</div>

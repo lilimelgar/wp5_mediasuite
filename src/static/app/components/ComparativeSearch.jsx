@@ -134,12 +134,15 @@ class ComparativeSearch extends React.Component {
 		//only show if configured
 		if(this.hasAnnotationSupport()) {
 			annotationBox = (
-				<AnnotationBox user={this.state.user}
-					annotationModes={this.props.annotationModes}
+				<AnnotationBox
 					showModal={this.state.showAnnotationModal}
-					annotationTarget={this.state.annotationTarget}
 					handleHideModal={this.handleHideModal.bind(this)}
-					handleShowModal={this.handleShowModal.bind(this)}/>
+
+					user={this.state.user}
+					activeAnnotation={null}
+					annotationTarget={this.state.annotationTarget}
+
+					annotationModes={this.props.annotationModes}/>
 			)
 			annotationTestButtons = (
 				<div>
