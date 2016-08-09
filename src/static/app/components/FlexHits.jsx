@@ -16,8 +16,9 @@ class FlexHits extends React.Component {
 	gotoItemDetails(result) {
 		console.debug(result);
 		if(this.props.itemDetailsRecipe && result._id) {
-			document.location.href = 'http://localhost:5302/recipe/' + this.props.itemDetailsRecipe + '?id=' + result._id;
-			//this.setState({showModal: true})
+			var url = 'http://localhost:5302/recipe/' + this.props.itemDetailsRecipe + '?id=' + result._id;
+			url += '&cid=' + result._index;
+			document.location.href = url;
 		} else {
 			this.setState({showModal: true})
 		}

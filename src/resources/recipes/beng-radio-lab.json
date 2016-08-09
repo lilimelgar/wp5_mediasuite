@@ -9,6 +9,7 @@
 				"spraak__andernieuws",
 				"soundbites"
 			]
-		}
+		},
+		"itemDetailsRecipe" : "default-item-details"
 	}
 }

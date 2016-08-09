@@ -4,6 +4,8 @@ import TimeUtil from './util/TimeUtil';
 import FlexBox from './components/FlexBox';
 import FlexPlayer from './player/FlexPlayer';
 
+import SearchAPI from './api/searchAPI';
+
 import AnnotationAPI from './api/AnnotationAPI';
 import AnnotationUtil from './util/AnnotationUtil'
 import AnnotationBox from './components/annotation/AnnotationBox';
@@ -25,6 +27,18 @@ class ItemDetailsRecipe extends React.Component {
 			playerAPI : null,
 			currentPlayer : 'YouTube',
 			mediaObject : mediaObject
+		}
+	}
+
+	//TODO now make sure to render all of the correct media objects on the screen and voila
+	componentDidMount() {
+		console.debug(this.props.params);
+		if(this.props.params.id) {
+			console.debug('getting the item details');
+			SearchAPI.getItemDetails(this.props.params.cid, this.props.params.id, (data) => {
+				console.debug(data);
+			})
+
 		}
 	}
 

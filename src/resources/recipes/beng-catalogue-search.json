@@ -8,6 +8,7 @@
 			"collection": [
 				"labs-catalogue-aggr"
 			]
-		}
+		},
+		"itemDetailsRecipe" : "default-item-details"
 	}
 }

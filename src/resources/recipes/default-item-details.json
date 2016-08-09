@@ -1,8 +1,8 @@
 {
 	"id" : "default-item-details",
-	"name" : "Default item details",
+	"name" : "Item details pagina",
 	"type" : "item-details",
-	"description" : "Offers annotation support for all media types by default",
+	"description" : "Inclusief standaard annotatiefunctionaliteit",
 	"ingredients" : {
 		"apiSearch" : {
 			"api": [

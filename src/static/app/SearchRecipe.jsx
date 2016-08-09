@@ -95,6 +95,7 @@ class Recipe extends React.Component {
 		var facetSearch = null;
 		var lineChart = null; //WARNING: in theory there can be more linecharts defined!
 		var annotationBox = null;
+		var annotationList = null;
 
 		if(this.props.ingredients.annotationSupport) {
 			annotationBox = (
@@ -107,6 +108,17 @@ class Recipe extends React.Component {
 					annotationTarget={this.state.annotationTarget} //the current annotation target
 
 					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
+				/>
+			)
+			annotationList = (
+				<AnnotationList
+					activeAnnotation={this.state.activeAnnotation} //the active annotation
+					annotationTarget={this.state.annotationTarget} //the current annotation target
+
+					showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
+					setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
+
+					playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
 				/>
 			)
 		}
@@ -136,28 +148,20 @@ class Recipe extends React.Component {
 		}
 		if(this.props.ingredients.facetSearch) {
 			facetSearch = (<FacetSearchComponent
+				itemDetailsRecipe={this.props.ingredients.itemDetailsRecipe} // the item details recipe the user should go to
 				collection={this.props.ingredients.facetSearch.collection}
 				searchAPI={_config.SEARCH_API_BASE}/>);
 		}
 
 		return (
 			<div className="row">
-				<div className="col-md-7">
+				<div className={this.props.ingredients.annotationSupport ? 'col-md-7' : 'col-md-12'}>
 					{facetSearch}
 					{lineChart}
 					{comparativeSearch}
 				</div>
-				<div className="col-md-5">
-					<AnnotationList
-						activeAnnotation={this.state.activeAnnotation} //the active annotation
-						annotationTarget={this.state.annotationTarget} //the current annotation target
-
-						showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
-						setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
-
-						playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
-					/>
-
+				<div className={this.props.ingredients.annotationSupport ? 'col-md-5' : null}>
+					{annotationList}
 					{annotationBox}
 				</div>
 			</div>
