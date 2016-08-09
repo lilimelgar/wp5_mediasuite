@@ -11,20 +11,34 @@ class YouTubePlayer extends React.Component {
 	}
 
 	componentDidMount() {
-		console.debug('Loading the iframe API');
-		var tag = document.createElement('script');
-		tag.src = "https://www.youtube.com/iframe_api";
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-		window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
+		if(!document.getElementById('youtubeiframeapi')) {
+			console.debug('Loading the iframe API');
+			var tag = document.createElement('script');
+			tag.id = 'youtubeiframeapi';
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
+		} else {
+			this.onYouTubeIframeAPIReady();
+		}
+	}
+
+	componentDidUpdate() {
+		if(!this.state.player) {
+			this.onYouTubeIframeAPIReady();
+		}
 	}
 
 	componentWillUnmount() {
 		console.debug('Destroying the YouTube player');
-		this.state.player.destroy();
+		if(this.state.player) {
+			this.state.player.destroy();
+		}
 	}
 
 	onYouTubeIframeAPIReady() {
+		console.debug('Got a player');
 		let player = new YT.Player('video_player', {
 			height: '390',
 			width: '640',

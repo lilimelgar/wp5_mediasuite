@@ -15,62 +15,50 @@ class AnnotationRecipe extends React.Component {
 
 	constructor(props) {
 		super(props);
+		var mediaObject = {url :'https://www.youtube.com/watch?v=eZCvMpPM2SY'};
+		var annotationTarget = AnnotationUtil.generateW3CTargetObject(mediaObject.url);
 		this.state = {
 			user : 'JaapTest',
-			annotations: [],
 			activeAnnotation: null,
 			showAnnotationModal : false,
-			annotationTarget : null,
+			annotationTarget : annotationTarget,
 			playerAPI : null,
-			start : null,
-			end : null,
-			mediaObject : { //later make sure that this can be changed with some selection component
-				url : 'https://www.youtube.com/watch?v=eZCvMpPM2SY'
-			}
+			currentPlayer : 'YouTube',
+			mediaObject : mediaObject
 		}
-	}
-
-	componentDidMount() {
-		AnnotationAPI.getAnnotations(function(data) {
-			this.onLoadAnnotations(data);
-		}.bind(this));
 	}
 
 	/* ------------------------------------------------------------------------------
 	------------------------------- VIDEO RELATED FUNCTIONS -------------------------
 	------------------------------------------------------------------------------- */
 
-	//test to see if it works when setting a new video
-	dummyChangeVideo() {
-		let mo = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'}
-		if(this.state.mediaObject.url.indexOf('player.vimeo.com') == -1) {
-			mo = {url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1'}
-		}
-		this.setState({
-			mediaObject : mo
-		});
-
-	}
-
 	//whenever the player is ready assign the api to the state. Several components use it as properties
 	onPlayerReady(playerAPI) {
 		this.setState({playerAPI : playerAPI});
+	}
+
+	setAnnotationTarget(event) {
+		let mo = null;
+		switch(event.target.value) {
+			case 'YouTube' : mo = {url : 'https://www.youtube.com/watch?v=eZCvMpPM2SY'};break;
+			case 'JW' : mo = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'};break;
+			case 'Vimeo' : mo = {url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1'};break;
+		}
+		this.setState({
+			currentPlayer : event.target.value,
+			mediaObject : mo,
+			annotationTarget : AnnotationUtil.generateW3CTargetObject(mo.url)
+		});
 	}
 
 	/* ------------------------------------------------------------------------------
 	------------------------------- ANNOTATION RELATED FUNCTIONS --------------------
 	------------------------------------------------------------------------------- */
 
-	//this sets the annotations in the state object
-	onLoadAnnotations(annotationData) {
-		this.setState(annotationData);
-	}
-
 	//overall there can be only one active annotation
 	setActiveAnnotation(annotation) {
 		this.setState({
-			activeAnnotation : annotation,
-			annotationTarget : annotation.target
+			activeAnnotation : annotation
 		})
 	}
 
@@ -84,7 +72,9 @@ class AnnotationRecipe extends React.Component {
 		this.setState({showAnnotationModal: false})
 	}
 
-	addAnnotation(targetURI, start, end) {
+	//show the annnotation form with the correct annotation target
+	//TODO extend this so the target can also be a piece of text or whatever
+	addAnnotationToTarget(targetURI, start, end) {
 		let at = AnnotationUtil.generateW3CTargetObject(targetURI, start, end)
 		if(at) {
 			this.setState({
@@ -95,53 +85,27 @@ class AnnotationRecipe extends React.Component {
 		}
 	}
 
-	//TODO this function has to know everything about where the annotation target is and be able to
-	//redirect the user to it
-	playAnnotation(annotation) {
-		if(annotation.target.source.indexOf(this.state.mediaObject.url) != -1) {
-			let interval = AnnotationUtil.extractMediaFragmentFromURI(annotation.target.source);
-			if(interval) {
-				this.state.playerAPI.setActiveSegment({
-					start : interval[0], end : interval[1]
-				}, true, true);
-			} else {
-				this.state.playerAPI.setActiveSegment(null, true, true);
-			}
-		} else {
-			console.debug('Currently a completely different annotation target is loaded');
-		}
-	}
-
-	deleteAnnotation(annotationId) {
-		AnnotationAPI.deleteAnnotation(annotationId, function(data) {
-			this.onDelete(annotationId);
-		}.bind(this));
-	}
-
-	onDelete(annotationId) {
-		var annotations = $.grep(this.state.annotations, function(e){
-			return e.id != annotationId;
-		});
-		this.setState({annotations : annotations});
-	}
-
 	onSave(annotation) {
-		let ans = this.state.annotations;
-		let update = true;
-		for(let i=0;i<ans.length;i++) {
-			if(ans[i].id == annotation.id) {
-				update = false;
-				break;
-			}
-		}
-		if(update) {
-			ans.push(annotation);
-			this.setState({annotations : ans});
-		}
+		console.debug('so what do I do now?');
+		console.debug(annotation);
+		// let ans = this.state.annotations;
+		// let update = true;
+		// for(let i=0;i<ans.length;i++) {
+		// 	if(ans[i].id == annotation.id) {
+		// 		update = false;
+		// 		break;
+		// 	}
+		// }
+		// if(update) {
+		// 	ans.push(annotation);
+		// 	this.setState({annotations : ans});
+		// }
 	}
 
 	render() {
 		let annotationBox = null;
+		let playerOptions = null;
+		let supportedPlayers = ['YouTube', 'JW', 'Vimeo'];
 
 		//on the top level we only check if there is any form of annotationSupport
 		if(this.props.ingredients.annotationSupport) {
@@ -152,7 +116,7 @@ class AnnotationRecipe extends React.Component {
 
 					user={this.state.user} //current user
 					activeAnnotation={this.state.activeAnnotation} //the active annotation
-					annotationTarget={this.state.annotationTarget} //the current target of the active annotation (merge?)
+					annotationTarget={this.state.annotationTarget} //the current target of the active annotation
 
 					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
 
@@ -161,26 +125,38 @@ class AnnotationRecipe extends React.Component {
 			)
 		}
 
+		//temporary
+		playerOptions = supportedPlayers.map((player, index) => {
+			return (
+				<label className="radio-inline" key={'player__' + index}>
+					<input
+						type="radio"
+						name="playerOptions"
+						id={player}
+						value={player}
+						checked={player == this.state.currentPlayer}
+						onChange={this.setAnnotationTarget.bind(this)}/>
+						{player}
+				</label>
+			)
+		})
+
 		return (
 			<div>
 				<div className="row">
 					<div className="col-md-7">
-						<div className="input-group">
-							<span className="input-group-btn">
-								<button type="button" className="btn btn-info"
-									onClick={this.dummyChangeVideo.bind(this)}>
-									Andere video
-								</button>
-							</span>
+						<div className="text-left">
+							<label>Choose a player:&nbsp;</label>
+							{playerOptions}
 						</div>
-
+						<br/>
 						<FlexPlayer
 							user={this.state.user} //current user
 							mediaObject={this.state.mediaObject} //currently visible media object
 
 							annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
 							annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
-							addAnnotation={this.addAnnotation.bind(this)} //each annotation support should call this function
+							addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
 
 							onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
 						/>
@@ -188,13 +164,12 @@ class AnnotationRecipe extends React.Component {
 					<div className="col-md-5">
 						<AnnotationList
 							activeAnnotation={this.state.activeAnnotation} //the active annotation
-							annotations={this.state.annotations} //the list of annotations TODO move this to the list itself
+							annotationTarget={this.state.annotationTarget} //the current target of the active annotation
 
 							showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
 							setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
-							deleteAnnotation={this.deleteAnnotation.bind(this)} //when clicking X, remove the annotation
 
-							playAnnotation={this.playAnnotation.bind(this)} //when clicking 'play' on an annotation
+							playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
 						/>
 
 						{annotationBox}

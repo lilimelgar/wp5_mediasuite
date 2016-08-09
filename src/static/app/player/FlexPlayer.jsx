@@ -289,11 +289,11 @@ class FlexPlayer extends React.Component {
 		let videoAnnotationButton = null;
 		let segmentAnnotationButton = null;
 
-		if(this.props.addAnnotation && this.props.annotationSupport) {
+		if(this.props.addAnnotationToTarget && this.props.annotationSupport) {
 			if(this.props.annotationSupport.mediaObject) {
 				videoAnnotationButton = (
 				<button type="button" className="btn btn-default"
-					onClick={this.props.addAnnotation.bind(
+					onClick={this.props.addAnnotationToTarget.bind(
 						this, this.props.mediaObject.url, -1, -1)}>
 					Annoteer Video
 				</button>);
@@ -301,7 +301,7 @@ class FlexPlayer extends React.Component {
 			if(this.props.annotationSupport.mediaSegment) {
 				segmentAnnotationButton = (
 					<button type="button" className="btn btn-default"
-						onClick={this.props.addAnnotation.bind(
+						onClick={this.props.addAnnotationToTarget.bind(
 							this, this.props.mediaObject.url, this.state.start, this.state.end)}>
 						Annoteer Segment
 					</button>);
