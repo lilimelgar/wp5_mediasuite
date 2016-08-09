@@ -1,6 +1,9 @@
 import React from 'react';
 import Annotation from './Annotation.jsx';
 
+//TODO zo maken dat dit component zelfstandig de annotaties ophaalt en
+//hierbij per default alleen de annotaties van de huidige user en het huidige annotatie target laat zien
+
 class AnnotationList extends React.Component {
 
 	constructor(props) {

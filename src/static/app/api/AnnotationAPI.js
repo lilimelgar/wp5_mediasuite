@@ -59,7 +59,6 @@ const AnnotationAPI = {
 	},
 
 	deleteAnnotation : function (annotationId, callback) {
-		console.debug('DELETING ' + annotationId);
 		if(annotationId) {
 			$.ajax({
 				url : _config.ANNOTATION_API_BASE + '/annotation/' + annotationId,

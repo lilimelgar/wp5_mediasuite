@@ -1,4 +1,4 @@
-import React from 'react';
+import PlayerAPI from './PlayerAPI';
 
 //key: cp1KvUB8slrOvOjg+U8melMoNwxOm/honmDwGg==
 //https://developer.jwplayer.com/jw-player/docs/developer-guide/api/javascript_api_reference
@@ -53,74 +53,36 @@ class JWPlayer extends React.Component {
 
 }
 
-//this should implement a generic playerAPI
-class JWPlayerAPI {
+class JWPlayerAPI extends PlayerAPI {
 
-	constructor(api) {
-		this.api = api;
-		this.activeSegment = null;
-		this.observers = [];
-	}
-
-	/* ------------ These functions should be in a super class ------------- */
-
-	addObserver(obj) {
-		this.observers.push(obj);
-	}
-
-	removeObserver(obj) {
-		this.observers.splice(this.observers.indexOf(obj), 1);
-	}
-
-	notifyObservers() {
-		for(let i=0;i<this.observers.length;i++) {
-			this.observers[i].update();
-		}
-	}
-
-	getActiveSegment() {
-		return this.activeSegment;
-	}
-
-	//TODO this should also include the video url, so it can switch video!!!
-	setActiveSegment(activeSegment, play, notify) {
-		if(activeSegment) {
-			this.activeSegment = activeSegment;
-		} else {
-			this.activeSegment = {start : 0, end : 0};
-		}
-		if(play) {
-			this.seek(this.activeSegment.start)
-		}
-		if(notify) {
-			this.notifyObservers();
-		}
+	constructor(playerAPI) {
+		super(playerAPI);
 	}
 
 	/* ------------ Implemented API calls ------------- */
 
 	play() {
-		this.api.play();
+		this.playerAPI.play();
 	}
 
 	pause() {
-		this.api.pause();
+		this.playerAPI.pause();
 	}
 
 	seek(secs) {
-		this.api.seek(secs);
+		this.playerAPI.seek(secs);
 	}
 
 	getPosition(callback) {
-		callback(this.api.getPosition());
+		callback(this.playerAPI.getPosition());
 	}
 
 	getDuration(callback) {
-		callback(this.api.getDuration());
+		callback(this.playerAPI.getDuration());
 	}
 
 	isPaused(callback) {
-		callback(this.api.getState() == 'paused');
+		callback(this.playerAPI.getState() == 'paused');
 	}
 
 	/* ----------------------- non-essential player specific calls ----------------------- */

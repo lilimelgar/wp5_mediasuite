@@ -25,7 +25,7 @@ class AnnotationRecipe extends React.Component {
 			start : null,
 			end : null,
 			mediaObject : { //later make sure that this can be changed with some selection component
-				url : 'http://player.vimeo.com/video/110756897?api=1&amp;player_id=player_1'
+				url : 'https://www.youtube.com/watch?v=eZCvMpPM2SY'
 			}
 		}
 	}
@@ -95,7 +95,8 @@ class AnnotationRecipe extends React.Component {
 		}
 	}
 
-	//TODO this function also has to consider the annotationTarget etc
+	//TODO this function has to know everything about where the annotation target is and be able to
+	//redirect the user to it
 	playAnnotation(annotation) {
 		if(annotation.target.source.indexOf(this.state.mediaObject.url) != -1) {
 			let interval = AnnotationUtil.extractMediaFragmentFromURI(annotation.target.source);

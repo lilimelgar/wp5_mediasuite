@@ -17,6 +17,7 @@ function showComponent(componentId) {
 		case 'Segmenting player': component = getAnnotationPlayer();break;
 		case 'JWPlayer': component = getJWPlayer();break;
 		case 'Vimeo player': component = getVimeoPlayer();break;
+		case 'YouTube player': component = getYouTubePlayer();break;
 
 		case 'Line chart': component = getLineChart();break;
 	}
@@ -176,6 +177,14 @@ function getJWPlayer() {
 	var mediaObject = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'};
 	return (
 		<JWPlayer mediaObject={mediaObject}/>
+	);
+}
+
+function getYouTubePlayer() {
+	var YouTubePlayer = clariah.YouTubePlayer;
+	var mediaObject = {url : 'https://www.youtube.com/watch?v=eZCvMpPM2SY'};
+	return (
+		<YouTubePlayer mediaObject={mediaObject}/>
 	);
 }
 

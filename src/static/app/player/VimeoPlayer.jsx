@@ -1,4 +1,4 @@
-import React from 'react';
+import PlayerAPI from './PlayerAPI';
 
 //this is the first player that is supported in LABO (ArtTube requires Vimeo)
 //https://github.com/vimeo/player.js
@@ -69,78 +69,40 @@ class VimeoPlayer extends React.Component {
 
 }
 
-//this should implement a generic playerAPI
-class VimeoAPI {
+class VimeoAPI extends PlayerAPI {
 
-	constructor(froogaloop) {
-		this.froogaloop = froogaloop;
-		this.activeSegment = null;
-		this.observers = [];
-	}
-
-	/* ------------ These functions should be in a super class ------------- */
-
-	addObserver(obj) {
-		this.observers.push(obj);
-	}
-
-	removeObserver(obj) {
-		this.observers.splice(this.observers.indexOf(obj), 1);
-	}
-
-	notifyObservers() {
-		for(let i=0;i<this.observers.length;i++) {
-			this.observers[i].update();
-		}
-	}
-
-	getActiveSegment() {
-		return this.activeSegment;
-	}
-
-	//TODO this should also include the video url, so it can switch video!!!
-	setActiveSegment(activeSegment, play, notify) {
-		if(activeSegment) {
-			this.activeSegment = activeSegment;
-		} else {
-			this.activeSegment = {start : 0, end : 0};
-		}
-		if(play) {
-			this.seek(this.activeSegment.start)
-		}
-		if(notify) {
-			this.notifyObservers();
-		}
+	constructor(playerAPI) {
+		super(playerAPI);
 	}
 
 	/* ------------ Implemented API calls ------------- */
 
 	play() {
-		this.froogaloop.api('play');
+		this.playerAPI.api('play');
 	}
 
 	pause() {
-		this.froogaloop.api('pause');
+		this.playerAPI.api('pause');
 	}
 
 	seek(secs) {
-		this.froogaloop.api('seekTo', secs);
+		this.playerAPI.api('seekTo', secs);
 	}
 
 	getPosition(callback) {
-		this.froogaloop.api('getCurrentTime', function (value, player_id) {
+		this.playerAPI.api('getCurrentTime', function (value, player_id) {
 			callback(value);
 		});
 	}
 
 	getDuration(callback) {
-	   this.froogaloop.api('getDuration', function (value, player_id) {
+	   this.playerAPI.api('getDuration', function (value, player_id) {
 			callback(value)
 	   });
 	}
 
 	isPaused(callback) {
-		this.froogaloop.api('paused', function (value, player_id) {
+		this.playerAPI.api('paused', function (value, player_id) {
 			callback(value);
 		});
 	}
@@ -148,56 +110,56 @@ class VimeoAPI {
 	/* ----------------------- non-essential player specific calls ----------------------- */
 
 	unload() {
-		this.froogaloop.api('unload');
+		this.playerAPI.api('unload');
 	}
 
 	getColor(callback) {
-		this.froogaloop.api('getColor', function (value, player_id) {
+		this.playerAPI.api('getColor', function (value, player_id) {
 			callback(value);
 		});
 	}
 
 	getVolume(callback) {
-		this.froogaloop.api('getVolume', function (value, player_id) {
+		this.playerAPI.api('getVolume', function (value, player_id) {
 			callback(value);
 		});
 	}
 
 	getVideoUrl(callback) {
-		this.froogaloop.api('getVideoUrl', function (value, player_id) {
+		this.playerAPI.api('getVideoUrl', function (value, player_id) {
 			callback(value);
 		});
 	}
 
 	getVideoEmbedCode(callback) {
-		this.froogaloop.api('getVideoEmbedCode', function (value, player_id) {
+		this.playerAPI.api('getVideoEmbedCode', function (value, player_id) {
 			callback(value);
 		});
 	}
 
 	getVideoWidth(callback) {
-		this.froogaloop.api('getVideoWidth', function (value, player_id) {
+		this.playerAPI.api('getVideoWidth', function (value, player_id) {
 			callback(value);
 		});
 	}
 
 	getVideoHeight(callback) {
-		this.froogaloop.api('getVideoHeight', function (value, player_id) {
+		this.playerAPI.api('getVideoHeight', function (value, player_id) {
 			callback(value);
 		});
 	}
 
 	//additional optional set functions
 	setVolume(volume) {
-		this.froogaloop.api('setVolume', volume);
+		this.playerAPI.api('setVolume', volume);
 	}
 
 	setLoop(loop) {
-		this.froogaloop.api('setLoop', loop ? 1 : 0);
+		this.playerAPI.api('setLoop', loop ? 1 : 0);
 	}
 
 	setColor(color) {//'ff0000'
-		this.froogaloop.api('setColor', color);
+		this.playerAPI.api('setColor', color);
 	}
 }
 

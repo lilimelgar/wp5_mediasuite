@@ -1,6 +1,7 @@
 import React from 'react';
 import VimeoPlayer from './VimeoPlayer';
 import JWPlayer from './JWPlayer';
+import YouTubePlayer from './YouTubePlayer';
 import VideoTimeBar from '../components/annotation/VideoTimeBar';
 import SegmentationControls from '../components/annotation/SegmentationControls';
 import TimeUtil from '../util/TimeUtil';
@@ -336,6 +337,12 @@ class FlexPlayer extends React.Component {
 			} else if (this.props.mediaObject.url.indexOf('.mp4') != -1) {
 				player = (
 					<JWPlayer mediaObject={this.props.mediaObject}
+					eventCallbacks={playerEventCallbacks}
+					onPlayerReady={this.onPlayerReady.bind(this)}/>
+				);
+			} else if (this.props.mediaObject.url.indexOf('youtube.com') != -1) {
+				player = (
+					<YouTubePlayer mediaObject={this.props.mediaObject}
 					eventCallbacks={playerEventCallbacks}
 					onPlayerReady={this.onPlayerReady.bind(this)}/>
 				);

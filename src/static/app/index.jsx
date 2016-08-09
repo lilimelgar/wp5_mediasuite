@@ -50,12 +50,15 @@ export {default as CollectionDataUtil} from './util/CollectionDataUtil';
 export {default as CollectionUtil} from './util/CollectionUtil';
 export {default as TimeUtil} from './util/TimeUtil';
 
-//video annotation
+//video annotation & segmentation
 export {default as AnnotationBox} from './components/annotation/AnnotationBox';
 export {default as CommentingForm} from './components/annotation/CommentingForm';
 export {default as ClassifyingForm} from './components/annotation/ClassifyingForm';
 export {default as LinkingForm} from './components/annotation/LinkingForm';
+export {default as SegmentationControls} from './components/annotation/SegmentationControls';
+
+//video players
 export {default as FlexPlayer} from './player/FlexPlayer';
 export {default as VimeoPlayer} from './player/VimeoPlayer';
+export {default as YouTubePlayer} from './player/YouTubePlayer';
 export {default as JWPlayer} from './player/JWPlayer';
-export {default as SegmentationControls} from './components/annotation/SegmentationControls';
