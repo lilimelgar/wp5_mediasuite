@@ -36,7 +36,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.js"></script>
 	<script src="/static/public/assets/benglabs.js" type="text/javascript"></script>
 	<script>
-		clariah.cookRecipe({{ recipe|tojson|safe }}, 'app');
+		clariah.cookRecipe({{ recipe|tojson|safe }}, {{ params|tojson|safe }}, 'app');
 	</script>
 
 </body>

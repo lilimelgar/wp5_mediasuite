@@ -13,8 +13,14 @@ class FlexHits extends React.Component {
 		};
 	}
 
-	handleShowModal() {
-		this.setState({showModal: true})
+	gotoItemDetails(result) {
+		console.debug(result);
+		if(this.props.itemDetailsRecipe && result._id) {
+			document.location.href = 'http://localhost:5302/recipe/' + this.props.itemDetailsRecipe + '?id=' + result._id;
+			//this.setState({showModal: true})
+		} else {
+			this.setState({showModal: true})
+		}
 	}
 
 	handleHideModal() {
@@ -38,7 +44,7 @@ class FlexHits extends React.Component {
 			<div
 				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}
 				key={result._id}
-				onClick={this.handleShowModal.bind(this)}
+				onClick={this.gotoItemDetails.bind(this, result)}
 			>
 				<SearchSnippet data={snippet}/>
 

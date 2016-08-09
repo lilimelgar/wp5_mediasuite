@@ -1,14 +1,14 @@
 //required imports for the functions
 import {render} from 'react-dom';
-import Recipe from './Recipe';
-import AnnotationRecipe from './AnnotationRecipe';
+import SearchRecipe from './SearchRecipe';
+import ItemDetailsRecipe from './ItemDetailsRecipe';
 
 //cooking function
-export function cookRecipe (recipe, elementId) {
-	if(recipe.type === 'annotation') {
-		render(<AnnotationRecipe ingredients={recipe.ingredients}/>, document.getElementById(elementId));
+export function cookRecipe (recipe, params, elementId) {
+	if(recipe.type === 'item-details') {
+		render(<ItemDetailsRecipe ingredients={recipe.ingredients} params={params}/>, document.getElementById(elementId));
 	} else if(recipe.type === 'search') {
-		render(<Recipe ingredients={recipe.ingredients}/>, document.getElementById(elementId));
+		render(<SearchRecipe ingredients={recipe.ingredients} params={params}/>, document.getElementById(elementId));
 	} else {
 		console.error('Please provide a valid recipe');
 	}

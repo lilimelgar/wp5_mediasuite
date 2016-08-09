@@ -114,12 +114,18 @@ def recipes():
 
 @app.route('/recipe/<recipeId>')
 def recipe(recipeId):
+	#flatten the params and put them in a normal dict
+	params = {}
+	for x in dict(request.args).keys():
+		params[x] = request.args.get(x)
+
 	if app.config['RECIPES'] == None:
 		loadRecipes()
 	if app.config['RECIPES'].has_key(recipeId):
 		return render_template(
 			'recipe.html',
 			recipe=app.config['RECIPES'][recipeId],
+			params=params,
 			loggedIn=isLoggedIn(request)
 		)
 	print app.config['RECIPES']

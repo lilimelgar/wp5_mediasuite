@@ -12,6 +12,7 @@
 			"collectionSelector" : true,
 			"output" : "lineChart"
 		},
+		"itemDetailsRecipe" : "default-item-details",
 		"annotationSupport" : {
 			"currentQuery" : {
 				"modes" : ["bookmark"]

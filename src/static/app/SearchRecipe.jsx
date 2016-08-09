@@ -121,6 +121,7 @@ class Recipe extends React.Component {
 					onOutput={this.onComponentOutput.bind(this)}
 
 					collectionSelector={this.props.ingredients.comparativeSearch.collectionSelector}
+					itemDetailsRecipe={this.props.ingredients.itemDetailsRecipe} // the item details recipe the user should go to
 
 					annotationSupport={this.props.ingredients.annotationSupport}
 					annotationModes={this.props.ingredients.annotationModes}

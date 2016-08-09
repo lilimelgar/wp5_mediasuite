@@ -195,7 +195,12 @@ class FacetSearchComponent extends React.Component {
 								<div className="sk-result_action-bar sk-action-bar">
 									<Hits
 										hitsPerPage={10}
-										itemComponent={<FlexHits collection={this.props.collection}/>}
+										itemComponent={
+											<FlexHits
+												collection={this.props.collection}
+												itemDetailsRecipe={this.props.itemDetailsRecipe}
+											/>
+										}
 										//sourceFilter={this.props.sourceFilter}
 									/>
 

@@ -80,6 +80,8 @@ class ComparativeSearch extends React.Component {
 	render() {
 		var collectionSelector = null;
 		let annotationTestButtons = null;
+		console.debug('show me the damn recipe');
+		console.debug(this.props.itemDetailsRecipe);
 		//for drawing the tabs
 		var searchTabs = this.state.collections.map(function(c) {
 			return (
@@ -102,7 +104,9 @@ class ComparativeSearch extends React.Component {
 					<FacetSearchComponent key={c + '__sk'}
 						collection={c}
 						searchAPI={_config.SEARCH_API_BASE}
-						onOutput={this.onOutput.bind(this)}/>
+						onOutput={this.onOutput.bind(this)}
+						itemDetailsRecipe={this.props.itemDetailsRecipe}
+						/>
 				</div>
 				);
 		}, this);

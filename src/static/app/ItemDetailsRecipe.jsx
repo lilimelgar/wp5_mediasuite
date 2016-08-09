@@ -11,7 +11,7 @@ import AnnotationList from './components/annotation/AnnotationList';
 
 
 //TODO this can later be integrated into Recipe.jsx. It's no longer necessary to have different types of recipes
-class AnnotationRecipe extends React.Component {
+class ItemDetailsRecipe extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -169,4 +169,4 @@ class AnnotationRecipe extends React.Component {
 
 }
 
-export default AnnotationRecipe;
+export default ItemDetailsRecipe;

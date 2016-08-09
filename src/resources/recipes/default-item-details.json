@@ -1,8 +1,8 @@
 {
-	"id" : "video-annotation",
-	"name" : "Basic Video Annotation",
-	"type" : "annotation",
-	"description" : "Segment and annotate video",
+	"id" : "default-item-details",
+	"name" : "Default item details",
+	"type" : "item-details",
+	"description" : "Offers annotation support for all media types by default",
 	"ingredients" : {
 		"apiSearch" : {
 			"api": [
