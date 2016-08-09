@@ -1,9 +1,12 @@
 import React from 'react';
 
-import FacetSearchComponent from './components/FacetSearchComponent.jsx';
-import ComparativeSearch from './components/ComparativeSearch.jsx';
-import LineChart from './components/LineChart.jsx';
-import FlexBox from './components/FlexBox.jsx';
+import FacetSearchComponent from './components/FacetSearchComponent';
+import ComparativeSearch from './components/ComparativeSearch';
+import LineChart from './components/LineChart';
+import FlexBox from './components/FlexBox';
+import AnnotationUtil from './util/AnnotationUtil';
+import AnnotationBox from './components/annotation/AnnotationBox';
+import AnnotationList from './components/annotation/AnnotationList';
 
 //TODO pass the user as (React) context
 //TODO pass the annotationSupport as (React) context
@@ -11,9 +14,13 @@ import FlexBox from './components/FlexBox.jsx';
 class Recipe extends React.Component {
 	constructor(props) {
 		super(props);
+		var annotationTarget = AnnotationUtil.generateW3CTargetObject('http://data.beng.nl/avresearcherxl');
 		this.state = {
 			user : 'JaapTest',
-			lineChartData: null
+			lineChartData: null,
+			activeAnnotation : null,
+			annotationTarget : annotationTarget,
+			showAnnotationModal : false
 		};
 	}
 
@@ -49,19 +56,77 @@ class Recipe extends React.Component {
 		return timelineData;
 	}
 
+	/* ------------------------------------------------------------------------------
+	------------------------------- ANNOTATION RELATED FUNCTIONS --------------------
+	------------------------------------------------------------------------------- */
+
+	//overall there can be only one active annotation
+	setActiveAnnotation(annotation) {
+		this.setState({
+			activeAnnotation : annotation
+		})
+	}
+
+	//shows the annotation modal
+	showAnnotationForm() {
+		this.setState({showAnnotationModal: true})
+	}
+
+	//hides the annotation modal
+	hideAnnotationForm() {
+		this.setState({showAnnotationModal: false})
+	}
+
+	//show the annnotation form with the correct annotation target
+	//TODO extend this so the target can also be a piece of text or whatever
+	addAnnotationToTarget(targetURI, start, end) {
+		let at = AnnotationUtil.generateW3CTargetObject(targetURI, start, end)
+		if(at) {
+			this.setState({
+				showAnnotationModal: true,
+				annotationTarget: at,
+				activeAnnotation: null
+			});
+		}
+	}
+
 	render() {
 		var comparativeSearch = null;
 		var facetSearch = null;
 		var lineChart = null; //WARNING: in theory there can be more linecharts defined!
+		var annotationBox = null;
+
+		if(this.props.ingredients.annotationSupport) {
+			annotationBox = (
+				<AnnotationBox
+					showModal={this.state.showAnnotationModal} //show the modal yes/no
+					hideAnnotationForm={this.hideAnnotationForm.bind(this)} //pass along the function to hide the modal
+
+					user={this.state.user} //current user
+					activeAnnotation={this.state.activeAnnotation} //the active annotation
+					annotationTarget={this.state.annotationTarget} //the current annotation target
+
+					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
+				/>
+			)
+		}
 
 		//first generate the input components to see if they require output components, such as the lineChart
 		if(this.props.ingredients.comparativeSearch) {
-			comparativeSearch = (<ComparativeSearch user={this.state.user}
+			comparativeSearch = (
+				<ComparativeSearch
+					user={this.state.user}
 					collections={this.props.ingredients.comparativeSearch.collections}
+
 					onOutput={this.onComponentOutput.bind(this)}
+
 					collectionSelector={this.props.ingredients.comparativeSearch.collectionSelector}
+
 					annotationSupport={this.props.ingredients.annotationSupport}
-					annotationModes={this.props.ingredients.annotationModes}/>);
+					annotationModes={this.props.ingredients.annotationModes}
+
+					addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
+				/>);
 
 			//TODO only render when there is linechart data
 			if(this.props.ingredients.comparativeSearch.output == 'lineChart') {
@@ -75,10 +140,25 @@ class Recipe extends React.Component {
 		}
 
 		return (
-			<div>
-				{facetSearch}
-				{lineChart}
-				{comparativeSearch}
+			<div className="row">
+				<div className="col-md-7">
+					{facetSearch}
+					{lineChart}
+					{comparativeSearch}
+				</div>
+				<div className="col-md-5">
+					<AnnotationList
+						activeAnnotation={this.state.activeAnnotation} //the active annotation
+						annotationTarget={this.state.annotationTarget} //the current annotation target
+
+						showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
+						setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
+
+						playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
+					/>
+
+					{annotationBox}
+				</div>
 			</div>
 		);
 	}

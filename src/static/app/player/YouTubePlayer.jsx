@@ -12,7 +12,6 @@ class YouTubePlayer extends React.Component {
 
 	componentDidMount() {
 		if(!document.getElementById('youtubeiframeapi')) {
-			console.debug('Loading the iframe API');
 			var tag = document.createElement('script');
 			tag.id = 'youtubeiframeapi';
 			tag.src = "https://www.youtube.com/iframe_api";
@@ -34,11 +33,11 @@ class YouTubePlayer extends React.Component {
 		console.debug('Destroying the YouTube player');
 		if(this.state.player) {
 			this.state.player.destroy();
+			clearInterval(this.updateInterval);
 		}
 	}
 
 	onYouTubeIframeAPIReady() {
-		console.debug('Got a player');
 		let player = new YT.Player('video_player', {
 			height: '390',
 			width: '640',
@@ -65,7 +64,7 @@ class YouTubePlayer extends React.Component {
 
 		//the youtube iframe API does not have an equivalent of onTime or onProgress.
 		this.videotime = 0;
-  		setInterval(this.updateTime.bind(this), 100);
+  		this.updateInterval = setInterval(this.updateTime.bind(this), 100);
 	}
 
 	updateTime() {

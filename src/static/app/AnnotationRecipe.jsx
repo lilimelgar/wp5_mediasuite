@@ -88,18 +88,6 @@ class AnnotationRecipe extends React.Component {
 	onSave(annotation) {
 		console.debug('so what do I do now?');
 		console.debug(annotation);
-		// let ans = this.state.annotations;
-		// let update = true;
-		// for(let i=0;i<ans.length;i++) {
-		// 	if(ans[i].id == annotation.id) {
-		// 		update = false;
-		// 		break;
-		// 	}
-		// }
-		// if(update) {
-		// 	ans.push(annotation);
-		// 	this.setState({annotations : ans});
-		// }
 	}
 
 	render() {
@@ -116,7 +104,7 @@ class AnnotationRecipe extends React.Component {
 
 					user={this.state.user} //current user
 					activeAnnotation={this.state.activeAnnotation} //the active annotation
-					annotationTarget={this.state.annotationTarget} //the current target of the active annotation
+					annotationTarget={this.state.annotationTarget} //the current annotation target
 
 					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
 
@@ -164,7 +152,7 @@ class AnnotationRecipe extends React.Component {
 					<div className="col-md-5">
 						<AnnotationList
 							activeAnnotation={this.state.activeAnnotation} //the active annotation
-							annotationTarget={this.state.annotationTarget} //the current target of the active annotation
+							annotationTarget={this.state.annotationTarget} //the current annotation target
 
 							showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
 							setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation

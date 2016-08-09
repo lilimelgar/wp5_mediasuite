@@ -1,7 +1,5 @@
 import CollectionSelector from './CollectionSelector';
 import FacetSearchComponent from './FacetSearchComponent';
-import AnnotationBox from './annotation/AnnotationBox';
-import AnnotationUtil from '../util/AnnotationUtil';
 import FlexBox from './FlexBox';
 
 class ComparativeSearch extends React.Component {
@@ -66,14 +64,6 @@ class ComparativeSearch extends React.Component {
 		return false;
 	}
 
-	//TODO implement for real
-	addAnnotation(type) {
-		this.setState({
-			showAnnotationModal: true,
-			annotationTarget: AnnotationUtil.generateW3CTargetObject('http://data.beng.nl/test')
-		});
-	}
-
 	bookmark(type) {
 		console.debug('bookmarking:  '+ type);
 		console.debug(this.props.annotationSupport[type]);
@@ -85,15 +75,10 @@ class ComparativeSearch extends React.Component {
 		}
 	}
 
-	hideAnnotationForm() {
-		this.setState({showAnnotationModal: false})
-	}
-
 	/* ---------------------- RENDER ------------------- */
 
 	render() {
 		var collectionSelector = null;
-		let annotationBox = null; // in case there is annotation support configured
 		let annotationTestButtons = null;
 		//for drawing the tabs
 		var searchTabs = this.state.collections.map(function(c) {
@@ -129,17 +114,6 @@ class ComparativeSearch extends React.Component {
 
 		//only show if configured
 		if(this.hasAnnotationSupport()) {
-			annotationBox = (
-				<AnnotationBox
-					showModal={this.state.showAnnotationModal}
-					hideAnnotationForm={this.hideAnnotationForm.bind(this)}
-
-					user={this.state.user}
-					activeAnnotation={null}
-					annotationTarget={this.state.annotationTarget}
-
-					annotationModes={this.props.annotationModes}/>
-			)
 			annotationTestButtons = (
 				<div>
 					<button type="button" className="btn btn-default"
@@ -148,7 +122,7 @@ class ComparativeSearch extends React.Component {
 					</button>
 					&nbsp;
 					<button type="button" className="btn btn-default"
-						onClick={this.addAnnotation.bind(this, 'singleItem')}>
+						onClick={this.props.addAnnotationToTarget.bind(this, 'http://data.beng.nl/avresearcherxl')}>
 						Annotate test
 					</button>
 					<br/>
@@ -172,7 +146,6 @@ class ComparativeSearch extends React.Component {
 							</div>
 						</FlexBox>
 					</div>
-					{annotationBox}
 				</div>
 			</div>
 		)

@@ -2,9 +2,6 @@ import Annotation from './Annotation';
 import AnnotationAPI from '../../api/AnnotationAPI';
 import AnnotationUtil from '../../util/AnnotationUtil';
 
-//TODO zo maken dat dit component zelfstandig de annotaties ophaalt en
-//hierbij per default alleen de annotaties van de huidige user en het huidige annotatie target laat zien
-
 class AnnotationList extends React.Component {
 
 	constructor(props) {
@@ -16,17 +13,22 @@ class AnnotationList extends React.Component {
 
 	componentDidMount() {
 		this.loadAnnotations();
-		setInterval(this.loadAnnotations.bind(this), 1500);
+		this.loadInterval = setInterval(this.loadAnnotations.bind(this), 1500);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.loadInterval);
+		console.debug('The interval is now: ');
+		console.debug(this.loadInterval);
 	}
 
 	loadAnnotations() {
-		console.debug('loading annotations');
 		AnnotationAPI.getAnnotations(function(data) {
 			this.onLoadAnnotations(data);
 		}.bind(this));
 	}
 
-		//this sets the annotations in the state object
+	//this sets the annotations in the state object
 	onLoadAnnotations(annotationData) {
 		this.setState(annotationData);
 	}
@@ -47,22 +49,33 @@ class AnnotationList extends React.Component {
 	//TODO this function has to know everything about where the annotation target is and be able to
 	//redirect the user to it
 	playAnnotation(annotation) {
-		if(annotation.target.source == this.state.annotationTarget.source) {
-			let interval = AnnotationUtil.extractMediaFragmentFromURI(annotation.target.source);
-			if(interval) {
-				this.state.playerAPI.setActiveSegment({
-					start : interval[0], end : interval[1]
-				}, true, true);
+		if(this.props.annotationTarget) {
+			if(annotation.target.source.indexOf(this.props.annotationTarget.source) != -1) {
+				let interval = AnnotationUtil.extractMediaFragmentFromURI(annotation.target.source);
+				if(interval) {
+					this.props.playerAPI.setActiveSegment({
+						start : interval[0], end : interval[1]
+					}, true, true);
+				} else {
+					this.props.playerAPI.setActiveSegment(null, true, true);
+				}
 			} else {
-				this.state.playerAPI.setActiveSegment(null, true, true);
+				console.debug('Currently a completely different annotation target is loaded');
 			}
 		} else {
-			console.debug('Currently a completely different annotation target is loaded');
+			console.debug('Currently there is no annotation target defined!');
 		}
 	}
 
 	render() {
-		const annotations = this.state.annotations.map(function(annotation) {
+		//TODO do this in the API rather than on the client side!!! (this is just to test)
+		let annotations = this.state.annotations.filter((a) => {
+			if(this.props.annotationTarget && a.target.source.indexOf(this.props.annotationTarget.source) != -1) {
+				return a;
+			}
+		}, this);
+		//TODO filter the annotations here based on the annotationTarget
+		const annotationItems = annotations.map(function(annotation) {
 			let active = false;
 			if(this.props.activeAnnotation) {
 				active = this.props.activeAnnotation.id === annotation.id
@@ -86,7 +99,7 @@ class AnnotationList extends React.Component {
 			<div>
 				<h3>Saved annotations</h3>
 				<ul className="list-group">
-					{annotations}
+					{annotationItems}
 				</ul>
 			</div>
 		);
