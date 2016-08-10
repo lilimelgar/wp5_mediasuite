@@ -21,7 +21,7 @@ const SearchAPI = {
 		.header("Content-Type", "application/json")
 		.get(function(err, data) {
 			if(!err) {
-				callback(JSON.parse(data.responseText));
+				callback(collectionId, itemId, JSON.parse(data.responseText));
 			} else {
 				callback(null);
 			}

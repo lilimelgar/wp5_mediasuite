@@ -346,15 +346,22 @@ class FlexPlayer extends React.Component {
 					eventCallbacks={playerEventCallbacks}
 					onPlayerReady={this.onPlayerReady.bind(this)}/>
 				);
+			} else if (this.props.mediaObject.mimeType.indexOf('audio') != -1) { //later possibly change the audio player
+				player = (
+					<JWPlayer mediaObject={this.props.mediaObject}
+					eventCallbacks={playerEventCallbacks}
+					onPlayerReady={this.onPlayerReady.bind(this)}/>
+				);
 			}
 		}
+
 		return (
 			<div>
 				<div className="row">
 					<div className="col-md-12">
-						<FlexBox>
+						<div>
 							{player}
-						</FlexBox>
+						</div>
 						<div className="input-group">
 							<span className="input-group-btn">
 								{videoAnnotationButton}
@@ -366,8 +373,10 @@ class FlexPlayer extends React.Component {
 				{this.state.playerAPI ?
 					<div className="row">
 						<div className="col-md-12">
-							<FlexBox>
-								<VideoTimeBar duration={this.state.duration}
+							<div>
+								<VideoTimeBar
+									mediaObjectId={this.props.mediaObjectId}
+									duration={this.state.duration}
 									curPosition={this.state.curPosition}
 									start={this.state.start}
 									end={this.state.end}
@@ -378,7 +387,7 @@ class FlexPlayer extends React.Component {
 								<SegmentationControls controls={controls}
 									start={this.state.start}
 									end={this.state.end}/>
-							</FlexBox>
+							</div>
 						</div>
 					</div> : null}
 			</div>

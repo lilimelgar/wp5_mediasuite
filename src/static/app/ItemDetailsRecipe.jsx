@@ -11,6 +11,8 @@ import AnnotationUtil from './util/AnnotationUtil'
 import AnnotationBox from './components/annotation/AnnotationBox';
 import AnnotationList from './components/annotation/AnnotationList';
 
+import CollectionUtil from './util/CollectionUtil';
+import CollectionDataUtil from './util/CollectionDataUtil';
 
 //TODO this can later be integrated into Recipe.jsx. It's no longer necessary to have different types of recipes
 class ItemDetailsRecipe extends React.Component {
@@ -24,45 +26,42 @@ class ItemDetailsRecipe extends React.Component {
 			activeAnnotation: null,
 			showAnnotationModal : false,
 			annotationTarget : annotationTarget,
-			playerAPI : null,
-			currentPlayer : 'YouTube',
-			mediaObject : mediaObject
+			//playerAPI : null,
+			itemData : null,
+			activeMediaTab : -1
 		}
 	}
 
 	//TODO now make sure to render all of the correct media objects on the screen and voila
 	componentDidMount() {
 		console.debug(this.props.params);
-		if(this.props.params.id) {
+		if(this.props.params.id && this.props.params.cid) {
 			console.debug('getting the item details');
-			SearchAPI.getItemDetails(this.props.params.cid, this.props.params.id, (data) => {
-				console.debug(data);
-			})
-
+			SearchAPI.getItemDetails(
+				this.props.params.cid,
+				this.props.params.id,
+				this.onLoadItemData.bind(this)
+			);
 		}
+	}
+
+	onLoadItemData(id, collectionId, data) {
+		console.debug('Got the item data');
+		var config = CollectionUtil.determineConfig(collectionId);
+		data = CollectionDataUtil.formatSearchResult(data);//first format the data to component compatible objects
+		data = config.getItemDetailData(data);//then format/amend this data further with collection config intelligence
+		console.debug(data);
+		this.setState({itemData : data});
 	}
 
 	/* ------------------------------------------------------------------------------
 	------------------------------- VIDEO RELATED FUNCTIONS -------------------------
 	------------------------------------------------------------------------------- */
 
-	//whenever the player is ready assign the api to the state. Several components use it as properties
-	onPlayerReady(playerAPI) {
-		this.setState({playerAPI : playerAPI});
-	}
-
-	setAnnotationTarget(event) {
-		let mo = null;
-		switch(event.target.value) {
-			case 'YouTube' : mo = {url : 'https://www.youtube.com/watch?v=eZCvMpPM2SY'};break;
-			case 'JW' : mo = {url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4'};break;
-			case 'Vimeo' : mo = {url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1'};break;
-		}
-		this.setState({
-			currentPlayer : event.target.value,
-			mediaObject : mo,
-			annotationTarget : AnnotationUtil.generateW3CTargetObject(mo.url)
-		});
+	//TODO this should also receive information on the mediaObject, so it can be mapped
+	onPlayerReady(playerAPI, mediaObject) {
+		console.debug('player api for ' + mediaObject + ' is available')
+		//this.setState({playerAPI : playerAPI});
 	}
 
 	/* ------------------------------------------------------------------------------
@@ -106,74 +105,196 @@ class ItemDetailsRecipe extends React.Component {
 
 	render() {
 		let annotationBox = null;
-		let playerOptions = null;
-		let supportedPlayers = ['YouTube', 'JW', 'Vimeo'];
+		let annotationList = null;
+		let uniqueMetadata = null;
+		let metadataPanel = null;
+		let mediaPanel = null;
+		let mediaTabs = null;
+		let mediaTabContents = null;
 
-		//on the top level we only check if there is any form of annotationSupport
-		if(this.props.ingredients.annotationSupport) {
-			annotationBox = (
-				<AnnotationBox
-					showModal={this.state.showAnnotationModal} //show the modal yes/no
-					hideAnnotationForm={this.hideAnnotationForm.bind(this)} //pass along the function to hide the modal
+		if(!this.state.itemData) {
+			console.debug('loading metadata');
+		} else {
 
-					user={this.state.user} //current user
-					activeAnnotation={this.state.activeAnnotation} //the active annotation
-					annotationTarget={this.state.annotationTarget} //the current annotation target
+			//on the top level we only check if there is any form of annotationSupport
+			if(this.props.ingredients.annotationSupport) {
+				annotationBox = (
+					<AnnotationBox
+						showModal={this.state.showAnnotationModal} //show the modal yes/no
+						hideAnnotationForm={this.hideAnnotationForm.bind(this)} //pass along the function to hide the modal
 
-					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
+						user={this.state.user} //current user
+						activeAnnotation={this.state.activeAnnotation} //the active annotation
+						annotationTarget={this.state.annotationTarget} //the current annotation target
 
-					onSave={this.onSave.bind(this)} //callback function after saving an annotation
-				/>
+						annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
+
+						onSave={this.onSave.bind(this)} //callback function after saving an annotation
+					/>
+				);
+				annotationList = (
+					<AnnotationList
+						activeAnnotation={this.state.activeAnnotation} //the active annotation
+						annotationTarget={this.state.annotationTarget} //the current annotation target
+
+						showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
+						setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
+
+						playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
+					/>
+				);
+			}
+
+			//get the unique metadata
+			uniqueMetadata = Object.keys(this.state.itemData).map((key, index)=> {
+				if(typeof this.state.itemData[key] == 'string' && key[0] != '_') {
+					return (
+						<tr key={'props__' + index}>
+							<td><strong>{key}:</strong></td>
+							<td>{this.state.itemData[key]}</td>
+						</tr>
+					);
+				}
+			});
+
+			//render the complete metadata block, which includes unique and basic metadata
+			metadataPanel = (
+				<FlexBox>
+					<h3>Metadata</h3>
+					<table className="table">
+						<tbody>
+							<tr>
+								<td><strong>id:</strong></td>
+								<td>{this.state.itemData._id}</td>
+							</tr>
+							<tr>
+								<td><strong>index:</strong></td>
+								<td>{this.state.itemData._index}</td>
+							</tr>
+							<tr>
+								<td><strong>document type:</strong></td>
+								<td>{this.state.itemData._type}</td>
+							</tr>
+							{uniqueMetadata}
+						</tbody>
+					</table>
+				</FlexBox>
 			)
+
+			//media objects
+			if(this.state.itemData.playableContent) {
+				let mediaObjectTypes = [];
+
+				//first generate the tabs
+				mediaTabs = this.state.itemData.playableContent.map((mediaObject, index) => {
+					let iconClass = null;
+					if(mediaObject.mimeType.indexOf('video') != -1) {
+						iconClass = 'glyphicon glyphicon-film';
+						mediaObjectTypes[index] = 'video';
+					} else if(mediaObject.mimeType.indexOf('audio') != -1) {
+						iconClass = 'glyphicon glyphicon-equalizer';
+						mediaObjectTypes[index] = 'audio';
+					} else if(mediaObject.mimeType.indexOf('image') != -1) {
+						iconClass = 'glyphicon glyphicon-picture';
+						mediaObjectTypes[index] = 'image';
+					}
+					return (
+						<li key={index + '__mt'}
+							className={this.state.activeMediaTab == index ? 'active' : ''}>
+							<a data-toggle="tab" href={'#__mo' + index}>
+								{mediaObjectTypes[index]}&nbsp;{index}&nbsp;<i className={iconClass}></i>
+							</a>
+						</li>
+					)
+				}, this)
+
+				//then generate the tab contents
+				mediaTabContents = this.state.itemData.playableContent.map((mediaObject, index) => {
+					let mediaPlayer = 'Unknown Media Object: ' + index;
+
+					if(mediaObjectTypes[index] == 'video') {//render a video player
+						mediaPlayer = (
+							<FlexPlayer
+								mediaObjectId={'__mo' + index}
+								user={this.state.user} //current user
+								mediaObject={mediaObject} //currently visible media object
+
+								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
+								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
+								addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
+
+								onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
+							/>
+						);
+					} else if (mediaObjectTypes[index] == 'audio') { //TODO integrate audio within the flex player
+						if(mediaObject.url.indexOf('.mp3') != -1) { //JWPlayer cannot follow redirects
+							mediaPlayer = (
+								<FlexPlayer
+									mediaObjectId={'__mo' + index}
+									user={this.state.user} //current user
+									mediaObject={mediaObject} //currently visible media object
+
+									annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
+									annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
+									addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
+
+									onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
+								/>
+							)
+						} else { //the HTML5 audio component can
+							mediaPlayer = (
+								<audio controls>
+									<source src={mediaObject.url} type={mediaObject.mimeType}/>
+									Your browser does not support the audio element
+								</audio>
+							);
+						}
+					} else if (mediaObjectTypes[index] == 'image') { //TODO detect a iiif url and create a cool iiif component
+						mediaPlayer = (
+							<a href={mediaObject.url}
+								target="__external">
+								<img src={mediaObject.url}/>
+							</a>
+						)
+					}
+
+					return (
+						<div key={index + '__mtc'}
+							id={'__mo' + index}
+							className={this.state.activeMediaTab == index ? 'tab-pane active' : 'tab-pane'}>
+							<h3>{mediaObjectTypes[index]}&nbsp;{index}</h3>
+							<div className="media-player">
+								{mediaPlayer}
+							</div>
+						</div>
+					);
+				}, this);
+
+				//finally generate the mediaPanel
+				mediaPanel = (
+					<FlexBox>
+						<h3>Media objects</h3>
+						<ul className="nav nav-tabs">
+							{mediaTabs}
+						</ul>
+						<div className="tab-content">
+							{mediaTabContents}
+						</div>
+					</FlexBox>
+				);
+			}
 		}
 
-		//temporary
-		playerOptions = supportedPlayers.map((player, index) => {
-			return (
-				<label className="radio-inline" key={'player__' + index}>
-					<input
-						type="radio"
-						name="playerOptions"
-						id={player}
-						value={player}
-						checked={player == this.state.currentPlayer}
-						onChange={this.setAnnotationTarget.bind(this)}/>
-						{player}
-				</label>
-			)
-		})
 
 		return (
 			<div>
 				<div className="row">
-					<div className="col-md-7">
-						<div className="text-left">
-							<label>Choose a player:&nbsp;</label>
-							{playerOptions}
-						</div>
-						<br/>
-						<FlexPlayer
-							user={this.state.user} //current user
-							mediaObject={this.state.mediaObject} //currently visible media object
-
-							annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
-							annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
-							addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
-
-							onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
-						/>
+					<div className={this.props.ingredients.annotationSupport ? 'col-md-9' : 'col-md-12'}>
+						{mediaPanel}
+						{metadataPanel}
 					</div>
-					<div className="col-md-5">
-						<AnnotationList
-							activeAnnotation={this.state.activeAnnotation} //the active annotation
-							annotationTarget={this.state.annotationTarget} //the current annotation target
-
-							showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
-							setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
-
-							playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
-						/>
-
+					<div className={this.props.ingredients.annotationSupport ? 'col-md-3' : null}>
+						{annotationList}
 						{annotationBox}
 					</div>
 				</div>

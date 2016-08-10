@@ -11,12 +11,11 @@ class VideoTimeBar extends React.Component {
 
 	componentDidMount() {
 	    //Run function when browser resizes
-	    $(window).resize(this.respondCanvas);
-	    this.respondCanvas();
+	    $(window).resize(this.respondCanvas.bind(this));
 	}
 
-	respondCanvas(){
-		var c = $('#timebar_canvas');
+	respondCanvas() {
+		var c = $('#timebar_canvas' + this.props.mediaObjectId);
 	    var ct = c.get(0).getContext('2d');
 	    var container = $(c).parent();
 		c.attr('width', $(container).width() ); //max width
@@ -25,23 +24,24 @@ class VideoTimeBar extends React.Component {
 
 	seek(event) {
 		if(this.props.fragmentMode === false) {
-			var c = document.getElementById("timebar_canvas");
+			var c = document.getElementById("timebar_canvas" + this.props.mediaObjectId);
 			var mousePos = this.getMousePos(c, event);
 			var dur = this.props.duration;
 	        var pos = dur / 100 * (mousePos.x / (c.width / 100));
 	        this.props.playerAPI.seek(pos);
 
 		} else {
-			var c = document.getElementById("timebar_canvas");
+			var c = document.getElementById("timebar_canvas" + this.props.mediaObjectId);
 			var mousePos = this.getMousePos(c, event);
 			var dur = this.props.end - this.props.start;
 			var pos = dur / 100 * (mousePos.x / (c.width / 100));
 			this.props.playerAPI.seek(this.props.start + pos);
 		}
+		this.respondCanvas();
 	}
 
 	componentDidUpdate() {
-		var c = document.getElementById("timebar_canvas");
+		var c = document.getElementById("timebar_canvas" + this.props.mediaObjectId);
 		var dur = -1;
 		var elapsed = -1;
 		var t = this.props.curPosition;
@@ -94,8 +94,8 @@ class VideoTimeBar extends React.Component {
 
 	render() {
 		return (
-			<div id="timebar">
-				<canvas id="timebar_canvas" width="300" height="50" onClick={this.seek.bind(this)}>
+			<div className="timebar">
+				<canvas id={'timebar_canvas' + this.props.mediaObjectId} width="300" height="50" onClick={this.seek.bind(this)}>
 				</canvas>
 			</div>
 		)

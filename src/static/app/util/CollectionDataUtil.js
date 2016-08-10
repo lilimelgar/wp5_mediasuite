@@ -5,6 +5,16 @@ const CollectionDataUtil = {
 		'CMD' : true
 	},
 
+	//TODO later this should be able to format results from different datastores (now it assumes ES data)
+	formatSearchResult : function(result) {
+		var formattedResult = JSON.parse(JSON.stringify(result._source));
+		formattedResult._id = result._id;
+		formattedResult._score = result._score;
+		formattedResult._type = result._type;
+		formattedResult._index = result._index;
+		return formattedResult;
+	},
+
 	extractStructuredData : function(result) {
 		let basicData = {
 			title : 'No title',

@@ -9049,7 +9049,7 @@ h4, h5, h6 {
 }
 
 /* line 1, ../sass/_player.scss */
-#timebar {
+.timebar {
   width: 100%;
   height: 50px;
   display: block;

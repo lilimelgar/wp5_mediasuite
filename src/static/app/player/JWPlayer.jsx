@@ -13,6 +13,8 @@ class JWPlayer extends React.Component {
 	}
 
 	componentDidMount() {
+		console.debug('playing');
+		console.debug(this.props.mediaObject);
 		const jw = jwplayer("video_player").setup({
 			file: this.props.mediaObject.url,
 			width:'100%',
