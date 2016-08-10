@@ -19,13 +19,11 @@ class ItemDetailsRecipe extends React.Component {
 
 	constructor(props) {
 		super(props);
-		var mediaObject = {url :'https://www.youtube.com/watch?v=eZCvMpPM2SY'};
-		var annotationTarget = AnnotationUtil.generateW3CTargetObject(mediaObject.url);
 		this.state = {
 			user : 'JaapTest',
 			activeAnnotation: null,
 			showAnnotationModal : false,
-			annotationTarget : annotationTarget,
+			annotationTarget : null,
 			//playerAPI : null,
 			itemData : null,
 			activeMediaTab : -1
@@ -45,12 +43,10 @@ class ItemDetailsRecipe extends React.Component {
 		}
 	}
 
-	onLoadItemData(id, collectionId, data) {
-		console.debug('Got the item data');
+	onLoadItemData(collectionId, itemId, data) {
 		var config = CollectionUtil.determineConfig(collectionId);
 		data = CollectionDataUtil.formatSearchResult(data);//first format the data to component compatible objects
 		data = config.getItemDetailData(data);//then format/amend this data further with collection config intelligence
-		console.debug(data);
 		this.setState({itemData : data});
 	}
 
@@ -227,35 +223,26 @@ class ItemDetailsRecipe extends React.Component {
 							/>
 						);
 					} else if (mediaObjectTypes[index] == 'audio') { //TODO integrate audio within the flex player
-						if(mediaObject.url.indexOf('.mp3') != -1) { //JWPlayer cannot follow redirects
-							mediaPlayer = (
-								<FlexPlayer
-									mediaObjectId={'__mo' + index}
-									user={this.state.user} //current user
-									mediaObject={mediaObject} //currently visible media object
+						mediaPlayer = (
+							<FlexPlayer
+								mediaObjectId={'__mo' + index}
+								user={this.state.user} //current user
+								mediaObject={mediaObject} //currently visible media object
 
-									annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
-									annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
-									addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
+								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
+								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
+								addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
 
-									onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
-								/>
-							)
-						} else { //the HTML5 audio component can
-							mediaPlayer = (
-								<audio controls>
-									<source src={mediaObject.url} type={mediaObject.mimeType}/>
-									Your browser does not support the audio element
-								</audio>
-							);
-						}
+								onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
+							/>
+						);
 					} else if (mediaObjectTypes[index] == 'image') { //TODO detect a iiif url and create a cool iiif component
 						mediaPlayer = (
 							<a href={mediaObject.url}
 								target="__external">
 								<img src={mediaObject.url}/>
 							</a>
-						)
+						);
 					}
 
 					return (

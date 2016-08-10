@@ -13,11 +13,14 @@ class JWPlayer extends React.Component {
 	}
 
 	componentDidMount() {
-		console.debug('playing');
-		console.debug(this.props.mediaObject);
+		let type = 'mp4';
+		if (this.props.mediaObject.mimeType.indexOf('audio') != -1) {
+			type = 'mp3';
+		}
 		const jw = jwplayer("video_player").setup({
 			file: this.props.mediaObject.url,
 			width:'100%',
+			type : type,
 			controls : true,
 			image: null,
 			autostart: false,

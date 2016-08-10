@@ -1,6 +1,6 @@
 import React from 'react';
-import TimeUtil from '../../util/TimeUtil.js';
-import CollectionConfig from './CollectionConfig.jsx';
+import TimeUtil from '../../util/TimeUtil';
+import CollectionConfig from './CollectionConfig';
 
 export class SpeechAndernieuwsConfig extends CollectionConfig {
 	constructor() {
