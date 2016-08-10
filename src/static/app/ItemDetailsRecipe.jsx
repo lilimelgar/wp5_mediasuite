@@ -1,8 +1,10 @@
 import React from 'react';
 
 import TimeUtil from './util/TimeUtil';
+
 import FlexBox from './components/FlexBox';
 import FlexPlayer from './player/FlexPlayer';
+import FlexImageViewer from './player/FlexImageViewer';
 
 import SearchAPI from './api/searchAPI';
 
@@ -238,11 +240,17 @@ class ItemDetailsRecipe extends React.Component {
 						);
 					} else if (mediaObjectTypes[index] == 'image') { //TODO detect a iiif url and create a cool iiif component
 						mediaPlayer = (
-							<a href={mediaObject.url}
-								target="__external">
-								<img src={mediaObject.url}/>
-							</a>
+							<FlexImageViewer
+								mediaObjectId={'__mo' + index}
+								mediaObject={mediaObject}
+							/>
 						);
+						// mediaPlayer = (
+						// 	<a href={mediaObject.url}
+						// 		target="__external">
+						// 		<img src={mediaObject.url}/>
+						// 	</a>
+						// );
 					}
 
 					return (

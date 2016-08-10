@@ -8,11 +8,11 @@ export class NISVProgramGuideConfig extends CollectionConfig {
 	}
 
 	getDocumentType() {
-		return 'block';
+		return 'page';
 	}
 
 	getSearchableFields() {
-		return ["block.text"];
+		return null;//["page.text", 'page.guidId'];
 	}
 
 	getSnippetFields() {
@@ -30,9 +30,9 @@ export class NISVProgramGuideConfig extends CollectionConfig {
 				size:10
 			},
 			{
-				field: 'blockType',
-				title: 'Type blok',
-				id: 'blockType',
+				field: 'doc_type',
+				title: 'Type document',
+				id: 'doc_type',
 				operator: 'AND',
 				size:10
 			},
@@ -53,6 +53,8 @@ export class NISVProgramGuideConfig extends CollectionConfig {
 
 	getItemDetailData(result) {
 		result.title = result.id;
+		console.debug(result);
+		//http://hugodrax.beeldengeluid.nl:84/fcgi-bin/iipsrv.fcgi?IIIF=BG0261104_0081.tif/108,1876,514,29/full/0/default.jpg
 		return result;
 	}
 
