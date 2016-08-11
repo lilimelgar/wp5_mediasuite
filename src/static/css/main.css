@@ -9063,3 +9063,11 @@ h4, h5, h6 {
 .media-player img {
   max-width: 100%;
 }
+
+/* line 17, ../sass/_player.scss */
+.image-overlay {
+  outline: 2px solid #444;
+  background-color: wheat;
+  opacity: 0.4;
+  cursor: pointer;
+}

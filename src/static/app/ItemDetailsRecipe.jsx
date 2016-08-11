@@ -243,6 +243,10 @@ class ItemDetailsRecipe extends React.Component {
 							<FlexImageViewer
 								mediaObjectId={'__mo' + index}
 								mediaObject={mediaObject}
+
+								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
+								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
+								addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
 							/>
 						);
 						// mediaPlayer = (
