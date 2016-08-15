@@ -14,6 +14,8 @@ Currently VimeoPlayer.jsx and JWPlayer.jsx have implemented this API.
 
 It is able to pass the playerAPI to its owner. This is useful e.g. for the current AnnotationRecipe,
 who needs to pass on this API to the AnnotationBox (so it's possible to seek the video when clicking on an annotation)
+
+TODO: it must be possible to fetch all of the annotations made on this mediaObject. The Annotation API must be extended
 */
 
 class FlexPlayer extends React.Component {
@@ -28,7 +30,10 @@ class FlexPlayer extends React.Component {
 			end : -1,
 			paused : true,//FIXME call the player API instead (isPaused)?
 			fragmentMode : false,
-			showAnnotationModal : false
+
+			//this could be part of a super class
+			annotations : this.props.mediaObject.annotations ? this.props.mediaObject.annotations : [],
+			currentAnnotation : null
 		}
 	}
 

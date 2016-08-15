@@ -16,7 +16,9 @@
 
 .image-overlay {
 	outline: 2px solid #444;
-	background-color:wheat;
-	opacity: 0.4;
+	background-color:transparant;
 	cursor: pointer;
+	&.active {
+		outline: 2px solid crimson;
+	}
 }

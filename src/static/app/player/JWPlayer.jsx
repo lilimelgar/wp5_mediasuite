@@ -14,7 +14,7 @@ class JWPlayer extends React.Component {
 
 	componentDidMount() {
 		let type = 'mp4';
-		if (this.props.mediaObject.mimeType.indexOf('audio') != -1) {
+		if (this.props.mediaObject.mimeType && this.props.mediaObject.mimeType.indexOf('audio') != -1) {
 			type = 'mp3';
 		}
 		const jw = jwplayer("video_player").setup({

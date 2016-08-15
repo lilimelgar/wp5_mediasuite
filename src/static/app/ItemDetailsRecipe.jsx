@@ -26,7 +26,6 @@ class ItemDetailsRecipe extends React.Component {
 			activeAnnotation: null,
 			showAnnotationModal : false,
 			annotationTarget : null,
-			//playerAPI : null,
 			itemData : null,
 			activeMediaTab : -1
 		}

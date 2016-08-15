@@ -141,18 +141,30 @@
 
 </body>
 
+<!-- for the linechart component -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 
-<script type="text/javascript" src="/static/js/playout/froogaloop.js"></script>
+<!-- for the player components-->
+<script type="text/javascript" src="/static/vendor/vimeo/froogaloop.js"></script>
+<script type="text/javascript" src="/static/vendor/jwplayer-7.5.0/jwplayer.js"></script>
 
-<script type="text/javascript" src="/static/jwplayer-7.5.0/jwplayer.js"></script>
+<!-- for the image viewer -->
+<script type="text/javascript" src="/static/node_modules/openseadragon/build/openseadragon/openseadragon.min.js"></script>
 
+<!-- Babel is needed to parse the labo-components.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+<!-- React is required for the entire library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.1/react-dom.js"></script>
 
+<!-- The API config is required for the library to connect to compatible endpoints-->
 <script src="/static/js/config.js"></script>
+
+<!-- The component library -->
 <script src="/static/public/assets/benglabs.js"></script>
+
+<!-- The custom JS of this page, which utilizes the component library -->
 <script type="text/babel" src="/static/js/labo-components.js"></script>
 
 </html>
