@@ -1,8 +1,11 @@
-//TODO convert all program guides of a certain broadcaster to ptif and create a new index
-//TODO extend the viewer so it is possible to select a hotspot on an image to annotate it
+/*
+Currently uses:
+	- https://openseadragon.github.io
+	- https://github.com/picturae/openseadragonselection
 
-//See https://openseadragon.github.io/#plugins
-//Try: https://github.com/picturae/openseadragonselection
+TODO
+	- make sure to save the annotations. This requires properly implementing the addAnnotationToTarget functions
+*/
 class FlexImageViewer extends React.Component {
 
 	constructor(props) {
@@ -11,9 +14,8 @@ class FlexImageViewer extends React.Component {
 		this.viewer = null;
 		this.annotationIdCount = 0;
 
-		this.state = {
-			//this could be part of a super class
-			annotations : this.props.mediaObject.annotations ? this.props.mediaObject.annotations : [
+		/* annotations are expected to look like this:
+
 				{
 					id : 'dummy',
 					rect : {
@@ -24,7 +26,11 @@ class FlexImageViewer extends React.Component {
 					},
 					rotation : 0
 				}
-			],
+		*/
+
+		this.state = {
+			//this could be part of a super class
+			annotations : this.props.mediaObject.annotations ? this.props.mediaObject.annotations : [],
 			currentAnnotation : null
 		}
 	}
@@ -101,15 +107,14 @@ class FlexImageViewer extends React.Component {
 		this.renderAnnotation.call(this, annotation);
 		this.setState({
 			annotations : annotations
-			//currentAnnotation: annotation.id
 		});
 	}
 
 	removeAnnotation(annotationId, event) {
+		console.debug('removing: ' + annotationId);
 		if(event) {
 			event.preventDefault();
 		}
-		console.debug('removing annotation ' + annotationId);
 		let annotations = this.state.annotations;
 		let index = -1;
 		annotations.forEach((a, i) => {
@@ -158,7 +163,7 @@ class FlexImageViewer extends React.Component {
         //add the remove button
         var addBtn = document.createElement('button');
         addBtn.className = 'btn btn-primary';
-        addBtn.onclick = this.handleOverlayClick.bind(this, annotation.id);
+        addBtn.onclick = this.handleOverlayClick.bind(this, annotation);
         var addGlyph = document.createElement('span');
         addGlyph.className = 'glyphicon glyphicon-plus';
         addBtn.appendChild(addGlyph);
@@ -183,17 +188,14 @@ class FlexImageViewer extends React.Component {
 
 	}
 
-	handleOverlayClick(annotationId, event) {
+	handleOverlayClick(annotation, event) {
 		event.preventDefault();
-		console.debug(annotationId);
 		if(this.props.addAnnotationToTarget) {
-			this.props.addAnnotationToTarget(this.props.mediaObject.url);
-		}
-	}
-
-	addAnnotationToTarget(rect) {
-		if(this.props.addAnnotationToTarget) {
-			this.props.addAnnotationToTarget(this.props.mediaObject.url)
+			this.props.addAnnotationToTarget(
+				this.props.mediaObject.url,
+				this.props.mediaObject.mimeType,
+				annotation
+			);
 		}
 	}
 

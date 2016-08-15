@@ -29,6 +29,7 @@ class ItemDetailsRecipe extends React.Component {
 			itemData : null,
 			activeMediaTab : -1
 		}
+		this.tabListeners = false;
 	}
 
 	//TODO now make sure to render all of the correct media objects on the screen and voila
@@ -41,6 +42,23 @@ class ItemDetailsRecipe extends React.Component {
 				this.props.params.id,
 				this.onLoadItemData.bind(this)
 			);
+		}
+	}
+
+	componentDidUpdate() {
+		if(!this.tabListeners) {
+				$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+				var target = $(e.target).attr("href") // activated tab
+				var index = target.substring('#mo__'.length);
+				var mediaObject = this.state.itemData.playableContent[index];
+				if(mediaObject) {
+					let annotationTarget = AnnotationUtil.generateW3CTargetObject(mediaObject.url, mediaObject.mimeType);
+					this.setActiveAnnotationTarget.call(this, annotationTarget);
+				} else {
+					console.error('there is no valid target?');
+				}
+			}.bind(this));
+			this.tabListeners = true;
 		}
 	}
 
@@ -72,20 +90,25 @@ class ItemDetailsRecipe extends React.Component {
 		})
 	}
 
+	setActiveAnnotationTarget(annotationTarget) {
+		console.debug(annotationTarget);
+		this.setState({annotationTarget : annotationTarget});
+	}
+
 	//shows the annotation modal
 	showAnnotationForm() {
-		this.setState({showAnnotationModal: true})
+		this.setState({showAnnotationModal: true});
 	}
 
 	//hides the annotation modal
 	hideAnnotationForm() {
-		this.setState({showAnnotationModal: false})
+		this.setState({showAnnotationModal: false});
 	}
 
 	//show the annnotation form with the correct annotation target
 	//TODO extend this so the target can also be a piece of text or whatever
-	addAnnotationToTarget(targetURI, start, end) {
-		let at = AnnotationUtil.generateW3CTargetObject(targetURI, start, end)
+	addAnnotationToTarget(targetURI, mimeType, annotation) {
+		let at = AnnotationUtil.generateW3CTargetObject(targetURI, mimeType, annotation)
 		if(at) {
 			this.setState({
 				showAnnotationModal: true,
@@ -242,6 +265,8 @@ class ItemDetailsRecipe extends React.Component {
 							<FlexImageViewer
 								mediaObjectId={'__mo' + index}
 								mediaObject={mediaObject}
+
+								annotations={null} //TODO make sure to update the active annotations!!!
 
 								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
 								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature

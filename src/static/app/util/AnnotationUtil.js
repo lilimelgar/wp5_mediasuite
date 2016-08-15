@@ -2,13 +2,46 @@
 
 const AnnotationUtil = {
 
+	extractTemporalFragmentFromURI : function(uri) {
+		let i = uri.indexOf('#t=');
+		if(i != -1) {
+			return uri.substring(i + 3).split(',');
+		}
+		return null;
+	},
+
+	extractSpatialFragmentFromURI : function(uri) {
+		let i = uri.indexOf('#xywh=');
+		if(i != -1) {
+			return uri.substring(i + 6).split(',');
+		}
+		return null;
+	},
+
 	//media fragments are simply reflected in the source without supplying a selector (for now)
 	//a target always has a source
-	generateW3CTargetObject : function(uri, start, end) {
-		if(!uri) return null;
+	generateW3CTargetObject : function(uri, mimeType, annotation) {
+		if(!uri) {
+			return null;
+		}
+
 		let source = uri;
-		if(start && end && start != -1 && end != -1 && source.indexOf('#t') == -1) {
-			source += '#t=' + start + ',' + end;
+
+		//only try to extract/append the spatio-temporal parameters from the annotation if there is a mimeType
+		if(mimeType && annotation) {
+			if(mimeType.indexOf('video') != -1 && annotation) {
+				if(annotation.start && annotation.end && annotation.start != -1 && annotation.end != -1) {
+					if(source.indexOf('#t') == -1) {
+						source += '#t=' + annotation.start + ',' + annotation.end;
+					}
+				}
+			} else if(mimeType.indexOf('image') != -1) {
+				if(annotation.rect) {
+					if(source.indexOf('#xywh=') == -1) {
+						source += '#xywh=' + annotation.rect.x + ',' + annotation.rect.y + ',' + annotation.rect.w + ',' + annotation.rect.h;
+					}
+				}
+			}
 		}
 		return {
 			'source': source,
@@ -94,15 +127,8 @@ const AnnotationUtil = {
 			    }
 			*/
 		}
-	},
-
-	extractMediaFragmentFromURI : function(uri) {
-		let i = uri.indexOf('#t=');
-		if(i != -1) {
-			return uri.substring(i + 3).split(',');
-		}
-		return null;
 	}
+
 }
 
 export default AnnotationUtil;

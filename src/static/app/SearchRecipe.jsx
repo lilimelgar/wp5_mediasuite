@@ -79,8 +79,8 @@ class Recipe extends React.Component {
 
 	//show the annnotation form with the correct annotation target
 	//TODO extend this so the target can also be a piece of text or whatever
-	addAnnotationToTarget(targetURI, start, end) {
-		let at = AnnotationUtil.generateW3CTargetObject(targetURI, start, end)
+	addAnnotationToTarget(targetURI, mimeType, annotation) {
+		let at = AnnotationUtil.generateW3CTargetObject(targetURI, mimeType, annotation);
 		if(at) {
 			this.setState({
 				showAnnotationModal: true,

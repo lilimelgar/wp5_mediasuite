@@ -299,7 +299,10 @@ class FlexPlayer extends React.Component {
 				videoAnnotationButton = (
 				<button type="button" className="btn btn-default"
 					onClick={this.props.addAnnotationToTarget.bind(
-						this, this.props.mediaObject.url, -1, -1)}>
+						this,
+						this.props.mediaObject.url,
+						this.props.mediaObject.mimeType
+					)}>
 					Annoteer Video
 				</button>);
 			}
@@ -307,7 +310,14 @@ class FlexPlayer extends React.Component {
 				segmentAnnotationButton = (
 					<button type="button" className="btn btn-default"
 						onClick={this.props.addAnnotationToTarget.bind(
-							this, this.props.mediaObject.url, this.state.start, this.state.end)}>
+							this,
+							this.props.mediaObject.url,
+							this.props.mediaObject.mimeType,
+							{
+								start : this.state.start,
+								end : this.state.end
+							}
+						)}>
 						Annoteer Segment
 					</button>);
 			}

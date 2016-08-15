@@ -126,7 +126,10 @@ class ComparativeSearch extends React.Component {
 					</button>
 					&nbsp;
 					<button type="button" className="btn btn-default"
-						onClick={this.props.addAnnotationToTarget.bind(this, 'http://data.beng.nl/avresearcherxl')}>
+						onClick={this.props.addAnnotationToTarget.bind(
+							this,
+							'http://data.beng.nl/avresearcherxl'
+						)}>
 						Annotate test
 					</button>
 					<br/>
