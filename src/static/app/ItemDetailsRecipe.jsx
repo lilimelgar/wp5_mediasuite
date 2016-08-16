@@ -16,7 +16,13 @@ import AnnotationList from './components/annotation/AnnotationList';
 import CollectionUtil from './util/CollectionUtil';
 import CollectionDataUtil from './util/CollectionDataUtil';
 
-//TODO this can later be integrated into Recipe.jsx. It's no longer necessary to have different types of recipes
+
+/*TODO erg veel nakijkwerk:
+	- het maken van annotaties moet echt goed nagelopen worden (werkt het ook nog in de flexplayer? bij de search?)
+	- mongoDB moet op blofeld worden geinstalleerd (+ update annotatie API)
+	- de flow + het formaat van annotatie data vanaf server door componenten moet handiger
+	- video annotatie voor arttube. De functionaliteiten moeten erg goed werken. + met welke data moet er geannoteerd worden...
+*/
 class ItemDetailsRecipe extends React.Component {
 
 	constructor(props) {
