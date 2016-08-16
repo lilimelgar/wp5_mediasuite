@@ -108,11 +108,11 @@ class ItemDetailsRecipe extends React.Component {
 	//show the annnotation form with the correct annotation target
 	//TODO extend this so the target can also be a piece of text or whatever
 	addAnnotationToTarget(targetURI, mimeType, annotation) {
-		let at = AnnotationUtil.generateW3CTargetObject(targetURI, mimeType, annotation)
-		if(at) {
+		//let at = AnnotationUtil.generateW3CTargetObject(targetURI, mimeType, annotation)
+		if(annotation.target) {
 			this.setState({
 				showAnnotationModal: true,
-				annotationTarget: at,
+				annotationTarget: annotation.target,
 				activeAnnotation: null
 			});
 		}
@@ -266,19 +266,11 @@ class ItemDetailsRecipe extends React.Component {
 								mediaObjectId={'__mo' + index}
 								mediaObject={mediaObject}
 
-								annotations={null} //TODO make sure to update the active annotations!!!
-
 								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
 								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
 								addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
 							/>
 						);
-						// mediaPlayer = (
-						// 	<a href={mediaObject.url}
-						// 		target="__external">
-						// 		<img src={mediaObject.url}/>
-						// 	</a>
-						// );
 					}
 
 					return (

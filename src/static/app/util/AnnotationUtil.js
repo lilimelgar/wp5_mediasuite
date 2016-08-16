@@ -13,49 +13,55 @@ const AnnotationUtil = {
 	extractSpatialFragmentFromURI : function(uri) {
 		let i = uri.indexOf('#xywh=');
 		if(i != -1) {
-			return uri.substring(i + 6).split(',');
+			let arr = uri.substring(i + 6).split(',');
+			return {
+				'x' : arr[0],
+				'y' : arr[1],
+				'w' : arr[2],
+				'h' : arr[3]
+			}
 		}
 		return null;
 	},
 
 	//media fragments are simply reflected in the source without supplying a selector (for now)
 	//a target always has a source
-	generateW3CTargetObject : function(uri, mimeType, annotation) {
+	generateW3CTargetObject : function(uri, mimeType, params) {
 		if(!uri) {
 			return null;
 		}
+		let source = uri; //the uri of the full target
+		let selector = null; //when selecting a piece of the target
 
-		let source = uri;
-
-		//only try to extract/append the spatio-temporal parameters from the annotation if there is a mimeType
-		if(mimeType && annotation) {
-			if(mimeType.indexOf('video') != -1 && annotation) {
-				if(annotation.start && annotation.end && annotation.start != -1 && annotation.end != -1) {
-					if(source.indexOf('#t') == -1) {
-						source += '#t=' + annotation.start + ',' + annotation.end;
-					}
+		//only try to extract/append the spatio-temporal parameters from the params if there is a mimeType
+		if(mimeType && params) {
+			if(mimeType.indexOf('video') != -1 && params) {
+				if(params.start && params.end && params.start != -1 && params.end != -1) {
+					selector = {
+						"type": "FragmentSelector",
+						"conformsTo": "http://www.w3.org/TR/media-frags/",
+						"value": '#t=' + params.start + ',' + params.end
+	    			}
 				}
 			} else if(mimeType.indexOf('image') != -1) {
-				if(annotation.rect) {
-					if(source.indexOf('#xywh=') == -1) {
-						source += '#xywh=' + annotation.rect.x + ',' + annotation.rect.y + ',' + annotation.rect.w + ',' + annotation.rect.h;
-					}
+				if(params.rect) {
+					selector = {
+						"type": "FragmentSelector",
+						"conformsTo": "http://www.w3.org/TR/media-frags/",
+						"value": '#xywh=' + params.rect.x + ',' + params.rect.y + ',' + params.rect.w + ',' + params.rect.h
+	    			}
 				}
 			}
 		}
 		return {
-			'source': source,
+			source: source,
+			selector: selector
 			//'format': 'application/pdf',
 			//'language': ['en', 'ar'],
 			//'textDirection': 'ltr',
 			//'processingLanguage': 'en'
 			/*
 			"source" : "http://someurl"
-			"selector": {
-				"type": "FragmentSelector",
-				"conformsTo": "http://www.w3.org/TR/media-frags/",
-				"value": "t=30,60"
-	    	}
 	    	"selector": {
 			      "type": "TextQuoteSelector",
 			      "exact": "anotation",

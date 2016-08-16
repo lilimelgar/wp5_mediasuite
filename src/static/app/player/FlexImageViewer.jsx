@@ -2,40 +2,41 @@
 Currently uses:
 	- https://openseadragon.github.io
 	- https://github.com/picturae/openseadragonselection
-
-TODO
-	- make sure to save the annotations. This requires properly implementing the addAnnotationToTarget functions
 */
+import AnnotationAPI from '../api/AnnotationAPI';
+import AnnotationUtil from '../util/AnnotationUtil';
+
 class FlexImageViewer extends React.Component {
 
 	constructor(props) {
 		super(props);
 
 		this.viewer = null;
-		this.annotationIdCount = 0;
-
-		/* annotations are expected to look like this:
-
-				{
-					id : 'dummy',
-					rect : {
-						x : 30,
-						y : 75,
-						w : 300,
-						h : 25
-					},
-					rotation : 0
-				}
-		*/
-
+		this.annotationIdCount = 0;//TODO do this differently later on
 		this.state = {
 			//this could be part of a super class
-			annotations : this.props.mediaObject.annotations ? this.props.mediaObject.annotations : [],
+			annotations : [],
 			currentAnnotation : null
 		}
 	}
 
 	componentDidMount() {
+		this.loadAnnotations();
+	}
+
+	loadAnnotations() {
+		AnnotationAPI.getFilteredAnnotations('target.source', this.props.mediaObject.url, function(data) {
+			this.onLoadAnnotations(data);
+		}.bind(this));
+	}
+
+	//this sets the annotations in the state object
+	onLoadAnnotations(annotationData) {
+		this.setState(annotationData, this.initViewer.bind(this));
+	}
+
+
+	initViewer() {
 		this.viewer = OpenSeadragon({
 			id: 'img_viewer' + this.props.mediaObjectId,
 			prefixUrl: '/static/node_modules/openseadragon/build/openseadragon/images/',
@@ -61,14 +62,19 @@ class FlexImageViewer extends React.Component {
 		    startRotatedHeight:      0.1, // only used if startRotated=true; value is relative to image height
 		    restrictToImage:         false, // true = do not allow any part of the selection to be outside the image
 		    onSelection:             function(rect) {
-		    	console.debug(rect)
 		    	this.addAnnotation.call(
 		    		this,
 		    		{
-		    			id : null,
-		    			rect : {x : rect.x, y: rect.y, w: rect.width, h: rect.height},
-		    			rotation : rect.rotation
-		    		}
+		    			target : AnnotationUtil.generateW3CTargetObject(this.props.mediaObject.url, 'image/jpeg', {
+			    			rect : {
+			    				x : rect.x,
+			    				y : rect.y,
+			    				w : rect.width,
+			    				h : rect.height
+			    			},
+			    			rotation : rect.rotation
+			    		})
+			    	}
 		    	);
 		    }.bind(this), // callback
 		    prefixUrl: '/static/vendor/openseadragonselection-master/images/',
@@ -104,6 +110,7 @@ class FlexImageViewer extends React.Component {
 		let annotations = this.state.annotations;
 		annotation.id = '__annotation_' + (this.annotationIdCount++);
 		annotations.push(annotation);
+		console.debug(annotation);
 		this.renderAnnotation.call(this, annotation);
 		this.setState({
 			annotations : annotations
@@ -115,6 +122,14 @@ class FlexImageViewer extends React.Component {
 		if(event) {
 			event.preventDefault();
 		}
+		if(annotationId) {
+			AnnotationAPI.deleteAnnotation(annotationId, this.onRemoveAnnotation.bind(this));
+		}
+	}
+
+	onRemoveAnnotation(data, annotationId) {
+		this.viewer.removeOverlay(annotationId);
+
 		let annotations = this.state.annotations;
 		let index = -1;
 		annotations.forEach((a, i) => {
@@ -124,7 +139,6 @@ class FlexImageViewer extends React.Component {
 			}
 		})
 		if(index != -1) {
-			this.viewer.removeOverlay(annotationId);
 			annotations.splice(index, 1);
 			this.setState({
 				annotations : annotations
@@ -146,11 +160,12 @@ class FlexImageViewer extends React.Component {
 	}
 
 	renderAnnotation(annotation) {
+		let area = AnnotationUtil.extractSpatialFragmentFromURI(annotation.target.selector.value);
 		var rect = this.viewer.viewport.imageToViewportRectangle(
-            parseInt(annotation.rect.x),
-            parseInt(annotation.rect.y),
-            parseInt(annotation.rect.w),
-            parseInt(annotation.rect.h)
+            parseInt(area.x),
+            parseInt(area.y),
+            parseInt(area.w),
+            parseInt(area.h)
         );
         var elt = document.createElement('div');
         elt.className = 'image-overlay';

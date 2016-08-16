@@ -51,8 +51,8 @@ class AnnotationList extends React.Component {
 	playAnnotation(annotation) {
 		if(this.props.annotationTarget) {
 			//TODO make sure to check the mimeType and also add support for images/spatial targets!!
-			if(annotation.target.source.indexOf(this.props.annotationTarget.source) != -1) {
-				let interval = AnnotationUtil.extractTemporalFragmentFromURI(annotation.target.source);
+			if(annotation.target.source == this.props.annotationTarget.source) {
+				let interval = AnnotationUtil.extractTemporalFragmentFromURI(annotation.target.selector);
 				if(interval) {
 					this.props.playerAPI.setActiveSegment({
 						start : interval[0], end : interval[1]
@@ -69,10 +69,9 @@ class AnnotationList extends React.Component {
 	}
 
 	render() {
-		console.debug('rerendering the list: ' + this.props.annotationTarget);
 		//TODO do this in the API rather than on the client side!!! (this is just to test)
 		let annotations = this.state.annotations.filter((a) => {
-			if(this.props.annotationTarget && a.target.source.indexOf(this.props.annotationTarget.source) != -1) {
+			if(this.props.annotationTarget && a.target.source == this.props.annotationTarget.source) {
 				return a;
 			}
 		}, this);

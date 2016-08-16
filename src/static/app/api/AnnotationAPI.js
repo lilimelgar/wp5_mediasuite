@@ -66,7 +66,7 @@ const AnnotationAPI = {
 				//dataType : 'application/json',
 				success : function(data) {
 					if(callback) {
-						callback(data)
+						callback(data, annotationId)
 					}
 				},
 				error : function(err) {
@@ -74,7 +74,24 @@ const AnnotationAPI = {
 				}
 			});
 		}
-	}
+	},
+
+	getFilteredAnnotations : function(field, value, callback) {
+		var url = _config.ANNOTATION_API_BASE + '/annotations/filter';
+		url += '?filterType=' + field;
+		url += '&value=' + value;
+		$.ajax({
+			url : url,
+			type : 'GET',
+			//dataType : 'application/json',
+			success : function(data) {
+				callback(data);
+			},
+			error : function(err) {
+				console.debug(err);
+			}
+		});
+	},
 }
 
 export default AnnotationAPI;

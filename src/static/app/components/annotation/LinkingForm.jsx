@@ -53,24 +53,27 @@ class LinkingForm extends React.Component {
 
 	render() {
 		let linkList = null;
-		const links = this.state.data.map((link, index) => {
-			return (
-				<li key={'com__' + index} className="list-group-item">
-					<i className="glyphicon glyphicon-remove interactive" onClick={this.removeLink.bind(this, index)}></i>
-					&nbsp;
-					{link.label}
-				</li>
-			)
-		}, this);
-		if(links.length > 0) {
-			linkList = (
-				<div>
-					<h4>Added links</h4>
-					<ul className="list-group">
-						{links}
-					</ul>
-				</div>
-			)
+		let links = null;
+		if(this.state.data) {
+			links = this.state.data.map((link, index) => {
+				return (
+					<li key={'com__' + index} className="list-group-item">
+						<i className="glyphicon glyphicon-remove interactive" onClick={this.removeLink.bind(this, index)}></i>
+						&nbsp;
+						{link.label}
+					</li>
+				)
+			}, this);
+			if(links.length > 0) {
+				linkList = (
+					<div>
+						<h4>Added links</h4>
+						<ul className="list-group">
+							{links}
+						</ul>
+					</div>
+				)
+			}
 		}
 
 		//generate the options from the config and add a default one
