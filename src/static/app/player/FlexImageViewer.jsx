@@ -6,6 +6,8 @@ Currently uses:
 import AnnotationAPI from '../api/AnnotationAPI';
 import AnnotationUtil from '../util/AnnotationUtil';
 
+//TODO dit ding moet ook reageren op externe deletes en saves (de Flexplayer ook)
+
 class FlexImageViewer extends React.Component {
 
 	constructor(props) {
@@ -15,8 +17,7 @@ class FlexImageViewer extends React.Component {
 		this.annotationIdCount = 0;//TODO do this differently later on
 		this.state = {
 			//this could be part of a super class
-			annotations : [],
-			currentAnnotation : null
+			annotations : []
 		}
 	}
 
@@ -54,50 +55,53 @@ class FlexImageViewer extends React.Component {
 		//for the picturae selection stuff
 		this.viewer.selection({
 			showConfirmDenyButtons: true,
-		    styleConfirmDenyButtons: true,
-		    returnPixelCoordinates:  true,
-		    keyboardShortcut:        'c', // key to toggle selection mode
-		    rect:                    null, // initial selection as an OpenSeadragon.SelectionRect object
-		    startRotated:            false, // alternative method for drawing the selection; useful for rotated crops
-		    startRotatedHeight:      0.1, // only used if startRotated=true; value is relative to image height
-		    restrictToImage:         false, // true = do not allow any part of the selection to be outside the image
-		    onSelection:             function(rect) {
-		    	this.addAnnotation.call(
-		    		this,
-		    		{
-		    			target : AnnotationUtil.generateW3CTargetObject(this.props.mediaObject.url, 'image/jpeg', {
-			    			rect : {
-			    				x : rect.x,
-			    				y : rect.y,
-			    				w : rect.width,
-			    				h : rect.height
-			    			},
-			    			rotation : rect.rotation
-			    		})
-			    	}
-		    	);
-		    }.bind(this), // callback
-		    prefixUrl: '/static/vendor/openseadragonselection-master/images/',
-		    navImages:               { // overwrites OpenSeadragon's options
-		        selection: {
-		            REST:   'selection_rest.png',
-		            GROUP:  'selection_grouphover.png',
-		            HOVER:  'selection_hover.png',
-		            DOWN:   'selection_pressed.png'
-		        },
-		        selectionConfirm: {
-		            REST:   'selection_confirm_rest.png',
-		            GROUP:  'selection_confirm_grouphover.png',
-		            HOVER:  'selection_confirm_hover.png',
-		            DOWN:   'selection_confirm_pressed.png'
-		        },
-		        selectionCancel: {
-		            REST:   'selection_cancel_rest.png',
-		            GROUP:  'selection_cancel_grouphover.png',
-		            HOVER:  'selection_cancel_hover.png',
-		            DOWN:   'selection_cancel_pressed.png'
-		        },
-		    }
+			styleConfirmDenyButtons: true,
+			returnPixelCoordinates: true,
+			keyboardShortcut: 'c', // key to toggle selection mode
+			rect: null, // initial selection as an OpenSeadragon.SelectionRect object
+			startRotated: false, // alternative method for drawing the selection; useful for rotated crops
+			startRotatedHeight: 0.1, // only used if startRotated=true; value is relative to image height
+			restrictToImage: false, // true = do not allow any part of the selection to be outside the image
+			onSelection: function(rect) {
+				this.addEmptyAnnotation.call(
+					this,
+					AnnotationUtil.generateW3CEmptyAnnotation(
+						this.props.user,
+						this.props.mediaObject.url,
+						this.props.mediaObject.mimeType,
+						{
+							rect : {
+								x : rect.x,
+								y : rect.y,
+								w : rect.width,
+								h : rect.height
+							},
+							rotation : rect.rotation
+						}
+					)
+				);
+			}.bind(this), // callback
+			prefixUrl: '/static/vendor/openseadragonselection-master/images/',
+			navImages:               { // overwrites OpenSeadragon's options
+				selection: {
+					REST:   'selection_rest.png',
+					GROUP:  'selection_grouphover.png',
+					HOVER:  'selection_hover.png',
+					DOWN:   'selection_pressed.png'
+				},
+				selectionConfirm: {
+					REST:   'selection_confirm_rest.png',
+					GROUP:  'selection_confirm_grouphover.png',
+					HOVER:  'selection_confirm_hover.png',
+					DOWN:   'selection_confirm_pressed.png'
+				},
+				selectionCancel: {
+					REST:   'selection_cancel_rest.png',
+					GROUP:  'selection_cancel_grouphover.png',
+					HOVER:  'selection_cancel_hover.png',
+					DOWN:   'selection_cancel_pressed.png'
+				},
+			}
 		});
 		this.viewer.addHandler('open', function(target, info) {
 			this.state.annotations.forEach((annotation) => {
@@ -106,9 +110,10 @@ class FlexImageViewer extends React.Component {
 		}.bind(this))
 	}
 
-	addAnnotation(annotation) {
+	//Adds an annotation with just a target. This annotation is not yet saved to the API
+	addEmptyAnnotation(annotation) {
 		let annotations = this.state.annotations;
-		annotation.id = '__annotation_' + (this.annotationIdCount++);
+		annotation.id = '__annotation_' + (this.annotationIdCount++);//TODO make sure annotations get an ID from the server!
 		annotations.push(annotation);
 		console.debug(annotation);
 		this.renderAnnotation.call(this, annotation);
@@ -162,59 +167,72 @@ class FlexImageViewer extends React.Component {
 	renderAnnotation(annotation) {
 		let area = AnnotationUtil.extractSpatialFragmentFromURI(annotation.target.selector.value);
 		var rect = this.viewer.viewport.imageToViewportRectangle(
-            parseInt(area.x),
-            parseInt(area.y),
-            parseInt(area.w),
-            parseInt(area.h)
-        );
-        var elt = document.createElement('div');
-        elt.className = 'image-overlay';
-        elt.onclick= this.setActiveAnnotation.bind(this, annotation.id);
-        elt.id = annotation.id;
+			parseInt(area.x),
+			parseInt(area.y),
+			parseInt(area.w),
+			parseInt(area.h)
+		);
+		var elt = document.createElement('div');
+		elt.className = 'image-overlay';
+		elt.onclick= this.setActiveAnnotation.bind(this, annotation.id);
+		elt.id = annotation.id;
 
-        var buttonDiv = document.createElement('div');
-        buttonDiv.className = 'text-right';
+		var buttonDiv = document.createElement('div');
+		buttonDiv.className = 'text-right';
 
-        //add the remove button
-        var addBtn = document.createElement('button');
-        addBtn.className = 'btn btn-primary';
-        addBtn.onclick = this.handleOverlayClick.bind(this, annotation);
-        var addGlyph = document.createElement('span');
-        addGlyph.className = 'glyphicon glyphicon-plus';
-        addBtn.appendChild(addGlyph);
+		//add the remove button
+		var addBtn = document.createElement('button');
+		addBtn.className = 'btn btn-primary';
+		addBtn.onclick = this.handleOverlayClick.bind(this, annotation);
+		var addGlyph = document.createElement('span');
+		addGlyph.className = 'glyphicon glyphicon-plus';
+		addBtn.appendChild(addGlyph);
 
-        //add the remove button
-        var removeBtn = document.createElement('button');
-        removeBtn.className = 'btn btn-primary';
-        removeBtn.onclick = this.removeAnnotation.bind(this, annotation.id);
-        var removeGlyph = document.createElement('span');
-        removeGlyph.className = 'glyphicon glyphicon-remove';
-        removeBtn.appendChild(removeGlyph);
+		//add the remove button
+		var removeBtn = document.createElement('button');
+		removeBtn.className = 'btn btn-primary';
+		removeBtn.onclick = this.removeAnnotation.bind(this, annotation.id);
+		var removeGlyph = document.createElement('span');
+		removeGlyph.className = 'glyphicon glyphicon-remove';
+		removeBtn.appendChild(removeGlyph);
 
-        buttonDiv.appendChild(addBtn);
-        buttonDiv.appendChild(removeBtn);
+		buttonDiv.appendChild(addBtn);
+		buttonDiv.appendChild(removeBtn);
 
-        elt.appendChild(buttonDiv);
+		elt.appendChild(buttonDiv);
 
-        this.viewer.addOverlay({
-        	element: elt,
-        	location: rect
-        });
+		this.viewer.addOverlay({
+			element: elt,
+			location: rect
+		});
 
 	}
 
 	handleOverlayClick(annotation, event) {
 		event.preventDefault();
-		if(this.props.addAnnotationToTarget) {
-			this.props.addAnnotationToTarget(
-				this.props.mediaObject.url,
-				this.props.mediaObject.mimeType,
-				annotation
-			);
+		if(this.props.editAnnotation) {
+			this.props.editAnnotation(annotation);
 		}
 	}
 
+	/* ------------------------------------------------------------------------------
+	------------------------------- COMMUNICATION WITH OWNER/RECIPE -----------------
+	------------------------------------------------------------------------------- */
+
+	//TODO assign the current media Object as target
+	setActiveAnnotationTarget(annotationTarget) {
+		if(this.props.setActiveAnnotationTarget) {
+			this.props.setActiveAnnotationTarget(annotationTarget);
+		}
+	}
+
+	//TODO this should 'play' props.playingAnnotation
+	playAnnotation(annotation) {
+		console.debug('to be implemented: playAnnotation()');
+	}
+
 	render() {
+		//console.debug('rendering: ' + this.props.mediaObjectId);
 		return (
 			<div id={'img_viewer' + this.props.mediaObjectId}></div>
 		)

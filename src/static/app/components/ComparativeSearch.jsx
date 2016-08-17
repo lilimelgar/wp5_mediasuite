@@ -11,7 +11,6 @@ class ComparativeSearch extends React.Component {
 			collections : this.props.collections,
 			activeCollection: this.props.collections.length > 0 ? this.props.collections[0] : null,
 			currentOutput: null, //could also be a default state value for components which implement onOutput
-			showAnnotationModal : false, //only if there is annotationSupport and only for classify, comment & link
 			annotationTarget : null //only if there is annotationSupport and only for classify, comment & link
 		}
 	}
@@ -73,6 +72,22 @@ class ComparativeSearch extends React.Component {
 				console.debug(this.state.currentOutput.results.query);
 			}
 		}
+	}
+
+	/* ------------------------------------------------------------------------------
+	------------------------------- COMMUNICATION WITH OWNER/RECIPE -----------------
+	------------------------------------------------------------------------------- */
+
+	//TODO assign the current media Object as target
+	setActiveAnnotationTarget(annotationTarget) {
+		if(this.props.setActiveAnnotationTarget) {
+			this.props.setActiveAnnotationTarget(annotationTarget);
+		}
+	}
+
+	//TODO this should 'play' props.playingAnnotation
+	playAnnotation(annotation) {
+		console.debug('to be implemented: playAnnotation()');
 	}
 
 	/* ---------------------- RENDER ------------------- */

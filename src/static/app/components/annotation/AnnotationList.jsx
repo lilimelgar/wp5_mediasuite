@@ -49,22 +49,8 @@ class AnnotationList extends React.Component {
 	//TODO this function has to know everything about where the annotation target is and be able to
 	//redirect the user to it
 	playAnnotation(annotation) {
-		if(this.props.annotationTarget) {
-			//TODO make sure to check the mimeType and also add support for images/spatial targets!!
-			if(annotation.target.source == this.props.annotationTarget.source) {
-				let interval = AnnotationUtil.extractTemporalFragmentFromURI(annotation.target.selector);
-				if(interval) {
-					this.props.playerAPI.setActiveSegment({
-						start : interval[0], end : interval[1]
-					}, true, true);
-				} else {
-					this.props.playerAPI.setActiveSegment(null, true, true);
-				}
-			} else {
-				console.debug('Currently a completely different annotation target is loaded');
-			}
-		} else {
-			console.debug('Currently there is no annotation target defined!');
+		if(this.props.playAnnotation) {
+			this.props.playAnnotation(annotation);
 		}
 	}
 

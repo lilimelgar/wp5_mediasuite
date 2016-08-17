@@ -1,12 +1,8 @@
 const AnnotationAPI = {
 
-	saveAnnotation : function(target, annotation, callback) {
-		console.debug('saving');
-		console.debug(target);
-		console.debug(annotation);
+	saveAnnotation : function(annotation, callback) {
 		var url = _config.ANNOTATION_API_BASE + '/annotation';
 		var method = 'POST';
-		annotation.target = target; //see AnnotationUtil.generateW3CTargetObject()
 		if(annotation.id) {
 			url += '/' + annotation.id;
 			method = 'PUT';
@@ -76,6 +72,7 @@ const AnnotationAPI = {
 		}
 	},
 
+	//TODO always add the user too!
 	getFilteredAnnotations : function(field, value, callback) {
 		var url = _config.ANNOTATION_API_BASE + '/annotations/filter';
 		url += '?filterType=' + field;

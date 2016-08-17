@@ -26,16 +26,26 @@ const AnnotationUtil = {
 
 	//media fragments are simply reflected in the source without supplying a selector (for now)
 	//a target always has a source
-	generateW3CTargetObject : function(uri, mimeType, params) {
-		if(!uri) {
+	generateW3CEmptyAnnotation : function(user, source, mimeType, params) {
+		if(!source) {
 			return null;
 		}
-		let source = uri; //the uri of the full target
 		let selector = null; //when selecting a piece of the target
+		let targetType = null;
 
 		//only try to extract/append the spatio-temporal parameters from the params if there is a mimeType
 		if(mimeType && params) {
 			if(mimeType.indexOf('video') != -1 && params) {
+				targetType = 'Video';
+				if(params.start && params.end && params.start != -1 && params.end != -1) {
+					selector = {
+						"type": "FragmentSelector",
+						"conformsTo": "http://www.w3.org/TR/media-frags/",
+						"value": '#t=' + params.start + ',' + params.end
+	    			}
+				}
+			} else if(mimeType.indexOf('audio') != -1 && params) {
+				targetType = 'Audio';
 				if(params.start && params.end && params.start != -1 && params.end != -1) {
 					selector = {
 						"type": "FragmentSelector",
@@ -44,6 +54,7 @@ const AnnotationUtil = {
 	    			}
 				}
 			} else if(mimeType.indexOf('image') != -1) {
+				targetType = 'Image';
 				if(params.rect) {
 					selector = {
 						"type": "FragmentSelector",
@@ -54,9 +65,19 @@ const AnnotationUtil = {
 			}
 		}
 		return {
-			source: source,
-			selector: selector
-			//'format': 'application/pdf',
+			id : null,
+			user : user, //TODO like the selector, generate the w3c stuff here?
+			target : {
+				source: source,
+				selector: selector,
+				type: targetType
+			}
+		}
+	}
+
+}
+
+//'format': 'application/pdf',
 			//'language': ['en', 'ar'],
 			//'textDirection': 'ltr',
 			//'processingLanguage': 'en'
@@ -132,9 +153,5 @@ const AnnotationUtil = {
 			      }
 			    }
 			*/
-		}
-	}
-
-}
 
 export default AnnotationUtil;

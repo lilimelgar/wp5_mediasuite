@@ -29,11 +29,14 @@ class ItemDetailsRecipe extends React.Component {
 		super(props);
 		this.state = {
 			user : 'JaapTest',
-			activeAnnotation: null,
 			showAnnotationModal : false,
-			annotationTarget : null,
 			itemData : null,
-			activeMediaTab : -1
+			activeMediaTab : -1,
+
+			playingAnnotation: null,
+			activeAnnotation: null,
+			annotationTarget : null,
+
 		}
 		this.tabListeners = false;
 	}
@@ -58,8 +61,12 @@ class ItemDetailsRecipe extends React.Component {
 				var index = target.substring('#mo__'.length);
 				var mediaObject = this.state.itemData.playableContent[index];
 				if(mediaObject) {
-					let annotationTarget = AnnotationUtil.generateW3CTargetObject(mediaObject.url, mediaObject.mimeType);
-					this.setActiveAnnotationTarget.call(this, annotationTarget);
+					let annotation = AnnotationUtil.generateW3CEmptyAnnotation(
+						this.state.user,
+						mediaObject.url,
+						mediaObject.mimeType
+					);
+					this.setActiveAnnotationTarget.call(this, annotation.target);
 				} else {
 					console.error('there is no valid target?');
 				}
@@ -76,29 +83,25 @@ class ItemDetailsRecipe extends React.Component {
 	}
 
 	/* ------------------------------------------------------------------------------
-	------------------------------- VIDEO RELATED FUNCTIONS -------------------------
-	------------------------------------------------------------------------------- */
-
-	//TODO this should also receive information on the mediaObject, so it can be mapped
-	onPlayerReady(playerAPI, mediaObject) {
-		console.debug('player api for ' + mediaObject + ' is available')
-		//this.setState({playerAPI : playerAPI});
-	}
-
-	/* ------------------------------------------------------------------------------
 	------------------------------- ANNOTATION RELATED FUNCTIONS --------------------
 	------------------------------------------------------------------------------- */
+
+	setActiveAnnotationTarget(annotationTarget) {
+		console.debug(annotationTarget);
+		this.setState({annotationTarget : annotationTarget});
+	}
+
+	playAnnotation(annotation) {
+		console.debug('playing annotation');
+		this.setState({playingAnnotation : annotation});
+		//TODO implement the rendering stuff
+	}
 
 	//overall there can be only one active annotation
 	setActiveAnnotation(annotation) {
 		this.setState({
 			activeAnnotation : annotation
 		})
-	}
-
-	setActiveAnnotationTarget(annotationTarget) {
-		console.debug(annotationTarget);
-		this.setState({annotationTarget : annotationTarget});
 	}
 
 	//shows the annotation modal
@@ -113,17 +116,20 @@ class ItemDetailsRecipe extends React.Component {
 
 	//show the annnotation form with the correct annotation target
 	//TODO extend this so the target can also be a piece of text or whatever
-	addAnnotationToTarget(targetURI, mimeType, annotation) {
-		//let at = AnnotationUtil.generateW3CTargetObject(targetURI, mimeType, annotation)
+	editAnnotation(annotation) {
+		console.debug(annotation);
+		//TODO this should simply always just set the active annotation
+		//an annotation ALWAYS has a target, but not always a body or ID (in case of a new annotation)
 		if(annotation.target) {
 			this.setState({
 				showAnnotationModal: true,
 				annotationTarget: annotation.target,
-				activeAnnotation: null
+				activeAnnotation: annotation
 			});
 		}
 	}
 
+	//TODO pass it on
 	onSave(annotation) {
 		console.debug('so what do I do now?');
 		console.debug(annotation);
@@ -149,9 +155,7 @@ class ItemDetailsRecipe extends React.Component {
 						showModal={this.state.showAnnotationModal} //show the modal yes/no
 						hideAnnotationForm={this.hideAnnotationForm.bind(this)} //pass along the function to hide the modal
 
-						user={this.state.user} //current user
 						activeAnnotation={this.state.activeAnnotation} //the active annotation
-						annotationTarget={this.state.annotationTarget} //the current annotation target
 
 						annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
 
@@ -166,7 +170,7 @@ class ItemDetailsRecipe extends React.Component {
 						showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
 						setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
 
-						playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
+						playAnnotation={this.playAnnotation.bind(this)} //enables the list to play stuff (probably not needed later on)
 					/>
 				);
 			}
@@ -243,13 +247,12 @@ class ItemDetailsRecipe extends React.Component {
 							<FlexPlayer
 								mediaObjectId={'__mo' + index}
 								user={this.state.user} //current user
-								mediaObject={mediaObject} //currently visible media object
+								mediaObject={mediaObject} //TODO make this plural for playlist support
 
 								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
-								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
-								addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
 
-								onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
+								editAnnotation={this.editAnnotation.bind(this)} //each annotation support should call this function
+								setActiveAnnotationTarget={this.setActiveAnnotationTarget.bind(this)}//TODO so the component can callback the active mediaObject
 							/>
 						);
 					} else if (mediaObjectTypes[index] == 'audio') { //TODO integrate audio within the flex player
@@ -257,24 +260,24 @@ class ItemDetailsRecipe extends React.Component {
 							<FlexPlayer
 								mediaObjectId={'__mo' + index}
 								user={this.state.user} //current user
-								mediaObject={mediaObject} //currently visible media object
+								mediaObject={mediaObject} //TODO make this plural for playlist support
 
 								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
-								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
-								addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
 
-								onPlayerReady={this.onPlayerReady.bind(this)} //returns the playerAPI when the player is ready
+								editAnnotation={this.editAnnotation.bind(this)} //each annotation support should call this function
+								setActiveAnnotationTarget={this.setActiveAnnotationTarget.bind(this)}//TODO so the component can callback the active mediaObject
 							/>
 						);
 					} else if (mediaObjectTypes[index] == 'image') { //TODO detect a iiif url and create a cool iiif component
 						mediaPlayer = (
 							<FlexImageViewer
 								mediaObjectId={'__mo' + index}
-								mediaObject={mediaObject}
+								mediaObject={mediaObject}//TODO make this plural for playlist support
 
 								annotationSupport={this.props.ingredients.annotationSupport} //annotation support the component should provide
-								annotationModes={this.props.ingredients.annotationModes} //config for each supported annotation feature
-								addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
+
+								editAnnotation={this.editAnnotation.bind(this)} //each annotation support should call this function
+								setActiveAnnotationTarget={this.setActiveAnnotationTarget.bind(this)}//TODO so the component can callback the active mediaObject
 							/>
 						);
 					}

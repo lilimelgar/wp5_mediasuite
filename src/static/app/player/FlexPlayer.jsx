@@ -7,6 +7,7 @@ import SegmentationControls from '../components/annotation/SegmentationControls'
 import TimeUtil from '../util/TimeUtil';
 import FlexBox from '../components/FlexBox';
 import MouseTrap from 'mousetrap';
+import AnnotationUtil from '../util/AnnotationUtil';
 
 /*
 This class receives a (generic) playerAPI from the implementing player component.
@@ -279,6 +280,40 @@ class FlexPlayer extends React.Component {
 	    }.bind(this));
 	}
 
+	/* ------------------------------------------------------------------------------
+	------------------------------- COMMUNICATION WITH OWNER/RECIPE -----------------
+	------------------------------------------------------------------------------- */
+
+	//TODO assign the current media Object as target
+	setActiveAnnotationTarget(annotationTarget) {
+		if(this.props.setActiveAnnotationTarget) {
+			this.props.setActiveAnnotationTarget(annotationTarget);
+		}
+	}
+
+	//TODO implement this. It should be able to play the based on the props.playingAnnotation
+	playAnnotation(annotation) {
+		console.debug('to be implemented: playAnnotation()');
+		// if(this.props.annotationTarget) {
+		// 	//TODO make sure to check the mimeType and also add support for images/spatial targets!!
+		// 	if(annotation.target.source == this.props.annotationTarget.source) {
+		// 		let interval = AnnotationUtil.extractTemporalFragmentFromURI(annotation.target.selector);
+		// 		if(interval) {
+		// 			this.props.playerAPI.setActiveSegment({
+		// 				start : interval[0], end : interval[1]
+		// 			}, true, true);
+		// 		} else {
+		// 			this.props.playerAPI.setActiveSegment(null, true, true);
+		// 		}
+		// 	} else {
+		// 		console.debug('Currently a completely different annotation target is loaded');
+		// 	}
+		// } else {
+		// 	console.debug('Currently there is no annotation target defined!');
+		// }
+	}
+
+
 	/* ----------------- just rendering --------------------- */
 
 	render() {
@@ -294,30 +329,34 @@ class FlexPlayer extends React.Component {
 		let videoAnnotationButton = null;
 		let segmentAnnotationButton = null;
 
-		if(this.props.addAnnotationToTarget && this.props.annotationSupport) {
+		//TODO call the AnnotationUtil to generate a new annotation with a target
+		if(this.props.editAnnotation && this.props.annotationSupport) {
 			if(this.props.annotationSupport.mediaObject) {
+				let annotation = AnnotationUtil.generateW3CEmptyAnnotation(
+					this.props.user,
+					this.props.mediaObject.url,
+					this.props.mediaObject.mimeType
+				);
+
 				videoAnnotationButton = (
 				<button type="button" className="btn btn-default"
-					onClick={this.props.addAnnotationToTarget.bind(
-						this,
-						this.props.mediaObject.url,
-						this.props.mediaObject.mimeType
-					)}>
+					onClick={this.props.editAnnotation.bind(this, annotation)}>
 					Annoteer Video
 				</button>);
 			}
 			if(this.props.annotationSupport.mediaSegment) {
+				let annotation = AnnotationUtil.generateW3CEmptyAnnotation(
+					this.props.user,
+					this.props.mediaObject.url,
+					this.props.mediaObject.mimeType,
+					{
+						start : this.state.start,
+						end : this.state.end
+					}
+				);
 				segmentAnnotationButton = (
 					<button type="button" className="btn btn-default"
-						onClick={this.props.addAnnotationToTarget.bind(
-							this,
-							this.props.mediaObject.url,
-							this.props.mediaObject.mimeType,
-							{
-								start : this.state.start,
-								end : this.state.end
-							}
-						)}>
+						onClick={this.props.editAnnotation.bind(this, annotation)}>
 						Annoteer Segment
 					</button>);
 			}
