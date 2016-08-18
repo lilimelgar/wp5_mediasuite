@@ -31,11 +31,15 @@ class FlexImageViewer extends React.Component {
 	---------------------------------------------------------------*/
 
 	componentDidMount() {
-		//load the initial annotations
-		this.loadAnnotations();
+		if(this.props.annotationSupport) {
+			//load the initial annotations
+			this.loadAnnotations();
 
-		//then listen to any changes that happen in the API
-		AppAnnotationStore.bind(this.props.mediaObject.url, this.onChange.bind(this));
+			//then listen to any changes that happen in the API
+			AppAnnotationStore.bind(this.props.mediaObject.url, this.onChange.bind(this));
+		} else {
+			this.initViewer();
+		}
 	}
 
 	onChange() {
@@ -75,16 +79,6 @@ class FlexImageViewer extends React.Component {
 		this.viewer.removeOverlay(annotationId);
 	}
 
-	annotationExists(annotationId) {
-		var annotations = this.state.annotations;
-		for(let i=0;i<annotations.length;i++) {
-			if(annotations[i].id == annotationId) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	/* --------------------------------------------------------------
 	-------------------------- VIEWER INITIALIZATION ----------------
 	---------------------------------------------------------------*/
@@ -106,62 +100,63 @@ class FlexImageViewer extends React.Component {
 			},
 		});
 
-		//for the picturae selection stuff
-		this.viewer.selection({
-			showConfirmDenyButtons: true,
-			styleConfirmDenyButtons: true,
-			returnPixelCoordinates: true,
-			keyboardShortcut: 'c', // key to toggle selection mode
-			rect: null, // initial selection as an OpenSeadragon.SelectionRect object
-			startRotated: false, // alternative method for drawing the selection; useful for rotated crops
-			startRotatedHeight: 0.1, // only used if startRotated=true; value is relative to image height
-			restrictToImage: false, // true = do not allow any part of the selection to be outside the image
-			onSelection: function(rect) {
-				this.addEmptyAnnotation.call(
-					this,
-					AnnotationUtil.generateW3CEmptyAnnotation(
-						this.props.user,
-						this.props.mediaObject.url,
-						this.props.mediaObject.mimeType,
-						{
-							rect : {
-								x : rect.x,
-								y : rect.y,
-								w : rect.width,
-								h : rect.height
-							},
-							rotation : rect.rotation
-						}
-					)
-				);
-			}.bind(this), // callback
-			prefixUrl: '/static/vendor/openseadragonselection-master/images/',
-			navImages: { // overwrites OpenSeadragon's options
-				selection: {
-					REST:   'selection_rest.png',
-					GROUP:  'selection_grouphover.png',
-					HOVER:  'selection_hover.png',
-					DOWN:   'selection_pressed.png'
-				},
-				selectionConfirm: {
-					REST:   'selection_confirm_rest.png',
-					GROUP:  'selection_confirm_grouphover.png',
-					HOVER:  'selection_confirm_hover.png',
-					DOWN:   'selection_confirm_pressed.png'
-				},
-				selectionCancel: {
-					REST:   'selection_cancel_rest.png',
-					GROUP:  'selection_cancel_grouphover.png',
-					HOVER:  'selection_cancel_hover.png',
-					DOWN:   'selection_cancel_pressed.png'
-				},
-			}
-		});
+		if(this.props.annotationSupport) {
+			this.viewer.selection({
+				showConfirmDenyButtons: true,
+				styleConfirmDenyButtons: true,
+				returnPixelCoordinates: true,
+				keyboardShortcut: 'c', // key to toggle selection mode
+				rect: null, // initial selection as an OpenSeadragon.SelectionRect object
+				startRotated: false, // alternative method for drawing the selection; useful for rotated crops
+				startRotatedHeight: 0.1, // only used if startRotated=true; value is relative to image height
+				restrictToImage: false, // true = do not allow any part of the selection to be outside the image
+				onSelection: function(rect) {
+					this.addEmptyAnnotation.call(
+						this,
+						AnnotationUtil.generateW3CEmptyAnnotation(
+							this.props.user,
+							this.props.mediaObject.url,
+							this.props.mediaObject.mimeType,
+							{
+								rect : {
+									x : rect.x,
+									y : rect.y,
+									w : rect.width,
+									h : rect.height
+								},
+								rotation : rect.rotation
+							}
+						)
+					);
+				}.bind(this), // callback
+				prefixUrl: '/static/vendor/openseadragonselection-master/images/',
+				navImages: { // overwrites OpenSeadragon's options
+					selection: {
+						REST:   'selection_rest.png',
+						GROUP:  'selection_grouphover.png',
+						HOVER:  'selection_hover.png',
+						DOWN:   'selection_pressed.png'
+					},
+					selectionConfirm: {
+						REST:   'selection_confirm_rest.png',
+						GROUP:  'selection_confirm_grouphover.png',
+						HOVER:  'selection_confirm_hover.png',
+						DOWN:   'selection_confirm_pressed.png'
+					},
+					selectionCancel: {
+						REST:   'selection_cancel_rest.png',
+						GROUP:  'selection_cancel_grouphover.png',
+						HOVER:  'selection_cancel_hover.png',
+						DOWN:   'selection_cancel_pressed.png'
+					},
+				}
+			});
 
-		this.viewer.addHandler('open', function(target, info) {
-			this.renderAll.bind(this);
-			this.setState({viewerLoaded : true});
-		}.bind(this))
+			this.viewer.addHandler('open', function(target, info) {
+				this.renderAll.bind(this);
+				this.setState({viewerLoaded : true});
+			}.bind(this));
+		}
 
 	}
 

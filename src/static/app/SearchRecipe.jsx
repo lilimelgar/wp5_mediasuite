@@ -104,10 +104,7 @@ class Recipe extends React.Component {
 					showModal={this.state.showAnnotationModal} //show the modal yes/no
 					hideAnnotationForm={this.hideAnnotationForm.bind(this)} //pass along the function to hide the modal
 
-					user={this.state.user} //current user
 					activeAnnotation={this.state.activeAnnotation} //the active annotation
-					annotationTarget={this.state.annotationTarget} //the current annotation target
-
 					annotationModes={this.props.ingredients.annotationModes} //how each annotation mode/motivation is configured
 				/>
 			)
