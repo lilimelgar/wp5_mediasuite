@@ -1,5 +1,7 @@
 import React from 'react';
 
+//import AppDispatcher from './flux/AppDispatcher';
+
 import TimeUtil from './util/TimeUtil';
 
 import FlexBox from './components/FlexBox';
@@ -13,6 +15,8 @@ import AnnotationUtil from './util/AnnotationUtil'
 import AnnotationBox from './components/annotation/AnnotationBox';
 import AnnotationList from './components/annotation/AnnotationList';
 
+import AnnotationActions from './flux/AnnotationActions';
+
 import CollectionUtil from './util/CollectionUtil';
 import CollectionDataUtil from './util/CollectionDataUtil';
 
@@ -22,7 +26,13 @@ import CollectionDataUtil from './util/CollectionDataUtil';
 	- mongoDB moet op blofeld worden geinstalleerd (+ update annotatie API)
 	- de flow + het formaat van annotatie data vanaf server door componenten moet handiger
 	- video annotatie voor arttube. De functionaliteiten moeten erg goed werken. + met welke data moet er geannoteerd worden...
+
+
+	DIT MOET IK IMPLEMENTEREN!!!! http://blog.andrewray.me/flux-for-stupid-people/
 */
+
+
+
 class ItemDetailsRecipe extends React.Component {
 
 	constructor(props) {
@@ -59,6 +69,7 @@ class ItemDetailsRecipe extends React.Component {
 				$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 				var target = $(e.target).attr("href") // activated tab
 				var index = target.substring('#mo__'.length);
+				console.debug(index);
 				var mediaObject = this.state.itemData.playableContent[index];
 				if(mediaObject) {
 					let annotation = AnnotationUtil.generateW3CEmptyAnnotation(
@@ -88,7 +99,10 @@ class ItemDetailsRecipe extends React.Component {
 
 	setActiveAnnotationTarget(annotationTarget) {
 		console.debug(annotationTarget);
-		this.setState({annotationTarget : annotationTarget});
+		this.setState(
+			{annotationTarget : annotationTarget}
+		);
+		AnnotationActions.changeTarget(annotationTarget)
 	}
 
 	playAnnotation(annotation) {

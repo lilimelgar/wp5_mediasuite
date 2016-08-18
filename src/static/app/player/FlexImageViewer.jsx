@@ -3,8 +3,12 @@ Currently uses:
 	- https://openseadragon.github.io
 	- https://github.com/picturae/openseadragonselection
 */
+
 import AnnotationAPI from '../api/AnnotationAPI';
 import AnnotationUtil from '../util/AnnotationUtil';
+
+import AnnotationActions from '../flux/AnnotationActions';
+import AppAnnotationStore from '../flux/AnnotationStore';
 
 //TODO dit ding moet ook reageren op externe deletes en saves (de Flexplayer ook)
 
@@ -17,25 +21,67 @@ class FlexImageViewer extends React.Component {
 		this.annotationIdCount = 0;//TODO do this differently later on
 		this.state = {
 			//this could be part of a super class
-			annotations : []
+			annotations : [],
+			viewerLoaded : false
 		}
 	}
 
+	/* --------------------------------------------------------------
+	-------------------------- OBSERVING THE API --------------------
+	---------------------------------------------------------------*/
+
 	componentDidMount() {
+		//load the initial annotations
+		this.loadAnnotations();
+
+		//then listen to any changes that happen in the API
+		AppAnnotationStore.bind(this.props.mediaObject.url, this.onChange.bind(this));
+	}
+
+	onChange() {
+		console.debug('the list changed!');
 		this.loadAnnotations();
 	}
 
 	loadAnnotations() {
-		AnnotationAPI.getFilteredAnnotations('target.source', this.props.mediaObject.url, function(data) {
-			this.onLoadAnnotations(data);
-		}.bind(this));
+		AppAnnotationStore.getFiltered('target.source', this.props.mediaObject.url, this.onLoadAnnotations.bind(this));
 	}
 
-	//this sets the annotations in the state object
 	onLoadAnnotations(annotationData) {
-		this.setState(annotationData, this.initViewer.bind(this));
+		if(!this.state.viewerLoaded) {
+			this.setState(annotationData, this.initViewer.bind(this));
+		} else {
+			this.setState(annotationData);
+		}
 	}
 
+	deleteAnnotation(annotation, event) {
+		if(event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		if(annotation && annotation.id) {
+			AnnotationActions.delete(annotation, this.onDelete.bind(this));
+		}
+	}
+
+	onDelete(data, annotationId) {
+		this.viewer.removeOverlay(annotationId);
+	}
+
+	annotationExists(annotationId) {
+		var annotations = this.state.annotations;
+		for(let i=0;i<annotations.length;i++) {
+			if(annotations[i].id == annotationId) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/* --------------------------------------------------------------
+	-------------------------- VIEWER INITIALIZATION ----------------
+	---------------------------------------------------------------*/
 
 	initViewer() {
 		this.viewer = OpenSeadragon({
@@ -103,52 +149,34 @@ class FlexImageViewer extends React.Component {
 				},
 			}
 		});
+
 		this.viewer.addHandler('open', function(target, info) {
-			this.state.annotations.forEach((annotation) => {
-				this.renderAnnotation(annotation);
-			})
+			this.renderAll.bind(this);
+			this.setState({viewerLoaded : true});
 		}.bind(this))
+
+
 	}
 
-	//Adds an annotation with just a target. This annotation is not yet saved to the API
-	addEmptyAnnotation(annotation) {
-		let annotations = this.state.annotations;
-		annotation.id = '__annotation_' + (this.annotationIdCount++);//TODO make sure annotations get an ID from the server!
-		annotations.push(annotation);
-		console.debug(annotation);
-		this.renderAnnotation.call(this, annotation);
-		this.setState({
-			annotations : annotations
+	/* --------------------------------------------------------------
+	-------------------------- ANNOTATION CRUD ----------------------
+	---------------------------------------------------------------*/
+
+	renderAll() {
+		this.state.annotations.forEach((annotation) => {
+			if(!this.viewer.getOverlayById(annotation.id)) {
+				this.renderAnnotation(annotation);
+			}
 		});
 	}
 
-	removeAnnotation(annotationId, event) {
-		console.debug('removing: ' + annotationId);
-		if(event) {
-			event.preventDefault();
-		}
-		if(annotationId) {
-			AnnotationAPI.deleteAnnotation(annotationId, this.onRemoveAnnotation.bind(this));
-		}
-	}
-
-	onRemoveAnnotation(data, annotationId) {
-		this.viewer.removeOverlay(annotationId);
-
+	addEmptyAnnotation(annotation) {
 		let annotations = this.state.annotations;
-		let index = -1;
-		annotations.forEach((a, i) => {
-			console.debug(a);
-			if(a.id == annotationId) {
-				index = i;
-			}
-		})
-		if(index != -1) {
-			annotations.splice(index, 1);
-			this.setState({
-				annotations : annotations
-			});
-		}
+		annotation.id = this.props.mediaObjectId + '__annotation_' + (this.annotationIdCount++);
+		annotations.push(annotation);
+		this.setState({
+			annotations : annotations
+		});
 	}
 
 	setActiveAnnotation(annotationId, event) {
@@ -191,7 +219,7 @@ class FlexImageViewer extends React.Component {
 		//add the remove button
 		var removeBtn = document.createElement('button');
 		removeBtn.className = 'btn btn-primary';
-		removeBtn.onclick = this.removeAnnotation.bind(this, annotation.id);
+		removeBtn.onclick = this.deleteAnnotation.bind(this, annotation);
 		var removeGlyph = document.createElement('span');
 		removeGlyph.className = 'glyphicon glyphicon-remove';
 		removeBtn.appendChild(removeGlyph);
@@ -210,7 +238,11 @@ class FlexImageViewer extends React.Component {
 
 	handleOverlayClick(annotation, event) {
 		event.preventDefault();
+		event.stopPropagation();
 		if(this.props.editAnnotation) {
+			//TOOD delete the old overlay
+			this.viewer.removeOverlay(annotation.id);
+
 			this.props.editAnnotation(annotation);
 		}
 	}
@@ -232,7 +264,9 @@ class FlexImageViewer extends React.Component {
 	}
 
 	render() {
-		//console.debug('rendering: ' + this.props.mediaObjectId);
+		if(this.state.viewerLoaded) {
+			this.renderAll();
+		}
 		return (
 			<div id={'img_viewer' + this.props.mediaObjectId}></div>
 		)

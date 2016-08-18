@@ -2,6 +2,9 @@ import Annotation from './Annotation';
 import AnnotationAPI from '../../api/AnnotationAPI';
 import AnnotationUtil from '../../util/AnnotationUtil';
 
+import AnnotationActions from '../../flux/AnnotationActions';
+import AppAnnotationStore from '../../flux/AnnotationStore';
+
 class AnnotationList extends React.Component {
 
 	constructor(props) {
@@ -12,20 +15,22 @@ class AnnotationList extends React.Component {
 	}
 
 	componentDidMount() {
+		//load the initial annotations
 		this.loadAnnotations();
-		this.loadInterval = setInterval(this.loadAnnotations.bind(this), 1500);
-	}
 
-	componentWillUnmount() {
-		clearInterval(this.loadInterval);
-		console.debug('The interval is now: ');
-		console.debug(this.loadInterval);
+		//then listen to any changes that happen in the API
+		AppAnnotationStore.bind('change-target', this.loadAnnotations.bind(this));
 	}
 
 	loadAnnotations() {
-		AnnotationAPI.getAnnotations(function(data) {
-			this.onLoadAnnotations(data);
-		}.bind(this));
+		if(this.props.annotationTarget) {
+			console.debug('the target changed: ' + this.props.annotationTarget.source);
+			AppAnnotationStore.getFiltered(
+			   	'target.source',
+			   	this.props.annotationTarget.source,
+			   	this.onLoadAnnotations.bind(this)
+			);
+		}
 	}
 
 	//this sets the annotations in the state object
@@ -55,33 +60,29 @@ class AnnotationList extends React.Component {
 	}
 
 	render() {
-		//TODO do this in the API rather than on the client side!!! (this is just to test)
-		let annotations = this.state.annotations.filter((a) => {
-			if(this.props.annotationTarget && a.target.source == this.props.annotationTarget.source) {
-				return a;
-			}
-		}, this);
-		//TODO filter the annotations here based on the annotationTarget
-		const annotationItems = annotations.map(function(annotation) {
-			let active = false;
-			if(this.props.activeAnnotation) {
-				active = this.props.activeAnnotation.id === annotation.id
-			}
-			return (
-				<Annotation
-					key={annotation.id}
-					annotation={annotation}
+		let annotationItems = null;
+		if(this.state.annotations) {
+			annotationItems = this.state.annotations.map(function(annotation) {
+				let active = false;
+				if(this.props.activeAnnotation) {
+					active = this.props.activeAnnotation.id === annotation.id
+				}
+				return (
+					<Annotation
+						key={annotation.id}
+						annotation={annotation}
 
-					active={active}
+						active={active}
 
-					showAnnotationForm={this.props.showAnnotationForm}
-					setAnnotation={this.props.setAnnotation}
+						showAnnotationForm={this.props.showAnnotationForm}
+						setAnnotation={this.props.setAnnotation}
 
-					deleteAnnotation={this.deleteAnnotation.bind(this)}
-					playAnnotation={this.playAnnotation.bind(this)}
-				/>
-			);
-		}, this);
+						deleteAnnotation={this.deleteAnnotation.bind(this)}
+						playAnnotation={this.playAnnotation.bind(this)}
+					/>
+				);
+			}, this);
+		}
 		return (
 			<div>
 				<h3>Saved annotations</h3>

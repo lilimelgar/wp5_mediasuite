@@ -14,12 +14,13 @@ import AnnotationList from './components/annotation/AnnotationList';
 class Recipe extends React.Component {
 	constructor(props) {
 		super(props);
-		var annotationTarget = AnnotationUtil.generateW3CTargetObject('http://data.beng.nl/avresearcherxl');
+		var user = 'JaapTest';
+		var annotation = AnnotationUtil.generateW3CEmptyAnnotation(user, 'http://data.beng.nl/avresearcherxl');
 		this.state = {
-			user : 'JaapTest',
+			user : user,
 			lineChartData: null,
 			activeAnnotation : null,
-			annotationTarget : annotationTarget,
+			annotationTarget : annotation.target,
 			showAnnotationModal : false
 		};
 	}

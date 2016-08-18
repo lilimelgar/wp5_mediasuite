@@ -3,6 +3,8 @@ import AnnotationAPI from '../../api/AnnotationAPI';
 import AnnotationCreator from './AnnotationCreator';
 import FlexModal from '../FlexModal';
 
+import AnnotationActions from '../../flux/AnnotationActions';
+
 //TODO dependancy on jquery!! fix this later
 //TODO make sure the editing form can be shown in a div rather than a pop-up. This is important, because modals
 //prevent you from watching the video while annotating
@@ -19,9 +21,8 @@ class AnnotationBox extends React.Component {
 	}
 
 	saveAnnotation(annotation) {
-		AnnotationAPI.saveAnnotation(annotation, function(data) {
-			this.onSave(data);
-		}.bind(this));
+		AnnotationActions.save(annotation, this.onSave.bind(this));
+
 	}
 
 	onSave(annotation) {

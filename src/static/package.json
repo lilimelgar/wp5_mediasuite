@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/beeldengeluid/labo",
   "dependencies": {
+    "flux": "^2.1.1",
     "jquery": "^3.0.0",
+    "microevent": "^1.0.0",
     "moment": "^2.14.1",
     "mousetrap": "^1.6.0",
     "openseadragon": "^2.2.1",

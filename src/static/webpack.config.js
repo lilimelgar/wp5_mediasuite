@@ -21,6 +21,7 @@
 		https://github.com/webpack/react-starter
 		https://www.bensmithett.com/smarter-css-builds-with-webpack/
 		https://docs.google.com/presentation/d/1afMLTCpRxhJpurQ97VBHCZkLbR1TEsRnd3yyxuSQ5YY/edit#slide=id.p
+		http://blog.andrewray.me/reactjs-for-stupid-people/
 
 	Use this for key bindings:
 		https://craig.is/killing/mice
