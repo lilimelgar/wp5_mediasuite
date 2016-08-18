@@ -90,12 +90,14 @@ class FlexImageViewer extends React.Component {
 	---------------------------------------------------------------*/
 
 	initViewer() {
+		console.debug('init player: ' + this.props.mediaObject.url);
 		this.viewer = OpenSeadragon({
 			id: 'img_viewer' + this.props.mediaObjectId,
 			prefixUrl: '/static/node_modules/openseadragon/build/openseadragon/images/',
-			showSelectionControl:    true,
+			showSelectionControl: true,
 			sequenceMode : false,
 			preserveViewport: true,
+			height: '100px',
 
 			//in case of a simple image
 			tileSources: {
@@ -134,7 +136,7 @@ class FlexImageViewer extends React.Component {
 				);
 			}.bind(this), // callback
 			prefixUrl: '/static/vendor/openseadragonselection-master/images/',
-			navImages:               { // overwrites OpenSeadragon's options
+			navImages: { // overwrites OpenSeadragon's options
 				selection: {
 					REST:   'selection_rest.png',
 					GROUP:  'selection_grouphover.png',
@@ -160,7 +162,6 @@ class FlexImageViewer extends React.Component {
 			this.renderAll.bind(this);
 			this.setState({viewerLoaded : true});
 		}.bind(this))
-
 
 	}
 

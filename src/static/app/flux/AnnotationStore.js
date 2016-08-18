@@ -2,6 +2,8 @@ import MicroEvent from 'microevent';
 import AnnotationAPI from '../api/AnnotationAPI';
 import AppDispatcher from './AppDispatcher';
 
+//See: https://github.com/jeromeetienne/microevent.js
+
 class AnnotationStore {
 
 	getAll(callback) {

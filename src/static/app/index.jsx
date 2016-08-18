@@ -62,3 +62,6 @@ export {default as FlexPlayer} from './player/FlexPlayer';
 export {default as VimeoPlayer} from './player/VimeoPlayer';
 export {default as YouTubePlayer} from './player/YouTubePlayer';
 export {default as JWPlayer} from './player/JWPlayer';
+
+//image viewer
+export {default as FlexImageViewer} from './player/FlexImageViewer';

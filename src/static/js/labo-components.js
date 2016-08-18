@@ -19,18 +19,23 @@ function showComponent(componentId) {
 		case 'Vimeo player': component = getVimeoPlayer();break;
 		case 'YouTube player': component = getYouTubePlayer();break;
 
+		case 'Image viewer': component = getImageViewer();break;
+
 		case 'Line chart': component = getLineChart();break;
 	}
 
 	if(component) {
 		ReactDOM.render(
-			<div className="container">
+			<div className="col-md-12">
 				<div className="page-header">
 					<h3><span className="glyphicon glyphicon-tasks"></span>&nbsp;{componentId}</h3>
 				</div>
 				{component}
 			</div>, document.getElementById('component_x')
 		);
+		if(componentId == 'Image viewer') { // it's weird that it does not work on this page without this
+			document.getElementById('img_viewer__mo_1').style.height = '800px';
+		}
 	}
 }
 
@@ -197,6 +202,17 @@ function getYouTubePlayer() {
 	};
 	return (
 		<YouTubePlayer mediaObject={mediaObject}/>
+	);
+}
+
+function getImageViewer() {
+	var FlexImageViewer = clariah.FlexImageViewer;
+	var mediaObject = {
+		url : 'http://hdl.handle.net/10744/mi_21cee277-cb55-415b-bef9-c27291090c9a',
+		mimeType : 'image/jpeg'
+	};
+	return(
+		<FlexImageViewer mediaObject={mediaObject} mediaObjectId="__mo_1"/>
 	);
 }
 
