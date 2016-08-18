@@ -8,6 +8,7 @@ import AnnotationUtil from './util/AnnotationUtil';
 import AnnotationBox from './components/annotation/AnnotationBox';
 import AnnotationList from './components/annotation/AnnotationList';
 
+
 //TODO pass the user as (React) context
 //TODO pass the annotationSupport as (React) context
 
@@ -80,13 +81,12 @@ class Recipe extends React.Component {
 
 	//show the annnotation form with the correct annotation target
 	//TODO extend this so the target can also be a piece of text or whatever
-	addAnnotationToTarget(targetURI, mimeType, annotation) {
-		let at = AnnotationUtil.generateW3CTargetObject(targetURI, mimeType, annotation);
-		if(at) {
+	editAnnotation(annotation) {
+		if(annotation.target) {
 			this.setState({
 				showAnnotationModal: true,
-				annotationTarget: at,
-				activeAnnotation: null
+				annotationTarget: annotation.target,
+				activeAnnotation: annotation
 			});
 		}
 	}
@@ -118,8 +118,6 @@ class Recipe extends React.Component {
 
 					showAnnotationForm={this.showAnnotationForm.bind(this)} //when double clicking an item open the form
 					setAnnotation={this.setActiveAnnotation.bind(this)} //when clicking an item change the active annotation
-
-					playerAPI={this.state.playerAPI} //enables the list to play stuff (probably not needed later on)
 				/>
 			)
 		}
@@ -137,9 +135,8 @@ class Recipe extends React.Component {
 					itemDetailsRecipe={this.props.ingredients.itemDetailsRecipe} // the item details recipe the user should go to
 
 					annotationSupport={this.props.ingredients.annotationSupport}
-					annotationModes={this.props.ingredients.annotationModes}
 
-					addAnnotationToTarget={this.addAnnotationToTarget.bind(this)} //each annotation support should call this function
+					editAnnotation={this.editAnnotation.bind(this)} //each annotation support should call this function
 				/>);
 
 			//TODO only render when there is linechart data
@@ -156,12 +153,12 @@ class Recipe extends React.Component {
 
 		return (
 			<div className="row">
-				<div className={this.props.ingredients.annotationSupport ? 'col-md-7' : 'col-md-12'}>
+				<div className={this.props.ingredients.annotationSupport ? 'col-md-9' : 'col-md-12'}>
 					{facetSearch}
 					{lineChart}
 					{comparativeSearch}
 				</div>
-				<div className={this.props.ingredients.annotationSupport ? 'col-md-5' : null}>
+				<div className={this.props.ingredients.annotationSupport ? 'col-md-3' : null}>
 					{annotationList}
 					{annotationBox}
 				</div>

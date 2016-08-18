@@ -1,6 +1,7 @@
 import CollectionSelector from './CollectionSelector';
 import FacetSearchComponent from './FacetSearchComponent';
 import FlexBox from './FlexBox';
+import AnnotationUtil from '../util/AnnotationUtil'
 
 class ComparativeSearch extends React.Component {
 
@@ -133,6 +134,11 @@ class ComparativeSearch extends React.Component {
 
 		//only show if configured
 		if(this.hasAnnotationSupport()) {
+			let annotation = AnnotationUtil.generateW3CEmptyAnnotation(
+					this.props.user,
+					'http://data.beng.nl/avresearcherxl',
+					'text/plain'
+				);
 			annotationTestButtons = (
 				<div>
 					<button type="button" className="btn btn-default"
@@ -141,10 +147,7 @@ class ComparativeSearch extends React.Component {
 					</button>
 					&nbsp;
 					<button type="button" className="btn btn-default"
-						onClick={this.props.addAnnotationToTarget.bind(
-							this,
-							'http://data.beng.nl/avresearcherxl'
-						)}>
+						onClick={this.props.editAnnotation.bind(this, annotation)}>
 						Annotate test
 					</button>
 					<br/>
