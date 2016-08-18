@@ -17,10 +17,6 @@ class AnnotationStore {
 	}
 
 	save(annotation, callback) {
-		console.debug('saving');
-		if(annotation.id && annotation.id.indexOf('__annotation_') != -1) {
-			annotation.id = null;
-		}
 		AnnotationAPI.saveAnnotation(annotation, (data) => {
 			this.trigger(annotation.target.source);
 			this.trigger('change');
@@ -31,12 +27,12 @@ class AnnotationStore {
 	}
 
 	delete(annotation, callback) {
-		AnnotationAPI.deleteAnnotation(annotation.id, (data, annotationId) => {
-			console.debug('deleted (store) ' + annotationId);
+		AnnotationAPI.deleteAnnotation(annotation, (data, annotation) => {
+			console.debug(annotation);
 			this.trigger(annotation.target.source);
 			this.trigger('change');
 			if(callback) {
-				callback(data, annotationId);
+				callback(data, annotation);
 			}
 		});
 	}

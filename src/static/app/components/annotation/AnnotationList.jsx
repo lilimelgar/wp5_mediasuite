@@ -20,6 +20,7 @@ class AnnotationList extends React.Component {
 
 		//then listen to any changes that happen in the API
 		AppAnnotationStore.bind('change-target', this.loadAnnotations.bind(this));
+		AppAnnotationStore.bind('change', this.loadAnnotations.bind(this));
 	}
 
 	loadAnnotations() {
@@ -38,17 +39,8 @@ class AnnotationList extends React.Component {
 		this.setState(annotationData);
 	}
 
-	deleteAnnotation(annotationId) {
-		AnnotationAPI.deleteAnnotation(annotationId, function(data) {
-			this.onDelete(annotationId);
-		}.bind(this));
-	}
-
-	onDelete(annotationId) {
-		var annotations = $.grep(this.state.annotations, function(e){
-			return e.id != annotationId;
-		});
-		this.setState({annotations : annotations});
+	deleteAnnotation(annotation) {
+		AnnotationActions.delete(annotation);
 	}
 
 	//TODO this function has to know everything about where the annotation target is and be able to

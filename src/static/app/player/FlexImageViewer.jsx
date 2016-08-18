@@ -49,9 +49,15 @@ class FlexImageViewer extends React.Component {
 
 	onLoadAnnotations(annotationData) {
 		if(!this.state.viewerLoaded) {
-			this.setState(annotationData, this.initViewer.bind(this));
+			this.setState((previousState, currentProps) => {
+  				return {annotations : this.deleteOldOverlays.call(this, previousState.annotations, annotationData.annotations)};
+			}, this.initViewer.bind(this));
+
+			//this.setState(annotationData, this.initViewer.bind(this));
 		} else {
-			this.setState(annotationData);
+			this.setState((previousState, currentProps) => {
+  				return {annotations : this.deleteOldOverlays.call(this, previousState.annotations, annotationData.annotations)};
+			});
 		}
 	}
 
@@ -170,13 +176,22 @@ class FlexImageViewer extends React.Component {
 		});
 	}
 
+	deleteOldOverlays(oldAnnotations, newAnnotations) {
+		oldAnnotations.forEach((annotation) => {
+			console.debug('removing overlay: ' + annotation.id);
+			this.viewer.removeOverlay(annotation.id);
+		});
+		return newAnnotations;
+	}
+
 	addEmptyAnnotation(annotation) {
 		let annotations = this.state.annotations;
-		annotation.id = this.props.mediaObjectId + '__annotation_' + (this.annotationIdCount++);
+		annotation.id = AnnotationUtil.guid();
+		console.debug('new ID: ' + annotation.id);
 		annotations.push(annotation);
 		this.setState({
 			annotations : annotations
-		});
+		}, this.openAnnotationForm.bind(this, annotation));
 	}
 
 	setActiveAnnotation(annotationId, event) {
@@ -211,7 +226,7 @@ class FlexImageViewer extends React.Component {
 		//add the remove button
 		var addBtn = document.createElement('button');
 		addBtn.className = 'btn btn-primary';
-		addBtn.onclick = this.handleOverlayClick.bind(this, annotation);
+		addBtn.onclick = this.openAnnotationForm.bind(this, annotation);
 		var addGlyph = document.createElement('span');
 		addGlyph.className = 'glyphicon glyphicon-plus';
 		addBtn.appendChild(addGlyph);
@@ -236,13 +251,12 @@ class FlexImageViewer extends React.Component {
 
 	}
 
-	handleOverlayClick(annotation, event) {
-		event.preventDefault();
-		event.stopPropagation();
+	openAnnotationForm(annotation, event) {
+		if(event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
 		if(this.props.editAnnotation) {
-			//TOOD delete the old overlay
-			this.viewer.removeOverlay(annotation.id);
-
 			this.props.editAnnotation(annotation);
 		}
 	}

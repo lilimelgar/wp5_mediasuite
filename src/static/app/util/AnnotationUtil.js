@@ -34,19 +34,19 @@ const AnnotationUtil = {
 		let targetType = null;
 
 		//only try to extract/append the spatio-temporal parameters from the params if there is a mimeType
-		if(mimeType && params) {
-			if(mimeType.indexOf('video') != -1 && params) {
+		if(mimeType) {
+			if(mimeType.indexOf('video') != -1) {
 				targetType = 'Video';
-				if(params.start && params.end && params.start != -1 && params.end != -1) {
+				if(params && params.start && params.end && params.start != -1 && params.end != -1) {
 					selector = {
 						"type": "FragmentSelector",
 						"conformsTo": "http://www.w3.org/TR/media-frags/",
 						"value": '#t=' + params.start + ',' + params.end
 	    			}
 				}
-			} else if(mimeType.indexOf('audio') != -1 && params) {
+			} else if(mimeType.indexOf('audio') != -1) {
 				targetType = 'Audio';
-				if(params.start && params.end && params.start != -1 && params.end != -1) {
+				if(params && params.start && params.end && params.start != -1 && params.end != -1) {
 					selector = {
 						"type": "FragmentSelector",
 						"conformsTo": "http://www.w3.org/TR/media-frags/",
@@ -55,7 +55,7 @@ const AnnotationUtil = {
 				}
 			} else if(mimeType.indexOf('image') != -1) {
 				targetType = 'Image';
-				if(params.rect) {
+				if(params && params.rect) {
 					selector = {
 						"type": "FragmentSelector",
 						"conformsTo": "http://www.w3.org/TR/media-frags/",
@@ -73,6 +73,16 @@ const AnnotationUtil = {
 				type: targetType
 			}
 		}
+	},
+
+	guid : function() {
+		return AnnotationUtil.s4() + AnnotationUtil.s4() + '-' + AnnotationUtil.s4() + '-' +
+		AnnotationUtil.s4() + '-' + AnnotationUtil.s4() + '-' + AnnotationUtil.s4() +
+		AnnotationUtil.s4() + AnnotationUtil.s4();
+	},
+
+	s4 : function() {
+		return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 	}
 
 }

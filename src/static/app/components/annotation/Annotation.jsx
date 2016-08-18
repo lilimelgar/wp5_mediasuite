@@ -21,7 +21,7 @@ class Annotation extends React.Component {
 
 	deleteAnnotation() {
 		if(this.props.deleteAnnotation) {
-			this.props.deleteAnnotation(this.props.annotation.id);
+			this.props.deleteAnnotation(this.props.annotation);
 		}
 	}
 

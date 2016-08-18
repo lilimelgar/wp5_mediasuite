@@ -54,16 +54,16 @@ const AnnotationAPI = {
 		});
 	},
 
-	deleteAnnotation : function (annotationId, callback) {
-		console.debug('deleting: ' + annotationId);
-		if(annotationId) {
+	deleteAnnotation : function (annotation, callback) {
+		console.debug('deleting: ' + annotation.id);
+		if(annotation.id) {
 			$.ajax({
-				url : _config.ANNOTATION_API_BASE + '/annotation/' + annotationId,
+				url : _config.ANNOTATION_API_BASE + '/annotation/' + annotation.id,
 				type : 'DELETE',
 				//dataType : 'application/json',
 				success : function(data) {
 					if(callback) {
-						callback(data, annotationId)
+						callback(data, annotation)
 					}
 				},
 				error : function(err) {
