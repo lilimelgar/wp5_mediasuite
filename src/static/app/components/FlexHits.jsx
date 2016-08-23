@@ -17,7 +17,10 @@ class FlexHits extends React.Component {
 	gotoItemDetails(result) {
 		console.debug(result);
 		if(this.props.itemDetailsRecipe && result._id) {
-			var url = 'http://localhost:5302/recipe/' + this.props.itemDetailsRecipe + '?id=' + result._id;
+			let temp = window.location.href;
+			let arr = temp.split("/");
+			let protHostPort = arr[0] + "//" + arr[2];
+			let url = protHostPort + '/recipe/' + this.props.itemDetailsRecipe + '?id=' + result._id;
 			url += '&cid=' + result._index;
 			document.location.href = url;
 		} else {
