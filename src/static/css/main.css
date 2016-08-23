@@ -9066,11 +9066,15 @@ h4, h5, h6 {
 
 /* line 17, ../sass/_player.scss */
 .image-overlay {
-  outline: 2px solid #444;
-  background-color: transparant;
+  outline: 1px solid yellowchiffon;
+  box-shadow: 10px 10px 5px #888888;
+  padding: 10px;
+  background-color: rgba(255, 250, 205, 0.2);
   cursor: pointer;
 }
-/* line 21, ../sass/_player.scss */
+/* line 23, ../sass/_player.scss */
 .image-overlay.active {
-  outline: 2px solid crimson;
+  outline: 1px solid red;
+  box-shadow: 10px 10px 5px crimson;
+  background-color: rgba(178, 34, 34, 0.2);
 }
