@@ -20,7 +20,9 @@ class AnnotationStore {
 
 	save(annotation, callback) {
 		AnnotationAPI.saveAnnotation(annotation, (data) => {
+			//notify all components that just listen to a single target (e.g. FlexPlayer, FlexImageViewer)
 			this.trigger(annotation.target.source);
+			//then notify all components that are interested in all annotations
 			this.trigger('change');
 			if(callback) {
 				callback(data);
@@ -30,8 +32,9 @@ class AnnotationStore {
 
 	delete(annotation, callback) {
 		AnnotationAPI.deleteAnnotation(annotation, (data, annotation) => {
-			console.debug(annotation);
+			//notify all components that just listen to a single target (e.g. FlexPlayer, FlexImageViewer)
 			this.trigger(annotation.target.source);
+			//then notify all components that are interested in all annotations
 			this.trigger('change');
 			if(callback) {
 				callback(data, annotation);
@@ -50,21 +53,18 @@ AppDispatcher.register( function( action ) {
 
     switch(action.eventName) {
 
-        // Do we know how to handle this action?
         case 'save-annotation':
 
             // We get to mutate data!
             AppAnnotationStore.save(action.annotation, action.callback);
             break;
 
-		// Do we know how to handle this action?
         case 'delete-annotation':
 
             // We get to mutate data!
             AppAnnotationStore.delete(action.annotation, action.callback);
             break;
 
-        // Do we know how to handle this action?
         case 'change-target':
 
             // We get to mutate data!
