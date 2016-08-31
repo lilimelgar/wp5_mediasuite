@@ -28,7 +28,11 @@ LOADING RECIPES FROM JSON FILES
 
 def loadRecipes():
 	recipes = {}
-	for root, directories, files in os.walk(_config['RECIPES_PATH']):
+	recipeDir = 'default'
+	if _config.has_key('INSTANCE_NAME'):
+		recipeDir = _config['INSTANCE_NAME']
+	print os.path.join(app.root_path, 'resources', recipeDir)
+	for root, directories, files in os.walk(os.path.join(app.root_path, 'resources', 'recipes', recipeDir)):
 		for fn in files:
 			r = os.path.join(root, fn)
 			recipes[fn.replace('.json', '')] = simplejson.load(open(r, 'r'))
@@ -72,27 +76,28 @@ def requires_auth(f):
 		return f(*args, **kwargs)
 	return decorated
 
-def getTemplateImages(templateName):
+def getTemplateImages(template, pageName):
 	navbarLogo = '/static/images/default/logo.png'
-	if os.path.exists(os.path.join(app.root_path, 'static', 'images', 'custom', 'logo.png')):
-		navbarLogo = '/static/images/custom/logo.png'
-	pageImage = '/static/images/default/%s.png' % templateName
-	if os.path.exists(os.path.join(app.root_path, 'static', 'images', 'custom', '%s.png' % templateName)):
-		pageImage = '/static/images/custom/%s.png' % templateName
+	if os.path.exists(os.path.join(app.root_path, 'static', 'images', template, 'logo.png')):
+		navbarLogo = '/static/images/%s/logo.png' % template
+	pageImage = '/static/images/default/%s.png' % pageName
+	if os.path.exists(os.path.join(app.root_path, 'static', 'images', template, '%s.png' % pageName)):
+		pageImage = '/static/images/%s/%s.png' % (template, pageName)
 	return navbarLogo, pageImage
 
-def renderTemplate(name, params = {}):
+def renderTemplate(pageName, params = {}):
 	#see if a special template is configured
 	template = 'default'
-	if _config.has_key('CUSTOM_TEMPLATE_DIR'):
-		template = _config['CUSTOM_TEMPLATE_DIR']
+	if _config.has_key('INSTANCE_NAME'):
+		template = _config['INSTANCE_NAME']
 
 	#get image data based on the template
-	navbarLogo, pageImage = getTemplateImages(name)
+	navbarLogo, pageImage = getTemplateImages(template, pageName)
 
 	#set the params for the render_template function
 	params['pageImage'] = pageImage
 	params['navbarLogo'] = navbarLogo
+	params['template'] = template
 
 	#test if the nav.html exists
 	try:
@@ -100,26 +105,24 @@ def renderTemplate(name, params = {}):
 			'%s/nav.html' % template,
 			**params
 		)
-		params['template'] = template
+		params['navbarDir'] = template
 	except TemplateNotFound, e:
 		print 'nav template was not defined'
-		params['template'] = 'default'
+		params['navbarDir'] = 'default'
 
 
 	#try to load the custom template
 	try:
-		print 'LOADING: %s/%s.html' % (template, name)
 		return render_template(
-			'%s/%s.html' % (template, name),
+			'%s/%s.html' % (template, pageName),
 			**params
 		)
 	except TemplateNotFound, e:
 		print 'Template does not exist, loading the default template. Please check your settings.py'
-		print e
 
 	#if the custom template does not exist, always load the default one
 	return render_template(
-		'default/%s.html' % name,
+		'default/%s.html' % pageName,
 		**params
 	)
 

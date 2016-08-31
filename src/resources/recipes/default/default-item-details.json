@@ -1,0 +1,43 @@
+{
+	"id" : "default-item-details",
+	"name" : "Item details pagina",
+	"type" : "item-details",
+	"description" : "Inclusief standaard annotatiefunctionaliteit",
+	"ingredients" : {
+		"apiSearch" : {
+			"api": [
+				"arttube-connect"
+			]
+		},
+		"annotationSupport" : {
+			"currentQuery" : {
+				"modes" : ["bookmark"]
+			},
+			"singleItem" : {
+				"modes" : ["bookmark"]
+			},
+			"mediaObject" : {
+				"modes" : ["classify", "comment", "link"]
+			},
+			"mediaSegment" : {
+				"modes" : ["classify", "comment", "link"]
+			},
+			"annotation" : {
+				"modes" : ["comment"]
+			}
+		},
+		"annotationModes" : {
+			"classify" : {
+				"vocabularies" : ["GTAA", "DBpedia"]
+			},
+			"link" : {
+				"apis" : [
+					{"name" : "wikidata"},
+					{"name" : "europeana"}
+				]
+			},
+			"bookmark" : {},
+			"comment" : {}
+		}
+	}
+}

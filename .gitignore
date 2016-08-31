@@ -9,3 +9,6 @@ bower_components
 .sass-cache
 *.xcf
 npm-debug.log
+src/templates/clariah
+src/templates/labo
+src/templates/radio-lab
