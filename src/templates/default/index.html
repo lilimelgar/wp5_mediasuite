@@ -1,0 +1,44 @@
+<!doctype HTML>
+
+<html>
+
+<head>
+	<title>L A B O</title>
+	<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/css/main.css">
+</head>
+
+
+<body>
+
+{% with page='home' %}
+{% include '%s/nav.html' % template %}
+{% endwith %}
+
+<div class="container">
+	<br>
+	<h1 class="text-center">
+		Welcome to LABO
+	</h1>
+	<br>
+
+	<div class="row">
+		<div class="col-md-12 well">
+			You're currently viewing the default home page of <strong>LABO</strong>. If you want it to be less boring, please create a folder in:
+			<br>
+			<br>
+			<code>/templates/custom</code> and pass on the name of the folder in your <code>settings.py</code> in <code>CUSTOM_TEMPLATE_DIR</code>
+			<br>
+			<br>
+			After that, it's possible to create your own:
+			<code>index.html</code>, <code>contact.html</code>, <code>about.html</code>
+			<br>
+			<br>
+			For the moment it is not possible to override any of the other pages, but this will be possible in a later version.
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>

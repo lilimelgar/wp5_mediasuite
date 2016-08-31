@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request, Response
 
+from jinja2.exceptions import TemplateNotFound
 
 from functools import wraps
 
@@ -71,45 +72,90 @@ def requires_auth(f):
 		return f(*args, **kwargs)
 	return decorated
 
+def getTemplateImages(templateName):
+	navbarLogo = '/static/images/default/logo.png'
+	if os.path.exists(os.path.join(app.root_path, 'static', 'images', 'custom', 'logo.png')):
+		navbarLogo = '/static/images/custom/logo.png'
+	pageImage = '/static/images/default/%s.png' % templateName
+	if os.path.exists(os.path.join(app.root_path, 'static', 'images', 'custom', '%s.png' % templateName)):
+		pageImage = '/static/images/custom/%s.png' % templateName
+	return navbarLogo, pageImage
+
+def renderTemplate(name, params = {}):
+	#see if a special template is configured
+	template = 'default'
+	if _config.has_key('CUSTOM_TEMPLATE_DIR'):
+		template = _config['CUSTOM_TEMPLATE_DIR']
+
+	#get image data based on the template
+	navbarLogo, pageImage = getTemplateImages(name)
+
+	#set the params for the render_template function
+	params['pageImage'] = pageImage
+	params['navbarLogo'] = navbarLogo
+
+	#test if the nav.html exists
+	try:
+		render_template(
+			'%s/nav.html' % template,
+			**params
+		)
+		params['template'] = template
+	except TemplateNotFound, e:
+		print 'nav template was not defined'
+		params['template'] = 'default'
+
+
+	#try to load the custom template
+	try:
+		print 'LOADING: %s/%s.html' % (template, name)
+		return render_template(
+			'%s/%s.html' % (template, name),
+			**params
+		)
+	except TemplateNotFound, e:
+		print 'Template does not exist, loading the default template. Please check your settings.py'
+		print e
+
+	#if the custom template does not exist, always load the default one
+	return render_template(
+		'default/%s.html' % name,
+		**params
+	)
+
 """------------------------------------------------------------------------------
-REGULAR ROUTING (STATIC CONTENT)
+STATIC PAGES THAT YOU CAN CUSTOMIZE
 ------------------------------------------------------------------------------"""
 
 @app.route('/')
 def home():
-	return render_template('index.html', loggedIn=isLoggedIn(request))
+	return renderTemplate('index', {'loggedIn' : isLoggedIn(request)})
 
 @app.route('/about')
 def about():
-	return render_template('about.html', loggedIn=isLoggedIn(request))
+	return renderTemplate('about', {'loggedIn' : isLoggedIn(request)})
 
 @app.route('/contact')
 def contact():
-	return render_template('contact.html', loggedIn=isLoggedIn(request))
-
-@app.route('/collections')
-def collections():
-	return render_template('collections.html', loggedIn=isLoggedIn(request))
+	return renderTemplate('contact', {'loggedIn' : isLoggedIn(request)})
 
 @app.route('/apis')
 def apis():
-	return render_template('apis.html', loggedIn=isLoggedIn(request))
+	return renderTemplate('apis', {'loggedIn' : isLoggedIn(request)})
 
 @app.route('/components')
 def components():
-	return render_template('components.html', loggedIn=isLoggedIn(request))
+	return renderTemplate('components', {'loggedIn' : isLoggedIn(request)})
 
 @app.route('/recipes')
 def recipes():
 	if app.config['RECIPES'] == None:
 		loadRecipes()
-	colorMap = ['#ffb74d', '#a7ffeb', '#009fda', '#cfd8dc',	'#e00034',
-		'#81c784', '#ffab91', '#adadad', '#5cb85c', 'dodgerblue']
-	return render_template(
-		'recipes.html',
-		recipes=app.config['RECIPES'],
-		colorMap=colorMap,
-		loggedIn=isLoggedIn(request)
+	return renderTemplate(
+		'recipes', {
+			'recipes' : app.config['RECIPES'],
+			'loggedIn' : isLoggedIn(request)
+		}
 	)
 
 @app.route('/recipe/<recipeId>')
@@ -122,14 +168,15 @@ def recipe(recipeId):
 	if app.config['RECIPES'] == None:
 		loadRecipes()
 	if app.config['RECIPES'].has_key(recipeId):
-		return render_template(
-			'recipe.html',
-			recipe=app.config['RECIPES'][recipeId],
-			params=params,
-			loggedIn=isLoggedIn(request)
+		return renderTemplate(
+			'recipe', {
+				'recipe' : app.config['RECIPES'][recipeId],
+				'params' : params,
+				'loggedIn' : isLoggedIn(request)
+			}
 		)
 	print app.config['RECIPES']
-	return render_template('404.html'), 404
+	return renderTemplate('404', {'loggedIn' : isLoggedIn(request)}), 404
 
 """------------------------------------------------------------------------------
 TEMPORARY VOCABULARY 'API'

@@ -12,7 +12,7 @@
 <body>
 
 {% with page='contact' %}
-{% include 'nav.html' %}
+{% include '%s/nav.html' % template %}
 {% endwith %}
 
 <div class="container">
@@ -36,7 +36,7 @@
 
 			<div class="well labs-well">
 				<div class="text-center">
-					<img src="/static/images/team.png" alt="whiteboard">
+					<img src="{{pageImage}}" alt="Contact">
 				</div>
 			</div>
 		</div>
