@@ -1,10 +1,12 @@
 <head>
 	<title>L A B O - Page does not exist</title>
-	<link rel="stylesheet" href="/static/css/main.css">
+	<link rel="stylesheet" href="/static/css/default/main.css">
 	<link href="/static/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
+
+{% include '%s/nav.html' % navbarDir %}
 
 	<div class="container">
 
@@ -15,7 +17,7 @@
 
 					<div class="row text-center">
 						<div class="dashboard-header">
-							<h3>Sorry the page you were looking for does not exist</h3>
+							<h3>The server did not seem to be able to serve the page you requested. Please try again at a later time</h3>
 						</div>
 					</div>
 				</div>

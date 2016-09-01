@@ -127,7 +127,7 @@ def renderTemplate(pageName, params = {}):
 	)
 
 """------------------------------------------------------------------------------
-STATIC PAGES THAT YOU CAN CUSTOMIZE
+STATIC PAGES THAT DO NOT USE THE COMPONENT LIBRARY
 ------------------------------------------------------------------------------"""
 
 @app.route('/')
@@ -146,10 +146,6 @@ def contact():
 def apis():
 	return renderTemplate('apis', {'loggedIn' : isLoggedIn(request)})
 
-@app.route('/components')
-def components():
-	return renderTemplate('components', {'loggedIn' : isLoggedIn(request)})
-
 @app.route('/recipes')
 def recipes():
 	if app.config['RECIPES'] == None:
@@ -160,6 +156,10 @@ def recipes():
 			'loggedIn' : isLoggedIn(request)
 		}
 	)
+
+"""------------------------------------------------------------------------------
+PAGES THAT DO USE THE COMPONENT LIBRARY
+------------------------------------------------------------------------------"""
 
 @app.route('/recipe/<recipeId>')
 def recipe(recipeId):
@@ -180,6 +180,10 @@ def recipe(recipeId):
 		)
 	print app.config['RECIPES']
 	return renderTemplate('404', {'loggedIn' : isLoggedIn(request)}), 404
+
+@app.route('/components')
+def components():
+	return renderTemplate('components', {'loggedIn' : isLoggedIn(request)})
 
 """------------------------------------------------------------------------------
 TEMPORARY VOCABULARY 'API'
@@ -235,13 +239,14 @@ def link(api, command):
 ERROR HANDLERS
 ------------------------------------------------------------------------------"""
 
+#TODO fix the underlying template
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return renderTemplate('404', {'loggedIn' : isLoggedIn(request)}), 404
 
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template('404.html'), 500
+    return renderTemplate('404', {'loggedIn' : isLoggedIn(request)}), 500
 
 
 if __name__ == '__main__':
