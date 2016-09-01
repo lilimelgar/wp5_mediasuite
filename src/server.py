@@ -246,7 +246,7 @@ def page_not_found(e):
 
 @app.errorhandler(500)
 def page_not_found(e):
-    return renderTemplate('404', {'loggedIn' : isLoggedIn(request)}), 500
+    return renderTemplate('500', {'loggedIn' : isLoggedIn(request)}), 500
 
 
 if __name__ == '__main__':
