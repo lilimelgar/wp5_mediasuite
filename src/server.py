@@ -250,4 +250,4 @@ def page_not_found(e):
 
 
 if __name__ == '__main__':
-	app.run(port=_config['API_PORT'], host=_config['API_HOST'])
+	app.run(port=_config['APP_PORT'], host=_config['APP_HOST'])
