@@ -9084,153 +9084,157 @@ h4, h5, h6 {
   margin-bottom: 0px !important;
 }
 
+/* line 5, ../../sass/default/_bootstrap-vertical-nav.scss */
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: white !important;
+  background-color: #bcbcbc !important;
+}
+
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
-  /* line 7, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 12, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 700px;
   }
 
-  /* line 11, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 16, ../../sass/default/_bootstrap-vertical-nav.scss */
   html, body {
-    background-color: #f8f8f8;
+    background-color: white;
     height: 100%;
     overflow: hidden;
   }
 
-  /* line 17, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 22, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 
-  /* line 21, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 26, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav {
     position: fixed;
-    width: 100%;
   }
 
-  /* line 26, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 30, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-sidebar {
     padding-right: 0;
     font-size: small;
     padding-left: 0;
   }
 
-  /* line 31, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 35, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-row, .affix-container, .affix-content {
     height: 100%;
     margin-left: 0;
     margin-right: 0;
   }
 
-  /* line 37, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 41, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content {
     background-color: white;
   }
 
-  /* line 40, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 44, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
     max-height: none;
   }
 
-  /* line 45, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 49, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar {
     border-radius: 0;
     margin-bottom: 0;
     border: 0;
   }
 
-  /* line 51, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 55, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar ul {
-    float: none;
     display: block;
   }
 
-  /* line 55, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 58, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li {
     float: none;
     display: block;
   }
 
-  /* line 59, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 62, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li a {
     padding-top: 12px;
     padding-bottom: 12px;
   }
 }
 @media (min-width: 769px) {
-  /* line 66, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 69, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 600px;
   }
 
-  /* line 69, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 72, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 }
 @media (min-width: 992px) {
-  /* line 75, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 78, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 900px;
   }
 
-  /* line 78, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 81, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 }
 @media (min-width: 1220px) {
-  /* line 84, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 87, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-row {
     overflow: hidden;
   }
 
-  /* line 88, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 91, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content {
     overflow: auto;
   }
 
-  /* line 92, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 95, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 1000px;
   }
 
-  /* line 96, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 99, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 
-  /* line 99, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 102, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content {
     padding-right: 30px;
     padding-left: 30px;
   }
 
-  /* line 103, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 106, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-title {
     border-bottom: 1px solid #ecf0f1;
     padding-bottom: 10px;
   }
 
-  /* line 107, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 110, ../../sass/default/_bootstrap-vertical-nav.scss */
   .navbar-nav {
     margin: 0;
   }
 
-  /* line 110, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 113, ../../sass/default/_bootstrap-vertical-nav.scss */
   .navbar-collapse {
     padding: 0;
   }
 
-  /* line 113, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 116, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li a:hover {
     background-color: #428bca;
     color: white;
   }
 
-  /* line 117, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 120, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li a > .caret {
     margin-top: 8px;
   }

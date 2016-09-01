@@ -2,6 +2,11 @@
 	margin-bottom:0px !important;
 }
 
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color:white !important;
+	background-color: $bgGrey !important;
+}
+
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
 	.affix-content .container {
@@ -9,7 +14,7 @@
 	}
 
 	html,body {
-		background-color: #f8f8f8;
+		background-color: white;
 		height: 100%;
 		overflow: hidden;
 	}
@@ -20,7 +25,6 @@
 
 	.sidebar-nav {
 		position:fixed;
-		width:100%;
 	}
 
 	.affix-sidebar {
@@ -49,7 +53,6 @@
 	}
 
 	.sidebar-nav .navbar ul {
-		float: none;
 		display: block;
 	}
 	.sidebar-nav .navbar li {
