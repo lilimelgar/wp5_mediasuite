@@ -1,13 +1,17 @@
 import React from 'react';
+import MouseTrap from 'mousetrap';
+
 import VimeoPlayer from './VimeoPlayer';
 import JWPlayer from './JWPlayer';
 import YouTubePlayer from './YouTubePlayer';
-import VideoTimeBar from '../components/annotation/VideoTimeBar';
-import SegmentationControls from '../components/annotation/SegmentationControls';
-import TimeUtil from '../util/TimeUtil';
-import FlexBox from '../components/FlexBox';
-import MouseTrap from 'mousetrap';
-import AnnotationUtil from '../util/AnnotationUtil';
+import VideoTimeBar from './VideoTimeBar';
+import SegmentationControls from './SegmentationControls';
+
+import TimeUtil from '../../../util/TimeUtil';
+import AnnotationUtil from '../../../util/AnnotationUtil';
+
+import FlexBox from '../../FlexBox';
+
 
 /*
 This class receives a (generic) playerAPI from the implementing player component.

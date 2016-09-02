@@ -1,9 +1,12 @@
 import React from 'react';
-import CollectionUtil from '../util/CollectionUtil.js';
-import CollectionDataUtil from '../util/CollectionDataUtil.js';
-import FlexModal from './FlexModal.jsx';
+
+import CollectionUtil from '../../util/CollectionUtil.js';
+import CollectionDataUtil from '../../util/CollectionDataUtil.js';
+
 import SearchSnippet from './SearchSnippet.jsx';
 import ItemDetails from './ItemDetails.jsx';
+
+import FlexModal from '../FlexModal.jsx';
 
 class FlexHits extends React.Component {
 	constructor(props) {

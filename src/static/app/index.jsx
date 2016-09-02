@@ -19,49 +19,48 @@ export {default as AnnotationAPI} from './api/AnnotationAPI';
 export {default as CollectionAPI} from './api/CollectionAPI';
 export {default as SearchAPI} from './api/SearchAPI';
 
-//collection related components
-export {default as CollectionSelector} from './components/CollectionSelector';
-export {default as CollectionStats} from './components/CollectionStats';
-export {default as CollectionAnalyser} from './components/CollectionAnalyser';
+//collection components
+export {default as CollectionSelector} from './components/collection/CollectionSelector';
+export {default as CollectionStats} from './components/collection/CollectionStats';
+export {default as CollectionAnalyser} from './components/collection/CollectionAnalyser';
 
-//search related components
-export {default as FacetSearchComponent} from './components/FacetSearchComponent';
-export {default as ComparativeSearch} from './components/ComparativeSearch';
-export {default as SearchSnippet} from './components/SearchSnippet';
-export {default as ItemDetails} from './components/ItemDetails';
+//search components
+export {default as FacetSearchComponent} from './components/search/FacetSearchComponent';
+export {default as ComparativeSearch} from './components/search/ComparativeSearch';
+export {default as SearchSnippet} from './components/search/SearchSnippet';
+export {default as ItemDetails} from './components/search/ItemDetails';
+export {default as FlexHits} from './components/search/FlexHits';
 
 //data visualisation components
-export {default as LineChart} from './components/LineChart';
+export {default as LineChart} from './components/stats/LineChart';
 
 //flex components
 export {default as FlexBox} from './components/FlexBox';
-export {default as FlexHits} from './components/FlexHits';
 export {default as FlexModal} from './components/FlexModal';
 export {default as FlexComponentInfo} from './components/FlexComponentInfo';
 
-//collection mappings (should they be here?)
-export {default as CollectionConfig} from './collection/mappings/CollectionConfig';
-export {default as NISVCatalogueConfig} from './collection/mappings/NISVCatalogueConfig';
-export {default as NISVProgramGuideConfig} from './collection/mappings/NISVProgramGuideConfig';
-export {default as SpeechAndernieuwsConfig} from './collection/mappings/SpeechAndernieuwsConfig';
+//annotation components
+export {default as AnnotationBox} from './components/annotation/AnnotationBox';
+export {default as CommentingForm} from './components/annotation/CommentingForm';
+export {default as ClassifyingForm} from './components/annotation/ClassifyingForm';
+export {default as LinkingForm} from './components/annotation/LinkingForm';
+
+//video players
+export {default as FlexPlayer} from './components/player/video/FlexPlayer';
+export {default as VimeoPlayer} from './components/player/video/VimeoPlayer';
+export {default as YouTubePlayer} from './components/player/video/YouTubePlayer';
+export {default as JWPlayer} from './components/player/video/JWPlayer';
+
+//image viewer
+export {default as FlexImageViewer} from './components/player/image/FlexImageViewer';
 
 //utils
 export {default as CollectionDataUtil} from './util/CollectionDataUtil';
 export {default as CollectionUtil} from './util/CollectionUtil';
 export {default as TimeUtil} from './util/TimeUtil';
 
-//video annotation & segmentation
-export {default as AnnotationBox} from './components/annotation/AnnotationBox';
-export {default as CommentingForm} from './components/annotation/CommentingForm';
-export {default as ClassifyingForm} from './components/annotation/ClassifyingForm';
-export {default as LinkingForm} from './components/annotation/LinkingForm';
-export {default as SegmentationControls} from './components/annotation/SegmentationControls';
-
-//video players
-export {default as FlexPlayer} from './player/FlexPlayer';
-export {default as VimeoPlayer} from './player/VimeoPlayer';
-export {default as YouTubePlayer} from './player/YouTubePlayer';
-export {default as JWPlayer} from './player/JWPlayer';
-
-//image viewer
-export {default as FlexImageViewer} from './player/FlexImageViewer';
+//collection mappings (should they be here?)
+export {default as CollectionConfig} from './collection/mappings/CollectionConfig';
+export {default as NISVCatalogueConfig} from './collection/mappings/NISVCatalogueConfig';
+export {default as NISVProgramGuideConfig} from './collection/mappings/NISVProgramGuideConfig';
+export {default as SpeechAndernieuwsConfig} from './collection/mappings/SpeechAndernieuwsConfig';

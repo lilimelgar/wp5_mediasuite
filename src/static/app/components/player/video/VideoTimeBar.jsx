@@ -1,5 +1,5 @@
 import React from 'react';
-import TimeUtil from '../../util/TimeUtil';
+import TimeUtil from '../../../util/TimeUtil';
 
 //FIXME remove the jQuery dependant stuff
 

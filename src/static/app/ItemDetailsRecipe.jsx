@@ -5,8 +5,8 @@ import React from 'react';
 import TimeUtil from './util/TimeUtil';
 
 import FlexBox from './components/FlexBox';
-import FlexPlayer from './player/FlexPlayer';
-import FlexImageViewer from './player/FlexImageViewer';
+import FlexPlayer from './components/player/video/FlexPlayer';
+import FlexImageViewer from './components/player/image/FlexImageViewer';
 
 import SearchAPI from './api/searchAPI';
 

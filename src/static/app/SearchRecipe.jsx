@@ -1,12 +1,17 @@
 import React from 'react';
 
-import FacetSearchComponent from './components/FacetSearchComponent';
-import ComparativeSearch from './components/ComparativeSearch';
-import LineChart from './components/LineChart';
-import FlexBox from './components/FlexBox';
-import AnnotationUtil from './util/AnnotationUtil';
+import FacetSearchComponent from './components/search/FacetSearchComponent';
+import ComparativeSearch from './components/search/ComparativeSearch';
+
 import AnnotationBox from './components/annotation/AnnotationBox';
 import AnnotationList from './components/annotation/AnnotationList';
+
+import LineChart from './components/stats/LineChart';
+
+import FlexBox from './components/FlexBox';
+
+import AnnotationUtil from './util/AnnotationUtil';
+
 
 
 //TODO pass the user as (React) context

@@ -3,10 +3,14 @@ var $ = require('jquery');
 window.$ = $;
 
 import React from 'react';
-import CollectionAPI from '../api/CollectionAPI.js';
+
+import CollectionAPI from '../../api/CollectionAPI.js';
+
 import CollectionStats from './CollectionStats.jsx';
-import LineChart from './LineChart.jsx';
-import FlexBox from './FlexBox.jsx';
+
+import LineChart from '../stats/LineChart.jsx';
+
+import FlexBox from '../FlexBox.jsx';
 //import CollectionSelector from './CollectionSelector.jsx';
 
 class CollectionAnalyser extends React.Component {

@@ -18,8 +18,8 @@ TODO
 */
 
 import React from 'react';
-import CollectionAPI from '../api/CollectionAPI';
-import CollectionUtil from '../util/CollectionUtil';
+import CollectionAPI from '../../api/CollectionAPI';
+import CollectionUtil from '../../util/CollectionUtil';
 import FlexHits from './FlexHits';
 
 import {

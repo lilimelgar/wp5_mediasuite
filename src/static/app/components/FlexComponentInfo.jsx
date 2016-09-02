@@ -1,5 +1,5 @@
 import React from 'react';
-import CollectionSelector from './CollectionSelector.jsx';
+import CollectionSelector from './collection/CollectionSelector.jsx';
 
 class FlexComponentInfo extends React.Component {
 

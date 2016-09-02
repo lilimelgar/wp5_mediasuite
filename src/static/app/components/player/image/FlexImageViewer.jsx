@@ -4,11 +4,11 @@ Currently uses:
 	- https://github.com/picturae/openseadragonselection
 */
 
-import AnnotationAPI from '../api/AnnotationAPI';
-import AnnotationUtil from '../util/AnnotationUtil';
+import AnnotationAPI from '../../../api/AnnotationAPI';
+import AnnotationUtil from '../../../util/AnnotationUtil';
 
-import AnnotationActions from '../flux/AnnotationActions';
-import AppAnnotationStore from '../flux/AnnotationStore';
+import AnnotationActions from '../../../flux/AnnotationActions';
+import AppAnnotationStore from '../../../flux/AnnotationStore';
 
 //TODO dit ding moet ook reageren op externe deletes en saves (de Flexplayer ook)
 

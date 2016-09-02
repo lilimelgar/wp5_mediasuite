@@ -3,7 +3,7 @@ var $ = require('jquery');
 window.$ = $;
 
 import React from 'react';
-import CollectionAPI from '../api/CollectionAPI.js';
+import CollectionAPI from '../../api/CollectionAPI.js';
 //import CollectionStats from './CollectionStats.jsx';
 
 class CollectionSelector extends React.Component {

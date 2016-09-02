@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import TimeUtil from '../../util/TimeUtil';
+import TimeUtil from '../../../util/TimeUtil';
 
 class SegmentationControls extends React.Component {
 

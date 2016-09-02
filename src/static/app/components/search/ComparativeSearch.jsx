@@ -1,7 +1,7 @@
-import CollectionSelector from './CollectionSelector';
+import CollectionSelector from '../collection/CollectionSelector';
 import FacetSearchComponent from './FacetSearchComponent';
-import FlexBox from './FlexBox';
-import AnnotationUtil from '../util/AnnotationUtil'
+import FlexBox from '../FlexBox';
+import AnnotationUtil from '../../util/AnnotationUtil'
 
 class ComparativeSearch extends React.Component {
 
