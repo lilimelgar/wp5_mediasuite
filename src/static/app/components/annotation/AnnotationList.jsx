@@ -5,12 +5,17 @@ import AnnotationUtil from '../../util/AnnotationUtil';
 import AnnotationActions from '../../flux/AnnotationActions';
 import AppAnnotationStore from '../../flux/AnnotationStore';
 
+/*
+TODO this thing should be a humble button when small and a list when activated
+*/
+
 class AnnotationList extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			annotations : []
+			annotations : [],
+			expanded : false
 		}
 	}
 
@@ -51,8 +56,13 @@ class AnnotationList extends React.Component {
 		}
 	}
 
+	toggleAnnotations(event) {
+		this.setState({expanded : !this.state.expanded});
+	}
+
 	render() {
 		let annotationItems = null;
+		let annotationList = null;
 		if(this.state.annotations) {
 			annotationItems = this.state.annotations.map(function(annotation) {
 				let active = false;
@@ -74,13 +84,23 @@ class AnnotationList extends React.Component {
 					/>
 				);
 			}, this);
+
+			annotationList = (
+				<div style={this.state.expanded ? {display :'block'} : {display:'none'}}>
+					<h3>Saved annotations</h3>
+					<ul className="list-group">
+						{annotationItems}
+					</ul>
+				</div>
+			);
 		}
 		return (
 			<div>
-				<h3>Saved annotations</h3>
-				<ul className="list-group">
-					{annotationItems}
-				</ul>
+				{annotationList}
+				<button className="btn btn-default" onClick={this.toggleAnnotations.bind(this)}>
+					<span className="glyphicon glyphicon-comment"></span>
+				</button>
+
 			</div>
 		);
 	}

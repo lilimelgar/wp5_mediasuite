@@ -8908,12 +8908,13 @@ h4, h5, h6 {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
-/* line 1, ../../sass/default/_searchkit.scss */
+/* ======================== Comparative Search / Facet Search (based on searchkit.co) ======================== */
+/* line 3, ../../sass/default/_component-library.scss */
 .hidden {
   display: none;
 }
 
-/* line 4, ../../sass/default/_searchkit.scss */
+/* line 7, ../../sass/default/_component-library.scss */
 .search-box {
   padding: 0px;
   border-radius: 4px;
@@ -8921,34 +8922,34 @@ h4, h5, h6 {
   background-color: 'white';
 }
 
-/* line 10, ../../sass/default/_searchkit.scss */
+/* line 14, ../../sass/default/_component-library.scss */
 .sk-pagination-navigation.is-numbered {
   width: 90%;
   margin: 5%;
   overflow: hidden;
 }
 
-/* line 16, ../../sass/default/_searchkit.scss */
+/* line 21, ../../sass/default/_component-library.scss */
 .sk-layout__body {
   min-width: 0;
 }
 
-/* line 19, ../../sass/default/_searchkit.scss */
+/* line 25, ../../sass/default/_component-library.scss */
 .sk-search-box__text {
   color: black !important;
 }
 
-/* line 22, ../../sass/default/_searchkit.scss */
+/* line 29, ../../sass/default/_component-library.scss */
 .filter-option {
   color: crimson;
 }
 
-/* line 25, ../../sass/default/_searchkit.scss */
+/* line 33, ../../sass/default/_component-library.scss */
 .search-layout {
   backgroundColor: white;
 }
 
-/* line 29, ../../sass/default/_searchkit.scss */
+/* line 37, ../../sass/default/_component-library.scss */
 .sk-hits__item {
   margin: 5px;
   padding: 10px;
@@ -8956,7 +8957,8 @@ h4, h5, h6 {
   border-radius: 4px;
 }
 
-/* line 36, ../../sass/default/_searchkit.scss */
+/* ======================== Line graph ======================== */
+/* line 46, ../../sass/default/_component-library.scss */
 .axis path,
 .axis line {
   fill: none;
@@ -8964,37 +8966,38 @@ h4, h5, h6 {
   shape-rendering: crispEdges;
 }
 
-/* line 44, ../../sass/default/_searchkit.scss */
+/* line 54, ../../sass/default/_component-library.scss */
 .x.axis path {
   display: none;
 }
 
-/* line 49, ../../sass/default/_searchkit.scss */
+/* line 59, ../../sass/default/_component-library.scss */
 .line {
   fill: none;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
 
-/* line 56, ../../sass/default/_searchkit.scss */
+/* ========================  Annotation ======================== */
+/* line 68, ../../sass/default/_component-library.scss */
 .tag {
   font-size: 100% !important;
   display: inline-block !important;
   margin: 0px 5px 5px 0px;
 }
 
-/* For the autocomplete stuff */
-/* line 64, ../../sass/default/_searchkit.scss */
+/* -------- For the autocomplete stuff -------- */
+/* line 76, ../../sass/default/_component-library.scss */
 .app-container {
   display: flex;
 }
 
-/* line 68, ../../sass/default/_searchkit.scss */
+/* line 80, ../../sass/default/_component-library.scss */
 .react-autosuggest__container {
   position: relative;
 }
 
-/* line 72, ../../sass/default/_searchkit.scss */
+/* line 84, ../../sass/default/_component-library.scss */
 .react-autosuggest__input {
   width: 90%;
   height: 30px;
@@ -9006,18 +9009,18 @@ h4, h5, h6 {
   border-radius: 4px;
 }
 
-/* line 83, ../../sass/default/_searchkit.scss */
+/* line 95, ../../sass/default/_component-library.scss */
 .react-autosuggest__input:focus {
   outline: none;
 }
 
-/* line 87, ../../sass/default/_searchkit.scss */
+/* line 99, ../../sass/default/_component-library.scss */
 .react-autosuggest__container--open .react-autosuggest__input {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-/* line 92, ../../sass/default/_searchkit.scss */
+/* line 104, ../../sass/default/_component-library.scss */
 .react-autosuggest__suggestions-container {
   position: absolute;
   top: 51px;
@@ -9037,18 +9040,18 @@ h4, h5, h6 {
   z-index: 2;
 }
 
-/* line 111, ../../sass/default/_searchkit.scss */
+/* line 123, ../../sass/default/_component-library.scss */
 .react-autosuggest__suggestion {
   cursor: pointer;
   padding: 10px 20px;
 }
 
-/* line 116, ../../sass/default/_searchkit.scss */
+/* line 128, ../../sass/default/_component-library.scss */
 .react-autosuggest__suggestion--focused {
   background-color: #ddd;
 }
 
-/* line 1, ../../sass/default/_player.scss */
+/* line 1, ../../sass/default/_media-players.scss */
 .timebar {
   width: 100%;
   height: 50px;
@@ -9059,12 +9062,12 @@ h4, h5, h6 {
   cursor: crosshair;
 }
 
-/* line 12, ../../sass/default/_player.scss */
+/* line 12, ../../sass/default/_media-players.scss */
 .media-player img {
   max-width: 100%;
 }
 
-/* line 17, ../../sass/default/_player.scss */
+/* line 17, ../../sass/default/_media-players.scss */
 .image-overlay {
   outline: 1px solid yellowchiffon;
   box-shadow: 10px 10px 5px #888888;
@@ -9072,7 +9075,7 @@ h4, h5, h6 {
   background-color: rgba(255, 250, 205, 0.2);
   cursor: pointer;
 }
-/* line 23, ../../sass/default/_player.scss */
+/* line 23, ../../sass/default/_media-players.scss */
 .image-overlay.active {
   outline: 1px solid red;
   box-shadow: 10px 10px 5px crimson;

@@ -160,30 +160,40 @@ class FacetSearchComponent extends React.Component {
 				<SearchkitProvider searchkit={this.skInstance}>
 					<div className={this.state.minimized ? 'hidden' : ''}>
 
-						<div className="search-box">
-							<SearchBox
-								autofocus={true}
-								searchOnChange={false}
-								//searchThrottleTime={400}
-								prefixQueryFields={this.state.collectionConfig.prefixQueryFields}
-								/>
+						<div className="row">
+							<div className="col-md-12">
+								<SearchBox
+									autofocus={true}
+									searchOnChange={false}
+									//searchThrottleTime={400}
+									prefixQueryFields={this.state.collectionConfig.prefixQueryFields}
+									/>
+							</div>
 						</div>
 
-						<div>
-							<HitsStats/>
+						<div className="row">
 
-							<form>
-								<div className="checkbox">
-									<label>
-										<input type="checkbox" onChange={this.toggleFacets.bind(this)}/> Filter results
-									</label>
-	  							</div>
-							</form>
+							<div className="col-md-3">
+								<HitsStats/>
+							</div>
 
-							Results per page: <PageSizeSelector options={[10,20,50]} listComponent={Select} />
+							<div className="col-md-3">
+								<form>
+									<div className="checkbox">
+										<label>
+											<input type="checkbox" onChange={this.toggleFacets.bind(this)}/> Filter results
+										</label>
+		  							</div>
+								</form>
+							</div>
+
+							<div className="col-md-3">
+								<PageSizeSelector options={[10,20,50]} listComponent={Select} />
+							</div>
+
 						</div>
 
-						<div className="sk-layout__body">
+						<div className="row sk-layout__body">
 
 
 							<div className={this.state.displayFacets ? '' : 'hidden'}>
@@ -215,7 +225,11 @@ class FacetSearchComponent extends React.Component {
 
 						</div>
 
-						<Pagination showNumbers={true}/>
+						<div className="row">
+							<div className="col-md-12">
+								<Pagination showNumbers={true}/>
+							</div>
+						</div>
 
 					</div>
 				</SearchkitProvider>

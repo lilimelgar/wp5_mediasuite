@@ -1,27 +1,35 @@
+/* ======================== Comparative Search / Facet Search (based on searchkit.co) ======================== */
+
 .hidden {
 	display:none;
 }
+
 .search-box {
 	padding: 0px;
 	border-radius: 4px;
 	border: 1px solid dodgerblue;
 	background-color: 'white';
 }
+
 .sk-pagination-navigation.is-numbered {
 	width:90%;
 	margin:5%;
 	overflow:hidden;
 
 }
+
 .sk-layout__body {
 	min-width:0;
 }
+
 .sk-search-box__text {
 	color:black !important;
 }
+
 .filter-option {
 	color: crimson;
 }
+
 .search-layout {
 	backgroundColor: white;
 }
@@ -32,6 +40,8 @@
 	border: 1px solid dodgerblue;
 	border-radius: 4px;
 }
+
+/* ======================== Line graph ======================== */
 
 .axis path,
 .axis line {
@@ -53,13 +63,15 @@
 
 }
 
+/* ========================  Annotation ======================== */
+
 .tag {
 	font-size: 100% !important;
 	display: inline-block !important;
 	margin: 0px 5px 5px 0px;
 }
 
-/* For the autocomplete stuff */
+/* -------- For the autocomplete stuff -------- */
 
 .app-container {
 	display: flex;
