@@ -45,6 +45,9 @@ h4, h5, h6 {
 	height:100%;
 }
 
+
+/* ======================== Home page layout components ======================== */
+
 .labs-well {
 	background-color:white;
 	border:2px solid $bgBlue;
@@ -70,10 +73,6 @@ h4, h5, h6 {
 		border-radius: 2px;
 		box-shadow: 0 2px 10px 0 rgba(0,0,0,0.16);
 	}
-}
-
-.interactive {
-	cursor:pointer;
 }
 
 .card {
@@ -104,4 +103,14 @@ h4, h5, h6 {
 	    border-radius: 2px;
 	    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
     }
+}
+
+/* ======================== Global basic states ======================== */
+
+.interactive {
+	cursor:pointer;
+}
+
+.hidden {
+	display:none;
 }

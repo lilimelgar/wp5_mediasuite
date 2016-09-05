@@ -158,7 +158,7 @@ class FacetSearchComponent extends React.Component {
 
 			facetSearch = (
 				<SearchkitProvider searchkit={this.skInstance}>
-					<div className={this.state.minimized ? 'hidden' : ''}>
+					<div>
 
 						<div className="row">
 							<div className="col-md-12">
@@ -193,33 +193,35 @@ class FacetSearchComponent extends React.Component {
 
 						</div>
 
-						<div className="row sk-layout__body">
+						<div className="row">
 
-
-							<div className={this.state.displayFacets ? '' : 'hidden'}>
-								{filterBlocks}
+							<div className={this.state.displayFacets ? 'col-md-3' : 'col-md-0'}>
+								<div className={this.state.displayFacets ? '' : 'hidden'}>
+									{filterBlocks}
+								</div>
 							</div>
 
+							<div className={this.state.displayFacets ? 'col-md-9' : 'col-md-12'}>
+								<div className="sk-layout__results sk-results-list">
+									<div className="sk-result_action-bar sk-action-bar">
+										<Hits
+											hitsPerPage={10}
+											itemComponent={
+												<FlexHits
+													collection={this.props.collection}
+													itemDetailsRecipe={this.props.itemDetailsRecipe}
+												/>
+											}
+											//sourceFilter={this.props.sourceFilter}
+										/>
 
-							<div className="sk-layout__results sk-results-list">
-								<div className="sk-result_action-bar sk-action-bar">
-									<Hits
-										hitsPerPage={10}
-										itemComponent={
-											<FlexHits
-												collection={this.props.collection}
-												itemDetailsRecipe={this.props.itemDetailsRecipe}
-											/>
-										}
-										//sourceFilter={this.props.sourceFilter}
-									/>
-
-									<NoHits translations={{
-										 "NoHits.NoResultsFound":"No results found were found for {query}",
-										 "NoHits.DidYouMean":"Search for {suggestion}",
-										 "NoHits.SearchWithoutFilters":"Search for {query} without filters"
-									}}/>
-									<InitialLoader/>
+										<NoHits translations={{
+											 "NoHits.NoResultsFound":"No results found were found for {query}",
+											 "NoHits.DidYouMean":"Search for {suggestion}",
+											 "NoHits.SearchWithoutFilters":"Search for {query} without filters"
+										}}/>
+										<InitialLoader/>
+									</div>
 								</div>
 							</div>
 

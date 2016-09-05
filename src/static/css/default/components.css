@@ -8837,7 +8837,8 @@ h4, h5, h6 {
   height: 100%;
 }
 
-/* line 48, ../../sass/default/_home.scss */
+/* ======================== Home page layout components ======================== */
+/* line 51, ../../sass/default/_home.scss */
 .labs-well {
   background-color: white;
   border: 2px solid #009fda;
@@ -8845,24 +8846,24 @@ h4, h5, h6 {
   min-height: 170px;
   text-style: justify;
 }
-/* line 54, ../../sass/default/_home.scss */
+/* line 57, ../../sass/default/_home.scss */
 .labs-well h3 {
   font-family: 'Nothing You Could Do', cursive;
 }
-/* line 57, ../../sass/default/_home.scss */
+/* line 60, ../../sass/default/_home.scss */
 .labs-well.labs-goto {
   cursor: pointer;
   border: 2px solid #e00034;
 }
-/* line 60, ../../sass/default/_home.scss */
+/* line 63, ../../sass/default/_home.scss */
 .labs-well.labs-goto:hover {
   border-color: black;
 }
-/* line 61, ../../sass/default/_home.scss */
+/* line 64, ../../sass/default/_home.scss */
 .labs-well.labs-goto:hover h3 {
   color: #e00034;
 }
-/* line 67, ../../sass/default/_home.scss */
+/* line 70, ../../sass/default/_home.scss */
 .labs-well img {
   max-width: 100%;
   border: 10px solid #fff;
@@ -8870,12 +8871,7 @@ h4, h5, h6 {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
-/* line 75, ../../sass/default/_home.scss */
-.interactive {
-  cursor: pointer;
-}
-
-/* line 79, ../../sass/default/_home.scss */
+/* line 78, ../../sass/default/_home.scss */
 .card {
   padding: 0;
   height: 380px;
@@ -8883,7 +8879,7 @@ h4, h5, h6 {
   background-color: #f5f5f5;
   border-radius: 2px;
 }
-/* line 85, ../../sass/default/_home.scss */
+/* line 84, ../../sass/default/_home.scss */
 .card img {
   display: block;
   width: 328px;
@@ -8891,16 +8887,16 @@ h4, h5, h6 {
   margin: auto;
   max-width: 100%;
 }
-/* line 92, ../../sass/default/_home.scss */
+/* line 91, ../../sass/default/_home.scss */
 .card .caption {
   padding: 16px 16px 6px 16px;
 }
-/* line 95, ../../sass/default/_home.scss */
+/* line 94, ../../sass/default/_home.scss */
 .card:hover {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
-/* line 101, ../../sass/default/_home.scss */
+/* line 100, ../../sass/default/_home.scss */
 .cardimage img {
   max-width: 100%;
   border: 10px solid white;
@@ -8908,57 +8904,70 @@ h4, h5, h6 {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 }
 
-/* ======================== Comparative Search / Facet Search (based on searchkit.co) ======================== */
-/* line 3, ../../sass/default/_component-library.scss */
+/* ======================== Global basic states ======================== */
+/* line 110, ../../sass/default/_home.scss */
+.interactive {
+  cursor: pointer;
+}
+
+/* line 114, ../../sass/default/_home.scss */
 .hidden {
   display: none;
 }
 
-/* line 7, ../../sass/default/_component-library.scss */
-.search-box {
-  padding: 0px;
-  border-radius: 4px;
-  border: 1px solid dodgerblue;
-  background-color: 'white';
+/* ======================== Comparative Search / Facet Search (based on searchkit.co) ======================== */
+/* line 3, ../../sass/default/_component-library.scss */
+.sk-search-box {
+  border: 1px solid #009fda;
+}
+/* line 5, ../../sass/default/_component-library.scss */
+.sk-search-box .sk-search-box__text {
+  color: black;
+}
+
+/* line 10, ../../sass/default/_component-library.scss */
+.sk-select {
+  margin-top: 10px;
 }
 
 /* line 14, ../../sass/default/_component-library.scss */
+.sk-hits-stats__info {
+  color: #009fda;
+  margin-top: 10px;
+}
+
+/* line 19, ../../sass/default/_component-library.scss */
 .sk-pagination-navigation.is-numbered {
   width: 90%;
   margin: 5%;
   overflow: hidden;
 }
 
-/* line 21, ../../sass/default/_component-library.scss */
-.sk-layout__body {
-  min-width: 0;
+/* line 28, ../../sass/default/_component-library.scss */
+.sk-item-list-option .sk-item-list-option__text {
+  margin-left: 10px;
 }
-
-/* line 25, ../../sass/default/_component-library.scss */
-.sk-search-box__text {
-  color: black !important;
-}
-
-/* line 29, ../../sass/default/_component-library.scss */
-.filter-option {
-  color: crimson;
-}
-
-/* line 33, ../../sass/default/_component-library.scss */
-.search-layout {
-  backgroundColor: white;
+/* line 32, ../../sass/default/_component-library.scss */
+.sk-item-list-option .sk-item-list-option__count {
+  color: #333;
 }
 
 /* line 37, ../../sass/default/_component-library.scss */
+.sk-layout__results {
+  box-shadow: none;
+  background-color: inherit;
+}
+
+/* line 42, ../../sass/default/_component-library.scss */
 .sk-hits__item {
   margin: 5px;
   padding: 10px;
-  border: 1px solid dodgerblue;
+  border: 1px solid #009fda;
   border-radius: 4px;
 }
 
 /* ======================== Line graph ======================== */
-/* line 46, ../../sass/default/_component-library.scss */
+/* line 51, ../../sass/default/_component-library.scss */
 .axis path,
 .axis line {
   fill: none;
@@ -8966,12 +8975,12 @@ h4, h5, h6 {
   shape-rendering: crispEdges;
 }
 
-/* line 54, ../../sass/default/_component-library.scss */
+/* line 59, ../../sass/default/_component-library.scss */
 .x.axis path {
   display: none;
 }
 
-/* line 59, ../../sass/default/_component-library.scss */
+/* line 64, ../../sass/default/_component-library.scss */
 .line {
   fill: none;
   stroke: steelblue;
@@ -8979,7 +8988,7 @@ h4, h5, h6 {
 }
 
 /* ========================  Annotation ======================== */
-/* line 68, ../../sass/default/_component-library.scss */
+/* line 73, ../../sass/default/_component-library.scss */
 .tag {
   font-size: 100% !important;
   display: inline-block !important;
@@ -8987,17 +8996,17 @@ h4, h5, h6 {
 }
 
 /* -------- For the autocomplete stuff -------- */
-/* line 76, ../../sass/default/_component-library.scss */
+/* line 81, ../../sass/default/_component-library.scss */
 .app-container {
   display: flex;
 }
 
-/* line 80, ../../sass/default/_component-library.scss */
+/* line 85, ../../sass/default/_component-library.scss */
 .react-autosuggest__container {
   position: relative;
 }
 
-/* line 84, ../../sass/default/_component-library.scss */
+/* line 89, ../../sass/default/_component-library.scss */
 .react-autosuggest__input {
   width: 90%;
   height: 30px;
@@ -9009,18 +9018,18 @@ h4, h5, h6 {
   border-radius: 4px;
 }
 
-/* line 95, ../../sass/default/_component-library.scss */
+/* line 100, ../../sass/default/_component-library.scss */
 .react-autosuggest__input:focus {
   outline: none;
 }
 
-/* line 99, ../../sass/default/_component-library.scss */
+/* line 104, ../../sass/default/_component-library.scss */
 .react-autosuggest__container--open .react-autosuggest__input {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-/* line 104, ../../sass/default/_component-library.scss */
+/* line 109, ../../sass/default/_component-library.scss */
 .react-autosuggest__suggestions-container {
   position: absolute;
   top: 51px;
@@ -9040,13 +9049,13 @@ h4, h5, h6 {
   z-index: 2;
 }
 
-/* line 123, ../../sass/default/_component-library.scss */
+/* line 128, ../../sass/default/_component-library.scss */
 .react-autosuggest__suggestion {
   cursor: pointer;
   padding: 10px 20px;
 }
 
-/* line 128, ../../sass/default/_component-library.scss */
+/* line 133, ../../sass/default/_component-library.scss */
 .react-autosuggest__suggestion--focused {
   background-color: #ddd;
 }
@@ -9087,157 +9096,151 @@ h4, h5, h6 {
   margin-bottom: 0px !important;
 }
 
-/* line 5, ../../sass/default/_bootstrap-vertical-nav.scss */
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: white !important;
-  background-color: #bcbcbc !important;
-}
-
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
-  /* line 12, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 11, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 700px;
   }
 
-  /* line 16, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 15, ../../sass/default/_bootstrap-vertical-nav.scss */
   html, body {
     background-color: white;
     height: 100%;
     overflow: hidden;
   }
 
-  /* line 22, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 21, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 
-  /* line 26, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 25, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav {
     position: fixed;
   }
 
-  /* line 30, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 29, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-sidebar {
     padding-right: 0;
     font-size: small;
     padding-left: 0;
   }
 
-  /* line 35, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 34, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-row, .affix-container, .affix-content {
     height: 100%;
     margin-left: 0;
     margin-right: 0;
   }
 
-  /* line 41, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 40, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content {
     background-color: white;
   }
 
-  /* line 44, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 43, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
     max-height: none;
   }
 
-  /* line 49, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 48, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar {
     border-radius: 0;
     margin-bottom: 0;
     border: 0;
   }
 
-  /* line 55, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 54, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar ul {
     display: block;
   }
 
-  /* line 58, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 57, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li {
     float: none;
     display: block;
   }
 
-  /* line 62, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 61, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li a {
     padding-top: 12px;
     padding-bottom: 12px;
   }
 }
 @media (min-width: 769px) {
-  /* line 69, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 68, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 600px;
   }
 
-  /* line 72, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 71, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 }
 @media (min-width: 992px) {
-  /* line 78, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 77, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 900px;
   }
 
-  /* line 81, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 80, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 }
 @media (min-width: 1220px) {
-  /* line 87, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 86, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-row {
     overflow: hidden;
   }
 
-  /* line 91, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 90, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content {
     overflow: auto;
   }
 
-  /* line 95, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 94, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container {
     width: 1000px;
   }
 
-  /* line 99, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 98, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content .container .page-header {
     margin-top: 0;
   }
 
-  /* line 102, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 101, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-content {
     padding-right: 30px;
     padding-left: 30px;
   }
 
-  /* line 106, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 105, ../../sass/default/_bootstrap-vertical-nav.scss */
   .affix-title {
     border-bottom: 1px solid #ecf0f1;
     padding-bottom: 10px;
   }
 
-  /* line 110, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 109, ../../sass/default/_bootstrap-vertical-nav.scss */
   .navbar-nav {
     margin: 0;
   }
 
-  /* line 113, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 112, ../../sass/default/_bootstrap-vertical-nav.scss */
   .navbar-collapse {
     padding: 0;
   }
 
-  /* line 116, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 115, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li a:hover {
     background-color: #428bca;
     color: white;
   }
 
-  /* line 120, ../../sass/default/_bootstrap-vertical-nav.scss */
+  /* line 119, ../../sass/default/_bootstrap-vertical-nav.scss */
   .sidebar-nav .navbar li a > .caret {
     margin-top: 8px;
   }

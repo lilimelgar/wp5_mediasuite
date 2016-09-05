@@ -34,7 +34,9 @@ class FlexPlayer extends React.Component {
 			start : -1,
 			end : -1,
 			paused : true,//FIXME call the player API instead (isPaused)?
-			fragmentMode : false,
+			fragmentMode : false, //only play the current fragment
+			playAnnotations : false,
+
 
 			//this could be part of a super class
 			annotations : this.props.mediaObject.annotations ? this.props.mediaObject.annotations : [],
