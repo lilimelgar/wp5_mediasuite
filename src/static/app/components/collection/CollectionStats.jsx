@@ -4,9 +4,6 @@ class CollectionStats extends React.Component {
 
 	constructor(props) {
 		super(props);
-		// this.setState({
-		console.debug(props);
-		// });
 	}
 
 	render() {

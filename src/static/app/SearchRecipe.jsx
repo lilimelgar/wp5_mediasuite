@@ -127,7 +127,7 @@ class Recipe extends React.Component {
 		//first generate the input components to see if they require output components, such as the lineChart
 		if(this.props.ingredients.comparativeSearch) {
 			comparativeSearch = (
-				<ComparativeSearch
+				<FlexBox><ComparativeSearch
 					user={this.state.user}
 					collections={this.props.ingredients.comparativeSearch.collections}
 
@@ -139,7 +139,7 @@ class Recipe extends React.Component {
 					annotationSupport={this.props.ingredients.annotationSupport}
 
 					editAnnotation={this.editAnnotation.bind(this)} //each annotation support should call this function
-				/>);
+				/></FlexBox>);
 
 			//TODO only render when there is linechart data
 			if(this.props.ingredients.comparativeSearch.output == 'lineChart') {
@@ -154,15 +154,19 @@ class Recipe extends React.Component {
 		}
 
 		return (
-			<div className="row">
-				<div className={this.props.ingredients.annotationSupport ? 'col-md-9' : 'col-md-12'}>
-					{facetSearch}
-					{lineChart}
-					{comparativeSearch}
+			<div>
+				<div className="row">
+					<div className="col-md-12">
+						{annotationList}
+						{annotationBox}
+					</div>
 				</div>
-				<div className={this.props.ingredients.annotationSupport ? 'col-md-3' : null}>
-					{annotationList}
-					{annotationBox}
+				<div className="row">
+					<div className="col-md-12">
+						{facetSearch}
+						{lineChart}
+						{comparativeSearch}
+					</div>
 				</div>
 			</div>
 		);

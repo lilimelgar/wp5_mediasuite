@@ -5,10 +5,6 @@ import AnnotationUtil from '../../util/AnnotationUtil';
 import AnnotationActions from '../../flux/AnnotationActions';
 import AppAnnotationStore from '../../flux/AnnotationStore';
 
-/*
-TODO this thing should be a humble button when small and a list when activated
-*/
-
 class AnnotationList extends React.Component {
 
 	constructor(props) {

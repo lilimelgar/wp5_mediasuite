@@ -8,7 +8,7 @@ import FlexBox from './components/FlexBox';
 import FlexPlayer from './components/player/video/FlexPlayer';
 import FlexImageViewer from './components/player/image/FlexImageViewer';
 
-import SearchAPI from './api/searchAPI';
+import SearchAPI from './api/SearchAPI';
 
 import AnnotationAPI from './api/AnnotationAPI';
 import AnnotationUtil from './util/AnnotationUtil'

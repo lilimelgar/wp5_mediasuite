@@ -1,10 +1,5 @@
-//ugly shit
-var $ = require('jquery');
-window.$ = $;
-
-import React from 'react';
 import CollectionAPI from '../../api/CollectionAPI.js';
-//import CollectionStats from './CollectionStats.jsx';
+import CollectionStats from './CollectionStats.jsx';
 
 class CollectionSelector extends React.Component {
 
@@ -22,11 +17,12 @@ class CollectionSelector extends React.Component {
 		});
 	}
 
-	setDocumentTypes(event) {
+	loadDocumentTypes(event) {
 		let collectionId = event.target.value;
 		this.setState(
 			{activeCollection : collectionId},
 			CollectionAPI.getCollectionStats(collectionId, (data) => {
+				console.debug(data);
 				this.setState(
 					{
 						activeCollectionStats : data,
@@ -39,32 +35,16 @@ class CollectionSelector extends React.Component {
 
 	}
 
-	setCollectionFields() {
-		this.setState(
-			{activeCollection : event.target.value},
-
-			this.state.activeCollectionStats.collection_statistics.document_types.forEach((docTypeStats) => {
-				if (docTypeStats.doc_type === this.state.activeCollection) {
-					this.setState(
-						{
-							activeDocumentType : docTypeStats.doc_type,
-							activeDocumentTypeStats : docTypeStats
-						}
-					);
-				}
-			})
-		);
+	setDocumentType() {
+		this.setState({activeDocumentType : event.target.value});
 	}
 
 	//TODO make this a good function for adding/removing selected collections
-	addCollection(e) {
+	onOutput(e) {
 		e.preventDefault();
-		let collectionId = this.state.activeCollection;
-		if(collectionId != '') {
-			if(this.props.onEditCollections) {
-				this.props.onEditCollections(collectionId);
-			}
-			this.setState({activeCollection : ''});
+		if(this.props.onOutput) {
+			let collectionId = this.state.activeCollection;
+			this.props.onOutput(collectionId);
 		}
 	}
 
@@ -91,7 +71,7 @@ class CollectionSelector extends React.Component {
 					<label>Select collection</label>
 					<select className="form-control"
 						value={this.state.activeCollection}
-						onChange={this.setDocumentTypes.bind(this)}>
+						onChange={this.loadDocumentTypes.bind(this)}>
 						{collectionOptions}
 					</select>
 				</fieldset>
@@ -111,32 +91,30 @@ class CollectionSelector extends React.Component {
 						<label>Select document type</label>
 						<select className="form-control"
 							value={this.state.activeDocType}
-							onChange={this.setCollectionFields.bind(this)}>
+							onChange={this.setDocumentType.bind(this)}>
 							{docTypeOptions}
 						</select>
 					</fieldset>
 				);
 
-				//draw the stats too
-				//collectionStats = (<CollectionStats data={this.state.activeCollectionStats}/>);
-			}
-
-			//the analysis and date field selection part
-			if(this.state.activeDocumentTypeStats) {
+				//draw the stats too TODO fix them!
+				if(this.props.showStats) {
+					collectionStats = (<CollectionStats data={this.state.activeCollectionStats}/>);
+				}
 			}
 
 			return (
 				<div className="row">
-					<div className="col-md-5">
-						<form key="collection_selector" onSubmit={this.addCollection.bind(this)}>
+					<div className={this.props.showStats ? 'col-md-5' : 'col-md-12'}>
+						<form key="collection_selector" onSubmit={this.onOutput.bind(this)}>
 							{collectionSelect}
 							{documentTypeSelect}
-							<button className="btn btn-primary">
-								Add to recipe&nbsp;<i className="glyphicon glyphicon-plus"></i>
+							<button className="btn btn-default">
+								Select
 							</button>
 						</form>
 					</div>
-					<div className="col-md-5">
+					<div className={this.props.showStats ? 'col-md-5' : 'hidden'}>
 						{collectionStats}
 					</div>
 				</div>

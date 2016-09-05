@@ -30,8 +30,8 @@ class ComparativeSearch extends React.Component {
 		}
 	}
 
-	//TODO this function should never load a collection that has been already loaded
-	onEditCollections(collectionId) {
+	//connected to the onOutput of the CollectionSelector
+	onAddCollection(collectionId) {
 		let cs = this.state.collections;
 		if(cs.indexOf(collectionId) == -1) {
 			cs.push(collectionId);
@@ -94,12 +94,10 @@ class ComparativeSearch extends React.Component {
 	/* ---------------------- RENDER ------------------- */
 
 	render() {
-		var collectionSelector = null;
+		let collectionSelector = null;
 		let annotationTestButtons = null;
-		console.debug('show me the damn recipe');
-		console.debug(this.props.itemDetailsRecipe);
 		//for drawing the tabs
-		var searchTabs = this.state.collections.map(function(c) {
+		const searchTabs = this.state.collections.map(function(c) {
 			return (
 				<li key={c + '__tab_option'}
 					className={this.state.activeCollection == c ? 'active' : ''}>
@@ -111,7 +109,7 @@ class ComparativeSearch extends React.Component {
 		}, this)
 
 		//these are the facet search UI blocks put into different tabs
-		var searchTabContents = this.state.collections.map(function(c) {
+		const searchTabContents = this.state.collections.map(function(c) {
 			return (
 				<div key={c + '__tab_content'}
 					id={c}
@@ -129,7 +127,7 @@ class ComparativeSearch extends React.Component {
 
 		//only show if configured
 		if(this.props.collectionSelector === true) {
-			collectionSelector = <FlexBox><CollectionSelector onEditCollections={this.onEditCollections.bind(this)}/></FlexBox>;
+			collectionSelector = <CollectionSelector onOutput={this.onAddCollection.bind(this)} showStats={false}/>;
 		}
 
 		//only show if configured
@@ -158,18 +156,17 @@ class ComparativeSearch extends React.Component {
 
 		return (
 			<div>
-				{collectionSelector}
 				<div className="row">
 					<div className="col-md-12">
-						<FlexBox>
-							{annotationTestButtons}
-							<ul className="nav nav-tabs">
-								{searchTabs}
-							</ul>
-							<div className="tab-content">
-								{searchTabContents}
-							</div>
-						</FlexBox>
+						{annotationTestButtons}
+						{collectionSelector}
+						<br/>
+						<ul className="nav nav-tabs">
+							{searchTabs}
+						</ul>
+						<div className="tab-content">
+							{searchTabContents}
+						</div>
 					</div>
 				</div>
 			</div>
