@@ -1,3 +1,4 @@
+import SearchAPI from '../../api/SearchAPI';
 import CollectionSelector from '../collection/CollectionSelector';
 import FacetSearchComponent from './FacetSearchComponent';
 import FlexBox from '../FlexBox';
@@ -30,18 +31,6 @@ class ComparativeSearch extends React.Component {
 		}
 	}
 
-	//connected to the onOutput of the CollectionSelector
-	onAddCollection(collectionId) {
-		let cs = this.state.collections;
-		if(cs.indexOf(collectionId) == -1) {
-			cs.push(collectionId);
-			this.setState({
-				collections : cs,
-				activeCollection : collectionId
-			});
-		}
-	}
-
 	/* ----------------------- FOR ANNOTATION SUPPORT (candidates for utility or super class)----- */
 
 	//this function should check if the annotation support is relevant for itself
@@ -54,27 +43,33 @@ class ComparativeSearch extends React.Component {
 		return false;
 	}
 
-	bookmark(type) {
-		console.debug('bookmarking:  '+ type);
-		console.debug(this.props.annotationSupport[type]);
-		if(this.props.annotationSupport[type].modes.indexOf('bookmark') != -1) {
-			if(type == 'currentQuery' && this.state.currentOutput != null) {
-				console.debug('bookmarked this query:');
-				console.debug(this.state.currentOutput.results.query);
-			}
-		}
-	}
-
 	/* ------------------------------------------------------------------------------
 	------------------------------- COMMUNICATION WITH OWNER/RECIPE -----------------
 	------------------------------------------------------------------------------- */
 
-	//this function should be standard for any component that outputs data to the recipe
-	onOutput(componentType, data) {
+	onOutput(componentClass, data) {
+		//passes along the output to the owner (if specified in the props)
 		if(this.props.onOutput) {
-			this.props.onOutput(componentType, data);
+			this.props.onOutput(componentClass, data);
 		}
-		this.setState({currentOutput: data});
+		//stores the current output of the last search in the state (for bookmarking)
+		if(componentClass == 'FacetSearchComponent') {
+			this.setState({currentOutput: data});
+		}
+	}
+
+		//connected to the onOutput of the CollectionSelector
+	onComponentOutput(componentClass, collectionId) {
+		if(componentClass == 'CollectionSelector') {
+			let cs = this.state.collections;
+			if(cs.indexOf(collectionId) == -1) {
+				cs.push(collectionId);
+				this.setState({
+					collections : cs,
+					activeCollection : collectionId
+				});
+			}
+		}
 	}
 
 	//TODO assign the current media Object as target
@@ -114,10 +109,12 @@ class ComparativeSearch extends React.Component {
 					className={this.state.activeCollection == c ? 'tab-pane active' : 'tab-pane'}>
 					<h3>{c}</h3>
 					<FacetSearchComponent key={c + '__sk'}
+						user={this.props.user}
 						collection={c}
 						searchAPI={_config.SEARCH_API_BASE}
 						onOutput={this.onOutput.bind(this)}
 						itemDetailsRecipe={this.props.itemDetailsRecipe}
+						annotationSupport={this.props.annotationSupport}
 						/>
 				</div>
 				);
@@ -125,7 +122,7 @@ class ComparativeSearch extends React.Component {
 
 		//only show if configured
 		if(this.props.collectionSelector === true) {
-			collectionSelector = <CollectionSelector onOutput={this.onAddCollection.bind(this)} showStats={false}/>;
+			collectionSelector = <CollectionSelector onOutput={this.onComponentOutput.bind(this)} showStats={false}/>;
 		}
 
 		//only show if configured
@@ -137,11 +134,6 @@ class ComparativeSearch extends React.Component {
 				);
 			annotationTestButtons = (
 				<div>
-					<button type="button" className="btn btn-default"
-						onClick={this.bookmark.bind(this, 'currentQuery')}>
-						Bookmark current query
-					</button>
-					&nbsp;
 					<button type="button" className="btn btn-default"
 						onClick={this.props.editAnnotation.bind(this, annotation)}>
 						Annotate test

@@ -47,7 +47,7 @@ class CollectionSelector extends React.Component {
 		e.preventDefault();
 		if(this.props.onOutput) {
 			let collectionId = this.state.activeCollection;
-			this.props.onOutput(collectionId);
+			this.props.onOutput(this.constructor.name, collectionId);
 		}
 	}
 

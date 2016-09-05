@@ -33,8 +33,8 @@ class Recipe extends React.Component {
 
 	//this function receives all output of components that generate output and orchestrates where
 	//to pass it to based on the ingredients of the recipe
-	onComponentOutput(componentType, data) {
-		if(componentType == 'facet-search') {
+	onComponentOutput(componentClass, data) {
+		if(componentClass == 'FacetSearchComponent') {
 			var lineChartData = this.state.lineChartData ? this.state.lineChartData : {};
 			var timelineData = this.prepareTimeline(data.collectionId, data.results, data.dateField);
 			lineChartData[data.collectionId] = {
@@ -47,6 +47,7 @@ class Recipe extends React.Component {
 	}
 
 	//TODO move this stuff to some utility that can transform query data in other formats suitable for other components
+	//The timeline is drawn based on the configured date field facet
 	prepareTimeline(queryId, queryOutput, dateField) {
 		var timelineData = [];
 		for (let key in queryOutput.aggregations) {
@@ -60,6 +61,7 @@ class Recipe extends React.Component {
 				});
 			}
 		}
+		console.debug(timelineData);
 		return timelineData;
 	}
 

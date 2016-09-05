@@ -20,6 +20,7 @@ TODO
 import React from 'react';
 import CollectionAPI from '../../api/CollectionAPI';
 import CollectionUtil from '../../util/CollectionUtil';
+import BookmarkUtil from '../../util/BookmarkUtil';
 import FlexHits from './FlexHits';
 
 import {
@@ -51,7 +52,8 @@ class FacetSearchComponent extends React.Component {
 		super(props);
 		this.state = {
 			collectionConfig : null,
-			displayFacets: false
+			displayFacets: false,
+			currentOutput: null
 		};
 		this.init();
 	}
@@ -95,15 +97,18 @@ class FacetSearchComponent extends React.Component {
 
 		//now this function is triggered for the linechart only, but it can be any function in the recipe.
 		if(this.props.onOutput) {
-			let removalFn = this.skInstance.addResultsListener((results)=> {
+			this.skInstance.addResultsListener((results)=> {
 		  		setTimeout(function() {
 		  			//this propagates the query output back to the recipe, who will delegate it further to any configured visualisation
-		  			this.props.onOutput('facet-search', {
+		  			this.props.onOutput(this.constructor.name, {
 						collectionId : this.props.collection, //currently this is the same as the collection ID in the collection API
 						results : results, //the results of the query that was last issued
 						dateField : this.state.collectionConfig.dateFields[0] //the currently selected datafield (TODO this is currently defined in the collection config)
 					});
-		  		}.bind(this), 1000);
+					//set the output to the state
+					this.setState({currentOutput : results});
+
+		  		}.bind(this), 500);
 			});
 		}
 
@@ -117,9 +122,37 @@ class FacetSearchComponent extends React.Component {
 		this.setState({displayFacets: !this.state.displayFacets});
 	}
 
+	bookmark(type) {
+		if(type == 'currentQuery' && this.state.currentOutput != null) {
+			console.debug('bookmarked this query:');
+			console.debug(this.state.currentOutput.query);
+			BookmarkUtil.bookmark(
+				this.props.user,
+				null, //later let the user define a project before he bookmarks
+				type, //hier wordt nog niks mee gedaan
+				this.state.currentOutput.query, //sla alleen de query op in de annotatie?
+				(data) => {
+					console.debug('the bookmark was saved?');
+					console.debug(data);
+				}
+			);
+		}
+		/*
+		SearchAPI.search(
+			this.state.activeCollection,
+			this.state.currentOutput.query,
+			(data) => {
+				console.debug('Got some stuff');
+				console.debug(data);
+			}
+		)
+		*/
+	}
+
 	render() {
-		var filterBlocks = null;
-		var facetSearch = null;
+		let filterBlocks = null;
+		let bookmarkButton = null;
+		let facetSearch = null;
 
 		//only render when there is a collectionConfig available
 		if(this.state.collectionConfig) {
@@ -154,6 +187,16 @@ class FacetSearchComponent extends React.Component {
 						);
 					}
 				}, this);
+			}
+
+			//only if bookmarking the current query has been activated
+			if(BookmarkUtil.hasBookmarkSupport('currentQuery', this.props.annotationSupport)) {
+				bookmarkButton = (
+					<button type="button" className="btn btn-default"
+						onClick={this.bookmark.bind(this, 'currentQuery')}>
+						Bookmark current query
+					</button>
+				);
 			}
 
 			facetSearch = (
@@ -240,6 +283,9 @@ class FacetSearchComponent extends React.Component {
 
 		return (
 			<div>
+				{bookmarkButton}
+				<br/>
+				<br/>
 				{facetSearch}
 			</div>
 		);

@@ -188,7 +188,6 @@ class LineChart extends React.Component {
 		return (
 			<div id="line_chart">
 				<div id="chart_div"></div>
-				<div className="text-center"><strong>Line chart</strong></div>
 			</div>
 		)
 	}

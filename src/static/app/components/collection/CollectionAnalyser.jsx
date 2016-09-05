@@ -153,7 +153,7 @@ class CollectionAnalyser extends React.Component {
 				</fieldset>
 			);
 
-			collectionTimeline = (<FlexBox><LineChart data={this.state.activeTimelineData}/></FlexBox>)
+			collectionTimeline = <LineChart data={this.state.activeTimelineData}/>
 
 			//the document type selection part
 			if(this.state.activeCollectionStats) {
