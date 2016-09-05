@@ -93,8 +93,9 @@ class AnnotationList extends React.Component {
 		return (
 			<div>
 				{annotationList}
-				<button className="btn btn-default" onClick={this.toggleAnnotations.bind(this)}>
-					<span className="glyphicon glyphicon-comment"></span>
+				<button className={this.state.annotations.length > 0 ? 'btn btn-danger' : 'btn btn-default'}
+					onClick={this.toggleAnnotations.bind(this)}>
+					{this.state.annotations.length}&nbsp;<span className="glyphicon glyphicon-comment"></span>
 				</button>
 
 			</div>

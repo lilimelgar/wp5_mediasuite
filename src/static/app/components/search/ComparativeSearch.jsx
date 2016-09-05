@@ -42,16 +42,6 @@ class ComparativeSearch extends React.Component {
 		}
 	}
 
-	/* ---------------------- (FUTURE) DEFAULT COMPONENT FUNCTIONS ------------------- */
-
-	//this function should be standard for any component that outputs data to the recipe
-	onOutput(componentType, data) {
-		if(this.props.onOutput) {
-			this.props.onOutput(componentType, data);
-		}
-		this.setState({currentOutput: data});
-	}
-
 	/* ----------------------- FOR ANNOTATION SUPPORT (candidates for utility or super class)----- */
 
 	//this function should check if the annotation support is relevant for itself
@@ -78,6 +68,14 @@ class ComparativeSearch extends React.Component {
 	/* ------------------------------------------------------------------------------
 	------------------------------- COMMUNICATION WITH OWNER/RECIPE -----------------
 	------------------------------------------------------------------------------- */
+
+	//this function should be standard for any component that outputs data to the recipe
+	onOutput(componentType, data) {
+		if(this.props.onOutput) {
+			this.props.onOutput(componentType, data);
+		}
+		this.setState({currentOutput: data});
+	}
 
 	//TODO assign the current media Object as target
 	setActiveAnnotationTarget(annotationTarget) {

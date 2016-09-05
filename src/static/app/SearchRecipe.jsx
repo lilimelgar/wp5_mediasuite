@@ -159,6 +159,7 @@ class Recipe extends React.Component {
 					<div className="col-md-12">
 						{annotationList}
 						{annotationBox}
+						<br/>
 					</div>
 				</div>
 				<div className="row">

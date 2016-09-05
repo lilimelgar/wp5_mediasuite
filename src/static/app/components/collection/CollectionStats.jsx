@@ -1,5 +1,8 @@
 import React from 'react';
 
+//TODO this is now too hard wired with the CollectionAnalyzer. Properly design this module so it can be reused also
+//by e.g. the CollectionSelector
+
 class CollectionStats extends React.Component {
 
 	constructor(props) {

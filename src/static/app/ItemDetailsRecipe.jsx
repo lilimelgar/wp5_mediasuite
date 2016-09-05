@@ -327,13 +327,16 @@ class ItemDetailsRecipe extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<div className={this.props.ingredients.annotationSupport ? 'col-md-9' : 'col-md-12'}>
-						{mediaPanel}
-						{metadataPanel}
-					</div>
-					<div className={this.props.ingredients.annotationSupport ? 'col-md-3' : null}>
+					<div className="col-md-12">
 						{annotationList}
 						{annotationBox}
+						<br/>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-12">
+						{mediaPanel}
+						{metadataPanel}
 					</div>
 				</div>
 			</div>

@@ -10,8 +10,6 @@ import AnnotationUtil from '../../../util/AnnotationUtil';
 import AnnotationActions from '../../../flux/AnnotationActions';
 import AppAnnotationStore from '../../../flux/AnnotationStore';
 
-//TODO dit ding moet ook reageren op externe deletes en saves (de Flexplayer ook)
-
 class FlexImageViewer extends React.Component {
 
 	constructor(props) {
@@ -43,7 +41,6 @@ class FlexImageViewer extends React.Component {
 	}
 
 	onChange() {
-		console.debug('the list changed!');
 		this.loadAnnotations();
 	}
 
@@ -84,7 +81,7 @@ class FlexImageViewer extends React.Component {
 	---------------------------------------------------------------*/
 
 	initViewer() {
-		console.debug('init player: ' + this.props.mediaObject.url);
+		//setup the basic viewer
 		this.viewer = OpenSeadragon({
 			id: 'img_viewer' + this.props.mediaObjectId,
 			prefixUrl: '/static/node_modules/openseadragon/build/openseadragon/images/',
@@ -100,6 +97,11 @@ class FlexImageViewer extends React.Component {
 			},
 		});
 
+		//make sure the selection button tooltips have translations (otherwise annoying debug messages)
+		OpenSeadragon.setString('Tooltips.SelectionToggle', 'Toggle selection');
+		OpenSeadragon.setString('Tooltips.SelectionConfirm', 'Confirm selection');
+
+		//add the selection (rectangle) support (Picturae plugin)
 		if(this.props.annotationSupport) {
 			this.viewer.selection({
 				showConfirmDenyButtons: true,

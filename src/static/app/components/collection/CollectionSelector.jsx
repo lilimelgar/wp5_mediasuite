@@ -39,7 +39,10 @@ class CollectionSelector extends React.Component {
 		this.setState({activeDocumentType : event.target.value});
 	}
 
-	//TODO make this a good function for adding/removing selected collections
+	/* ------------------------------------------------------------------------------
+	------------------------------- COMMUNICATION WITH OWNER/RECIPE -----------------
+	------------------------------------------------------------------------------- */
+
 	onOutput(e) {
 		e.preventDefault();
 		if(this.props.onOutput) {
@@ -84,7 +87,6 @@ class CollectionSelector extends React.Component {
 						<option key={docType.doc_type} value={docType.doc_type}>{docType.doc_type}</option>
 					)
 				});
-				//docTypeOptions.splice(0, 0, <option key="null__option" value="">Select a document type</option>);
 
 				documentTypeSelect = (
 					<fieldset className="form-group">
