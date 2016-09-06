@@ -11,7 +11,7 @@ const BookmarkUtil = {
 	},
 
 	hasBookmarkSupport : function(bookmarkType, annotationConfig) {
-		if(annotationConfig[bookmarkType] && annotationConfig[bookmarkType].modes) {
+		if(annotationConfig && annotationConfig[bookmarkType] && annotationConfig[bookmarkType].modes) {
 			return annotationConfig[bookmarkType].modes.indexOf('bookmark') != -1;
 		}
 		return false;
