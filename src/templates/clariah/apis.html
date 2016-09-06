@@ -1,0 +1,46 @@
+<!doctype HTML>
+
+<html>
+
+<head>
+	<title>L A B O - APIs</title>
+	<link rel="stylesheet" href="/static/css/clariah/main.css">
+	<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+{% with page='apis' %}
+{% include '%s/nav.html' % navbarDir %}
+{% endwith %}
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-offset-3 col-md-6">
+			<h3 class="text-center">Probeer een van onze APIs</h3>
+			<div class="list-group">
+				<a href="http://blofeld.beeldengeluid.nl:5320/#/default" target="_searchapi" class="list-group-item">
+					<h4 class="list-group-item-heading">Search API</h4>
+					<p class="list-group-item-text">
+						Doorzoek alle geregistreerde (linked) datasets die door de importer in het systeem zijn opgenomen
+					</p>
+				</a>
+				<a href="http://blofeld.beeldengeluid.nl:5303/#/default" target="_annotationapi" class="list-group-item">
+					<h4 class="list-group-item-heading">Annotation API</h4>
+					<p class="list-group-item-text">
+						Maakt het mogelijk annotaties van eender welk soort bron op te slaan en op te vragen
+					</p>
+				</a>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+</body>
+
+
+</html>

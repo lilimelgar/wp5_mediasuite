@@ -1,0 +1,14 @@
+{
+	"id" : "beng-catalogue-search",
+	"name" : "B&G catalogus",
+	"type" : "search",
+	"description" : "Doorzoek de catalogus van Beeld en Geluid",
+	"ingredients" : {
+		"facetSearch" : {
+			"collection": [
+				"labs-catalogue-aggr"
+			]
+		},
+		"itemDetailsRecipe" : "default-item-details"
+	}
+}

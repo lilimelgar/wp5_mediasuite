@@ -11,11 +11,15 @@ bower_components
 npm-debug.log
 src/templates/*
 !src/templates/default
+!src/templates/clariah
 src/static/sass/*
 !src/static/sass/default
 src/static/css/*
 !src/static/css/default
+!src/static/css/clariah
 src/static/images/*
 !src/static/images/default
+!src/static/images/clariah
 src/resources/recipes/*
 !src/resources/recipes/default
+!src/resources/recipes/clariah
