@@ -66,18 +66,7 @@ function getFacetSearch() {
 	var FlexComponentInfo = clariah.FlexComponentInfo;
 	var config = new clariah.NISVCatalogueConfig();
 	return (
-		<div>
-			<FlexComponentInfo
-				title="Facet search"
-				description="This component enables you to search a single collection using full text search and filtering
-				on different facets. Coming up: configuration options for end users"
-				config={config}
-			>
-				<FacetSearchComponent collection="labs-catalogue-aggr"
-				searchAPI={_config.SEARCH_API_BASE}/>
-			</FlexComponentInfo>
-
-		</div>
+		<FacetSearchComponent collection="labs-catalogue-aggr" searchAPI={_config.SEARCH_API_BASE}/>
 	);
 }
 
