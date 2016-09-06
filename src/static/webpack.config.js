@@ -35,6 +35,8 @@
 		- This might optimize the size of the benglabs.js: https://github.com/lodash/lodash-webpack-plugin
 		- Optimize CSS imports per page: https://www.bensmithett.com/smarter-css-builds-with-webpack/
 		- split up different groups of functionalities in multiple bundles/libraries/webpack.config.js'es
+		- check out Babili: https://babeljs.io/blog/2016/08/30/babili
+
 */
 
 var webpack = require('webpack');
