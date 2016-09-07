@@ -21,6 +21,7 @@ export {default as SearchAPI} from './api/SearchAPI';
 
 //collection components
 export {default as CollectionSelector} from './components/collection/CollectionSelector';
+export {default as NamedQuerySelector} from './components/collection/NamedQuerySelector';
 export {default as CollectionStats} from './components/collection/CollectionStats';
 export {default as CollectionAnalyser} from './components/collection/CollectionAnalyser';
 

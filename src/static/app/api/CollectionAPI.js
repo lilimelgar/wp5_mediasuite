@@ -16,6 +16,21 @@ const CollectionAPI = {
 	    });
 	},
 
+	listRegisteredPlugins: function(callback) {
+	    var url = _config.SEARCH_API_BASE  + "/plugin";
+	    d3.json(url, function(error, data) {
+	        callback(data);
+	    });
+	},
+
+	getNamedQuery: function(plugin, user, queryName, callback) {
+	    var url = _config.SEARCH_API_BASE  + "/plugin/" + plugin;
+	    url += '/user/' + user + '/query/' + queryName;
+	    d3.json(url, function(error, data) {
+	        callback(data);
+	    });
+	},
+
 	getCollectionTimeLine(collectionId, docType, dateField, callback) {
 		var url = _config.SEARCH_API_BASE + '/collections/show_timeline';
 		url += '?collectionId=' + collectionId;

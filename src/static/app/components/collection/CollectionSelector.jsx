@@ -8,9 +8,7 @@ class CollectionSelector extends React.Component {
 		this.state = {
 			activeCollection: '',
 			activeDocumentType: '',
-			activeCollectionStats: null,
-			activeDateField: null,
-			activeAnalysisField: null
+			activeCollectionStats: null
 		}
 		CollectionAPI.listCollections((collections) => {
 			this.setState({collectionList :  collections});

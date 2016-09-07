@@ -6,6 +6,7 @@ function showComponent(componentId) {
 	switch(componentId) {
 		case 'Collection analyser': component = getCollectionAnalyser();break;
 		case 'Collection selector': component = getCollectionSelector();break;
+		case 'Named query selector' : component = getNamedQuerySelector();break;
 
 		case 'Facet search': component = getFacetSearch();break;
 		case 'Comparative search': component = getComparativeSearch();break;
@@ -47,6 +48,13 @@ function getCollectionSelector() {
 	var CollectionSelector = clariah.CollectionSelector;
 	return (
 		<CollectionSelector/>
+	)
+}
+
+function getNamedQuerySelector() {
+	var NamedQuerySelector = clariah.NamedQuerySelector;
+	return (
+		<NamedQuerySelector/>
 	)
 }
 
