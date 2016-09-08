@@ -1,4 +1,4 @@
-import CollectionAPI from '../../api/CollectionAPI.js';
+import SearchPluginAPI from '../../api/SearchPluginAPI.js';
 
 class NamedQuerySelector extends React.Component {
 
@@ -8,7 +8,7 @@ class NamedQuerySelector extends React.Component {
 			activeNamedQuery: '',
 			namedQueryList : []
 		}
-		CollectionAPI.listRegisteredPlugins((plugins) => {
+		SearchPluginAPI.listRegisteredPlugins((plugins) => {
 			console.debug(plugins)
 			this.setState({namedQueryList :  plugins});
 		});
@@ -25,8 +25,30 @@ class NamedQuerySelector extends React.Component {
 	}
 
 	//TODO get the params from this.state.activeNamedQuery.query
-	getFormElements() {
+	getQueryParams() {
+		let matches = this.state.activeNamedQuery.query.match(/___(.*?)___/g);
+		return [...new Set(matches)];
+	}
 
+	submitNamedQuery(e) {
+		e.preventDefault();
+		console.debug(this.state.activeNamedQuery);
+
+		let params = this.getQueryParams();
+		let values = {};
+		params.forEach((p)=>{
+			let key = p.replace(/___/g, '');
+			values[key] = this.refs[key].value;
+		})
+		SearchPluginAPI.executeNamedQuery(
+			this.state.activeNamedQuery.plugin,
+			this.state.activeNamedQuery.user,
+			this.state.activeNamedQuery.queryName,
+			values,
+			(data) => {
+				console.debug(data)
+			}
+		);
 	}
 
 	/* ------------------------------------------------------------------------------
@@ -41,11 +63,12 @@ class NamedQuerySelector extends React.Component {
 	}
 
 	render() {
-		let namedQuerySelect = '';
+		let namedQuerySelect = null;
+		let queryForm = null;
 
 		if(this.state.namedQueryList) {
 
-			//the collection selection part
+			//generates the named query selection box
 			let namedQueryOptions = Object.keys(this.state.namedQueryList).map((plugin) => {
 				return this.state.namedQueryList[plugin]['queries'].map((query) => {
 					let optionId = plugin + '__' + query.user + '__' + query.queryName;
@@ -72,6 +95,29 @@ class NamedQuerySelector extends React.Component {
 			);
 
 
+			//generates the query form
+			if(this.state.activeNamedQuery) {
+				let queryFormFields = this.getQueryParams().map((key) => {
+					key = key.replace(/___/g, '');
+					return (
+						<div key={'__qf__' + key} className="form-group">
+							<label htmlFor={'__qfi__' + key}>{key}</label>
+							<input ref={key} type="text" className="form-control" id={'__qfi__' + key}/>
+						</div>
+					)
+				});
+				if(queryFormFields.length > 0) {
+					queryForm = (
+						<form key="query_form" onSubmit={this.submitNamedQuery.bind(this)}>
+							{queryFormFields}
+							<button className="btn btn-default">
+								Submit query
+							</button>
+						</form>
+					)
+				}
+			}
+
 			return (
 				<div className="row">
 					<div className="col-md-12">
@@ -81,6 +127,7 @@ class NamedQuerySelector extends React.Component {
 								Select
 							</button>
 						</form>
+						{queryForm}
 					</div>
 				</div>
 			)

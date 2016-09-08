@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FacetSearchComponent from './components/search/FacetSearchComponent';
+import FacetSearch from './components/search/FacetSearch';
 import ComparativeSearch from './components/search/ComparativeSearch';
 
 import AnnotationBox from './components/annotation/AnnotationBox';
@@ -34,7 +34,7 @@ class Recipe extends React.Component {
 	//this function receives all output of components that generate output and orchestrates where
 	//to pass it to based on the ingredients of the recipe
 	onComponentOutput(componentClass, data) {
-		if(componentClass == 'FacetSearchComponent') {
+		if(componentClass == 'FacetSearch') {
 			var lineChartData = this.state.lineChartData ? this.state.lineChartData : {};
 			var timelineData = this.prepareTimeline(data.collectionId, data.results, data.dateField);
 			lineChartData[data.collectionId] = {
@@ -149,7 +149,7 @@ class Recipe extends React.Component {
 			}
 		}
 		if(this.props.ingredients.facetSearch) {
-			facetSearch = (<FacetSearchComponent
+			facetSearch = (<FacetSearch
 				itemDetailsRecipe={this.props.ingredients.itemDetailsRecipe} // the item details recipe the user should go to
 				collection={this.props.ingredients.facetSearch.collection}
 				searchAPI={_config.SEARCH_API_BASE}/>);

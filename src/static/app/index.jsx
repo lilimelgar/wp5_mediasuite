@@ -26,8 +26,9 @@ export {default as CollectionStats} from './components/collection/CollectionStat
 export {default as CollectionAnalyser} from './components/collection/CollectionAnalyser';
 
 //search components
-export {default as FacetSearchComponent} from './components/search/FacetSearchComponent';
 export {default as ComparativeSearch} from './components/search/ComparativeSearch';
+export {default as FacetSearch} from './components/search/FacetSearch';
+export {default as NamedQuerySearch} from './components/search/NamedQuerySearch';
 export {default as SearchSnippet} from './components/search/SearchSnippet';
 export {default as ItemDetails} from './components/search/ItemDetails';
 export {default as FlexHits} from './components/search/FlexHits';

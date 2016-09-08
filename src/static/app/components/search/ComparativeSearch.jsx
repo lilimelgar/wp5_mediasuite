@@ -1,6 +1,6 @@
 import SearchAPI from '../../api/SearchAPI';
 import CollectionSelector from '../collection/CollectionSelector';
-import FacetSearchComponent from './FacetSearchComponent';
+import FacetSearch from './FacetSearch';
 import FlexBox from '../FlexBox';
 import AnnotationUtil from '../../util/AnnotationUtil'
 
@@ -53,7 +53,7 @@ class ComparativeSearch extends React.Component {
 			this.props.onOutput(componentClass, data);
 		}
 		//stores the current output of the last search in the state (for bookmarking)
-		if(componentClass == 'FacetSearchComponent') {
+		if(componentClass == 'FacetSearch') {
 			this.setState({currentOutput: data});
 		}
 	}
@@ -108,7 +108,7 @@ class ComparativeSearch extends React.Component {
 					id={c}
 					className={this.state.activeCollection == c ? 'tab-pane active' : 'tab-pane'}>
 					<h3>{c}</h3>
-					<FacetSearchComponent key={c + '__sk'}
+					<FacetSearch key={c + '__sk'}
 						user={this.props.user}
 						collection={c}
 						searchAPI={_config.SEARCH_API_BASE}

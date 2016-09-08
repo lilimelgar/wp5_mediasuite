@@ -9,6 +9,7 @@ function showComponent(componentId) {
 		case 'Named query selector' : component = getNamedQuerySelector();break;
 
 		case 'Facet search': component = getFacetSearch();break;
+		case 'Named query search' : component = getNamedQuerySearch();break;
 		case 'Comparative search': component = getComparativeSearch();break;
 
 		case 'Commenting' : component = getCommentingForm();break;
@@ -70,11 +71,17 @@ function getCollectionAnalyser() {
 *******************************************************************************/
 
 function getFacetSearch() {
-	var FacetSearchComponent = clariah.FacetSearchComponent;
-	var FlexComponentInfo = clariah.FlexComponentInfo;
-	var config = new clariah.NISVCatalogueConfig();
+	var FacetSearch = clariah.FacetSearch;
+	//var FlexComponentInfo = clariah.FlexComponentInfo;
 	return (
-		<FacetSearchComponent collection="labs-catalogue-aggr" searchAPI={_config.SEARCH_API_BASE}/>
+		<FacetSearch collection="labs-catalogue-aggr" searchAPI={_config.SEARCH_API_BASE}/>
+	);
+}
+
+function getNamedQuerySearch() {
+	var NamedQuerySearch = clariah.NamedQuerySearch;
+	return (
+		<NamedQuerySearch plugin="dive-sparql" user="DIVE" queryName="keyword-search" searchAPI={_config.SEARCH_API_BASE}/>
 	);
 }
 

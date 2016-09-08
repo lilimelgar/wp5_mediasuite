@@ -16,6 +16,7 @@ import CollectionConfig from '../collection/mappings/CollectionConfig';
 import NISVCatalogueConfig from '../collection/mappings/NISVCatalogueConfig';
 import NISVProgramGuideConfig from '../collection/mappings/NISVProgramGuideConfig';
 import SpeechAndernieuwsConfig from '../collection/mappings/SpeechAndernieuwsConfig';
+import TwitterConfig from '../collection/mappings/TwitterConfig';
 import TimeUtil from '../util/TimeUtil';
 
 const CollectionUtil = {
@@ -23,8 +24,11 @@ const CollectionUtil = {
 	COLLECTION_MAPPING : {
 		'__default__' : new CollectionConfig(),
 		'labs-catalogue-aggr': new NISVCatalogueConfig(),
+		'nisv-catalogue-aggr-2': new NISVCatalogueConfig(),
+		'nisv-catalogue-aggr': new NISVCatalogueConfig(),
 		'nisv_programguides': new NISVProgramGuideConfig(),
-		'spraak__andernieuws' : new SpeechAndernieuwsConfig()
+		'spraak__andernieuws' : new SpeechAndernieuwsConfig(),
+		'twitter' : new TwitterConfig()
 	},
 
 	determineConfig : function(collectionId) {

@@ -46,7 +46,7 @@ const NumericRefinementOption = (props) => (
  )
 
 //COMPONENT OUTPUT: the results of each query => {collectionId, results, dateField}
-class FacetSearchComponent extends React.Component {
+class FacetSearch extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -292,4 +292,4 @@ class FacetSearchComponent extends React.Component {
 	}
 }
 
-export default FacetSearchComponent;
+export default FacetSearch;

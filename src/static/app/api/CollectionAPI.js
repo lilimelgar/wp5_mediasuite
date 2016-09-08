@@ -1,5 +1,3 @@
-//var d3 = require("d3");
-
 const CollectionAPI = {
 
 	getCollectionStats: function(collectionId, callback) {
@@ -11,21 +9,6 @@ const CollectionAPI = {
 
 	listCollections: function(callback) {
 	    var url = _config.SEARCH_API_BASE  + "/collections/list_collections";
-	    d3.json(url, function(error, data) {
-	        callback(data);
-	    });
-	},
-
-	listRegisteredPlugins: function(callback) {
-	    var url = _config.SEARCH_API_BASE  + "/plugin";
-	    d3.json(url, function(error, data) {
-	        callback(data);
-	    });
-	},
-
-	getNamedQuery: function(plugin, user, queryName, callback) {
-	    var url = _config.SEARCH_API_BASE  + "/plugin/" + plugin;
-	    url += '/user/' + user + '/query/' + queryName;
 	    d3.json(url, function(error, data) {
 	        callback(data);
 	    });

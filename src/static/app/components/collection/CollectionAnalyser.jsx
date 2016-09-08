@@ -41,7 +41,7 @@ class CollectionAnalyser extends React.Component {
 			console.debug('fetched the collections stats for ' + collectionId);
 			console.debug(data);
 			let docTypeStats = data.collection_statistics.document_types[0];
-			let defaultField = docTypeStats.fields.date[0];
+			//let defaultField = docTypeStats.fields.date[0];
 
 			this.setState(
 				{
@@ -63,7 +63,7 @@ class CollectionAnalyser extends React.Component {
 
 		this.state.activeCollectionStats.collection_statistics.document_types.forEach((docTypeStats) => {
 			if (docTypeStats.doc_type === docType) {
-				let defaultField = docTypeStats.fields.date[0];
+				//let defaultField = docTypeStats.fields.date[0];
 				this.setState(
 					{
 						activeDocumentType : docTypeStats.doc_type,
@@ -80,22 +80,24 @@ class CollectionAnalyser extends React.Component {
 		let analysisField = analysisSelect.options[analysisSelect.selectedIndex].value;
 
 		let dateSelect = document.getElementById("datefield_select");
-		let dateField = dateSelect.options[dateSelect.selectedIndex].value;
+		if(dateSelect) {
+			let dateField = dateSelect.options[dateSelect.selectedIndex].value;
 
-		console.debug('fetching field analysis info');
-		console.debug("date field:" + dateField);
-		console.debug("analysis field:" + analysisField);
-		var facets = [];
+			console.debug('fetching field analysis info');
+			console.debug("date field:" + dateField);
+			console.debug("analysis field:" + analysisField);
+			var facets = [];
 
-		CollectionAPI.analyseField(this.state.activeCollection, this.state.activeDocumentType, dateField, analysisField, facets, (data) => {
-			let timelineData = this.setTimelineData(data);
-			this.setState(
-				{
-					activeAnalysisData : data,
-					activeTimelineData : timelineData
-				}
-			)
-		});
+			CollectionAPI.analyseField(this.state.activeCollection, this.state.activeDocumentType, dateField, analysisField, facets, (data) => {
+				let timelineData = this.setTimelineData(data);
+				this.setState(
+					{
+						activeAnalysisData : data,
+						activeTimelineData : timelineData
+					}
+				)
+			});
+		}
 	}
 
 	setTimelineData(data){
@@ -124,12 +126,12 @@ class CollectionAnalyser extends React.Component {
 	}
 
 	render() {
-		let collectionSelect = '';
-		let documentTypeSelect = '';
-		let dateFieldSelect = '';
-		let analysisFieldSelect = '';
-		let collectionStats = '';
-		let collectionTimeline = '';
+		let collectionSelect = null;
+		let documentTypeSelect = null;
+		let dateFieldSelect = null;
+		let analysisFieldSelect = null;
+		let collectionStats = null;
+		let collectionTimeline = null;
 		if(this.state.collectionList) {
 
 			//the collection selection part
@@ -176,20 +178,23 @@ class CollectionAnalyser extends React.Component {
 
 			//the analysis and date field selection part
 			if(this.state.activeDocumentTypeStats) {
-				let dateFieldOptions = this.state.activeDocumentTypeStats.fields.date.map((dateField) => {
-					return (
-						<option key={dateField} value={dateField}>{dateField}</option>
-					)
-				});
+				let dateFieldOptions = null;
+				if(this.state.activeDocumentTypeStats.fields.date) {
+					dateFieldOptions = this.state.activeDocumentTypeStats.fields.date.map((dateField) => {
+						return (
+							<option key={dateField} value={dateField}>{dateField}</option>
+						)
+					});
+					dateFieldSelect = (
+						<fieldset className="form-group">
+							<label htmlFor="datefield_select">Select date field</label>
+							<select className="form-control" id="datefield_select" onChange={this.analyseField.bind(this)}>
+								{dateFieldOptions}
+							</select>
+						</fieldset>
+					);
+				}
 
-				dateFieldSelect = (
-					<fieldset className="form-group">
-						<label htmlFor="datefield_select">Select date field</label>
-						<select className="form-control" id="datefield_select" onChange={this.analyseField.bind(this)}>
-							{dateFieldOptions}
-						</select>
-					</fieldset>
-				);
 
 				let fieldTypes = Object.keys(this.state.activeDocumentTypeStats.fields);
 				let analysisFieldOptions = [];
