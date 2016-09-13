@@ -5,8 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "dev": "webpack -d --watch",
-    "prod": "webpack -p --config webpack.config.prod.js",
-    "build": "webpack -p",
+    "prod": "webpack -p --progress --config webpack.config.prod.js",
+    "build": "webpack -p --progress",
     "doc": "esdoc -c esdoc.json"
   },
   "repository": {

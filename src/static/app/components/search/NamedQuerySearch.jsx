@@ -44,7 +44,9 @@ class NamedQuerySearch extends React.Component {
 			(data) => {
 				console.debug(data);
 				console.debug(this.onOutput);
+				console.debug(this.constructor.name);
 				this.onOutput.call(this, this.constructor.name, data);
+				console.debug('why ur not callin?');
 			}
 		);
 	}
