@@ -43,6 +43,7 @@ class NamedQuerySearch extends React.Component {
 			values,
 			(data) => {
 				console.debug(data);
+				console.debug(this.onOutput);
 				this.onOutput(this.constructor.name, data);
 			}
 		);
@@ -53,6 +54,7 @@ class NamedQuerySearch extends React.Component {
 	------------------------------------------------------------------------------- */
 
 	onOutput(componentClass, data) {
+		console.debug(componentClass);
 		//passes along the output to the owner (if specified in the props)
 		if(this.props.onOutput) {
 			this.props.onOutput(componentClass, data);
