@@ -2,21 +2,23 @@
 
 LABO is the web environment where you can experiment with different functionalities and APIs developed in the context of Sound & Vision labs, developed by the R&D department of [The Netherlands Institute for Sound and Vision](http://www.beeldengeluid.nl/).
 
-Underlying LABO's user interface, is the CLARIAH component library, which is also part of this code base.
+Underlying LABO's user interface, is the component library, which is also part of this code base.
+
+[This README should be updated. It is quite outdated]
 
 **Current version**: 0.0.9
 
 ## Component library
 
-In CLARIAH the choice was made to steer clear from implementing monolithic tools and instead to focus on the implementation of
+In CLARIAH WP5 the choice was made to steer clear from implementing monolithic tools and instead to focus on the implementation of
 reusable functionalities, which can be:
 
-* Services exposed by an API, such as the speech2text API, the search & collection API, etc
+* Services exposed by an API, such as the currently available search, collection and annotation APIs
 * UI components, such as a facet search component an LOD browser (DIVE) or visualisations such as different charts or graphs.
 * Other t.b.d.
 
-Next to functionalities CLARIAH has coined the term 'recipe' when talking of a certain combination of aforementioned functionalities.
-Aiming for a high flexibility in assembling recipes CLARIAH aims to:
+Next to functionalities CLARIAH WP5 uses the term 'recipe' when talking of a certain combination of aforementioned functionalities.
+Aiming for a high flexibility in assembling recipes the media suite aims to:
 
 * Recreate the existing tools by creating a recipe for each tool
 * Create new recipes/tools for use-cases/users that were previously not serviced
@@ -182,4 +184,4 @@ https://docs.google.com/presentation/d/1afMLTCpRxhJpurQ97VBHCZkLbR1TEsRnd3yyxuSQ
 
 ## Who do I talk to? ###
 
-* Jaap Blom, Marijn Koolen
+* Jaap Blom
