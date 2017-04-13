@@ -1,0 +1,101 @@
+<head>
+	<title>CLARIAH Media Suite - Recipes</title>
+    {% include '%s/head.html' % headDir %}
+</head>
+
+<body>
+
+{% with page='recipes' %}
+{% include '%s/nav.html' % navbarDir %}
+{% endwith %}
+
+	<div class="container">
+
+		<div class="page-header">
+			<h1>Recipes</h1>
+		</div>
+
+		<p>The ingredients of our recipes are components, which offer the core functionalities we've developed in prior projects, such as AVResearcherXL, Comerda, DIVE and TROVE. Each recipe can be assembled using one or more of these component and can be optimised for a certain phase in your research. Depending on your technical expertise, the creation of recipes can be more exactly tailored for your needs.</p>
+
+		<br><br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Collection exploration</h3>
+				<br/>
+			</div>
+		</div>
+
+		<div class="row">
+				<!-- COLLECTION INSPECTOR -->
+				<div id="{{recipes['collection-inspector'].id}}" class="col-sm-6 col-md-4">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['collection-inspector'].name}}</h3>
+						</div>
+						<div class="panel-body">
+							{{recipes['collection-inspector'].description}}
+						</div>
+						<div class="panel-footer text-right"><a href="{{recipes['collection-inspector'].url}}">View recipe</a></div>
+					</div>
+				</div>
+
+				<!-- DIVE  -->
+				<div id="{{recipes['lod-collection-browser'].id}}" class="col-sm-6 col-md-4">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['lod-collection-browser'].name}}</h3>
+						</div>
+						<div class="panel-body">
+							{{recipes['lod-collection-browser'].description}}
+						</div>
+						<div class="panel-footer text-right"><a href="{{recipes['lod-collection-browser'].url}}">View recipe</a></div>
+					</div>
+				</div>
+
+		</div>
+
+		<div className="separator"/>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Searching search</h3>
+				<br/>
+			</div>
+		</div>
+
+		<div class="row">
+				<!-- COLLECTION INSPECTOR -->
+				<div id="{{recipes['comparative-search'].id}}" class="col-sm-6 col-md-4">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['comparative-search'].name}}</h3>
+						</div>
+						<div class="panel-body">
+							{{recipes['comparative-search'].description}}
+						</div>
+						<div class="panel-footer text-right"><a href="{{recipes['comparative-search'].url}}">View recipe</a></div>
+					</div>
+				</div>
+
+				<!-- DIVE  -->
+				<div id="{{recipes['single-search'].id}}" class="col-sm-6 col-md-4">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['single-search'].name}}</h3>
+						</div>
+						<div class="panel-body">
+							{{recipes['single-search'].description}}
+						</div>
+						<div class="panel-footer text-right"><a href="{{recipes['single-search'].url}}">View recipe</a></div>
+					</div>
+				</div>
+
+		</div>
+	</div>
+
+</body>

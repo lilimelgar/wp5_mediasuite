@@ -1,0 +1,165 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <title>CLARIAH Media Suite - Components</title>
+    {% with pageType='components' %}
+    {% include '%s/head.html' % headDir %}
+    {% endwith %}
+</head>
+
+<body>
+
+    {% with page='components' %}
+    {% include '%s/nav.html' % navbarDir %}
+    {% endwith %}
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Components</h1>
+        </div>
+
+        <p>Components in CLARIAH MS are software units which perform a single functionality: each component takes data as input and produces a meaningful output using standard formats, to be connected with other components (e.g., word cloud, timeline visualizations, topic identification in newspapers, searching content in collections).</p>
+
+        <div class="alert alert-danger">
+            (THIS SECTION OF THE MEDIA SUITE IS NOT RELEASED WITH VERSION 1-April, 2017 but will be in future versions)
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+
+                <ul class="nav navbar-nav" id="component_menu">
+
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#menu_generic" data-parent="#component_menu" class="category-header">
+                            <header class="components-header">
+							COMPONENT LIBRARY
+							</header>
+                        </a>
+                        <div class="collapse" id="menu_generic" style="height: 0px;">
+                            <ul class="component-list">
+                                <li><a href="#">How to</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Collection components -->
+                    <li class="component-category">
+                        <a href="#" data-toggle="collapse" data-target="#menu_collection" data-parent="#component_menu" class="category-header">
+                            <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Collection
+                        </a>
+                        <div class="collapse in" id="menu_collection">
+                            <ul class="component-list">
+                                <li><a href="#" onclick="showComponent('Collection analyser')">Collection analyser</a></li>
+                                <li><a href="#" onclick="showComponent('Collection selector')">Collection selector</a></li>
+                                <!--<li><a href="#" onclick="showComponent('Named query selector')">Named query selector</a></li>-->
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Search components -->
+                    <li class="component-category">
+                        <a href="#" data-toggle="collapse" data-target="#menu_search" data-parent="#component_menu" class="category-header">
+                            <span class="glyphicon glyphicon-search"></span>&nbsp;Search
+                        </a>
+                        <div class="collapse in" id="menu_search">
+                            <ul class="component-list">
+                                <li><a href="#" onclick="showComponent('Query builder')">Query builder</a></li>
+                                <li><a href="#" onclick="showComponent('Comparative search')">Comparative search</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Play-out components -->
+                    <li class="component-category">
+                        <a href="#" data-toggle="collapse" data-target="#menu_playout" data-parent="#component_menu" class="category-header">
+                            <span class="glyphicon glyphicon-play"></span>&nbsp;Play-out
+                        </a>
+                        <div class="collapse in" id="menu_playout">
+                            <ul class="component-list">
+                                <li><a href="#" onclick="showComponent('Segmenting player')">Segmenting player</a></li>
+                                <li><a href="#" onclick="showComponent('JWPlayer')">JWPlayer</a></li>
+                                <li><a href="#" onclick="showComponent('Vimeo player')">Vimeo player</a></li>
+                                <li><a href="#" onclick="showComponent('YouTube player')">YouTube player</a></li>
+                                <li><a href="#" onclick="showComponent('Image viewer')">Image viewer</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Annotation components -->
+                    <li class="component-category">
+                        <a href="#" data-toggle="collapse" data-target="#menu_annotation" data-parent="#component_menu" class="category-header">
+                            <span class="glyphicon glyphicon-comment"></span>&nbsp;Annotation
+                        </a>
+                        <div class="collapse in" id="menu_annotation">
+                            <ul class="component-list">
+                                <li><a href="#" onclick="showComponent('Commenting')">Commenting</a></li>
+                                <li><a href="#" onclick="showComponent('Classifying')">Classifying</a></li>
+                                <li><a href="#" onclick="showComponent('Linking')">Linking</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Data visualisation components -->
+                    <li class="component-category">
+                        <a href="#" data-toggle="collapse" data-target="#menu_visuals" data-parent="#component_menu" class="category-header">
+                            <span class="glyphicon glyphicon-stats"></span>&nbsp;Data visualisations
+                        </a>
+                        <div class="collapse in" id="menu_visuals">
+                            <ul class="component-list">
+                                <li><a href="#" onclick="showComponent('Line chart')">Line chart (TODO)</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- THIS SHOWS THE COMPONENT IN ACTION-->
+
+            <div class="col-sm-9 col-md-9">
+                <div id="component_x" class="row">
+
+                </div>
+            </div>
+
+        </div>
+
+        <br><br>
+
+    </div>
+</body>
+
+<!-- for the linechart and the API components -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<!-- for TimeSlider.jsx -->
+<script src="/static/vendor/noUiSlider.9.2.0/nouislider.min.js"></script>
+
+<!-- for the player components-->
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script type="text/javascript" src="/static/vendor/jwplayer-7.5.0/jwplayer.js"></script>
+
+<!-- for the image viewer -->
+<script type="text/javascript" src="/static/node_modules/openseadragon/build/openseadragon/openseadragon.min.js"></script>
+<script type="text/javascript" src="/static/vendor/openseadragonselection-master/dist/openseadragonselection.js"></script>
+
+<!-- Babel is needed to parse the labo-components.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+<!-- React is required for the entire library -->
+<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+
+<!-- The component library -->
+<script src="/static/public/assets/benglabs.js"></script>
+
+<!-- The custom JS of this page, which utilizes the component library -->
+<script type="text/babel" src="/static/js/labo-components.js"></script>
+
+<script type="text/javascript" src="/static/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/static/node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
+
+</html>

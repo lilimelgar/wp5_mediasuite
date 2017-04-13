@@ -4,29 +4,28 @@ function showComponent(componentId) {
 	var component = null;
 
 	switch(componentId) {
-		case 'Collection analyser': component = getCollectionAnalyser();break;
-		case 'Collection selector': component = getCollectionSelector();break;
-		case 'Named query selector' : component = getNamedQuerySelector();break;
-
-		case 'Facet search': component = getFacetSearch();break;
-		case 'Named query search' : component = getNamedQuerySearch();break;
-		case 'Comparative search': component = getComparativeSearch();break;
-
-		case 'Commenting' : component = getCommentingForm();break;
-		case 'Classifying' : component = getClassifyingForm();break;
-		case 'Linking' : component = getLinkingForm();break;
-
-		case 'Segmenting player': component = getAnnotationPlayer();break;
-		case 'JWPlayer': component = getJWPlayer();break;
-		case 'Vimeo player': component = getVimeoPlayer();break;
-		case 'YouTube player': component = getYouTubePlayer();break;
-
-		case 'Image viewer': component = getImageViewer();break;
-
-		case 'Line chart': component = getLineChart();break;
+		case 'Collection analyser': getCollectionAnalyser(componentId, componentLoaded);break;
+		case 'Collection selector': getCollectionSelector(componentId, componentLoaded);break;
+		case 'Query builder': getQueryBuilder(componentId, componentLoaded);break;
+		case 'Comparative search': getComparativeSearch(componentId, componentLoaded);break;
+		case 'Commenting' : getCommentingForm(componentId, componentLoaded);break;
+		case 'Classifying' : getClassifyingForm(componentId, componentLoaded);break;
+		case 'Linking' : getLinkingForm(componentId, componentLoaded);break;
+		case 'Segmenting player': getAnnotationPlayer(componentId, componentLoaded);break;
+		case 'JWPlayer': getJWPlayer(componentId, componentLoaded);break;
+		case 'Vimeo player': getVimeoPlayer(componentId, componentLoaded);break;
+		case 'YouTube player': getYouTubePlayer(componentId, componentLoaded);break;
+		case 'Image viewer': getImageViewer(componentId, componentLoaded);break;
+		case 'Line chart': getLineChart(componentId, componentLoaded);break;
 	}
+}
 
+function componentLoaded(componentId, component) {
 	if(component) {
+		//first clear the previous stuff (rerendering for the  video players gives problems)
+		ReactDOM.unmountComponentAtNode(document.getElementById('component_x'));
+
+		//render the React component inside the component div
 		ReactDOM.render(
 			<div className="col-md-12">
 				<div className="page-header">
@@ -45,24 +44,37 @@ function showComponent(componentId) {
 ************************** Collection components ******************************
 *******************************************************************************/
 
-function getCollectionSelector() {
+function getCollectionSelector(componentId, callback) {
 	var CollectionSelector = clariah.CollectionSelector;
-	return (
-		<CollectionSelector/>
+	var FlexComponentInfo = clariah.FlexComponentInfo;
+	callback(componentId,
+		<div>
+			<FlexComponentInfo
+				title="CollectionSelector"
+				description="Enables the selection of a collection exposed via a valid implementation of the Search API"
+				input="URL to a valid Search API"
+				output="A collection ID; URL to the referred Search API"
+				outputComponents={['FacetSearch']}
+				currentInput={['http://blofeld.beeldengeluid.nl:5320/api/v1']}
+			/>
+			<CollectionSelector
+				showSelect={true}
+				showBrowser={true}
+				showStats={false}/>
+		</div>
 	)
 }
 
-function getNamedQuerySelector() {
-	var NamedQuerySelector = clariah.NamedQuerySelector;
-	return (
-		<NamedQuerySelector/>
-	)
-}
-
-function getCollectionAnalyser() {
+function getCollectionAnalyser(componentId, callback) {
 	var CollectionAnalyser = clariah.CollectionAnalyser;
-	return (
-		<CollectionAnalyser/>
+	var params = {
+		collectionSelector : true,
+		fieldAnalysisStats : true,
+		collectionStats : true,
+		timeline : true
+	}
+	callback(componentId,
+		<CollectionAnalyser params={params}/>
 	)
 }
 
@@ -70,27 +82,45 @@ function getCollectionAnalyser() {
 ************************** Search components ******************************
 *******************************************************************************/
 
-function getFacetSearch() {
-	var FacetSearch = clariah.FacetSearch;
-	//var FlexComponentInfo = clariah.FlexComponentInfo;
-	return (
-		<FacetSearch collection="labs-catalogue-aggr" searchAPI={_config.SEARCH_API_BASE}/>
-	);
+function getQueryBuilder(componentId, callback) {
+	console.debug('well? what is this');
+	var QueryBuilder = clariah.QueryBuilder;
+	var CollectionUtil = clariah.CollectionUtil;
+	CollectionUtil.generateCollectionConfig('nisv', function(data){
+		callback(componentId,
+			<QueryBuilder
+				queryId="test"
+				collectionConfig={data}
+				pageSize={10}
+				aggregationView="box"
+				timeSlider={true}
+				searchAPI={_config.SEARCH_API_BASE}
+				header={true}/>
+		);
+	}, true);
 }
 
-function getNamedQuerySearch() {
-	var NamedQuerySearch = clariah.NamedQuerySearch;
-	return (
-		<NamedQuerySearch plugin="dive-sparql" user="DIVE" queryName="keyword-search" searchAPI={_config.SEARCH_API_BASE}/>
-	);
-}
-
-function getComparativeSearch() {
+function getComparativeSearch(componentId, callback) {
 	var ComparativeSearch = clariah.ComparativeSearch;
-	return (
-		<ComparativeSearch user="Component test user"
-			collections={['labs-catalogue-aggr', 'spraak__andernieuws', 'soundbites']}
-			collectionSelector={true}/>
+	var FlexComponentInfo = clariah.FlexComponentInfo;
+	callback(componentId,
+		<div>
+			<FlexComponentInfo
+				title="ComparativeSearch"
+				description="Enables the selection of multiple collections for side-by-side facet search"
+				input="URL to a valid Search API; various configuration options (t.b.d)"
+				output="A dictionary holding the query output of all selected collections"
+				outputComponents={['LineChart']}
+				consistsOf={['CollectionSelector', 'FacetSearch']}
+				currentInput={[
+					'Search API: http://blofeld.beeldengeluid.nl:5320/api/v1',
+					'Collectie IDs: nisv-catalogue-aggr, soundbites, mindoftheuniverse'
+				]}
+			/>
+			<ComparativeSearch user="Component test user"
+				collections={['nisv-catalogue-aggr', 'soundbites']}
+				collectionSelector={true}/>
+		</div>
 	)
 }
 
@@ -98,24 +128,24 @@ function getComparativeSearch() {
 ************************** Annotation components ******************************
 *******************************************************************************/
 
-function getCommentingForm() {
+function getCommentingForm(componentId, callback) {
 	var CommentingForm = clariah.CommentingForm;
-	return (
+	callback(componentId,
 		<CommentingForm/>
 	);
 }
 
-function getClassifyingForm() {
+function getClassifyingForm(componentId, callback) {
 	var ClassifyingForm = clariah.ClassifyingForm;
 	var config = {
-		vocabularies : ["GTAA", "DBpedia"]
+		vocabularies : ["GTAA", "DBpedia", "UNESCO"]
 	}
-	return (
+	callback(componentId,
 		<ClassifyingForm config={config}/>
 	);
 }
 
-function getLinkingForm() {
+function getLinkingForm(componentId, callback) {
 	var LinkingForm = clariah.LinkingForm;
 	var config = {
 		apis : [
@@ -123,7 +153,7 @@ function getLinkingForm() {
 			{"name" : "europeana"}
 		]
 	}
-	return (
+	callback(componentId,
 		<LinkingForm config={config}/>
 	);
 }
@@ -132,10 +162,11 @@ function getLinkingForm() {
 ************************** Play-out components ******************************
 *******************************************************************************/
 
-function getAnnotationPlayer() {
+function getAnnotationPlayer(componentId, callback) {
 	var FlexPlayer = clariah.FlexPlayer;
 	var mediaObject = {
-		url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4',
+		id : '0',
+		url : 'https://www.youtube.com/watch?v=QF_qokjdsKY',
 		mimeType : 'video/mp4'
 	};
 	var annotationSupport = {
@@ -146,17 +177,17 @@ function getAnnotationPlayer() {
 			"modes" : ["bookmark"]
 		},
 		"mediaObject" : {
-			"modes" : ["classify", "comment", "link"]
+			"modes" : ["classification", "comment", "link"]
 		},
 		"mediaSegment" : {
-			"modes" : ["classify", "comment", "link"]
+			"modes" : ["classification", "comment", "link"]
 		},
 		"annotation" : {
 			"modes" : ["comment"]
 		}
 	};
 	var annotationModes = {
-		"classify" : {
+		"classification" : {
 			"vocabularies" : ["GTAA", "DBpedia"]
 		},
 		"link" : {
@@ -168,48 +199,54 @@ function getAnnotationPlayer() {
 		"bookmark" : {},
 		"comment" : {}
 	};
-	return (
-		<FlexPlayer user="Component test"
+	callback(componentId,
+		<FlexPlayer
+			user="Component test"
 			annotationSupport={annotationSupport}
 			annotationModes={annotationModes}
-			mediaObject={mediaObject}/>
+			mediaObject={mediaObject}
+			active={true}/>
 	);
 }
 
-function getVimeoPlayer() {
+function getVimeoPlayer(componentId, callback) {
 	var VimeoPlayer = clariah.VimeoPlayer;
+	//https://vimeo.com/203174203
 	var mediaObject = {
-		url : 'http://player.vimeo.com/video/176894130?api=1&amp;player_id=player_1',
+		id : '1',
+		url : 'http://player.vimeo.com/video/203174203?api=1&amp;player_id=player_1',
 		mimeType : 'video/mp4'
 	};
-	return (
+	callback(componentId,
 		<VimeoPlayer mediaObject={mediaObject}/>
 	);
 }
 
-function getJWPlayer() {
+function getJWPlayer(componentId, callback) {
 	var JWPlayer = clariah.JWPlayer;
 	var mediaObject = {
-		url : 'http://os-immix-w/bascollectie/LEKKERLEZEN__-HRE000554F5_63070000_63839000.mp4',
+		id : '2',
+		url : 'http://openbeelden.nl/files/49/49338.49323.WEEKNUMMER253-HRE00015701.mp4',
 		mimeType : 'video/mp4'
 	};
-	return (
+	callback(componentId,
 		<JWPlayer mediaObject={mediaObject}/>
 	);
 }
 
-function getYouTubePlayer() {
+function getYouTubePlayer(componentId, callback) {
 	var YouTubePlayer = clariah.YouTubePlayer;
 	var mediaObject = {
-		url : 'https://www.youtube.com/watch?v=eZCvMpPM2SY',
+		id : '3',
+		url : 'https://www.youtube.com/watch?v=QF_qokjdsKY',
 		mimeType : 'video/mp4'
 	};
-	return (
+	callback(componentId,
 		<YouTubePlayer mediaObject={mediaObject}/>
 	);
 }
 
-function getImageViewer() {
+function getImageViewer(componentId, callback) {
 	var FlexImageViewer = clariah.FlexImageViewer;
 	var mediaObject = {
 		url : 'http://hdl.handle.net/10744/mi_21cee277-cb55-415b-bef9-c27291090c9a',
@@ -224,10 +261,10 @@ function getImageViewer() {
 ************************** Data visualisations ******************************
 *******************************************************************************/
 
-function getLineChart() {
+function getLineChart(componentId, callback) {
 	var LineChart = clariah.LineChart;
 	var FlexComponentInfo = clariah.FlexComponentInfo;
-	return (
+	callback(componentId,
 		<div>
 			<FlexComponentInfo
 				title="Line chart"

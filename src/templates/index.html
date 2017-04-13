@@ -1,0 +1,74 @@
+<!doctype HTML>
+
+<html>
+
+<head>
+	<title>CLARIAH Media Suite</title>
+	{% include '%s/head.html' % headDir %}
+</head>
+
+
+<body>
+
+{% with page='home' %}
+{% include '%s/nav.html' % navbarDir %}
+{% endwith %}
+
+<div class="container">
+
+	<br>
+
+	<div class="row">
+		<div class="col-md-6">
+			<img src="/static/images/logo.png" alt="CLARIAH media suite" class="img-responsive">
+		</div>
+		<div class="col-md-6">
+			<h3>What is the Media Suite?</h3>
+			<p>The Media Suite is a research environment of the Dutch infrastructure for digital humanities and social sciences (<a href="http://clariah.nl" target="_clariah">CLARIAH</a>) which aims to serve the needs of <a href="http://www.clariah.nl/werkpakketten/focusgebieden/media-studies">media scholars</a> (and other scholars who use audiovisual media) by providing access to audiovisual collections and their contextual data. Here you can enter the Media Suite services. To read more about the <a href="http://www.clariah.nl/werkpakketten/focusgebieden/media-studies" target="_focus">CLARIAH Media Studies focus</a>, go to the CLARIAH website, or to our <a href="http://rdbg.tuxic.nl/clariahwp5/wordpress/" target="_msblog">Media Suite blog and documentation pages</a>.
+</p>
+		</div>
+	</div>
+
+	<br><hr><br>
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="text-center labs-goto" onclick="gotoPage('datasources')">
+				<i class="fa fa-database fa-4x fa-border text-muted"></i>
+				<h3>Data Sources</h3>
+				<p>Collections are registered in a common inventory which describes their metadata and are available in Elasticsearch and RDF format.</p>
+				<br>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="text-center labs-goto" onclick="gotoPage('apis')">
+				<i class="fa fa-plug fa-4x fa-border text-muted"></i>
+				<h3>APIs</h3>
+				<p>The foundation of the Media Suite is built on our APIs. They facilitate the interaction with data from various collections.</p><br>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="text-center labs-goto" onclick="gotoPage('components')">
+				<i class="fa fa-cogs fa-flip-horizontal fa-4x fa-border text-muted"></i>
+				<h3>Components</h3>
+				<p>Each component performs a single, well-defined task. Modules can interoperate to construct more sophisticated functionality.</p><br>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="text-center labs-goto" onclick="gotoPage('recipes')">
+				<i class="fa fa-pencil fa-4x fa-border text-muted"></i>
+				<h3>Recipes</h3>
+				<p>Recipes are built based on the knowledge and experience of the scholarly community. They integrate components into tools for media studies research.</p>
+				<br>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+
+<script src="/static/node_modules/jquery/dist/jquery.js"></script>
+<script src="/static/js/labo.js"></script>
+
+</html>

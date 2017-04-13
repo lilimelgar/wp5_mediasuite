@@ -1,0 +1,55 @@
+{
+	"episode" : {
+		"properties" : {
+			"collectionId" : {
+				"type" : "string",
+				"index" : "not_analyzed"
+			},
+			"resourceId" : {
+				"type" : "string",
+				"index" : "not_analyzed"
+			},
+			"title": {
+				"type": "string"
+			},
+			"title_raw": {
+				"type": "string",
+				"index" : "not_analyzed"
+			},
+			"date" : {
+				"type" : "date",
+				"format" : "dd-MM-yyyy"
+			},
+			"posterURL" : {
+				"type" : "string",
+				"index" : "not_analyzed"
+			},
+			"description": {
+				"type": "string"
+			},
+			"playableContent" : {
+				"properties" : {
+					"mimeType" : {
+						"type" : "string",
+						"index" : "not_analyzed"
+					},
+					"url" : {
+						"type" : "string",
+						"index" : "not_analyzed"
+					}
+				}
+			},
+			"body" : {
+				"properties" : {
+					"value" : {
+						"type" : "nested",
+						"properties" : {
+
+						}
+					}
+				}
+			}
+		}
+
+	}
+}

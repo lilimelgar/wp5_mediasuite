@@ -1,0 +1,32 @@
+<!doctype HTML>
+
+<html>
+
+<head>
+	<title>CLARIAH - Your private lab</title>
+    {% include '%s/head.html' % headDir %}
+</head>
+
+
+<body>
+
+{% with page='userspace' %}
+{% include '%s/nav.html' % navbarDir %}
+{% endwith %}
+
+<div class="container">
+
+	<div class="page-header">
+		<h1>Welcome to your user space, {{user.name}}</h1>
+	</div>
+
+	<div class="alert alert-danger">
+		This is your personal and collaborative “work space,” where you can keep track of your (re)search projects, store your bookmarks (selected corpus) or codes (tags), and other annotations you performed while searching and browsing. You can also perform analytical tasks with your corpus and annotations, and export your data. THIS SPACE IS UNDER CONSTRUCTION.
+
+	</div>
+
+</div>
+
+</body>
+
+</html>

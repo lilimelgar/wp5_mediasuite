@@ -1,0 +1,13 @@
+{
+	"id" : "lod-collection-browser",
+	"name" : "Linked Data exploratory browser (DIVE)",
+	"type" : "lod-search",
+	"phase" : "collection-exploration",
+	"description" : "DIVE+ browser is a linked-data, event-based browser, based on the simple event data model, where you can browse and search in an ”infinite” fashion in different heritage collections at the same time. It supports the creation of browsing narratives. Link: http://diveplus.frontwise.com/",
+	"inRecipeList" : true,
+	"ingredients" : {
+		"collections": [],
+		"itemDetailsPath" : "recipe/default-item-details"
+	},
+	"url" : "http://diveplus.frontwise.com/"
+}

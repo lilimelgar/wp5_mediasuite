@@ -1,0 +1,38 @@
+<meta charset="UTF-8">
+
+<meta name="author" content="The Netherlands Institute for Sound and Vision">
+<meta name="description" content="Explore, analyse and annotate audiovisual content">
+<meta name="keywords" content="Audivisual tools, media research, searching &amp; browsing, content annotation">
+
+<meta property="og:title" content="Sound &amp; Vision - LABS">
+<meta property="og:image" content="{{navbarLogo}}">
+<meta property="og:description" content="Explore, analyse and annotate audiovisual content">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="shortcut icon" type="image/jpeg" href="/static/images/favicon.png" />
+<link rel="icon" type="image/jpeg" href="/static/images/favicon.png" />
+<link href="/static/css/font-awesome.min.css" rel="stylesheet">
+<link href="/static/vendor/noUiSlider.9.2.0/nouislider.min.css" rel="stylesheet">
+
+{% if pageType=='components'%}
+	<link rel="stylesheet" href="/static/css/components.css">
+	<script>
+		_config = {
+			SEARCH_API_BASE : '{{searchAPI}}{{searchAPIPath}}',
+			ANNOTATION_API_BASE : '{{annotationAPI}}{{annotationAPIPath}}'
+		}
+	</script>
+{% elif pageType=='app' %}
+	<link rel="stylesheet" href="/static/css/app.css">
+	<script>
+		_config = {
+			SEARCH_API_BASE : '{{searchAPI}}{{searchAPIPath}}',
+			ANNOTATION_API_BASE : '{{annotationAPI}}{{annotationAPIPath}}'
+		}
+	</script>
+{% elif pageType=='main' %}
+	<link rel="stylesheet" href="/static/css/main.css">
+{% else %}
+	<link rel="stylesheet" href="/static/css/main.css">
+{% endif %}

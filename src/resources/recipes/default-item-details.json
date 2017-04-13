@@ -1,0 +1,51 @@
+{
+	"id" : "default-item-details",
+	"name" : "Resource viewer",
+	"type" : "item-details",
+	"phase" : "close-reading",
+	"description" : "Media play-out & annotation support. Inspect related metadata and annotations",
+	"inRecipeList" : false,
+	"ingredients" : {
+		"annotationSupport" : {
+			"mediaObject" : {
+				"modes" : ["classification", "comment", "link", "metadata"]
+			},
+			"mediaSegment" : {
+				"modes" : ["classification", "comment", "link", "metadata"]
+			}
+		},
+		"annotationModes" : {
+			"classification" : {
+				"vocabularies" : ["GTAA", "DBpedia", "UNESCO"]
+			},
+			"link" : {
+				"apis" : [
+					{"name" : "wikidata"},
+					{"name" : "europeana"}
+				]
+			},
+			"metadata" : {
+				"mediaObject" : {
+					"templates" : ["generic"],
+					"cardsPerUser" : 10
+				},
+				"mediaSegment" : {
+					"templates" : ["generic"],
+					"cardsPerUser" : 10
+				},
+				"templates" : {
+					"generic" : {
+						"id" : "generic",
+						"label" : "Generic",
+						"properties" : [
+							{"key" : "title", "type" : "string"},
+							{"key" : "description", "type" : "string"},
+							{"key" : "date", "type" : "date"}
+						]
+					}
+				}
+			},
+			"comment" : {}
+		}
+	}
+}

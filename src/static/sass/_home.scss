@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.home-separator {
+	margin:$defaultMargin * 5 0px;
+}
+
+.separator {
+	height: 1em;
+}
+
+.home-footer {
+	a {
+		color: $clOrange;
+	}
+}
+
+.collection-tab {
+	padding:$defaultMargin;
+	height:100%;
+}
+
+.labs-goto {
+	cursor: pointer;
+	h3 {
+		color: $clOrange;
+	}
+}
+
+.interactive {
+	cursor:pointer;
+}
+
+/* ------------------------ recipes.html ---------------------- */
+.panel-body {
+	min-height: 180px;
+}
+
+/* ======================== CLARIAH specific ======================== */
+
+.cl-well {
+	border-color: $clOrange;
+}
+
+.nav-tabs {
+	li {
+		a {
+			color: $clOrange;
+		}
+	}
+}
