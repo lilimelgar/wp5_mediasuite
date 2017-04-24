@@ -1,6 +1,6 @@
 //this function is attached to the window, so it is made accessible within the scope of the HTML page
 function showComponent(componentId) {
-	var FlexBox = clariah.FlexBox;
+	var FlexBox = labo.FlexBox;
 	var component = null;
 
 	switch(componentId) {
@@ -45,8 +45,8 @@ function componentLoaded(componentId, component) {
 *******************************************************************************/
 
 function getCollectionSelector(componentId, callback) {
-	var CollectionSelector = clariah.CollectionSelector;
-	var FlexComponentInfo = clariah.FlexComponentInfo;
+	var CollectionSelector = labo.CollectionSelector;
+	var FlexComponentInfo = labo.FlexComponentInfo;
 	callback(componentId,
 		<div>
 			<FlexComponentInfo
@@ -66,7 +66,7 @@ function getCollectionSelector(componentId, callback) {
 }
 
 function getCollectionAnalyser(componentId, callback) {
-	var CollectionAnalyser = clariah.CollectionAnalyser;
+	var CollectionAnalyser = labo.CollectionAnalyser;
 	var params = {
 		collectionSelector : true,
 		fieldAnalysisStats : true,
@@ -84,8 +84,8 @@ function getCollectionAnalyser(componentId, callback) {
 
 function getQueryBuilder(componentId, callback) {
 	console.debug('well? what is this');
-	var QueryBuilder = clariah.QueryBuilder;
-	var CollectionUtil = clariah.CollectionUtil;
+	var QueryBuilder = labo.QueryBuilder;
+	var CollectionUtil = labo.CollectionUtil;
 	CollectionUtil.generateCollectionConfig('nisv', function(data){
 		callback(componentId,
 			<QueryBuilder
@@ -101,8 +101,8 @@ function getQueryBuilder(componentId, callback) {
 }
 
 function getComparativeSearch(componentId, callback) {
-	var ComparativeSearch = clariah.ComparativeSearch;
-	var FlexComponentInfo = clariah.FlexComponentInfo;
+	var ComparativeSearch = labo.ComparativeSearch;
+	var FlexComponentInfo = labo.FlexComponentInfo;
 	callback(componentId,
 		<div>
 			<FlexComponentInfo
@@ -129,14 +129,14 @@ function getComparativeSearch(componentId, callback) {
 *******************************************************************************/
 
 function getCommentingForm(componentId, callback) {
-	var CommentingForm = clariah.CommentingForm;
+	var CommentingForm = labo.CommentingForm;
 	callback(componentId,
 		<CommentingForm/>
 	);
 }
 
 function getClassifyingForm(componentId, callback) {
-	var ClassifyingForm = clariah.ClassifyingForm;
+	var ClassifyingForm = labo.ClassifyingForm;
 	var config = {
 		vocabularies : ["GTAA", "DBpedia", "UNESCO"]
 	}
@@ -146,7 +146,7 @@ function getClassifyingForm(componentId, callback) {
 }
 
 function getLinkingForm(componentId, callback) {
-	var LinkingForm = clariah.LinkingForm;
+	var LinkingForm = labo.LinkingForm;
 	var config = {
 		apis : [
 			{"name" : "wikidata"},
@@ -163,7 +163,7 @@ function getLinkingForm(componentId, callback) {
 *******************************************************************************/
 
 function getAnnotationPlayer(componentId, callback) {
-	var FlexPlayer = clariah.FlexPlayer;
+	var FlexPlayer = labo.FlexPlayer;
 	var mediaObject = {
 		id : '0',
 		url : 'https://www.youtube.com/watch?v=QF_qokjdsKY',
@@ -210,7 +210,7 @@ function getAnnotationPlayer(componentId, callback) {
 }
 
 function getVimeoPlayer(componentId, callback) {
-	var VimeoPlayer = clariah.VimeoPlayer;
+	var VimeoPlayer = labo.VimeoPlayer;
 	//https://vimeo.com/203174203
 	var mediaObject = {
 		id : '1',
@@ -223,7 +223,7 @@ function getVimeoPlayer(componentId, callback) {
 }
 
 function getJWPlayer(componentId, callback) {
-	var JWPlayer = clariah.JWPlayer;
+	var JWPlayer = labo.JWPlayer;
 	var mediaObject = {
 		id : '2',
 		url : 'http://openbeelden.nl/files/49/49338.49323.WEEKNUMMER253-HRE00015701.mp4',
@@ -235,7 +235,7 @@ function getJWPlayer(componentId, callback) {
 }
 
 function getYouTubePlayer(componentId, callback) {
-	var YouTubePlayer = clariah.YouTubePlayer;
+	var YouTubePlayer = labo.YouTubePlayer;
 	var mediaObject = {
 		id : '3',
 		url : 'https://www.youtube.com/watch?v=QF_qokjdsKY',
@@ -247,7 +247,7 @@ function getYouTubePlayer(componentId, callback) {
 }
 
 function getImageViewer(componentId, callback) {
-	var FlexImageViewer = clariah.FlexImageViewer;
+	var FlexImageViewer = labo.FlexImageViewer;
 	var mediaObject = {
 		url : 'http://hdl.handle.net/10744/mi_21cee277-cb55-415b-bef9-c27291090c9a',
 		mimeType : 'image/jpeg'
@@ -262,8 +262,8 @@ function getImageViewer(componentId, callback) {
 *******************************************************************************/
 
 function getLineChart(componentId, callback) {
-	var LineChart = clariah.LineChart;
-	var FlexComponentInfo = clariah.FlexComponentInfo;
+	var LineChart = labo.LineChart;
+	var FlexComponentInfo = labo.FlexComponentInfo;
 	callback(componentId,
 		<div>
 			<FlexComponentInfo
