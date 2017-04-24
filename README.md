@@ -16,7 +16,7 @@ To function properly the media suite requires access to running instances of eac
 * The [search API](https://github.com/beeldengeluid/labs-search-api) (private repo)
 * The [annotation API](https://github.com/beeldengeluid/labs-annotation-api) (private repo)
 
-'''Note''': In order to get access to one of these, please contact the owner of this repository
+**Note**: In order to get access to one of these, please contact the owner of this repository
 
 ### The webserver
 
@@ -42,7 +42,7 @@ Following this it should already be possible to start the Flask webserver using
 python server.py
 ```
 
-'''Note''': check the comments in settings-example.py on how to completely configure the media suite
+**Note**: check the comments in settings-example.py on how to completely configure the media suite
 
 ### Client application
 
@@ -54,7 +54,7 @@ Make sure [npm](https://www.npmjs.com/) is installed, then go into /src/static (
 npm install
 ```
 
-Note: You might need to be sudo for this.
+**Note**: You might need to be sudo for this.
 
 
 #### Styling the media suite
