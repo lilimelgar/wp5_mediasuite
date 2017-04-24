@@ -1,18 +1,19 @@
 config = {
-	#webserver parameters
+	#host & port you'd like to run the media suite on
 	'APP_HOST' : '0.0.0.0',
 	'APP_PORT' : 5302,
 
-	"""
-	To override certain defaults, it is possible to create a dir using the INSTANCE_NAME in:
+	'AUTHENTICATION_METHOD' : 'basic', #'OpenConnext', #options [OpenConnext, basic]
+	'PW' : 'YOUR PASSWORD',
 
-	src/templates (for HTML files)
-	src/resources/recipes (for the available recipes in JSON format)
-	src/static/images (for the logo in the navbar or additional custom images)
-	src/static/css (for overriding the default styling)
-	src/static/sass	(using compass watch in src/static, this will generate the CSS output of SASS into src/static/css)
+	#request access to live versions of these APIs via the owner of the repo
+	'SEARCH_API' : 'http://localhost:5320',
+	'SEARCH_API_PATH' : '/api/v1',
 
-	"""
+	'ANNOTATION_API' : 'http://localhost:5303',
+	'ANNOTATION_API_PATH' : '/api',
 
-	'INSTANCE_NAME' : 'YOUR_INSTANCE_NAME' # entering 'default' or omitting this propery loads the default
+	#TODO documentation on this will follow in a later stage
+	'EXPORT_CONFIGS' : {
+	}
 }
