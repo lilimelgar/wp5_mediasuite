@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 .home-separator {
-	margin:$defaultMargin * 5 0px;
+	margin:$default-margin * 5 0px;
 }
 
 .separator {
@@ -15,7 +15,7 @@
 }
 
 .collection-tab {
-	padding:$defaultMargin;
+	padding:$default-margin;
 	height:100%;
 }
 
@@ -45,6 +45,35 @@
 	li {
 		a {
 			color: $clOrange;
+		}
+	}
+}
+
+.components-header {
+	font-size:110%;
+	color: red;
+	&:hover {
+		color: darkorange;
+	}
+}
+
+.component-category {
+	width:100%;
+	.category-header {
+		color: $clBlue;
+		&:hover {
+			color: red;
+		}
+	}
+}
+
+.component-list {
+	li {
+		a {
+			color: $clDark;
+			&:hover {
+				color: $clBlue;
+			}
 		}
 	}
 }

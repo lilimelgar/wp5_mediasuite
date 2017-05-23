@@ -9,7 +9,7 @@
 		"collection": "nisv",
 		"collectionSelector" : true,
 		"aggregationView" : "box",
-		"timeSlider" : true,
+		"dateRangeSelector" : true,
 		"itemDetailsPath" : "recipe/default-item-details"
 	}
 }

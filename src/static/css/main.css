@@ -1,7 +1,21 @@
 @charset "UTF-8";
+/* ------ CLARIAH specific variables ------ */
+/* ------ Bootstrap overrides ------ */
+/*
+
+This is needed for the glyphicons to work
+
+$icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/" !default;
+
+*/
+/* ------ Component library overrides ------ */
+/* annotation */
+/* player */
+/*@import "../dist-dev/sass/labo-components.scss";*/
+/* then import the default bootstrap overrides made for this component library */
 /* Override your bootstrap variables here */
 /* This is needed for the glyphicons to work */
-/* Further overrides */
+/* import bootstrap SASS first, since some variables are reused in _component-variables.scss */
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -8792,54 +8806,619 @@ button.close {
     display: none !important;
   }
 }
-/* line 3, ../sass/_home.scss */
+/* then import the component variables */
+/*
+	Main variables of the component library.
+
+	Client applications are invited to override these by using SASS.
+
+	These clients should not use the prepackaged labo-components.css, but should generate their own CSS based on:
+	- bootstrap-sass/assets/stylesheets/bootstrap (after npm install bootstrap-sass)
+	- _bootstrap-overrides.scss
+	- _components-scss
+*/
+/* ---- Spacing variables ---- */
+/* applying bootstrap variable */
+/* ---- Global colors (hopefully with useful semantic designations) ---- */
+/* ---- Box shadow colors ---- */
+/* ---- Annotation ---- */
+/* ---- Item details ---- */
+/* ---- Timeline ---- */
+/* ---- Modal ---- */
+/* overriding bootstrap variable */
+/* finally import the actual component styles that use the component variables, you can change the variables at the top */
+/* ========================  Annotation package ==================================== */
+/* line 3, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation {
+  /* Annotation.jsx */
+}
+/* line 4, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation span {
+  padding-right: 5px;
+}
+/* line 7, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation .bg__an__label {
+  color: #333;
+}
+/* line 10, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation .bg__an__fragment-info {
+  color: #f26c50;
+}
+/* line 13, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation .bg__an__prov-info {
+  color: #333;
+  font-weight: bold;
+}
+
+/* AnnotationBox.jsx */
+/* AnnotationList.jsx */
+/* line 23, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation-summary {
+  /* AnnotationSummary.jsx */
+}
+/* line 24, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation-summary .bg__ans__card-list {
+  list-style: none;
+  padding: 10px;
+  margin: 0px;
+  margin-bottom: 5px;
+  border: 1px solid white;
+}
+/* line 28, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation-summary .bg__ans__card-list .key {
+  font-weight: bold;
+}
+/* line 31, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation-summary .bg__ans__card-list li {
+  border-bottom: 1px dotted #e3e3e3;
+  word-break: break-word;
+}
+/* line 37, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation-summary .bg__ans__card-list:hover {
+  background-color: #efefef;
+  border: 1px solid #468dcb;
+}
+
+/* line 45, ../node_modules/labo-components/sass/_components.scss */
+.bg__classification {
+  /* Classification.jsx */
+  font-size: 100% !important;
+  display: inline-block !important;
+  margin: 0px 5px 5px 0px;
+}
+
+/* ClassifyingForm.jsx */
+/* CommentingForm.jsx */
+/* line 55, ../node_modules/labo-components/sass/_components.scss */
+.bg__link-form {
+  /* LinkingForm.jsx */
+}
+/* line 56, ../node_modules/labo-components/sass/_components.scss */
+.bg__link-form .bg__lf__result-list {
+  height: 400px;
+  overflow: auto;
+}
+
+/* line 62, ../node_modules/labo-components/sass/_components.scss */
+.bg__information-card-form {
+  /* MetadataForm.jsx */
+}
+/* line 63, ../node_modules/labo-components/sass/_components.scss */
+.bg__information-card-form .bg__icf__card-table {
+  width: 100%;
+  margin-bottom: 10px;
+}
+/* line 68, ../node_modules/labo-components/sass/_components.scss */
+.bg__information-card-form .bg__icf__card-table-row {
+  border-bottom: 5px solid transparent;
+  vertical-align: top;
+}
+/* line 69, ../node_modules/labo-components/sass/_components.scss */
+.bg__information-card-form .bg__icf__card-table-row .bg__icf__key {
+  width: 25%;
+  padding-right: 1%;
+}
+/* line 73, ../node_modules/labo-components/sass/_components.scss */
+.bg__information-card-form .bg__icf__card-table-row .bg__icf__value {
+  width: 65%;
+  padding-right: 1%;
+}
+/* line 77, ../node_modules/labo-components/sass/_components.scss */
+.bg__information-card-form .bg__icf__card-table-row .bg__icf__icon {
+  width: 6%;
+}
+
+/* ==================== Search package ============================================ */
+/* line 88, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box {
+  /* AggregationBox.jsx */
+}
+/* line 90, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__tab-new a {
+  color: #468dcb !important;
+}
+/* line 92, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__tab-new a:hover {
+  text-decoration: underline;
+}
+/* line 97, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__tag-cloud {
+  padding: 10px;
+}
+/* line 100, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__tag-cloud .bg__agb__tag-cloud-item {
+  display: inline-block;
+  margin: 0px 5px 5px 0px;
+  color: #468dcb;
+  cursor: pointer;
+}
+/* line 105, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__tag-cloud .bg__agb__tag-cloud-item:hover {
+  text-decoration: underline;
+}
+/* line 110, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__tag-cloud .active.bg__agb__tag-cloud-item {
+  font-weight: bold;
+}
+/* line 115, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__breadcrumbs .bg__agb__crumb {
+  display: inline-block;
+  margin: 0px 5px 5px 0px;
+  background-color: #468dcb;
+  padding: 0px 5px;
+  color: white;
+}
+/* line 121, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__breadcrumbs .bg__agb__crumb i {
+  cursor: pointer;
+}
+/* line 123, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-box .bg__agb__breadcrumbs .bg__agb__crumb i:hover {
+  color: #f26c50;
+}
+
+/* AggregationCreator.jsx */
+/* line 133, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-list {
+  /* AggregationList.jsx */
+}
+/* line 134, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-list .bg__agl__facet-group {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+/* line 138, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-list .bg__agl__facet-group .bg__agl__facet-item {
+  color: #333;
+}
+/* line 140, ../node_modules/labo-components/sass/_components.scss */
+.bg__aggregation-list .bg__agl__facet-group .bg__agl__facet-item:hover {
+  color: #ccc;
+}
+
+/* DateRangeSelector.jsx */
+/* line 149, ../node_modules/labo-components/sass/_components.scss */
+.bg__item-details {
+  /* ItemDetails.jsx */
+}
+/* line 151, ../node_modules/labo-components/sass/_components.scss */
+.bg__item-details .bg__itd__media-player img {
+  max-width: 100%;
+}
+
+/* line 157, ../node_modules/labo-components/sass/_components.scss */
+.bg__metadata-table {
+  /* MetadataTable.jsx */
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+/* line 161, ../node_modules/labo-components/sass/_components.scss */
+.bg__metadata-table tr td {
+  white-space: pre-wrap;
+}
+/* line 163, ../node_modules/labo-components/sass/_components.scss */
+.bg__metadata-table tr td:first-child {
+  width: 125px;
+}
+/* line 168, ../node_modules/labo-components/sass/_components.scss */
+.bg__metadata-table label {
+  color: #333;
+}
+/* line 179, ../node_modules/labo-components/sass/_components.scss */
+.bg__metadata-table .bg__mdt__raw-data {
+  overflow: auto;
+  height: 400px;
+}
+
+/* Paging.jsx */
+/* line 187, ../node_modules/labo-components/sass/_components.scss */
+.bg__query-builder {
+  /* QueryBuilder.jsx */
+}
+
+/* line 193, ../node_modules/labo-components/sass/_components.scss */
+.bg__query-factory .bg__qf__grid .bg__qf__cell {
+  display: inline-block;
+  height: 600px;
+  float: left;
+  margin-right: 2%;
+  margin-top: 1%;
+  width: 48%;
+  background-color: #f8f8f8;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+/* line 205, ../node_modules/labo-components/sass/_components.scss */
+.bg__query-factory .bg__qf__grid .bg__qf__cell .nav-tabs > li.active > a, .bg__query-factory .bg__qf__grid .bg__qf__cell .nav-tabs > li.active > a:hover, .bg__query-factory .bg__qf__grid .bg__qf__cell .nav-tabs > li.active > a:focus {
+  background-color: #f8f8f8;
+}
+
+/* line 212, ../node_modules/labo-components/sass/_components.scss */
+.bg__search-hit {
+  /* SearchHit.jsx */
+  margin: 5px;
+  padding: 10px;
+  border-bottom: 1px solid #e3e3e3;
+}
+/* line 216, ../node_modules/labo-components/sass/_components.scss */
+.bg__search-hit .bg__sh__quickview {
+  margin-right: 10px;
+  float: left;
+}
+/* line 220, ../node_modules/labo-components/sass/_components.scss */
+.bg__search-hit .bg__search-snippet {
+  margin: 5px;
+}
+/* line 223, ../node_modules/labo-components/sass/_components.scss */
+.bg__search-hit.fragment {
+  /* possibly change this into .bg__search-hit--fragment (BEM style) */
+  margin: 5px;
+  padding: 10px;
+  border-right: 1px solid #f26c50;
+}
+
+/* SearchSnippet.jsx */
+/* Sorting.jsx */
+/* ==================== Collection package ============================================ */
+/* CollectionAnalyser.jsx */
+/* line 239, ../node_modules/labo-components/sass/_components.scss */
+.bg__collection-selector {
+  /* CollectionSelector.jsx */
+}
+/* line 240, ../node_modules/labo-components/sass/_components.scss */
+.bg__collection-selector .bg__cls__collection {
+  float: left;
+  margin: 1% 1% 1% 1%;
+  border-radius: 4px;
+  border: 1px solid grey;
+  width: 30%;
+  overflow: hidden;
+  padding: 10px;
+  height: 250px;
+  text-align: center;
+}
+/* line 250, ../node_modules/labo-components/sass/_components.scss */
+.bg__collection-selector .bg__cls__collection img {
+  width: 50%;
+}
+/* line 253, ../node_modules/labo-components/sass/_components.scss */
+.bg__collection-selector .bg__cls__collection:hover {
+  box-shadow: 3px 3px 3px grey;
+}
+
+/* CollectionStats.jsx */
+/* FieldAnalysisStats */
+/* ==================== Statistics package ============================================ */
+/* line 267, ../node_modules/labo-components/sass/_components.scss */
+.bg__histogram {
+  /* Histogram.jsx */
+}
+/* line 268, ../node_modules/labo-components/sass/_components.scss */
+.bg__histogram .bg__hg__bar {
+  cursor: pointer;
+}
+/* line 270, ../node_modules/labo-components/sass/_components.scss */
+.bg__histogram .bg__hg__bar rect {
+  fill: #468dcb;
+}
+/* line 272, ../node_modules/labo-components/sass/_components.scss */
+.bg__histogram .bg__hg__bar rect:hover {
+  fill: #468dcb;
+}
+/* line 276, ../node_modules/labo-components/sass/_components.scss */
+.bg__histogram .bg__hg__bar text {
+  fill: #333;
+  font: 10px sans-serif;
+}
+/* line 279, ../node_modules/labo-components/sass/_components.scss */
+.bg__histogram .bg__hg__bar text:hover {
+  font-size: 150%;
+  z-index: 199;
+}
+
+/* line 287, ../node_modules/labo-components/sass/_components.scss */
+.bg__query-line-chart {
+  /* QueryComparisonLineChart.jsx */
+}
+/* line 288, ../node_modules/labo-components/sass/_components.scss */
+.bg__query-line-chart .axis path, .bg__query-line-chart .axis line {
+  /* overridden d3 class */
+  fill: none;
+  stroke: #e3e3e3;
+  shape-rendering: crispEdges;
+}
+/* line 294, ../node_modules/labo-components/sass/_components.scss */
+.bg__query-line-chart .x.axis path {
+  /* overridden d3 class */
+  display: none;
+}
+/* line 298, ../node_modules/labo-components/sass/_components.scss */
+.bg__query-line-chart .bg__qlc__line {
+  fill: none;
+  stroke-width: 1.5px;
+}
+
+/* ==================== Player packages ============================================ */
+/* line 306, ../node_modules/labo-components/sass/_components.scss */
+.bg__annotation-timeline {
+  /* AnnotationTimeline.jsx */
+  width: 100%;
+  height: 50px;
+  display: block;
+  position: relative;
+  margin-top: 10px;
+  background-color: black;
+  cursor: crosshair;
+}
+
+/* HTML5AudioPlayer.jsx */
+/* line 318, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-image-viewer {
+  /* FlexImageViewer.jsx */
+}
+/* line 319, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-image-viewer .bg__fiv__overlay {
+  outline: 1px solid #eee;
+  box-shadow: 5px 5px 5px #888;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: rgba(105, 150, 205, 0.2);
+  cursor: pointer;
+}
+/* line 326, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-image-viewer .bg__fiv__overlay.active {
+  /* possibly change this into .bg__flex-image-viewer--active (BEM style) */
+  outline: 1px solid #468dcb;
+  box-shadow: 5px 5px 5px #468dcb;
+  border-radius: 4px;
+  background-color: rgba(128, 134, 34, 0.2);
+}
+
+/* SegmentationControls.jsx */
+/* line 337, ../node_modules/labo-components/sass/_components.scss */
+.bg__segmentation-timeline {
+  /* SegmentationTimeline.jsx */
+  width: 100%;
+  height: 50px;
+  display: block;
+  position: relative;
+  margin-top: 10px;
+  background-color: black;
+  cursor: crosshair;
+}
+
+/* FlexPlayer.jsx */
+/* HTML5VideoPlayer.jsx */
+/* JWPlayer.jsx */
+/* VimeoPlayer.jsx */
+/* YouTubePlayer.jsx */
+/* ==================== Generic/flex components/package ============================================ */
+/* line 360, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box {
+  /* FlexBox.jsx */
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+/* line 364, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box .bg__fb__open {
+  float: right;
+}
+/* line 366, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box .bg__fb__open:after {
+  content: "\25BC";
+}
+/* line 369, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box .bg__fb__open:hover {
+  text-decoration: underline;
+}
+/* line 373, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box .bg__fb__closed {
+  float: right;
+}
+/* line 375, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box .bg__fb__closed:after {
+  content: "\25B2";
+}
+/* line 379, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box.closed {
+  /* possibly change this name into bg__flex-box--closed (BEM style) */
+}
+/* line 380, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-box.closed:hover {
+  background-color: #468dcb;
+}
+
+/* FlexComponentInfo.jsx */
+/* line 388, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-modal {
+  /* FlexModal.jsx */
+}
+/* line 389, ../node_modules/labo-components/sass/_components.scss */
+.bg__flex-modal .bg__fm__custom {
+  width: 55%;
+}
+
+/* ==================== Recipes ============================================ */
+/* line 397, ../node_modules/labo-components/sass/_components.scss */
+.bg__collection-recipe {
+  /* CollectionRecipe.jsx */
+}
+/* line 398, ../node_modules/labo-components/sass/_components.scss */
+.bg__collection-recipe .bg__rcp__cl__input-area {
+  margin-top: 5px;
+  background-color: #f8f8f8;
+  padding: 3px 8px;
+}
+
+/* line 405, ../node_modules/labo-components/sass/_components.scss */
+.bg__item-details-recipe {
+  /* ItemDetailsRecipe.jsx */
+}
+
+/* ComparativeSearchRecipe.jsx */
+/* SingleSearchRecipe.jsx */
+/* ==================== React Autocomplete (TODO: move to component later?) ==== */
+/* line 418, ../node_modules/labo-components/sass/_components.scss */
+.react-autosuggest__container {
+  position: relative;
+}
+
+/* line 422, ../node_modules/labo-components/sass/_components.scss */
+.react-autosuggest__input {
+  width: 90%;
+  height: 30px;
+  padding: 10px 20px;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+}
+
+/* line 433, ../node_modules/labo-components/sass/_components.scss */
+.react-autosuggest__input:focus {
+  outline: none;
+}
+
+/* line 437, ../node_modules/labo-components/sass/_components.scss */
+.react-autosuggest__container--open .react-autosuggest__input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* line 442, ../node_modules/labo-components/sass/_components.scss */
+.react-autosuggest__suggestions-container {
+  position: absolute;
+  top: 51px;
+  width: 90%;
+  height: 420px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  border: 1px solid #e3e3e3;
+  background-color: #fff;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+}
+
+/* line 461, ../node_modules/labo-components/sass/_components.scss */
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+/* line 466, ../node_modules/labo-components/sass/_components.scss */
+.react-autosuggest__suggestion--focused {
+  background-color: #ddd;
+}
+
+/* line 3, ../sass/_mediasuite.scss */
 .home-separator {
   margin: 50px 0px;
 }
 
-/* line 7, ../sass/_home.scss */
+/* line 7, ../sass/_mediasuite.scss */
 .separator {
   height: 1em;
 }
 
-/* line 12, ../sass/_home.scss */
+/* line 12, ../sass/_mediasuite.scss */
 .home-footer a {
   color: #f26c50;
 }
 
-/* line 17, ../sass/_home.scss */
+/* line 17, ../sass/_mediasuite.scss */
 .collection-tab {
   padding: 10px;
   height: 100%;
 }
 
-/* line 22, ../sass/_home.scss */
+/* line 22, ../sass/_mediasuite.scss */
 .labs-goto {
   cursor: pointer;
 }
-/* line 24, ../sass/_home.scss */
+/* line 24, ../sass/_mediasuite.scss */
 .labs-goto h3 {
   color: #f26c50;
 }
 
-/* line 29, ../sass/_home.scss */
+/* line 29, ../sass/_mediasuite.scss */
 .interactive {
   cursor: pointer;
 }
 
 /* ------------------------ recipes.html ---------------------- */
-/* line 34, ../sass/_home.scss */
+/* line 34, ../sass/_mediasuite.scss */
 .panel-body {
   min-height: 180px;
 }
 
 /* ======================== CLARIAH specific ======================== */
-/* line 40, ../sass/_home.scss */
+/* line 40, ../sass/_mediasuite.scss */
 .cl-well {
   border-color: #f26c50;
 }
 
-/* line 46, ../sass/_home.scss */
+/* line 46, ../sass/_mediasuite.scss */
 .nav-tabs li a {
   color: #f26c50;
+}
+
+/* line 52, ../sass/_mediasuite.scss */
+.components-header {
+  font-size: 110%;
+  color: red;
+}
+/* line 55, ../sass/_mediasuite.scss */
+.components-header:hover {
+  color: darkorange;
+}
+
+/* line 60, ../sass/_mediasuite.scss */
+.component-category {
+  width: 100%;
+}
+/* line 62, ../sass/_mediasuite.scss */
+.component-category .category-header {
+  color: #468dcb;
+}
+/* line 64, ../sass/_mediasuite.scss */
+.component-category .category-header:hover {
+  color: red;
+}
+
+/* line 72, ../sass/_mediasuite.scss */
+.component-list li a {
+  color: #333;
+}
+/* line 74, ../sass/_mediasuite.scss */
+.component-list li a:hover {
+  color: #468dcb;
 }

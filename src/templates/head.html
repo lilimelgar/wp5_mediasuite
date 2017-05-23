@@ -12,27 +12,16 @@
 
 <link rel="shortcut icon" type="image/jpeg" href="/static/images/favicon.png" />
 <link rel="icon" type="image/jpeg" href="/static/images/favicon.png" />
-<link href="/static/css/font-awesome.min.css" rel="stylesheet">
-<link href="/static/vendor/noUiSlider.9.2.0/nouislider.min.css" rel="stylesheet">
 
-{% if pageType=='components'%}
-	<link rel="stylesheet" href="/static/css/components.css">
+<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/vendor/noUiSlider.9.2.0/nouislider.min.css">
+<link rel="stylesheet" href="/static/css/main.css">
+
+{% if pageType=='components' or pageType=='app' %}
 	<script>
 		_config = {
 			SEARCH_API_BASE : '{{searchAPI}}{{searchAPIPath}}',
 			ANNOTATION_API_BASE : '{{annotationAPI}}{{annotationAPIPath}}'
 		}
 	</script>
-{% elif pageType=='app' %}
-	<link rel="stylesheet" href="/static/css/app.css">
-	<script>
-		_config = {
-			SEARCH_API_BASE : '{{searchAPI}}{{searchAPIPath}}',
-			ANNOTATION_API_BASE : '{{annotationAPI}}{{annotationAPIPath}}'
-		}
-	</script>
-{% elif pageType=='main' %}
-	<link rel="stylesheet" href="/static/css/main.css">
-{% else %}
-	<link rel="stylesheet" href="/static/css/main.css">
 {% endif %}

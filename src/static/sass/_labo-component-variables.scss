@@ -1,0 +1,53 @@
+/* ------ CLARIAH specific variables ------ */
+
+$clOrange: #f26c50;
+$clLightOrange: #f8cfa6;
+$clBlue: #468dcb;
+$clGrey: #eee;
+$clDark: #333;
+$clRed: red;
+
+
+/* ------ Bootstrap overrides ------ */
+
+$font-family-sans-serif: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,sans-serif;
+
+$brand-primary:         $clBlue;
+$brand-success:         limegreen;
+$brand-info:            $clOrange;
+$brand-warning:         darkorange;
+$brand-danger:          $clRed;
+
+$list-group-hover-bg: $clLightOrange;
+$link-color: $brand-info;
+$modal-backdrop-bg: transparant;
+$border-radius: 4px;
+
+/*
+
+This is needed for the glyphicons to work
+
+$icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/" !default;
+
+*/
+
+
+/* ------ Component library overrides ------ */
+
+/* annotation */
+
+$annotation-label-color: $clDark;
+$annotation-frag-info-color: $clOrange;
+$annotation-prov-info-color: $clDark;
+
+$image-overlay-bg: rgba(105,150,205, 0.2);
+$image-overlay-bg-active: rgba(128,134,34, 0.2);
+
+$image-overlay-border: 1px solid $clGrey;
+$image-overlay-border-active: 1px solid $clBlue;
+$image-overlay-border-radius : $border-radius;
+$image-overlay-border-radius-active : $border-radius;
+
+/* player */
+
+$timeline-bg: black;
