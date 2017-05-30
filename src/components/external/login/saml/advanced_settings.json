@@ -24,9 +24,9 @@
     },
     "organization": {
         "en-US": {
-            "name": "sp_test",
-            "displayname": "SP test",
-            "url": "http://localhost:5302"
+            "name": "sp",
+            "displayname": "SP",
+            "url": "http://localhost:5304"
         }
     }
 }

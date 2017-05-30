@@ -5,8 +5,6 @@ from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from urlparse import urlparse
 import os
 
-saml_setting_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'login','saml')
-
 ####
 # Extension Manager
 ####
@@ -59,8 +57,7 @@ class SamlRequest(object):
 
     def __init__(self, request_data):
         self.request = self.prepare_flask_request(request_data)
-        settings_path = current_app.config['SAML_PATH']
-        self.auth = OneLogin_Saml2_Auth(self.request, custom_base_path=settings_path)
+        self.auth = OneLogin_Saml2_Auth(self.request, custom_base_path=current_app.config['SAML_PATH'])
         self.errors = []
         self.not_auth_warn = False
         self.success_slo = False

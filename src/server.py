@@ -35,8 +35,8 @@ app.config['COLLECTION_DATA'] = None #loaded once on startup
 #Needed for OpenConnext authentication
 if _config['AUTHENTICATION_METHOD'] == 'OpenConnext':
 	from urlparse import urlparse
-	from components.external.login.onelogin.saml2.auth import OneLogin_Saml2_Auth
-	from components.external.login.onelogin.saml2.utils import OneLogin_Saml2_Utils
+	from onelogin.saml2.auth import OneLogin_Saml2_Auth
+	from onelogin.saml2.utils import OneLogin_Saml2_Utils
 	from flask import (redirect, session, make_response, jsonify, url_for)
 	from components.external.login import SamlManager
 
