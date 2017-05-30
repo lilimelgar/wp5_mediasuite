@@ -2,7 +2,6 @@ appdirs==1.4.3
 click==6.7
 elasticsearch==5.3.0
 Flask==0.12.1
-get==0.0.0
 httplib2==0.10.3
 itsdangerous==0.24
 Jinja2==2.9.6
