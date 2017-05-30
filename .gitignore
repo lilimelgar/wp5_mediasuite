@@ -4,3 +4,7 @@ node_modules
 .DS_Store
 settings.py
 .sass-cache
+*.pem
+*.crt
+advanced_settings.json
+settings.json

@@ -1,0 +1,30 @@
+{
+    "strict": true,
+    "debug": true,
+    "sp": {
+        "entityId": "http://YOUR_SP_HOST/metadata/",
+        "assertionConsumerService": {
+            "url": "http://YOUR_SP_HOST/saml/acs/",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+        },
+        "singleLogoutService": {
+            "url": "http://YOUR_SP_HOST/?sls",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "NameIDFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
+        "x509cert": "",
+        "privateKey": ""
+    },
+    "idp": {
+        "entityId": "https://YOUR_OPENCONEXT_SERVER/authentication/idp/metadata",
+        "singleSignOnService": {
+            "url": "https://YOUR_OPENCONEXT_SERVER/authentication/idp/single-sign-on",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "singleLogoutService": {
+            "url": "https://YOUR_OPENCONEXT_SERVER/authentication/idp/single-log-out",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "x509cert": "YOURCERT_VERYLONGSTRING"
+    }
+}
