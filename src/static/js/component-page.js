@@ -7,7 +7,6 @@ function showComponent(componentId) {
 		case 'Collection analyser': getCollectionAnalyser(componentId, componentLoaded);break;
 		case 'Collection selector': getCollectionSelector(componentId, componentLoaded);break;
 		case 'Query builder': getQueryBuilder(componentId, componentLoaded);break;
-		case 'Comparative search': getComparativeSearch(componentId, componentLoaded);break;
 		case 'Commenting' : getCommentingForm(componentId, componentLoaded);break;
 		case 'Classifying' : getClassifyingForm(componentId, componentLoaded);break;
 		case 'Linking' : getLinkingForm(componentId, componentLoaded);break;
@@ -35,7 +34,7 @@ function componentLoaded(componentId, component) {
 			</div>, document.getElementById('component_x')
 		);
 		if(componentId == 'Image viewer') { // it's weird that it does not work on this page without this
-			document.getElementById('img_viewer__mo_1').style.height = '800px';
+			document.getElementById('img_viewer__1').style.height = '800px';
 		}
 	}
 }
@@ -98,30 +97,6 @@ function getQueryBuilder(componentId, callback) {
 				header={true}/>
 		);
 	}, true);
-}
-
-function getComparativeSearch(componentId, callback) {
-	var ComparativeSearch = labo.ComparativeSearch;
-	var FlexComponentInfo = labo.FlexComponentInfo;
-	callback(componentId,
-		<div>
-			<FlexComponentInfo
-				title="ComparativeSearch"
-				description="Enables the selection of multiple collections for side-by-side facet search"
-				input="URL to a valid Search API; various configuration options (t.b.d)"
-				output="A dictionary holding the query output of all selected collections"
-				outputComponents={['LineChart']}
-				consistsOf={['CollectionSelector', 'FacetSearch']}
-				currentInput={[
-					'Search API: http://blofeld.beeldengeluid.nl:5320/api/v1',
-					'Collectie IDs: nisv-catalogue-aggr, soundbites, mindoftheuniverse'
-				]}
-			/>
-			<ComparativeSearch user="Component test user"
-				collections={['nisv-catalogue-aggr', 'soundbites']}
-				collectionSelector={true}/>
-		</div>
-	)
 }
 
 /*******************************************************************************
@@ -249,11 +224,12 @@ function getYouTubePlayer(componentId, callback) {
 function getImageViewer(componentId, callback) {
 	var FlexImageViewer = labo.FlexImageViewer;
 	var mediaObject = {
+		id : '1',
 		url : 'http://hdl.handle.net/10744/mi_21cee277-cb55-415b-bef9-c27291090c9a',
 		mimeType : 'image/jpeg'
 	};
-	return(
-		<FlexImageViewer mediaObject={mediaObject} mediaObjectId="__mo_1"/>
+	callback(componentId,
+		<FlexImageViewer mediaObject={mediaObject}/>
 	);
 }
 
