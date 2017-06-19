@@ -12,9 +12,6 @@ from components.external.wikidata.WikiData import WikiData
 from components.external.europeana.Europeana import Europeana
 from components.external.unesco.Unesco import Unesco
 
-#for loading the collections from CKAN
-from components.collection.CollectionDataHandler import CollectionDataHandler
-
 #exporting / generating indices for certain instances of LABO
 from components.export.AnnotationExporter import AnnotationExporter
 
