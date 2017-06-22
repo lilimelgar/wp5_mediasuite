@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/CLARIAH/wp5-mediasuite",
   "dependencies": {
-    "labo-components": "^1.0.14"
+    "labo-components": "^1.0.15"
   }
 }
