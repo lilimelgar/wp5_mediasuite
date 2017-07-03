@@ -9396,33 +9396,40 @@ button.close {
 }
 
 /* line 52, ../sass/_mediasuite.scss */
+.app-version {
+  float: right;
+  color: crimson;
+  padding: 15px 15px;
+}
+
+/* line 58, ../sass/_mediasuite.scss */
 .components-header {
   font-size: 110%;
   color: red;
 }
-/* line 55, ../sass/_mediasuite.scss */
+/* line 61, ../sass/_mediasuite.scss */
 .components-header:hover {
   color: darkorange;
 }
 
-/* line 60, ../sass/_mediasuite.scss */
+/* line 66, ../sass/_mediasuite.scss */
 .component-category {
   width: 100%;
 }
-/* line 62, ../sass/_mediasuite.scss */
+/* line 68, ../sass/_mediasuite.scss */
 .component-category .category-header {
   color: #468dcb;
 }
-/* line 64, ../sass/_mediasuite.scss */
+/* line 70, ../sass/_mediasuite.scss */
 .component-category .category-header:hover {
   color: red;
 }
 
-/* line 72, ../sass/_mediasuite.scss */
+/* line 78, ../sass/_mediasuite.scss */
 .component-list li a {
   color: #333;
 }
-/* line 74, ../sass/_mediasuite.scss */
+/* line 80, ../sass/_mediasuite.scss */
 .component-list li a:hover {
   color: #468dcb;
 }

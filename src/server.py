@@ -166,7 +166,7 @@ def home():
 	#check logged in
 	for c in request.cookies:
 		print c
-	return render_template('index.html', user=getUser(request))
+	return render_template('index.html', user=getUser(request), version=_config['APP_VERSION'])
 
 @app.route('/robots.txt')
 @app.route('/sitemap.xml')
@@ -179,17 +179,18 @@ def favicon():
 
 @app.route('/help-feedback')
 def helpfeedback():
-	return render_template('help-feedback.html', user=getUser(request))
+	return render_template('help-feedback.html', user=getUser(request), version=_config['APP_VERSION'])
 
 @app.route('/datasources')
 def datasources():
-	return render_template('data-sources.html', user=getUser(request))
+	return render_template('data-sources.html', user=getUser(request), version=_config['APP_VERSION'])
 
 @app.route('/apis')
 @requires_auth
 def apis():
 	return render_template('apis.html',
 		user=getUser(request),
+		version=_config['APP_VERSION'],
 		searchAPI=_config['SEARCH_API'],
 		annotationAPI=_config['ANNOTATION_API']
 	)
@@ -199,6 +200,7 @@ def apis():
 def userspace():
 	return render_template('userspace.html',
 		user=getUser(request),
+		version=_config['APP_VERSION'],
 		searchAPI=_config['SEARCH_API'],
 		annotationAPI=_config['ANNOTATION_API']
 	)
@@ -209,7 +211,8 @@ def recipes():
 	return render_template(
 		'recipes.html',
 			recipes=app.config['RECIPES'],
-			user=getUser(request)
+			user=getUser(request),
+			version=_config['APP_VERSION']
 	)
 
 """------------------------------------------------------------------------------
@@ -233,6 +236,7 @@ def recipe(recipeId):
 				params=params,
 				instanceId='clariah',
 				user=getUser(request),
+				version=_config['APP_VERSION'],
 				searchAPI=_config['SEARCH_API'],
 				searchAPIPath=_config['SEARCH_API_PATH'],
 				annotationAPI=_config['ANNOTATION_API'],
@@ -246,6 +250,7 @@ def recipe(recipeId):
 def components():
 	return render_template('components.html',
 		user=getUser(request),
+		version=_config['APP_VERSION'],
 		instanceId='clariah',
 		searchAPI=_config['SEARCH_API'],
 		searchAPIPath=_config['SEARCH_API_PATH'],
@@ -331,11 +336,11 @@ ERROR HANDLERS
 #TODO fix the underlying template
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html', user=getUser(request)), 404
+    return render_template('404.html', user=getUser(request), version=_config['APP_VERSION']), 404
 
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template('500.html', user=getUser(request)), 500
+    return render_template('500.html', user=getUser(request), version=_config['APP_VERSION']), 500
 
 
 #main function that will run the server

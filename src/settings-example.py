@@ -2,6 +2,7 @@ config = {
 	#host & port you'd like to run the media suite on
 	'APP_HOST' : '0.0.0.0',
 	'APP_PORT' : 5302,
+	'APP_VERSION' : 'v1.1',#this value gets updated only when a new tag is created
 
 	'AUTHENTICATION_METHOD' : 'basic', #'OpenConnext', #options [OpenConnext, basic]
 	'PW' : 'YOUR PASSWORD',
