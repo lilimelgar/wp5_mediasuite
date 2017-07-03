@@ -51,8 +51,9 @@
 
 .app-version {
 	float:right;
-	color:crimson;
+	color: $clOrange;
 	padding:15px 15px;
+	font-style: italic;
 }
 
 .components-header {

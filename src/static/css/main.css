@@ -9398,38 +9398,39 @@ button.close {
 /* line 52, ../sass/_mediasuite.scss */
 .app-version {
   float: right;
-  color: crimson;
+  color: #f26c50;
   padding: 15px 15px;
+  font-style: italic;
 }
 
-/* line 58, ../sass/_mediasuite.scss */
+/* line 59, ../sass/_mediasuite.scss */
 .components-header {
   font-size: 110%;
   color: red;
 }
-/* line 61, ../sass/_mediasuite.scss */
+/* line 62, ../sass/_mediasuite.scss */
 .components-header:hover {
   color: darkorange;
 }
 
-/* line 66, ../sass/_mediasuite.scss */
+/* line 67, ../sass/_mediasuite.scss */
 .component-category {
   width: 100%;
 }
-/* line 68, ../sass/_mediasuite.scss */
+/* line 69, ../sass/_mediasuite.scss */
 .component-category .category-header {
   color: #468dcb;
 }
-/* line 70, ../sass/_mediasuite.scss */
+/* line 71, ../sass/_mediasuite.scss */
 .component-category .category-header:hover {
   color: red;
 }
 
-/* line 78, ../sass/_mediasuite.scss */
+/* line 79, ../sass/_mediasuite.scss */
 .component-list li a {
   color: #333;
 }
-/* line 80, ../sass/_mediasuite.scss */
+/* line 81, ../sass/_mediasuite.scss */
 .component-list li a:hover {
   color: #468dcb;
 }
