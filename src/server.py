@@ -141,7 +141,7 @@ def requires_auth(f):
 	return decorated
 
 
-"""
+"""------------------------------------------------------------------------------
 END-POINTS NEEDED FOR OPENCONNEXT AUTHENTICATION
 ------------------------------------------------------------------------------"""
 
@@ -156,6 +156,14 @@ if _config['AUTHENTICATION_METHOD'] == 'OpenConnext':
 		#gets here only if the user has logged-in successfully, otherwise the user is stopped at the intermediate node
 		_SAMLManager.isAuthenticated = True
 		return redirect(url_for(_SAMLManager.lastRequest))
+
+"""------------------------------------------------------------------------------
+PING / HEARTBEAT ENDPOINT
+------------------------------------------------------------------------------"""
+
+@app.route('/ping')
+def ping():
+	return Response('pong', mimetype='text/plain')
 
 """------------------------------------------------------------------------------
 STATIC PAGES THAT DO NOT USE THE COMPONENT LIBRARY
