@@ -243,10 +243,10 @@ def recipe(recipeId):
 				recipe=recipe,
 				params=params,
 				instanceId='clariah',
-				user=getUser(request),
-				version=_config['APP_VERSION'],
 				searchAPI=_config['SEARCH_API'],
 				searchAPIPath=_config['SEARCH_API_PATH'],
+				user=getUser(request),
+				version=_config['APP_VERSION'],
 				annotationAPI=_config['ANNOTATION_API'],
 				annotationAPIPath=_config['ANNOTATION_API_PATH']
 		)
@@ -267,7 +267,7 @@ def components():
 	)
 
 """------------------------------------------------------------------------------
-TEMPORARY EXPORT API
+EXPORT API
 ------------------------------------------------------------------------------"""
 
 @app.route('/export')
@@ -289,6 +289,7 @@ AUTOCOMPLETE END POINT
 
 #see the components.external package for different autocompletion APIs
 @app.route('/autocomplete')
+@requires_auth
 def autocomplete():
 	term = request.args.get('term', None)
 	vocab = request.args.get('vocab', 'DBpedia')
@@ -315,6 +316,7 @@ def autocomplete():
 #TODO also create a separate API for this, with a nice swagger def
 #FIXME summary: this is pretty basic and not yet generic enough
 @app.route('/link/<api>/<command>')
+@requires_auth
 def link(api, command):
 	resp = None
 	apiHandler = None
