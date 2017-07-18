@@ -90,20 +90,28 @@ AUTHENTICATION FUNCTIONS
 ------------------------------------------------------------------------------"""
 
 def getUser(request):
-	if _config['AUTHENTICATION_METHOD'] == 'OpenConnext':
-		if len(session)>0:
-			return {
-				'id' : session['samlUserdata']['urn:mace:dir:attribute-def:displayName'][0], #TODO is there a real ID?
-				'name' : session['samlUserdata']['urn:mace:dir:attribute-def:displayName'][0],
-				'attributes' : session['samlUserdata']
-			}
-	else: #basic auth
-		return {
-			'id' : 'clariah',
-			'name' :'clariah',
-			'attributes' : {}
-		}
-	return None
+		if _config['AUTHENTICATION_METHOD'] == 'OpenConnext':
+				if len(session)>0:
+						#print session['samlUserdata']
+						if session['samlUserdata']['urn:oid:1.3.6.1.4.1.25178.1.2.9'][0]=='surfguest.nl':
+								return {
+										'id' : session['samlUserdata']['urn:mace:dir:attribute-def:displayName'][0], #TODO is there a real ID?
+										'name' : session['samlUserdata']['urn:mace:dir:attribute-def:displayName'][0],
+										'attributes' : session['samlUserdata']
+								}
+						else:
+								return {
+										'id' : session['samlUserdata']['urn:mace:dir:attribute-def:uid'][0], #TODO is there a real ID?
+										'name' : session['samlUserdata']['urn:mace:dir:attribute-def:uid'][0],
+										'attributes' : session['samlUserdata']
+								}
+		else: #basic auth
+				return {
+						'id' : 'clariah',
+						'name' :'clariah',
+						'attributes' : {}
+				}
+		return None
 
 def isAuthenticated(request, authMethod):
 	success = False
@@ -179,7 +187,7 @@ def home():
 @app.route('/robots.txt')
 @app.route('/sitemap.xml')
 def static_from_root():
-    return send_from_directory(app.static_folder, request.path[1:])
+	return send_from_directory(app.static_folder, request.path[1:])
 
 @app.route('/favicon.jpeg')
 def favicon():
@@ -346,11 +354,11 @@ ERROR HANDLERS
 #TODO fix the underlying template
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html', user=getUser(request), version=_config['APP_VERSION']), 404
+	return render_template('404.html', user=getUser(request), version=_config['APP_VERSION']), 404
 
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template('500.html', user=getUser(request), version=_config['APP_VERSION']), 500
+	return render_template('500.html', user=getUser(request), version=_config['APP_VERSION']), 500
 
 
 #main function that will run the server
