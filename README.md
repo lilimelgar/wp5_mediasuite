@@ -158,7 +158,7 @@ class ExampleRecipe extends React.Component {
 	//map it there using a unique ID
 	render() {
 			return (
-				<div className={IDUtil.cssClassName('item-details-recipe')}>
+				<div className={IDUtil.cssClassName('example-recipe')}>
 
 				</div>
 			)
