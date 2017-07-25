@@ -89,15 +89,15 @@ To make your recipe appear on this page, first you need to add a new JSON file (
 
 ```
 {
-	"id" : "my_recipe",
-	"name" : "My recipe that does wonderful things",
-	"type" : "your-type (actually the identifier used to load your recipe from the labo-components' index.jsx)",
-	"phase" : "the research phase: [search, collection-exploration, close-reading, ...]",
-	"description" : "My recipe that does wonderful things by using this and that component for getting to the moon and that other component to further travel on to Mars",
+	"id" : "example",
+	"name" : "Your own recipe!",
+	"type" : "example",
+	"phase" : "recipe-building",
+	"description" : "By adding this recipe to the recipes page, you've actually cleared the first trial! Go on, be brave and implement your own recipe made of awesome!",
 	"inRecipeList" : true,
 	"ingredients" : {
-		"key1": "value1",
-    "key2": "value2"
+		"status" : "Couldn't be happier",
+		"level" : "Squire to the Dark Knight"
 	}
 }
 ```
