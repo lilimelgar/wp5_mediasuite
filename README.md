@@ -90,17 +90,18 @@ To make your recipe appear on this page, first you need to add a new JSON file (
 ```
 {
 	"id" : "my_recipe",
-	"name" : "My recipe that does wonderful things",
-	"type" : "your-type (actually the identifier used to load your recipe from the labo-components' index.jsx)",
-	"phase" : "the research phase: [search, collection-exploration, close-reading, ...]",
-	"description" : "My recipe that does wonderful things by using this and that component for getting to the moon and that other component to further travel on to Mars",
-	"inRecipeList" : true,
+	"name" : "Your own recipe!",
+	"type" : "my_recipe",
+	"phase" : "recipe-building",
+	"description" : "Your recipe that does very cool things. Aim for world peace!",
 	"ingredients" : {
-		"key1": "value1",
-    "key2": "value2"
+		"key1" : "value1",
+		"key2" : "value2"
 	}
 }
 ```
+**Note** There is also an example.json you can copy and modify for convenience
+
 The ```name``` is used as the title of your recipe on the recipes page
 
 The ```description``` is used as the description for your recipe on the recipes page
@@ -117,15 +118,15 @@ After that you can finally make your recipe appear in the recipes.html by insert
 
 ```
 <!-- EXAMPLE  -->
-<div id="{{recipes['example'].id}}" class="col-sm-6 col-md-4">
+<div id="{{recipes['my_recipe'].id}}" class="col-sm-6 col-md-4">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['example'].name}}</h3>
+			<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['my_recipe'].name}}</h3>
 		</div>
 		<div class="panel-body">
-			{{recipes['example'].description}}
+			{{recipes['my_recipe'].description}}
 		</div>
-		<div class="panel-footer text-right"><a href="{{recipes['example'].url}}">View recipe</a></div>
+		<div class="panel-footer text-right"><a href="{{recipes['my_recipe'].url}}">View recipe</a></div>
 	</div>
 </div>
 ```
