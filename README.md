@@ -106,7 +106,7 @@ The ```name``` is used as the title of your recipe on the recipes page
 
 The ```description``` is used as the description for your recipe on the recipes page
 
-The ```type``` parameter is used to load the correct recipe ```*.jsx``` file from the labo-component's ```index.jsx``` file, which is the main interface for using the component library, but more on that later on.
+The ```type``` parameter is used to load the correct recipe ```*.jsx``` file from the labo-component's [index.jsx](https://github.com/beeldengeluid/labo-components/blob/master/app/index.jsx) file, which is the main interface for using the component library, but more on that later on.
 
 The ```phase``` is used to place your recipe in the right category on the recipes page. Please use one of the already existing values to reflect the intended research phase your recipe is suitable for. If it's something new, please make up a meaningful label.
 
@@ -163,7 +163,7 @@ class MyRecipe extends React.Component {
 export default MyRecipe;
 ```
 
-Following this, make sure to map the recipe type to your React class in index.jsx by extending the cookRecipe function as follows:
+Following this, make sure to map the recipe type to your React class in [index](https://github.com/beeldengeluid/labo-components/blob/master/app/index.jsx).jsx by extending the cookRecipe function as follows:
 
 ```
 else if(recipe.type === 'myRecipe.type') {
@@ -194,11 +194,7 @@ Now (possibily after clearing your browser cache) you can now click on your reci
 
 ### Manual integration
 
-
-
-
-
-
+TODO write this
 
 
 ## Who do I talk to? ###
