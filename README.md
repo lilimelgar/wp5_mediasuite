@@ -3,7 +3,7 @@
 
 ## How do I get set up?
 
-### Dependancies
+### Dependencies
 
 The CLARIAH media suite is roughly made up of these two main parts:
 
