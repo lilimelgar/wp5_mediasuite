@@ -123,7 +123,52 @@ Currently the [component library](http://github.com/beeldengeluid/labo-component
 
 Since you've only created a JSON file and want to create a whole new recipe type, you now have to create a new ```*.jsx``` file for your recipe and map your recipe in the index.jsx of the labo-components.
 
-TODO
+Open the labo-components in your editor and add a new ```*.jsx``` file to the ```/app``` directory with e.g. the following basic content (taken from ExampleRecipe.jsx):
+
+```
+import IDUtil from './util/IDUtil';
+import IconUtil from './util/IconUtil';
+
+/*
+	This is an example recipe to get you started on building your own recipe
+*/
+
+class ExampleRecipe extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			user : this.props.user || 'test-user'
+		}
+		this.CLASS_PREFIX = 'rcp__ex'
+	}
+
+	//Used for initialising listeners or obtaining data (asynchronously) for your recipe
+	componentDidMount() {
+
+	}
+
+	//Try to avoid using this one. Sometimes it is needed, but it usually ain't pretty
+	componentDidUpdate() {
+
+	}
+
+	//This function is what it's all about and renders your HTML within an element on the page you're calling this from
+	//See index.jsx for how the cookRecipe() handles things. If you want this recipe to be hooked up to the cookRecipe function
+	//map it there using a unique ID
+	render() {
+			return (
+				<div className={IDUtil.cssClassName('item-details-recipe')}>
+
+				</div>
+			)
+		}
+	}
+
+}
+
+export default ExampleRecipe;
+```
 
 ### Manual integration
 
