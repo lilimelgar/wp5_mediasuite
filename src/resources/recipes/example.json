@@ -1,0 +1,12 @@
+{
+	"id" : "example",
+	"name" : "Your own recipe!",
+	"type" : "example",
+	"phase" : "recipe-building",
+	"description" : "By adding this recipe to the recipes page, you've actually cleared the first trial! Go on, be brave and implement your own recipe made of awesome!",
+	"inRecipeList" : true,
+	"ingredients" : {
+		"status" : "Couldn't be happier",
+		"level" : "Squire to the Dark Knight"
+	}
+}
