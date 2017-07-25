@@ -141,7 +141,7 @@ Open the labo-components code in your editor and add a new ```*.jsx``` file to t
 ```
 import IDUtil from './util/IDUtil';
 
-class ExampleRecipe extends React.Component {
+class MyRecipe extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -159,7 +159,7 @@ class ExampleRecipe extends React.Component {
 
 }
 
-export default ExampleRecipe;
+export default MyRecipe;
 ```
 
 Following this, make sure to map the recipe type to your React class in index.jsx by extending the cookRecipe function as follows:
