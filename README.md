@@ -83,13 +83,9 @@ By following the recommended approach, your custom recipe will appear in the rec
 
 #### Step 1: Create a recipe JSON file
 
-The recipes.html file is the template that renders the recipe page and basically renders all JSON files in the **/resources/recipes** directory that have the following property & value:
+The recipes.html file is the template that renders certain (manually chosen) recipes from the ```resources/recipes``` folder in blocks on the page to choose from.
 
-```
-inRecipeList: true. 
-```
-
-So to make your recipe appear simply add a new JSON file (with a meaningful name reflecting the functionality of the recipe) in **/resources/recipes**:
+To make your recipe appear on this page, first you need to add a new JSON file (with a meaningful name reflecting the functionality of the recipe) in **/resources/recipes**:
 
 ```
 {
@@ -115,7 +111,22 @@ The ```phase``` is used to place your recipe in the right category on the recipe
 
 The ```ingredients``` are basically any key/value pairs you'd like to use to easily configure your recipe.
 
-Since hot loading does not work yet, you have to restart the server to make you recipe show up as an extra block on the recipes page.
+Since hot loading does not work yet, you have to restart the server to make you recipe JSON load into server memory. After that you can finally make your recipe appear in the recipes.html by insert a block of HTML like this:
+
+```
+<!-- EXAMPLE  -->
+<div id="{{recipes['example'].id}}" class="col-sm-6 col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['example'].name}}</h3>
+		</div>
+		<div class="panel-body">
+			{{recipes['example'].description}}
+		</div>
+		<div class="panel-footer text-right"><a href="{{recipes['example'].url}}">View recipe</a></div>
+	</div>
+</div>
+```
 
 #### Step 2: Create the *.jsx file in the component library
 
@@ -129,33 +140,20 @@ Open the labo-components in your editor and add a new ```*.jsx``` file to the ``
 import IDUtil from './util/IDUtil';
 import IconUtil from './util/IconUtil';
 
-/*
-	This is an example recipe to get you started on building your own recipe
-*/
-
 class ExampleRecipe extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			user : this.props.user || 'test-user'
-		}
-		this.CLASS_PREFIX = 'rcp__ex'
+		this.state = {}
 	}
 
-	//Used for initialising listeners or obtaining data (asynchronously) for your recipe
 	componentDidMount() {
 
 	}
 
-	//Try to avoid using this one. Sometimes it is needed, but it usually ain't pretty
 	componentDidUpdate() {
 
 	}
-
-	//This function is what it's all about and renders your HTML within an element on the page you're calling this from
-	//See index.jsx for how the cookRecipe() handles things. If you want this recipe to be hooked up to the cookRecipe function
-	//map it there using a unique ID
 	render() {
 			return (
 				<div className={IDUtil.cssClassName('example-recipe')}>
