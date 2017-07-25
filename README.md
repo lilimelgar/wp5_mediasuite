@@ -83,7 +83,7 @@ By following the recommended approach, your custom recipe will appear in the rec
 
 #### Step 1: Create a recipe JSON file
 
-The recipes.html file is the template that renders certain (manually chosen) recipes from the ```resources/recipes``` folder in blocks on the page to choose from.
+The recipes.html file is the template that renders certain (manually chosen) recipes from the [resources/recipes](https://github.com/CLARIAH/wp5_mediasuite/tree/master/src/resources/recipes) folder in blocks on the page to choose from.
 
 To make your recipe appear on this page, first you need to add a new JSON file (with a meaningful name reflecting the functionality of the recipe) in **/resources/recipes**:
 
