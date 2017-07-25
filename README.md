@@ -71,6 +71,111 @@ While the watcher is running any changes to the *.scss files in the /static/sass
 
 You can change the Compass configuration by editing /src/static/config.rb
 
+## Creating a new recipe
+
+The best way to learn how the media suite works is by creating a new recipe, which will give you the opportunity to start assembling your own choice of components from the [component library](http://github.com/beeldengeluid/labo-components). 
+
+Before starting, it's good to realise there are several ways of using the component library, but there is a recommended one for integration in the media suite, which we'll discuss right away.
+
+### Adding a recipe to the recipes page (recommended)
+
+By following the recommended approach, your custom recipe will appear in the recipes page of the media suite.
+
+#### Step 1: Create a recipe JSON file
+
+The recipes.html file is the template that renders certain (manually chosen) recipes from the ```resources/recipes``` folder in blocks on the page to choose from.
+
+To make your recipe appear on this page, first you need to add a new JSON file (with a meaningful name reflecting the functionality of the recipe) in **/resources/recipes**:
+
+```
+{
+	"id" : "my_recipe",
+	"name" : "My recipe that does wonderful things",
+	"type" : "your-type (actually the identifier used to load your recipe from the labo-components' index.jsx)",
+	"phase" : "the research phase: [search, collection-exploration, close-reading, ...]",
+	"description" : "My recipe that does wonderful things by using this and that component for getting to the moon and that other component to further travel on to Mars",
+	"inRecipeList" : true,
+	"ingredients" : {
+		"key1": "value1",
+    "key2": "value2"
+	}
+}
+```
+The ```name``` is used as the title of your recipe on the recipes page
+
+The ```description``` is used as the description for your recipe on the recipes page
+
+The ```type``` parameter is used to load the correct recipe ```*.jsx``` file from the labo-component's ```index.jsx``` file, which is the main interface for using the component library, but more on that later on.
+
+The ```phase``` is used to place your recipe in the right category on the recipes page. Please use one of the already existing values to reflect the intended research phase your recipe is suitable for. If it's something new, please make up a meaningful label.
+
+The ```ingredients``` are basically any key/value pairs you'd like to use to easily configure your recipe.
+
+Since hot loading does not work yet, you have to restart the server to make you recipe JSON load into server memory. After that you can finally make your recipe appear in the recipes.html by insert a block of HTML like this:
+
+```
+<!-- EXAMPLE  -->
+<div id="{{recipes['example'].id}}" class="col-sm-6 col-md-4">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-rocket"></i>&nbsp; {{recipes['example'].name}}</h3>
+		</div>
+		<div class="panel-body">
+			{{recipes['example'].description}}
+		</div>
+		<div class="panel-footer text-right"><a href="{{recipes['example'].url}}">View recipe</a></div>
+	</div>
+</div>
+```
+
+#### Step 2: Create the *.jsx file in the component library
+
+Currently the [component library](http://github.com/beeldengeluid/labo-components) also contains the application specific recipes as top-level React components. In a later version, the media suite recipes will probably be moved into this repo.
+
+Since you've only created a JSON file and want to create a whole new recipe type, you now have to create a new ```*.jsx``` file for your recipe and map your recipe in the index.jsx of the labo-components.
+
+Open the labo-components in your editor and add a new ```*.jsx``` file to the ```/app``` directory with e.g. the following basic content (taken from ExampleRecipe.jsx):
+
+```
+import IDUtil from './util/IDUtil';
+import IconUtil from './util/IconUtil';
+
+class ExampleRecipe extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {}
+	}
+
+	componentDidMount() {
+
+	}
+
+	componentDidUpdate() {
+
+	}
+	render() {
+			return (
+				<div className={IDUtil.cssClassName('example-recipe')}>
+
+				</div>
+			)
+		}
+	}
+
+}
+
+export default ExampleRecipe;
+```
+
+### Manual integration
+
+
+
+
+
+
+
 
 ## Who do I talk to? ###
 
