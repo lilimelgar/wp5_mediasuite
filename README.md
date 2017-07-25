@@ -111,7 +111,9 @@ The ```phase``` is used to place your recipe in the right category on the recipe
 
 The ```ingredients``` are basically any key/value pairs you'd like to use to easily configure your recipe.
 
-Since hot loading does not work yet, you have to restart the server to make you recipe JSON load into server memory. After that you can finally make your recipe appear in the recipes.html by insert a block of HTML like this:
+Since hot loading does not work yet, you have to restart the server to make you recipe JSON load into server memory. 
+
+After that you can finally make your recipe appear in the recipes.html by insert a block of HTML like this:
 
 ```
 <!-- EXAMPLE  -->
@@ -134,11 +136,10 @@ Currently the [component library](http://github.com/beeldengeluid/labo-component
 
 Since you've only created a JSON file and want to create a whole new recipe type, you now have to create a new ```*.jsx``` file for your recipe and map your recipe in the index.jsx of the labo-components.
 
-Open the labo-components in your editor and add a new ```*.jsx``` file to the ```/app``` directory with e.g. the following basic content (taken from ExampleRecipe.jsx):
+Open the labo-components code in your editor and add a new ```*.jsx``` file to the ```/app``` directory. The easiest is to copy ExampleRecipe.jsx and rename it (and its class name!) to whatever you like. Otherwise your recipe code should contain the following as the bare minimum:
 
 ```
 import IDUtil from './util/IDUtil';
-import IconUtil from './util/IconUtil';
 
 class ExampleRecipe extends React.Component {
 
@@ -146,14 +147,7 @@ class ExampleRecipe extends React.Component {
 		super(props);
 		this.state = {}
 	}
-
-	componentDidMount() {
-
-	}
-
-	componentDidUpdate() {
-
-	}
+	
 	render() {
 			return (
 				<div className={IDUtil.cssClassName('example-recipe')}>
@@ -167,6 +161,35 @@ class ExampleRecipe extends React.Component {
 
 export default ExampleRecipe;
 ```
+
+Following this, make sure to map the recipe type to your React class in index.jsx by extending the cookRecipe function as follows:
+
+```
+else if(recipe.type === 'myRecipe.type') {
+	render(
+		<MyRecipe recipe={recipe} params={params} user={user}/>,
+		document.getElementById(elementId)
+	);
+}
+```
+Now to compile your changes please run the following command in the main directory of the labo-components code:
+
+```
+npm run dev
+```
+
+This will watch for any changes you make in the code (within the ```/app``` directory) and will try to build the code. If it fails it will print in what part of the code the error originates.
+
+After you've managed a succesfull build, you need to do one more thing to make your new recipe work: edit the recipe.html (template that imports the labo-components library and is responsible for rendering recipes in the media suite) as follows:
+
+```
+<!--<script type="text/javascript" src="/static/node_modules/labo-components/dist/labo-components.js"></script>-->
+<script src="/PATH_TO_YOUR_DEVELOPMENT_VERSION_OF_LABO_COMPONENTS/dist/labo-components.js" type="text/javascript"></script>
+```
+
+This makes sure the media suite code does not look for the component library in the node_modules, but looks for the development version you've just built. 
+
+Now (possibily after clearing your browser cache) you can now click on your recipe in the recipes.html and go to a working dummy recipe!
 
 ### Manual integration
 
