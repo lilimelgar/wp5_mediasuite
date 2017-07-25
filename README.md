@@ -137,7 +137,7 @@ Currently the [component library](http://github.com/beeldengeluid/labo-component
 
 Since you've only created a JSON file and want to create a whole new recipe type, you now have to create a new ```*.jsx``` file for your recipe and map your recipe in the index.jsx of the labo-components.
 
-Open the labo-components code in your editor and add a new ```*.jsx``` file to the ```/app``` directory. The easiest is to copy ExampleRecipe.jsx and rename it (and its class name!) to whatever you like. Otherwise your recipe code should contain the following as the bare minimum:
+Open the labo-components code in your editor and add a new ```*.jsx``` file to the [/app](https://github.com/beeldengeluid/labo-components/tree/master/app) directory. The easiest is to copy ExampleRecipe.jsx and rename it (and its class name!) to whatever you like. Otherwise your recipe code should contain the following as the bare minimum:
 
 ```
 import IDUtil from './util/IDUtil';
