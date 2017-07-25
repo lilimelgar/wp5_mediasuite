@@ -163,7 +163,7 @@ class MyRecipe extends React.Component {
 export default MyRecipe;
 ```
 
-Following this, make sure to map the recipe type to your React class in [index](https://github.com/beeldengeluid/labo-components/blob/master/app/index.jsx).jsx by extending the cookRecipe function as follows:
+Following this, make sure to map the recipe type to your React class in [index.jsx](https://github.com/beeldengeluid/labo-components/blob/master/app/index.jsx) by extending the cookRecipe function as follows:
 
 ```
 else if(recipe.type === 'myRecipe.type') {
