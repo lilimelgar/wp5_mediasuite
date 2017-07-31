@@ -8,3 +8,4 @@ settings.py
 *.crt
 advanced_settings.json
 settings.json
+.idea

@@ -1,0 +1,17 @@
+{
+  "id": "single-collectionQuery",
+  "name": "Single  Collection Query Search",
+  "type": "single-collectionQuery",
+  "phase": "search",
+  "description": "This recipe allows a single term search per selected collection.",
+  "inRecipeList": true,
+  "ingredients": {
+    "collection": "",
+    "collectionSelector": true,
+    "status": "Couldn't be happier",
+    "level": "Behemoth of code finesse",
+    "aggregationView": "box",
+    "dateRangeSelector": true,
+    "itemDetailsPath": "recipe/default-item-details"
+  }
+}
