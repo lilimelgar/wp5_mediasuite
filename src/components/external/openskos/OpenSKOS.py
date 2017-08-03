@@ -16,6 +16,7 @@ class OpenSKOS():
     def __init__(self):
         self.name = 'openskos'
         self.OPENSKOS_API = 'http://openskos.beeldengeluid.nl/api'
+        #self.OPENSKOS_API = 'http://test.openskos.beeldengeluid.nl.pictura-dp.nl/api'
         self.GTAA_TYPE_MAPPINGS = {'http://data.beeldengeluid.nl/gtaa/GeografischeNamen' : 'Geografisch', 'http://data.beeldengeluid.nl/gtaa/Namen' : 'Naam',
                 'http://data.beeldengeluid.nl/gtaa/Persoonsnamen' : 'Persoon', 'http://data.beeldengeluid.nl/gtaa/OnderwerpenBenG' : 'B&G Onderwerp',
                 'http://data.beeldengeluid.nl/gtaa/Onderwerpen' : 'Onderwerp', 'http://data.beeldengeluid.nl/gtaa/Maker' : 'Maker',
