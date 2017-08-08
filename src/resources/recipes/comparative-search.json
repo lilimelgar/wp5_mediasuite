@@ -10,7 +10,7 @@
 		"collectionSelector" : true,
 		"output" : "lineChart",
 		"aggregationView" : "box",
-		"dateRangeSelector" : true,
+		"dateRangeSelector" : "date-picker",
 		"itemDetailsPath" : "recipe/default-item-details"
 	}
 }

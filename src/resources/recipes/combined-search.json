@@ -40,7 +40,7 @@
 		],
 		"collectionSelector" : false,
 		"aggregationView" : "box",
-		"dateRangeSelector" : true,
+		"dateRangeSelector" : "date-picker",
 		"itemDetailsPath" : "recipe/default-item-details"
 	}
 }

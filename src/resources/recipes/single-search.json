@@ -6,10 +6,9 @@
 	"description" : "Dedicated recipe for searching/exploring through a single collection and all available annotation layers for that collection (e.g., automatically-generated, user-generated, archival generated).",
 	"inRecipeList" : true,
 	"ingredients" : {
-		"collection": "nisv",
 		"collectionSelector" : true,
 		"aggregationView" : "box",
-		"dateRangeSelector" : true,
+		"dateRangeSelector" : "date-picker",
 		"itemDetailsPath" : "recipe/default-item-details"
 	}
 }
