@@ -23,7 +23,11 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
-    "labo-components": "1.0.16"
+    "@vimeo/player": "^2.1.0",
+    "d3": "^4.10.0",
+    "jwplayer": "^1.0.3",
+    "labo-components": "1.0.16",
+    "nouislider": "^10.1.0"
   },
   "devDependencies": {
     "css-loader": "^0.28.4",
