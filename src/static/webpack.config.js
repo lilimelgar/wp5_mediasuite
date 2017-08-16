@@ -7,6 +7,7 @@ const config = {
         path: path.resolve(__dirname, 'css'),
         filename: './main.css'
     },
+    devtool: 'source-map',
     watchOptions: {
         aggregateTimeout: 200,
         poll: 1000,
@@ -23,7 +24,8 @@ const config = {
                             {
                                 loader: 'css-loader',
                                 options: {
-                                    minimize: true || {/* CSSNano Options */}
+                                    minimize: true,
+                                    sourceMap: true
                                 }
                             },
                             'sass-loader'
