@@ -38,8 +38,8 @@
     <script type="text/javascript" src="/static/node_modules/react-dom/dist/react-dom.min.js"></script>
 
 	<!-- The component library -->
-	<!--<script type="text/javascript" src="/static/node_modules/labo-components/dist/labo-components.js"></script>-->
-	<script src="/static/dist-dev/dist/labo-components.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/static/node_modules/labo-components/dist/labo-components.js"></script>
+	<!--<script src="/static/dist-dev/dist/labo-components.js" type="text/javascript"></script>-->
 	<script>
 		labo.cookRecipe({{ recipe|tojson|safe }}, {{ params|tojson|safe }}, '{{user.id}}', 'app');
 	</script>
