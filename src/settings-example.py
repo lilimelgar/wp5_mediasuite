@@ -14,6 +14,9 @@ config = {
 	'ANNOTATION_API' : 'http://localhost:5303',
 	'ANNOTATION_API_PATH' : '/api',
 
+	'OAUTH_CLIENT_ID' : '',
+	'OAUTH_CLIENT_SECRET' : '',
+
 	#TODO documentation on this will follow in a later stage
 	'EXPORT_CONFIGS' : {
 	}
