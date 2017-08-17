@@ -1,5 +1,5 @@
 <head>
-	<title>CLARIAH media suite - Page does not exist</title>
+	<title>CLARIAH media suite - Login failed</title>
     {% include '%s/head.html' % headDir %}
 </head>
 
@@ -16,7 +16,10 @@
 
 					<div class="row text-center">
 						<div class="dashboard-header">
-							<h3>The page you were looking for does not exist</h3>
+							<h3>The login server failed to log you in</h3>
+							{% for error in errors %}
+								<span>{{error}}</span>
+							{% endfor %}
 						</div>
 					</div>
 				</div>
