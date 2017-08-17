@@ -61,6 +61,8 @@ def isAuthenticated(request):
 		if len(session)==0:
 			session['samlIsAuthenticated'] = False
 		session['requestedURL'] = str(request.path)[1:]
+		print 'ORIGINAL URL: %s' % request.path
+		print 'THE REQUESTED URL: %s' % session['requestedURL']
 		print 'AUTHENTICATED: %s' % session['samlIsAuthenticated']
 		return session['samlIsAuthenticated']
 	else:
@@ -122,6 +124,7 @@ if config['AUTHENTICATION_METHOD'] == 'OpenConnext':
 	#gets here only if the user has logged-in successfully, otherwise the user is stopped at the intermediate node
 	@_SAMLManager.login_from_acs
 	def acs_login(acs):
+		print 'THE REQUESTED URL(ACS): %s' % session['requestedURL']
 		if isAuthenticated(request):
 			return redirect(requestOAuthCode(request.host))
 		if 'errors' in acs:
