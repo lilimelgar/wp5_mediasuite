@@ -40,7 +40,8 @@
 	<!-- The component library -->
 	<script type="text/javascript" src="/static/node_modules/labo-components/dist/labo-components.js"></script>
 	<script>
-		labo.cookRecipe({{ recipe|tojson|safe }}, {{ params|tojson|safe }}, '{{user.id}}', 'app');
+		var _chickenStock = '{{OAuthToken}}';
+		labo.cookRecipe({{ recipe|tojson|safe }}, {{ params|tojson|safe }}, '{{user.id}}', 'app', '{{OAuthToken}}');
 	</script>
 
 	<script type="text/javascript" src="/static/node_modules/jquery/dist/jquery.min.js"></script>

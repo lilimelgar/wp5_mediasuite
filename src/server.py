@@ -311,7 +311,7 @@ def recipe(recipeId):
 		recipe = app.config['RECIPES'][recipeId]
 		OAuthToken = None
 		if 'OAuthToken' in session:
-			OAuthToken = OAuthToken
+			OAuthToken = session['OAuthToken']
 		return render_template(
 			'recipe.html',
 				recipe=recipe,
