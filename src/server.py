@@ -60,9 +60,6 @@ def isAuthenticated(request):
 	if config['AUTHENTICATION_METHOD'] == 'OpenConnext':
 		if len(session)==0:
 			session['samlIsAuthenticated'] = False
-		print 'ORIGINAL URL: %s' % request.path
-		print 'THE REQUESTED URL: %s' % session['requestedURL']
-		print 'AUTHENTICATED: %s' % session['samlIsAuthenticated']
 		return session['samlIsAuthenticated']
 	else:
 		if request.authorization:
