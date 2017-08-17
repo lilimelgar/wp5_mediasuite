@@ -5,6 +5,8 @@ config = {
 	'APP_VERSION' : 'v1.1',#this value gets updated only when a new tag is created
 
 	'AUTHENTICATION_METHOD' : 'basic', #'OpenConnext', #options [OpenConnext, basic]
+	'OAUTH_CLIENT_ID' : '',
+	'OAUTH_CLIENT_SECRET' : '',
 	'PW' : 'YOUR PASSWORD',
 
 	#request access to live versions of these APIs via the owner of the repo
@@ -13,9 +15,6 @@ config = {
 
 	'ANNOTATION_API' : 'http://localhost:5303',
 	'ANNOTATION_API_PATH' : '/api',
-
-	'OAUTH_CLIENT_ID' : '',
-	'OAUTH_CLIENT_SECRET' : '',
 
 	#TODO documentation on this will follow in a later stage
 	'EXPORT_CONFIGS' : {
