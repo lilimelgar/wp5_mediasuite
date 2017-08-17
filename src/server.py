@@ -58,7 +58,7 @@ def getUser(request):
 
 def isAuthenticated(request):
 	if config['AUTHENTICATION_METHOD'] == 'OpenConnext':
-		if len(session)==0:
+		if not 'samlIsAuthenticated' in session:
 			session['samlIsAuthenticated'] = False
 		return session['samlIsAuthenticated']
 	else:
@@ -71,7 +71,7 @@ def isAuthenticated(request):
 def requires_auth(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
-		session['requestedURL'] = str(request.path)[1:]
+		session['requestedURL'] = str(request.path)
 		auth = isAuthenticated(request)
 		#if not logged in redirect the user depending on the authentication method
 		if not auth:
@@ -120,7 +120,6 @@ if config['AUTHENTICATION_METHOD'] == 'OpenConnext':
 	#gets here only if the user has logged-in successfully, otherwise the user is stopped at the intermediate node
 	@_SAMLManager.login_from_acs
 	def acs_login(acs):
-		print 'THE REQUESTED URL(ACS): %s' % session['requestedURL']
 		if isAuthenticated(request):
 			return redirect(requestOAuthCode(request.host))
 		if 'errors' in acs:
@@ -167,7 +166,7 @@ if config['AUTHENTICATION_METHOD'] == 'OpenConnext':
 			print resp
 
 		#always redirect to the URL the user requested
-		return redirect(url_for(session['requestedURL']))
+		return redirect(session['requestedURL'])
 
 	#2nd OAuth step: use the code to request an OAuth token
 	def requestOAuthToken(code):
@@ -200,7 +199,6 @@ LOADING RECIPES FROM JSON FILES
 #This function is only executed once on startup and should be used to load global variables/data
 @app.before_first_request
 def serverInit():
-	session['samlIsAuthenticated'] = False
 	loadRecipes()
 
 def loadRecipes():
