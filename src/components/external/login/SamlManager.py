@@ -20,7 +20,6 @@ class SamlManager(object):
 
     def init_app(self, app):
         app.saml_manager = self #expose for login_from_acs
-
         app.add_url_rule('/saml/login/', view_func=SamlLogin.as_view('login'), endpoint='login')
         app.add_url_rule('/saml/acs/', view_func=SamlACS.as_view('acs'), endpoint='saml_acs')
 
@@ -57,7 +56,10 @@ class SamlRequest(object):
 
     def __init__(self, request_data):
         self.request = self.prepare_flask_request(request_data)
-        self.auth = OneLogin_Saml2_Auth(self.request, custom_base_path=current_app.config['SAML_PATH'])
+        self.auth = OneLogin_Saml2_Auth(
+            self.request,
+            custom_base_path=current_app.config['SAML_PATH']
+        )
         self.errors = []
         self.not_auth_warn = False
         self.success_slo = False
@@ -105,13 +107,15 @@ class SamlRequest(object):
             session['samlNameId'] = self.auth.get_nameid()
             session['samlSessionIndex'] = self.auth.get_session_index()
             session['samlIsAuthenticated'] = self.auth.is_authenticated()
-        if 'samlUserdata' in session:
-            self.logged_in = True
+
+            #for serialization of the results
+            self.logged_in = self.auth.is_authenticated()
             if len(session['samlUserdata']) > 0:
                 self.attributes = session['samlUserdata'].items()
 
-        attrs = self.serialize()
-        return current_app.saml_manager.login_callback(attrs)
+        return current_app.saml_manager.login_callback(
+            self.serialize()
+        )
 
     def sls(self):
         dscb = lambda: session.clear()
