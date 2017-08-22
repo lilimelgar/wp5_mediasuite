@@ -4,6 +4,8 @@ config = {
 	'APP_PORT' : 5302,
 	'APP_VERSION' : 'v1.1',#this value gets updated only when a new tag is created
 
+	'SESSION_KEY' : 'session key',
+
 	'AUTHENTICATION_METHOD' : 'basic', #'OpenConnext', #options [OpenConnext, basic]
 	'OAUTH_CLIENT_ID' : '',
 	'OAUTH_CLIENT_SECRET' : '',

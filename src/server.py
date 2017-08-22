@@ -1,6 +1,6 @@
 #flask imports
 from flask import Flask
-from flask import render_template, abort
+from flask import render_template, abort, session
 from flask import request, Response, send_from_directory
 from jinja2.exceptions import TemplateNotFound
 from functools import wraps
@@ -27,6 +27,9 @@ app = Flask(__name__)
 app.debug = True
 app.config['RECIPES'] = None #loaded once when a recipe is requested for the first time
 app.config['COLLECTION_DATA'] = None #loaded once on startup
+
+#required for using sessions (currently only used when auth method = OpenConnext)
+app.config['SECRET_KEY'] = config['SESSION_KEY']
 
 """------------------------------------------------------------------------------
 AUTHENTICATION FUNCTIONS
@@ -94,15 +97,13 @@ if config['AUTHENTICATION_METHOD'] == 'OpenConnext':
 	from urlparse import urlparse
 	from onelogin.saml2.auth import OneLogin_Saml2_Auth
 	from onelogin.saml2.utils import OneLogin_Saml2_Utils
-	from flask import (redirect, session, make_response, jsonify, url_for)
+	from flask import (redirect, make_response, jsonify, url_for)
 	from components.external.login import SamlManager
 	from uuid import uuid4
 	import requests
 	import requests.auth
 	import urllib
 
-	#required for using sessions
-	app.config['SECRET_KEY'] = 'openconext_request'
 	app.config['SAML_PATH'] = os.path.join(os.path.abspath(os.path.dirname(__file__)),'components','external','login', 'saml')
 
 	#init the SAMLManager
