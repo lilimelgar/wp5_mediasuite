@@ -33,7 +33,7 @@
     "react-dom": "^15.6.1",
     "jquery": "^3.2.1",
     "jwplayer": "^1.0.3",
-    "labo-components": "^1.0.18",
+    "labo-components": "^1.1.01",
     "nouislider": "^10.1.0",
     "openseadragon": "^2.3.0"
   },
