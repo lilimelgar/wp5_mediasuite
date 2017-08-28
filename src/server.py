@@ -5,6 +5,9 @@ from flask import request, Response, send_from_directory
 from jinja2.exceptions import TemplateNotFound
 from functools import wraps
 
+#for authentication
+from components.security.AuthenticationHub import AuthenticationHub
+
 #for autocompletion & searching through external collections (move this to some external API)
 from components.external.openskos.OpenSKOS import OpenSKOS
 from components.external.dbpedia.DBpedia import DBpedia
@@ -36,15 +39,8 @@ app.config['COLLECTION_DATA'] = None #loaded once on startup
 AUTHENTICATION FUNCTIONS
 ------------------------------------------------------------------------------"""
 
-#Needed for OpenConnext authentication
-if app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
-	from components.security.AuthenticationHub import AuthenticationHub
-
-	app.config['SAML_PATH'] = os.path.join(os.path.abspath(os.path.dirname(__file__)),'components','security','resources')
-
-	#init the SAMLManager
-	_authenticationHub = AuthenticationHub(app)
-
+#this object is used for everything related to authentication/authorization
+_authenticationHub = AuthenticationHub(app)
 
 #decorator that makes sure to check whether the user is authorized based on the configured authorization method
 def requires_auth(f):

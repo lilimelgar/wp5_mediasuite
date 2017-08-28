@@ -5,6 +5,7 @@ from urlparse import urlparse
 from uuid import uuid4
 import urllib
 import requests
+import os
 
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
@@ -16,26 +17,28 @@ class AuthenticationHub(object):
 
 	def __init__(self, app):
 		self.app = app
-		self.app.add_url_rule(
-			'/saml/login/',
-			view_func=SAMLLogin.as_view('login', authenticationHub=self),
-			endpoint='saml_login'
-		)
-		self.app.add_url_rule(
-			'/saml/acs/',
-			view_func=SAMLACS.as_view('acs', authenticationHub=self),
-			endpoint='saml_acs'
-		)
-		self.app.add_url_rule(
-			'/metadata/',
-			view_func=SAMLMetadata.as_view('metadata', authenticationHub=self),
-			endpoint='saml_metadata'
-		)
-		self.app.add_url_rule(
-			'/get_code',
-			view_func=OauthGetCodeView.as_view('oauth_get_code', authenticationHub=self),
-			endpoint='oauth_get_code'
-		)
+		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
+			self.app.config['SAML_PATH'] = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'resources')
+			self.app.add_url_rule(
+				'/saml/login/',
+				view_func=SAMLLogin.as_view('login', authenticationHub=self),
+				endpoint='saml_login'
+			)
+			self.app.add_url_rule(
+				'/saml/acs/',
+				view_func=SAMLACS.as_view('acs', authenticationHub=self),
+				endpoint='saml_acs'
+			)
+			self.app.add_url_rule(
+				'/metadata/',
+				view_func=SAMLMetadata.as_view('metadata', authenticationHub=self),
+				endpoint='saml_metadata'
+			)
+			self.app.add_url_rule(
+				'/get_code',
+				view_func=OauthGetCodeView.as_view('oauth_get_code', authenticationHub=self),
+				endpoint='oauth_get_code'
+			)
 
 	def getUser(self, request):
 		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
@@ -253,7 +256,7 @@ class OAuthRequest(object):
 		if error:
 			return "Error: " + error
 		state = request.args.get('state', '')
-		if not self.is_valid_state(state):
+		if not self.isValidState(state):
 			# Uh-oh, this request wasn't started by us!
 			abort(403)
 
@@ -270,7 +273,7 @@ class OAuthRequest(object):
 		return redirect(session['requestedURL'])
 
 	#useless function: maybe fill in later?
-	def is_valid_state(self, state):
+	def isValidState(self, state):
 		return True
 
 	#2nd OAuth step: use the code to request an OAuth token
