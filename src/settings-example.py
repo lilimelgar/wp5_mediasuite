@@ -8,6 +8,7 @@ class Config(object):
 	AUTHENTICATION_METHOD = 'basic' #'OpenConnext', #options [OpenConnext, basic]
 	OAUTH_CLIENT_ID = 'oauth client id'
 	OAUTH_CLIENT_SECRET = 'oauth client secret'
+	AUTHZ_SERVER = 'https://yourauthzserver'
 	PW = '12345'
 
 	SEARCH_API = 'http://localhost:5320'

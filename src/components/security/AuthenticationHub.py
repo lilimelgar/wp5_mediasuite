@@ -191,7 +191,7 @@ class SAMLRequest(object):
 
 		return self.afterACS(self.serialize())
 
-	#gets here only if the user has logged-in successfully, otherwise the user is stopped at the intermediate node
+	#gets here only if the user has logged-in successfully, so it can be redirected to the authz server without needing to login
 	def afterACS(self, acs):
 		if self.authenticationHub.isAuthenticated(request):
 			oauth = OAuthRequest(self.authenticationHub)
@@ -248,7 +248,7 @@ class OAuthRequest(object):
 			"duration": "temporary",
 			"scope": "groups"
 		}
-		url = "https://authz.proxy.clariah.nl/oauth/authorize?" + urllib.urlencode(params)
+		url = "%s/oauth/authorize?%s" % (current_app.config['AUTHZ_SERVER'], urllib.urlencode(params))
 		return url
 
 	def OAuthCodeReceived(self):
@@ -265,7 +265,6 @@ class OAuthRequest(object):
 		if 'access_token' in resp:
 			OAuthToken = resp['access_token']
 			session['OAuthToken'] = OAuthToken
-			print 'Acquired an OAuth token for asynchonous requests: %s' % session['OAuthToken']
 		else:
 			print resp
 
