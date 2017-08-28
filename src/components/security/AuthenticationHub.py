@@ -251,6 +251,7 @@ class OAuthRequest(object):
 		url = "%s/oauth/authorize?%s" % (current_app.config['AUTHZ_SERVER'], urllib.urlencode(params))
 		return url
 
+	#PATH=/get_code/ is called by the authz server after receiving a getCode request
 	def OAuthCodeReceived(self):
 		error = request.args.get('error', '')
 		if error:
