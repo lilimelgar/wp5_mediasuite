@@ -6,8 +6,7 @@ from uuid import uuid4
 import urllib
 import requests
 import os
-
-from onelogin.saml2.auth import OneLogin_Saml2_Auth
+import json
 
 """------------------------------------------------------------------------
 -------------------- INITIALIZES THE AUTH SUPPORT / SHARED INTERFACE ------
@@ -18,6 +17,7 @@ class AuthenticationHub(object):
 	def __init__(self, app):
 		self.app = app
 		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
+			from onelogin.saml2.auth import OneLogin_Saml2_Auth
 			self.app.config['SAML_PATH'] = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'resources')
 			self.app.add_url_rule(
 				'/saml/login/',
@@ -109,7 +109,7 @@ class SAMLMetadata(View):
 
 	def dispatch_request(self):
 		saml = SAMLRequest(self.authenticationHub, request)
-		return saml.generate_metadata()
+		return saml.showMetadata()
 
 #PATH=/get_code, called by OpenConnext after being called via OAuthRequest.requestOAuthCode()
 class OauthGetCodeView(View):
@@ -215,7 +215,7 @@ class SAMLRequest(object):
 				self.success_slo = True
 		return self.serialize()
 
-	def generate_metadata(self):
+	def showMetadata(self):
 		settings = self.auth.get_settings()
 		metadata = settings.get_sp_metadata()
 		errors = settings.validate_metadata(metadata)
@@ -264,8 +264,8 @@ class OAuthRequest(object):
 		#Now request the OAuth token with the acquired code
 		resp = self.requestOAuthToken(request.args.get('code'))
 		if 'access_token' in resp:
-			OAuthToken = resp['access_token']
-			session['OAuthToken'] = OAuthToken
+			oAuthToken = resp['access_token']
+			session['OAuthToken'] = oAuthToken
 		else:
 			print resp
 
