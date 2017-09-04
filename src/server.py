@@ -50,7 +50,7 @@ def requires_auth(f):
 		auth = _authenticationHub.isAuthenticated(request)
 		#if not logged in redirect the user depending on the authentication method
 		if not auth:
-			if app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
+			if app.config['AUTHENTICATION_METHOD'] == 'OpenConext':
 				return redirect(url_for('saml_login'))
 			else: #basic auth
 				return Response(
@@ -197,7 +197,7 @@ def recipe(recipeId):
 				OAuthToken=OAuthToken
 		)
 
-	return render_template('404', user=_authenticationHub.getUser(request)), 404
+	return render_template('404.html', user=_authenticationHub.getUser(request), version=app.config['APP_VERSION']), 404
 
 @app.route('/components')
 @requires_auth

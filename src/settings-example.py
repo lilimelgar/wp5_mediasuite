@@ -5,7 +5,7 @@ class Config(object):
 
 	SECRET_KEY = 'some unique string' #required for using sessions
 
-	AUTHENTICATION_METHOD = 'basic' #'OpenConnext', #options [OpenConnext, basic]
+	AUTHENTICATION_METHOD = 'basic' #'OpenConext', #options [OpenConext, basic]
 	OAUTH_CLIENT_ID = 'oauth client id'
 	OAUTH_CLIENT_SECRET = 'oauth client secret'
 	AUTHZ_SERVER = 'https://yourauthzserver'

@@ -16,8 +16,7 @@ class AuthenticationHub(object):
 
 	def __init__(self, app):
 		self.app = app
-		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
-			from onelogin.saml2.auth import OneLogin_Saml2_Auth
+		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConext':
 			self.app.config['SAML_PATH'] = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'resources')
 			self.app.add_url_rule(
 				'/saml/login/',
@@ -41,20 +40,13 @@ class AuthenticationHub(object):
 			)
 
 	def getUser(self, request):
-		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
+		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConext':
 			if len(session)>0 and 'samlUserdata' in session:
-				if session['samlUserdata']['urn:oid:1.3.6.1.4.1.25178.1.2.9'][0]=='surfguest.nl':
-					return {
-						'id' : session['samlUserdata']['urn:mace:dir:attribute-def:displayName'][0], #TODO is there a real ID?
-						'name' : session['samlUserdata']['urn:mace:dir:attribute-def:displayName'][0],
-						'attributes' : session['samlUserdata']
-					}
-				else:
-					return {
-						'id' : session['samlUserdata']['urn:mace:dir:attribute-def:uid'][0], #TODO is there a real ID?
-						'name' : session['samlUserdata']['urn:mace:dir:attribute-def:uid'][0],
-						'attributes' : session['samlUserdata']
-					}
+				return {
+					'id' : session['samlUserdata']['urn:mace:dir:attribute-def:uid'][0], #TODO is there a real ID?
+					'name' : session['samlUserdata']['urn:mace:dir:attribute-def:uid'][0],
+					'attributes' : session['samlUserdata']
+				}
 		else: #basic auth
 			return {
 				'id' : 'clariah',
@@ -64,7 +56,7 @@ class AuthenticationHub(object):
 		return None
 
 	def isAuthenticated(self, request):
-		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConnext':
+		if self.app.config['AUTHENTICATION_METHOD'] == 'OpenConext':
 			if not 'samlIsAuthenticated' in session:
 				session['samlIsAuthenticated'] = False
 			return session['samlIsAuthenticated']
@@ -89,7 +81,7 @@ class SAMLLogin(View):
 		saml = SAMLRequest(self.authenticationHub, request)
 		return redirect(saml.sso())
 
-#PATH=/saml/acs/, called by OpenConnext after processing a login request via SAMLRequest.sso()
+#PATH=/saml/acs/, called by OpenConext after processing a login request via SAMLRequest.sso()
 class SAMLACS(View):
 	methods = ['POST']
 
@@ -100,7 +92,7 @@ class SAMLACS(View):
 		saml = SAMLRequest(self.authenticationHub, request)
 		return saml.acs()
 
-#PATH=/metadata/, used for registering this SAML Service Provider in OpenConnext (called via OpenConnext)
+#PATH=/metadata/, used for registering this SAML Service Provider in OpenConext (called via OpenConext)
 class SAMLMetadata(View):
 	methods = ['POST']
 
@@ -111,7 +103,7 @@ class SAMLMetadata(View):
 		saml = SAMLRequest(self.authenticationHub, request)
 		return saml.showMetadata()
 
-#PATH=/get_code, called by OpenConnext after being called via OAuthRequest.requestOAuthCode()
+#PATH=/get_code, called by OpenConext after being called via OAuthRequest.requestOAuthCode()
 class OauthGetCodeView(View):
     methods = ['GET']
 
@@ -130,6 +122,7 @@ class OauthGetCodeView(View):
 class SAMLRequest(object):
 
 	def __init__(self, authenticationHub, request_data):
+		from onelogin.saml2.auth import OneLogin_Saml2_Auth
 		self.authenticationHub = authenticationHub
 		self.request = self.prepare_flask_request(request_data)
 		self.auth = OneLogin_Saml2_Auth(
@@ -196,6 +189,11 @@ class SAMLRequest(object):
 		if self.authenticationHub.isAuthenticated(request):
 			oauth = OAuthRequest(self.authenticationHub)
 			return redirect(oauth.requestOAuthCode(request.host))
+		#elif not 'OAuthToken' in session:
+		#	oauth = OAuthRequest(self.authenticationHub)
+		#	return redirect(oauth.requestOAuthCode(request.host))
+		#else:
+		#	print 'Already got an OAuthToken: %s' % session['OAuthToken']
 		if 'errors' in acs:
 			return render_template(
 				'login-failed.html',
