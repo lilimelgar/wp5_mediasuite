@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="page-header">
 			<h1>{{recipe.name}}</h1>
-			{{recipe.description}}
+			{{recipe.recipeDescription | safe}}
 	    </div>
 		<!-- instead of listing the one recipe, make sure to list a bunch of recipes-->
 		<div id="app"/>
