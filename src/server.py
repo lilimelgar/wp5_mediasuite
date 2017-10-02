@@ -180,9 +180,18 @@ def recipe(recipeId):
 
 	if app.config['RECIPES'].has_key(recipeId):
 		recipe = app.config['RECIPES'][recipeId]
-		OAuthToken = None
+
+		#determine the token (either from the config or the session)
+		token = None
 		if 'OAuthToken' in session:
-			OAuthToken = session['OAuthToken']
+			token = session['OAuthToken']
+		elif 'TOKEN' in app.config:
+			token = app.config['TOKEN']
+
+		#get the client id from the config
+		clientId = None
+		if 'CLIENT_ID' in app.config:
+			clientId = app.config['CLIENT_ID']
 		return render_template(
 			'recipe.html',
 				recipe=recipe,
@@ -194,7 +203,8 @@ def recipe(recipeId):
 				version=app.config['APP_VERSION'],
 				annotationAPI=app.config['ANNOTATION_API'],
 				annotationAPIPath=app.config['ANNOTATION_API_PATH'],
-				OAuthToken=OAuthToken
+				token=token,
+				clientId=clientId
 		)
 
 	return render_template('404.html', user=_authenticationHub.getUser(request), version=app.config['APP_VERSION']), 404
