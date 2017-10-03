@@ -10,3 +10,4 @@ advanced_settings.json
 settings.json
 .idea
 /src/static/css/
+venv
