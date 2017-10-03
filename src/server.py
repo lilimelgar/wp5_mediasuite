@@ -27,9 +27,10 @@ import os
 
 #initialise the application object
 app = Flask(__name__)
-app.debug = True
 
 app.config.from_object('settings.Config')
+
+app.debug = app.config['DEBUG']
 
 app.config['RECIPES'] = None #loaded once when a recipe is requested for the first time
 app.config['COLLECTION_DATA'] = None #loaded once on startup

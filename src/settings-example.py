@@ -3,6 +3,8 @@ class Config(object):
 	APP_PORT = 5304
 	APP_VERSION = 'v1.1'
 
+	DEBUG = True #debug mode (switch off in production environment)
+
 	SECRET_KEY = 'some unique string' #required for using sessions
 
 	AUTHENTICATION_METHOD = 'basic' #'OpenConext', #options [OpenConext, basic]
