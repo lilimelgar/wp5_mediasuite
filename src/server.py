@@ -206,7 +206,8 @@ def recipe(recipeId):
 				annotationAPI=app.config['ANNOTATION_API'],
 				annotationAPIPath=app.config['ANNOTATION_API_PATH'],
 				token=token,
-				clientId=clientId
+				clientId=clientId,
+				play=app.config['PLAYOUT_API']
 		), 200, {'Access-Control-Allow-Credentials' : 'true'}
 
 	return render_template('404.html', user=_authenticationHub.getUser(request), version=app.config['APP_VERSION']), 404
