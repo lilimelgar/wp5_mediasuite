@@ -20,6 +20,7 @@ from components.export.AnnotationExporter import AnnotationExporter
 
 #standard python
 import json
+import requests
 import os
 
 #import the settings and put them in a global variable
@@ -206,7 +207,7 @@ def recipe(recipeId):
 				annotationAPIPath=app.config['ANNOTATION_API_PATH'],
 				token=token,
 				clientId=clientId
-		)
+		), 200, {'Access-Control-Allow-Credentials' : 'true'}
 
 	return render_template('404.html', user=_authenticationHub.getUser(request), version=app.config['APP_VERSION']), 404
 
@@ -295,6 +296,10 @@ def link(api, command):
 		return Response(json.dumps(resp), mimetype='application/json')
 	return Response(getErrorMessage('Nothing found'), mimetype='application/json')
 
+
+@app.route('/test')
+def test():
+	return render_template('test-playout.html')
 
 """------------------------------------------------------------------------------
 ERROR HANDLERS
