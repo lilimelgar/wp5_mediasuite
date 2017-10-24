@@ -54,6 +54,12 @@
 	color: $clOrange;
 	padding:15px 15px;
 	font-style: italic;
+	.logout {
+		font-style: normal;
+		a {
+			color: $clDark;
+		}
+	}
 }
 
 .components-header {

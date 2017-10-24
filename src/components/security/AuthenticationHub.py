@@ -24,6 +24,11 @@ class AuthenticationHub(object):
 				endpoint='saml_login'
 			)
 			self.app.add_url_rule(
+				'/saml/logout/',
+				view_func=SAMLLogout.as_view('logout', authenticationHub=self),
+				endpoint='saml_logout'
+			)
+			self.app.add_url_rule(
 				'/saml/acs/',
 				view_func=SAMLACS.as_view('acs', authenticationHub=self),
 				endpoint='saml_acs'
@@ -80,6 +85,17 @@ class SAMLLogin(View):
 	def dispatch_request(self):
 		saml = SAMLRequest(self.authenticationHub, request)
 		return redirect(saml.sso())
+
+#PATH=/saml/login/, triggers flow of login requests
+class SAMLLogout(View):
+	methods = ['GET']
+
+	def __init__(self, authenticationHub):
+		self.authenticationHub = authenticationHub
+
+	def dispatch_request(self):
+		saml = SAMLRequest(self.authenticationHub, request)
+		return redirect(saml.slo())
 
 #PATH=/saml/acs/, called by OpenConext after processing a login request via SAMLRequest.sso()
 class SAMLACS(View):

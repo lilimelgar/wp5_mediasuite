@@ -297,10 +297,11 @@ def link(api, command):
 		return Response(json.dumps(resp), mimetype='application/json')
 	return Response(getErrorMessage('Nothing found'), mimetype='application/json')
 
-
-@app.route('/test')
-def test():
-	return render_template('test-playout.html')
+@app.route('/logout')
+def logout():
+	if app.config['AUTHENTICATION_METHOD'] == 'OpenConext':
+		return redirect(url_for('saml_logout'))
+	return Response(getErrorMessage('logout not implemented'))
 
 """------------------------------------------------------------------------------
 ERROR HANDLERS

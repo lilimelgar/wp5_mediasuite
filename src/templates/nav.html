@@ -65,7 +65,15 @@
 				<li><a href="/userspace">{{'User space' if user != None else 'Login'}}</a></li>
 				{% endif %}
 			</ul>
-			<div class="app-version">Version: {{version}}</div>
+			<div class="app-version">
+				Version: {{version}}
+				{% if user != None %}
+				<span class="logout">
+					&nbsp;|&nbsp;
+					<a href="/logout" title="Logout {{user.name}}">Logout</a>
+				</span>
+				{% endif %}
+			</div>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>
