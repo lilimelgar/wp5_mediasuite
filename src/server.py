@@ -301,6 +301,9 @@ def link(api, command):
 def logout():
 	if app.config['AUTHENTICATION_METHOD'] == 'OpenConext':
 		return redirect(url_for('saml_logout'))
+	else:
+		session.clear()
+		return redirect(url_for('home'))
 	return Response(getErrorMessage('logout not implemented'))
 
 """------------------------------------------------------------------------------

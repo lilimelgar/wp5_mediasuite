@@ -1,4 +1,4 @@
-from flask import session, make_response, request, redirect, current_app, render_template
+from flask import session, make_response, request, redirect, current_app, render_template, url_for
 from flask.views import View
 
 from urlparse import urlparse
@@ -175,6 +175,7 @@ class SAMLRequest(object):
 		return self.auth.login()
 
 	def slo(self):
+		"""
 		name_id = None
 		session_index = None
 		if 'samlNameId' in session:
@@ -182,6 +183,9 @@ class SAMLRequest(object):
 		if 'samlSessionIndex' in session:
 			session_index = session['samlSessionIndex']
 		return self.auth.logout(name_id=name_id, session_index=session_index)
+		"""
+		session.clear()
+		return url_for('home')
 
 	def acs(self):
 		self.auth.process_response()
