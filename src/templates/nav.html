@@ -55,16 +55,16 @@
 			{% endif %}
 		</ul>
 
-		{% if user.name %}
+		{% if user != None %}
 		<div class="account loggedin "><i class="icon-person"></i>Account <span class="username">{{user.name}}</span>
 			<ul class="dropdown">
-				<li>My profile</li>
-				<li><a class="logoutLink" href="/logout" title="Logout {{user.name}}">Logout</a></li>
+				<li><a class="userLink" href="/userspace">My profile</a></li>
+				<li><a class="userLink" href="/logout" title="Logout {{user.name}}">Logout</a></li>
 			</ul>
 		</div>
 		{% else %}
 		<div class="account login ">
-			<i class="icon-person"></i>Login
+			<a href="/userspace"><i class="icon-person"></i>Login</a>
 		</div>
 		{% endif %}
 	</div>
