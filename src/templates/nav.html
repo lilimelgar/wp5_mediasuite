@@ -1,5 +1,5 @@
 <div class="header">
-	<div class="logo"></div>
+	<a class="logo" href="/"></a>
 	<ul class="menu main">
 		{% if page=='data-sources' %}
 		<li class="active"><a href="/datasources">Data</a></li>
@@ -59,7 +59,7 @@
 		<div class="account loggedin "><i class="icon-person"></i>Account <span class="username">{{user.name}}</span>
 			<ul class="dropdown">
 				<li>My profile</li>
-				<li>Sign out</li>
+				<li><a class="logoutLink" href="/logout" title="Logout {{user.name}}">Logout</a></li>
 			</ul>
 		</div>
 		{% else %}

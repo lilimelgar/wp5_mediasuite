@@ -298,4 +298,9 @@ $accountWidth: 250px;
 }
 .header .right * a {
   color: #fff;
+  text-decoration: none;
+  &.logoutLink {
+    color: $clDark;
+  }
 }
+
