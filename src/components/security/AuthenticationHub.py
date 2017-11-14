@@ -52,7 +52,7 @@ class AuthenticationHub(object):
 					'name' : session['samlUserdata']['urn:mace:dir:attribute-def:uid'][0],
 					'attributes' : session['samlUserdata']
 				}
-		else: #basic auth
+		elif self.isAuthenticated(request): #basic auth
 			return {
 				'id' : 'clariah',
 				'name' :'clariah',
