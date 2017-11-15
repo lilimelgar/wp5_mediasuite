@@ -118,6 +118,9 @@
         color: $clDark;
       }
     }
+    ul > li > a {
+      padding: 40px 20px;
+    }
   }
 
   .workspace {
