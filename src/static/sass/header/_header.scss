@@ -1,85 +1,81 @@
-/* Dimensions */
-$headerHeight: 115px;
-$logoWidth: 295px;
-$accountWidth: 250px;
-
-
-h1,h2,h3,h4,h5{
-  font-family: $fontHeading;
+// Header stylings.
+// TODO: put them in a separated file or overwrite them directly from the source.
+.container {
+  margin-top: 200px;
 }
 
-p{
-  padding: 20px;
-}
-
-.header{
-  margin-bottom: 150px;
-}
-
-.header{
-  height: $headerHeight;
-  background-color:  $clDark;
+.header {
+  background-color: $clDark;
   color: $clWhite;
   font-family: $fontHeading;
-  user-select: none;
+  height: $headerHeight;
+  margin-bottom: 150px;
   position: fixed;
   top: 0;
+  user-select: none;
   width: 100%;
   z-index: 99999;
 
-  .logo{
-    display: inline-block;
+  h1, h2, h3, h4, h5 {
+    font-family: $fontHeading;
+  }
+
+  p {
+    padding: 20px;
+  }
+
+  .logo {
     background-image: $logoUrl;
-    background-size: 207px;
-    background-repeat: no-repeat;
     background-position: center center;
-    width: $logoWidth;
-    height: $headerHeight;
+    background-repeat: no-repeat;
+    background-size: 207px;
     cursor: pointer;
-
+    display: inline-block;
+    height: $headerHeight;
     transition: opacity $transition;
+    width: $logoWidth;
 
-    &:hover{
+    &:hover {
       opacity: 0.75;
     }
   }
 
-  .menu{
+  .menu {
+    cursor: pointer;
+    display: inline-block;
     list-style: none;
     margin: 0;
     padding: 0;
-    display: inline-block;
     vertical-align: top;
-    cursor: pointer;
 
-    & > li{
+    & > li {
+      box-sizing: border-box;
       display: inline-block;
+      height: $headerHeight;
       line-height: $headerHeight;
       margin: 0;
       padding: 0;
-      height: $headerHeight;
-      box-sizing: border-box;
       transition: background-color $transition;
 
-      &.active{
-        border-bottom: 6px solid $clBlue;
+      &.active {
         background-color: lighten($clDark, 5);
+        border-bottom: 6px solid $clBlue;
       }
 
-      &:hover{
+      &:hover {
         background-color: lighten($clDark, 2);
       }
 
       a {
-        padding: 40px;
-        line-height: 115px;
-        height: 115px;
         box-sizing: border-box;
+        height: 115px;
+        line-height: 115px;
+        padding: 40px;
       }
     }
   }
 
-  .main{
+  .main {
     font-size: 1.55em;
     li {
       a {
@@ -91,114 +87,111 @@ p{
     }
   }
 
-  .sub{
-    margin-right: 10px;
+  .sub {
     font-size: 1.25em;
-    & > li {
+    margin-right: 10px;
 
+    & > li {
+      padding: 0;
       > a {
         color: lighten($clDark, 30);
         text-decoration: none;
-        &:hover{
+        &:hover {
           color: lighten($clDark, 40);
         }
 
-        &.active{
+        &.active {
           color: lighten($clDark, 60);
         }
       }
-      padding: 0;
     }
   }
-  //li > a
+
   .right {
     display: inline-block;
     float: right;
     * a {
       color: $clWhite;
+      padding: 0;
       text-decoration: none;
       &.userLink {
         color: $clDark;
       }
-      padding: 0;
     }
   }
 
-  .workspace{
+  .workspace {
+    background-image: $arrowDownUrl;
+    // active border will cause 'center' background image to move, so absolute pixels
+    background-position: top 56px right 20px;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
     display: inline-block;
-    position: relative;
-    vertical-align: top;
+    font-size: 1.55em;
     height: $headerHeight;
     margin-left: -4px;
     padding: 45px 50px 0 15px;
-    font-size: 1.55em;
-    box-sizing: border-box;
+    position: relative;
+    vertical-align: top;
 
-    background-image: $arrowDownUrl;
-    background-repeat: no-repeat;
-
-    // active border will cause 'center' background image to move, so absolute pixels
-    background-position: top 56px right 20px;
-
-
-    &.active{
-      border-bottom: 6px solid $clOrange;
+    &.active {
       background-color: lighten($clDark, 2);
+      border-bottom: 6px solid $clOrange;
     }
 
-    &:hover{
+    &:hover {
       background-color: lighten($clDark, 5);
     }
 
-    .icon-workspace{
-      display: inline-block;
-      width: 30px;
-      height: 30px;
+    .icon-workspace {
       background-image: $iconWorkspaceUrl;
       background-repeat: no-repeat;
       background-position: center;
-      vertical-align: middle;
+      display: inline-block;
+      height: 30px;
       margin-right: 10px;
       margin-top: -2px;
+      vertical-align: middle;
+      width: 30px;
     }
 
-    &:hover{
-      .dropdown{
+    &:hover {
+      .dropdown {
         display: block;
       }
     }
 
-    .dropdown .projects{
-      margin: 0;
-      padding:0;
+    .dropdown .projects {
       background-color: $clWhite;
       background-image: none;
+      margin: 0;
+      padding: 0;
 
-      input{
-        width: 100%;
-        box-sizing: border-box;
-        border: 0;
-        border-bottom: 1px solid $clGreyDark;
-        padding: 8px 10px;
-        font-family: $fontBody;
+      input {
         background-image: $iconSearchUrl;
         background-position: center right 10px;
         background-repeat: no-repeat;
+        border: 0;
+        border-bottom: 1px solid $clGreyDark;
+        box-sizing: border-box;
+        font-family: $fontBody;
+        padding: 8px 10px;
+        width: 100%;
       }
 
-      ul{
-        list-style: none;
-        margin: 0;
-        padding:0;
+      ul {
         font-family: $fontBody;
         font-size: 0.84em;
-        li{
-          padding: 8px 10px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
           border-bottom: 1px solid $clGreyDark;
-          white-space: nowrap;
           overflow: hidden;
+          padding: 8px 10px;
           text-overflow: ellipsis;
-          &:hover{
+          white-space: nowrap;
+          &:hover {
             background-color: $clGreyDark;
           }
         }
@@ -206,87 +199,85 @@ p{
     }
   }
 
-  .account{
-    display: inline-block;
-    position: relative;
-    height: $headerHeight;
-    padding: 45px 50px 0 15px;
-    width: $accountWidth;
-    font-size: 1.55em;
-    box-sizing: border-box;
+  .account {
     background-image: $arrowRightUrl;
     background-repeat: no-repeat;
     // active border will cause 'center' background image to move, so absolute pixels
     background-position: top 52px right 20px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 1.55em;
+    height: $headerHeight;
+    padding: 45px 50px 0 15px;
+    position: relative;
+    width: $accountWidth;
 
-
-    &.login{
+    &.login {
       cursor: pointer;
     }
 
-    &.active{
-      border-bottom: 6px solid $clOrange;
+    &.active {
       background-color: lighten($clDark, 2);
+      border-bottom: 6px solid $clOrange;
     }
 
-    &:hover{
+    &:hover {
       background-color: lighten($clDark, 5);
     }
 
-    .icon-person{
-      display: inline-block;
-      float:left;
-      width: 30px;
-      height: 28px;
+    .icon-person {
       background-image: $iconPersonUrl;
       background-repeat: no-repeat;
       background-position: center;
-      vertical-align: top;
+      display: inline-block;
+      float: left;
+      height: 28px;
       margin-right: 10px;
       margin-top: -2px;
+      vertical-align: top;
+      width: 30px;
     }
 
-    &.loggedin{
+    &.loggedin {
       padding-top: 35px;
 
-      .username{
-        display:block;
-        margin-top: 5px;
+      .username {
+        display: block;
+        font-family: $fontBody;
         font-size: 0.7em;
         margin-left: 40px;
-        font-family: $fontBody;
+        margin-top: 5px;
       }
 
-      .icon-person{
+      .icon-person {
         height: 50px;
       }
     }
 
-    &:hover{
-      .dropdown{
+    &:hover {
+      .dropdown {
         display: block;
       }
     }
 
   }
 
-
-  .dropdown{
-    display: none;
-    position: absolute;
-    top: $headerHeight;
-    left: 0;
-    font-size: 0.80em;
-    box-sizing: border-box;
-    width: $accountWidth;
-    color: $clDark;
+  .dropdown {
     background-color: $clGreyDark;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    color: $clDark;
+    display: none;
+    font-size: 0.80em;
+    left: 0;
     list-style: none;
     margin: 0;
     padding: 0px;
+    position: absolute;
+    top: $headerHeight;
+    width: $accountWidth;
 
-    & > li{
+    & > li {
       background-image: $arrowRightDarkUrl;
       background-repeat: no-repeat;
       background-position: center right 10px;
@@ -294,31 +285,25 @@ p{
       cursor: pointer;
       padding: 10px 15px;
 
-      &:hover{
+      &:hover {
         background-color: darken($clGreyDark, 2)
       }
 
-      &.active{
+      &.active {
         background-color: darken($clGreyDark, 5)
       }
 
-      .count{
-        display: inline-block;
-        float:right;
-        margin-right: 15px;
+      .count {
         background-color: $clOrange;
-        color: $clWhite;
         border-radius: 25px;
+        color: $clWhite;
+        display: inline-block;
+        float: right;
         font-size: 0.8em;
         font-weight: bold;
+        margin-right: 15px;
         padding: 2px 4px 2px 4px;
-
       }
     }
   }
-}
-
-// TODO: put them in a separated file or overwrite them directly from the source.
-.container {
-  margin-top: 200px;
 }
