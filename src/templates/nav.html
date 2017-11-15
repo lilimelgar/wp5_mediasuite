@@ -2,14 +2,11 @@
 	<a class="logo" href="/"></a>
 	<ul class="menu main">
 		{% if page=='data-sources' %}
-		<li class="active"><a href="/datasources">Data</a></li>
-		<li><a href="/recipes">Tools</a></li>
+		<li class="active"><a href="/datasources">Data</a></li><li><a href="/recipes">Tools</a></li>
 		{% elif page=='recipes' %}
-		<li><a href="/datasources">Data</a></li>
-		<li class="active"><a href="/recipes">Tools</a></li>
+		<li><a href="/datasources">Data</a></li><li class="active"><a href="/recipes">Tools</a></li>
 		{% else %}
-		<li><a href="/datasources">Data </a></li>
-		<li><a href="/recipes">Tools</a></li>
+		<li><a href="/datasources">Data </a></li><li><a href="/recipes">Tools</a></li>
 		{% endif %}
 	</ul>
 
@@ -37,21 +34,14 @@
 	<div class="right">
 		<ul class="menu sub">
 			{% if page=='about' %}
-			<li class="active">About</li>
-			<li><a href="/help-feedback">Documentation</a></li>
-			<li><a href="/contact">Contact</a></li>
+			<li class="active"><a href="/">About</a></li><li><a href="/help-feedback">Documentation</a></li><li><a href="/contact">Contact</a></li>
 			{% elif page=='help-feedback' %}
-			<li><a href="/about">About</a></li>
-			<li class="active">Documentation</li>
-			<li><a href="/contact">Contact</a></li>
+			<li><a href="/about">About</a></li><li class="active"><a href="/">Documentation</a></li><li><a href="/contact">Contact</a></li>
 			{% elif page=='contact' %}
-			<li><a href="/about">About</a></li>
-			<li><a href="/help-feedback">Documentation</a></li>
-			<li class="active">Contact</li>
+			<li><a href="/about">About</a></li><li><a href="/help-feedback">Documentation</a></li><li class="active"><a
+			href="/">Contact</a></li>
 			{% else %}
-			<li><a href="/about">About</a></li>
-			<li><a href="/help-feedback">Documentation</a></li>
-			<li><a href="/contact">Contact</a></li>
+			<li><a href="/about">About</a></li><li><a href="/help-feedback">Documentation</a></li><li><a href="/contact">Contact</a></li>
 			{% endif %}
 		</ul>
 

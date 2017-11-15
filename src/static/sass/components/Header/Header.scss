@@ -39,8 +39,8 @@ $accountWidth: 250px;
       display: inline-block;
       line-height: $headerHeight;
       margin: 0;
-      padding: 0 30px;
-      height: $headerHeight;      
+      padding: 0;
+      height: $headerHeight;
       box-sizing: border-box;
       transition: background-color $transition;
 
@@ -51,6 +51,13 @@ $accountWidth: 250px;
 
       &:hover{
         background-color: lighten($clDark, 2);
+      }
+
+      a {
+        padding: 40px;
+        line-height: 115px;
+        height: 115px;
+        box-sizing: border-box;
       }
     }
   }
@@ -75,7 +82,7 @@ $accountWidth: 250px;
           color: lighten($clDark, 60);
         }
       }
-      padding: 0 20px;
+      padding: 0;
     }
   }
   //li > a
@@ -302,5 +309,6 @@ $accountWidth: 250px;
   &.userLink {
     color: $clDark;
   }
+  padding: 0;
 }
 
