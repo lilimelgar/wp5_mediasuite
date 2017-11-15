@@ -3,12 +3,29 @@ $headerHeight: 115px;
 $logoWidth: 295px;
 $accountWidth: 250px;
 
+
+h1,h2,h3,h4,h5{
+  font-family: $fontHeading;
+}
+
+p{
+  padding: 20px;
+}
+
+.header{
+  margin-bottom: 150px;
+}
+
 .header{
   height: $headerHeight;
   background-color:  $clDark;
   color: $clWhite;
   font-family: $fontHeading;
   user-select: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
 
   .logo{
     display: inline-block;
@@ -64,6 +81,14 @@ $accountWidth: 250px;
 
   .main{
     font-size: 1.55em;
+    li {
+      a {
+        color: $clWhite;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    }
   }
 
   .sub{
@@ -86,9 +111,17 @@ $accountWidth: 250px;
     }
   }
   //li > a
-  .right{    
+  .right {
     display: inline-block;
     float: right;
+    * a {
+      color: $clWhite;
+      text-decoration: none;
+      &.userLink {
+        color: $clDark;
+      }
+      padding: 0;
+    }
   }
 
   .workspace{
@@ -285,31 +318,7 @@ $accountWidth: 250px;
   }
 }
 
-// overwriting props.
 // TODO: put them in a separated file or overwrite them directly from the source.
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 99999999;
-}
 .container {
   margin-top: 200px;
 }
-.header ul.menu.main li {
-  a {
-    color: #fff;
-  }
-  a:hover {
-    text-decoration: none;
-  }
-}
-.header .right * a {
-  color: #fff;
-  text-decoration: none;
-  &.userLink {
-    color: $clDark;
-  }
-  padding: 0;
-}
-
