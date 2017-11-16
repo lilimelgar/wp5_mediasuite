@@ -116,7 +116,16 @@
       text-decoration: none;
       &.userLink {
         color: $clDark;
+        padding: 12px 145px 12px 20px;
+        position: relative;
+        top: 10px;
       }
+    }
+
+    ul.dropdown > li  {
+      height: 45px;
+      margin: 0;
+      padding: 0;
     }
     ul > li > a {
       padding: 40px 20px;
